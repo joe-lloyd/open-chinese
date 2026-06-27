@@ -1,0 +1,1336 @@
+[
+  {
+    "simplified": "爱",
+    "traditional": "愛",
+    "pinyin": "ài",
+    "definition": "to love; love",
+    "hskLevel": 1,
+    "sentenceZh": "我爱我的家人。",
+    "sentenceEn": "I love my family."
+  },
+  {
+    "simplified": "八",
+    "traditional": null,
+    "pinyin": "bā",
+    "definition": "eight; 8",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "爸爸",
+    "traditional": null,
+    "pinyin": "bàba",
+    "definition": "dad; father",
+    "hskLevel": 1,
+    "sentenceZh": "我爸爸很高。",
+    "sentenceEn": "My dad is tall."
+  },
+  {
+    "simplified": "杯子",
+    "traditional": null,
+    "pinyin": "bēizi",
+    "definition": "cup; glass",
+    "hskLevel": 1,
+    "sentenceZh": "这个杯子是我的。",
+    "sentenceEn": "This cup is mine."
+  },
+  {
+    "simplified": "北京",
+    "traditional": null,
+    "pinyin": "Běijīng",
+    "definition": "Beijing",
+    "hskLevel": 1,
+    "sentenceZh": "北京是中国的首都。",
+    "sentenceEn": "Beijing is the capital of China."
+  },
+  {
+    "simplified": "本",
+    "traditional": null,
+    "pinyin": "běn",
+    "definition": "(measure word for books)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "不客气",
+    "traditional": null,
+    "pinyin": "bú kèqi",
+    "definition": "you're welcome; don't mention it",
+    "hskLevel": 1,
+    "sentenceZh": "\"谢谢！\"\"不客气！\"",
+    "sentenceEn": "\"Thank you!\" \"You're welcome!\""
+  },
+  {
+    "simplified": "不",
+    "traditional": null,
+    "pinyin": "bù",
+    "definition": "no; not",
+    "hskLevel": 1,
+    "sentenceZh": "我不喝咖啡。",
+    "sentenceEn": "I don't drink coffee."
+  },
+  {
+    "simplified": "菜",
+    "traditional": null,
+    "pinyin": "cài",
+    "definition": "vegetable; dish; food",
+    "hskLevel": 1,
+    "sentenceZh": "这个菜很好吃。",
+    "sentenceEn": "This dish is very tasty."
+  },
+  {
+    "simplified": "茶",
+    "traditional": null,
+    "pinyin": "chá",
+    "definition": "tea",
+    "hskLevel": 1,
+    "sentenceZh": "我喜欢喝茶。",
+    "sentenceEn": "I like drinking tea."
+  },
+  {
+    "simplified": "吃",
+    "traditional": null,
+    "pinyin": "chī",
+    "definition": "to eat",
+    "hskLevel": 1,
+    "sentenceZh": "你吃早饭了吗？",
+    "sentenceEn": "Did you eat breakfast?"
+  },
+  {
+    "simplified": "出租车",
+    "traditional": "出租車",
+    "pinyin": "chūzūchē",
+    "definition": "taxi; cab",
+    "hskLevel": 1,
+    "sentenceZh": "我坐出租车去机场。",
+    "sentenceEn": "I take a taxi to the airport."
+  },
+  {
+    "simplified": "打电话",
+    "traditional": "打電話",
+    "pinyin": "dǎ diànhuà",
+    "definition": "to make a phone call",
+    "hskLevel": 1,
+    "sentenceZh": "我给妈妈打电话。",
+    "sentenceEn": "I called my mom."
+  },
+  {
+    "simplified": "大",
+    "traditional": null,
+    "pinyin": "dà",
+    "definition": "big; large; great",
+    "hskLevel": 1,
+    "sentenceZh": "这个房间很大。",
+    "sentenceEn": "This room is very big."
+  },
+  {
+    "simplified": "的",
+    "traditional": null,
+    "pinyin": "de",
+    "definition": "(possessive/attributive particle)",
+    "hskLevel": 1,
+    "sentenceZh": "这是我的书。",
+    "sentenceEn": "This is my book."
+  },
+  {
+    "simplified": "地铁",
+    "traditional": "地鐵",
+    "pinyin": "dìtiě",
+    "definition": "subway; metro",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "弟弟",
+    "traditional": null,
+    "pinyin": "dìdi",
+    "definition": "younger brother",
+    "hskLevel": 1,
+    "sentenceZh": "我弟弟今年十岁。",
+    "sentenceEn": "My younger brother is ten years old."
+  },
+  {
+    "simplified": "电脑",
+    "traditional": "電腦",
+    "pinyin": "diànnǎo",
+    "definition": "computer",
+    "hskLevel": 1,
+    "sentenceZh": "我用电脑工作。",
+    "sentenceEn": "I work on a computer."
+  },
+  {
+    "simplified": "电视",
+    "traditional": "電視",
+    "pinyin": "diànshì",
+    "definition": "television; TV",
+    "hskLevel": 1,
+    "sentenceZh": "我每天晚上看电视。",
+    "sentenceEn": "I watch TV every evening."
+  },
+  {
+    "simplified": "电影",
+    "traditional": "電影",
+    "pinyin": "diànyǐng",
+    "definition": "movie; film",
+    "hskLevel": 1,
+    "sentenceZh": "这部电影很好看。",
+    "sentenceEn": "This movie is very good."
+  },
+  {
+    "simplified": "东西",
+    "traditional": "東西",
+    "pinyin": "dōngxi",
+    "definition": "thing; stuff; object",
+    "hskLevel": 1,
+    "sentenceZh": "我买了很多东西。",
+    "sentenceEn": "I bought many things."
+  },
+  {
+    "simplified": "都",
+    "traditional": null,
+    "pinyin": "dōu",
+    "definition": "all; both; entirely",
+    "hskLevel": 1,
+    "sentenceZh": "我们都喜欢中国菜。",
+    "sentenceEn": "We all like Chinese food."
+  },
+  {
+    "simplified": "读",
+    "traditional": "讀",
+    "pinyin": "dú",
+    "definition": "to read; to study",
+    "hskLevel": 1,
+    "sentenceZh": "我喜欢读书。",
+    "sentenceEn": "I like reading."
+  },
+  {
+    "simplified": "对不起",
+    "traditional": "對不起",
+    "pinyin": "duìbuqǐ",
+    "definition": "sorry; excuse me",
+    "hskLevel": 1,
+    "sentenceZh": "对不起，我来晚了。",
+    "sentenceEn": "Sorry, I'm late."
+  },
+  {
+    "simplified": "多少",
+    "traditional": null,
+    "pinyin": "duōshao",
+    "definition": "how many; how much",
+    "hskLevel": 1,
+    "sentenceZh": "这个多少钱？",
+    "sentenceEn": "How much is this?"
+  },
+  {
+    "simplified": "多",
+    "traditional": null,
+    "pinyin": "duō",
+    "definition": "many; much; more",
+    "hskLevel": 1,
+    "sentenceZh": "这里有很多人。",
+    "sentenceEn": "There are many people here."
+  },
+  {
+    "simplified": "儿子",
+    "traditional": "兒子",
+    "pinyin": "érzi",
+    "definition": "son",
+    "hskLevel": 1,
+    "sentenceZh": "他有一个儿子。",
+    "sentenceEn": "He has a son."
+  },
+  {
+    "simplified": "二",
+    "traditional": null,
+    "pinyin": "èr",
+    "definition": "two; 2",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "饭店",
+    "traditional": "飯店",
+    "pinyin": "fàndiàn",
+    "definition": "restaurant; hotel",
+    "hskLevel": 1,
+    "sentenceZh": "我们在饭店吃饭。",
+    "sentenceEn": "We're eating at the restaurant."
+  },
+  {
+    "simplified": "飞机",
+    "traditional": "飛機",
+    "pinyin": "fēijī",
+    "definition": "airplane; aircraft",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "分钟",
+    "traditional": "分鐘",
+    "pinyin": "fēnzhōng",
+    "definition": "minute",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "高兴",
+    "traditional": "高興",
+    "pinyin": "gāoxìng",
+    "definition": "happy; glad; pleased",
+    "hskLevel": 1,
+    "sentenceZh": "见到你真高兴！",
+    "sentenceEn": "So happy to see you!"
+  },
+  {
+    "simplified": "个",
+    "traditional": "個",
+    "pinyin": "gè",
+    "definition": "(general measure word)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "工作",
+    "traditional": null,
+    "pinyin": "gōngzuò",
+    "definition": "work; job; to work",
+    "hskLevel": 1,
+    "sentenceZh": "他的工作很忙。",
+    "sentenceEn": "His work is very busy."
+  },
+  {
+    "simplified": "狗",
+    "traditional": null,
+    "pinyin": "gǒu",
+    "definition": "dog",
+    "hskLevel": 1,
+    "sentenceZh": "我有一只狗。",
+    "sentenceEn": "I have a dog."
+  },
+  {
+    "simplified": "汉语",
+    "traditional": "漢語",
+    "pinyin": "Hànyǔ",
+    "definition": "Chinese language; Mandarin",
+    "hskLevel": 1,
+    "sentenceZh": "我在学汉语。",
+    "sentenceEn": "I'm learning Chinese."
+  },
+  {
+    "simplified": "好",
+    "traditional": null,
+    "pinyin": "hǎo",
+    "definition": "good; well; fine",
+    "hskLevel": 1,
+    "sentenceZh": "今天天气很好。",
+    "sentenceEn": "Today's weather is very nice."
+  },
+  {
+    "simplified": "号",
+    "traditional": "號",
+    "pinyin": "hào",
+    "definition": "number; date; day of month",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "喝",
+    "traditional": null,
+    "pinyin": "hē",
+    "definition": "to drink",
+    "hskLevel": 1,
+    "sentenceZh": "你想喝什么？",
+    "sentenceEn": "What would you like to drink?"
+  },
+  {
+    "simplified": "和",
+    "traditional": null,
+    "pinyin": "hé",
+    "definition": "and; with",
+    "hskLevel": 1,
+    "sentenceZh": "我和朋友一起去。",
+    "sentenceEn": "I'm going together with my friend."
+  },
+  {
+    "simplified": "很",
+    "traditional": null,
+    "pinyin": "hěn",
+    "definition": "very; quite",
+    "hskLevel": 1,
+    "sentenceZh": "这本书很有意思。",
+    "sentenceEn": "This book is very interesting."
+  },
+  {
+    "simplified": "后面",
+    "traditional": "後面",
+    "pinyin": "hòumian",
+    "definition": "back; behind; rear",
+    "hskLevel": 1,
+    "sentenceZh": "学校在银行后面。",
+    "sentenceEn": "The school is behind the bank."
+  },
+  {
+    "simplified": "回",
+    "traditional": null,
+    "pinyin": "huí",
+    "definition": "to return; to go back",
+    "hskLevel": 1,
+    "sentenceZh": "我下午回家。",
+    "sentenceEn": "I go home in the afternoon."
+  },
+  {
+    "simplified": "会",
+    "traditional": "會",
+    "pinyin": "huì",
+    "definition": "can; to know how to; will",
+    "hskLevel": 1,
+    "sentenceZh": "你会说中文吗？",
+    "sentenceEn": "Can you speak Chinese?"
+  },
+  {
+    "simplified": "几",
+    "traditional": "幾",
+    "pinyin": "jǐ",
+    "definition": "how many; several",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "家",
+    "traditional": null,
+    "pinyin": "jiā",
+    "definition": "home; family; house",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "叫",
+    "traditional": null,
+    "pinyin": "jiào",
+    "definition": "to be called; to call; to shout",
+    "hskLevel": 1,
+    "sentenceZh": "我叫小明。",
+    "sentenceEn": "My name is Xiaoming."
+  },
+  {
+    "simplified": "今天",
+    "traditional": null,
+    "pinyin": "jīntiān",
+    "definition": "today",
+    "hskLevel": 1,
+    "sentenceZh": "今天天气真好！",
+    "sentenceEn": "The weather is really nice today!"
+  },
+  {
+    "simplified": "九",
+    "traditional": null,
+    "pinyin": "jiǔ",
+    "definition": "nine; 9",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "开",
+    "traditional": "開",
+    "pinyin": "kāi",
+    "definition": "to open; to start; to drive",
+    "hskLevel": 1,
+    "sentenceZh": "请开门。",
+    "sentenceEn": "Please open the door."
+  },
+  {
+    "simplified": "看",
+    "traditional": null,
+    "pinyin": "kàn",
+    "definition": "to look; to see; to watch; to read",
+    "hskLevel": 1,
+    "sentenceZh": "我在看书。",
+    "sentenceEn": "I'm reading a book."
+  },
+  {
+    "simplified": "看见",
+    "traditional": "看見",
+    "pinyin": "kànjiàn",
+    "definition": "to see; to catch sight of",
+    "hskLevel": 1,
+    "sentenceZh": "我看见他了。",
+    "sentenceEn": "I saw him."
+  },
+  {
+    "simplified": "块",
+    "traditional": "塊",
+    "pinyin": "kuài",
+    "definition": "piece; yuan (currency)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "来",
+    "traditional": "來",
+    "pinyin": "lái",
+    "definition": "to come",
+    "hskLevel": 1,
+    "sentenceZh": "你什么时候来？",
+    "sentenceEn": "When are you coming?"
+  },
+  {
+    "simplified": "老师",
+    "traditional": "老師",
+    "pinyin": "lǎoshī",
+    "definition": "teacher",
+    "hskLevel": 1,
+    "sentenceZh": "我的老师很好。",
+    "sentenceEn": "My teacher is very nice."
+  },
+  {
+    "simplified": "了",
+    "traditional": null,
+    "pinyin": "le",
+    "definition": "(particle: completed action or change of state)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "冷",
+    "traditional": null,
+    "pinyin": "lěng",
+    "definition": "cold",
+    "hskLevel": 1,
+    "sentenceZh": "今天很冷。",
+    "sentenceEn": "It's cold today."
+  },
+  {
+    "simplified": "里",
+    "traditional": "裡",
+    "pinyin": "lǐ",
+    "definition": "inside; in; within",
+    "hskLevel": 1,
+    "sentenceZh": "猫在房间里。",
+    "sentenceEn": "The cat is inside the room."
+  },
+  {
+    "simplified": "两",
+    "traditional": "兩",
+    "pinyin": "liǎng",
+    "definition": "two (of a kind); both",
+    "hskLevel": 1,
+    "sentenceZh": "我有两个哥哥。",
+    "sentenceEn": "I have two older brothers."
+  },
+  {
+    "simplified": "零",
+    "traditional": null,
+    "pinyin": "líng",
+    "definition": "zero; 0",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "六",
+    "traditional": null,
+    "pinyin": "liù",
+    "definition": "six; 6",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "妈妈",
+    "traditional": "媽媽",
+    "pinyin": "māma",
+    "definition": "mom; mother",
+    "hskLevel": 1,
+    "sentenceZh": "我妈妈会做菜。",
+    "sentenceEn": "My mom can cook."
+  },
+  {
+    "simplified": "吗",
+    "traditional": "嗎",
+    "pinyin": "ma",
+    "definition": "(question particle)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "买",
+    "traditional": "買",
+    "pinyin": "mǎi",
+    "definition": "to buy; to purchase",
+    "hskLevel": 1,
+    "sentenceZh": "我去买东西。",
+    "sentenceEn": "I'm going to buy things."
+  },
+  {
+    "simplified": "猫",
+    "traditional": "貓",
+    "pinyin": "māo",
+    "definition": "cat",
+    "hskLevel": 1,
+    "sentenceZh": "这只猫很可爱。",
+    "sentenceEn": "This cat is very cute."
+  },
+  {
+    "simplified": "没关系",
+    "traditional": "沒關係",
+    "pinyin": "méi guānxi",
+    "definition": "it doesn't matter; never mind",
+    "hskLevel": 1,
+    "sentenceZh": "\"对不起！\"\"没关系。\"",
+    "sentenceEn": "\"Sorry!\" \"It's okay.\""
+  },
+  {
+    "simplified": "没有",
+    "traditional": "沒有",
+    "pinyin": "méiyǒu",
+    "definition": "don't have; there isn't; no",
+    "hskLevel": 1,
+    "sentenceZh": "我没有手机。",
+    "sentenceEn": "I don't have a phone."
+  },
+  {
+    "simplified": "妹妹",
+    "traditional": null,
+    "pinyin": "mèimei",
+    "definition": "younger sister",
+    "hskLevel": 1,
+    "sentenceZh": "我妹妹很可爱。",
+    "sentenceEn": "My younger sister is very cute."
+  },
+  {
+    "simplified": "们",
+    "traditional": "們",
+    "pinyin": "men",
+    "definition": "(plural suffix for pronouns)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "哪",
+    "traditional": null,
+    "pinyin": "nǎ",
+    "definition": "which; where",
+    "hskLevel": 1,
+    "sentenceZh": "你是哪国人？",
+    "sentenceEn": "Which country are you from?"
+  },
+  {
+    "simplified": "哪儿",
+    "traditional": "哪兒",
+    "pinyin": "nǎr",
+    "definition": "where",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "那",
+    "traditional": null,
+    "pinyin": "nà",
+    "definition": "that; those",
+    "hskLevel": 1,
+    "sentenceZh": "那个人是谁？",
+    "sentenceEn": "Who is that person?"
+  },
+  {
+    "simplified": "呢",
+    "traditional": null,
+    "pinyin": "ne",
+    "definition": "(question particle; and you?)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "你",
+    "traditional": null,
+    "pinyin": "nǐ",
+    "definition": "you (singular)",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "年",
+    "traditional": null,
+    "pinyin": "nián",
+    "definition": "year",
+    "hskLevel": 1,
+    "sentenceZh": "今年天气很热。",
+    "sentenceEn": "The weather this year is very hot."
+  },
+  {
+    "simplified": "女儿",
+    "traditional": "女兒",
+    "pinyin": "nǚ'ér",
+    "definition": "daughter",
+    "hskLevel": 1,
+    "sentenceZh": "她有一个女儿。",
+    "sentenceEn": "She has a daughter."
+  },
+  {
+    "simplified": "朋友",
+    "traditional": null,
+    "pinyin": "péngyou",
+    "definition": "friend",
+    "hskLevel": 1,
+    "sentenceZh": "他是我的好朋友。",
+    "sentenceEn": "He is my good friend."
+  },
+  {
+    "simplified": "漂亮",
+    "traditional": null,
+    "pinyin": "piàoliang",
+    "definition": "beautiful; pretty",
+    "hskLevel": 1,
+    "sentenceZh": "她今天很漂亮。",
+    "sentenceEn": "She looks very pretty today."
+  },
+  {
+    "simplified": "苹果",
+    "traditional": "蘋果",
+    "pinyin": "píngguǒ",
+    "definition": "apple",
+    "hskLevel": 1,
+    "sentenceZh": "我喜欢吃苹果。",
+    "sentenceEn": "I like eating apples."
+  },
+  {
+    "simplified": "七",
+    "traditional": null,
+    "pinyin": "qī",
+    "definition": "seven; 7",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "钱",
+    "traditional": "錢",
+    "pinyin": "qián",
+    "definition": "money; cash",
+    "hskLevel": 1,
+    "sentenceZh": "你有多少钱？",
+    "sentenceEn": "How much money do you have?"
+  },
+  {
+    "simplified": "前面",
+    "traditional": null,
+    "pinyin": "qiánmiàn",
+    "definition": "in front; ahead; the front",
+    "hskLevel": 1,
+    "sentenceZh": "学校前面有一家店。",
+    "sentenceEn": "There's a shop in front of the school."
+  },
+  {
+    "simplified": "请",
+    "traditional": "請",
+    "pinyin": "qǐng",
+    "definition": "please; to invite; to treat",
+    "hskLevel": 1,
+    "sentenceZh": "请进！",
+    "sentenceEn": "Please come in!"
+  },
+  {
+    "simplified": "去",
+    "traditional": null,
+    "pinyin": "qù",
+    "definition": "to go",
+    "hskLevel": 1,
+    "sentenceZh": "你去哪里？",
+    "sentenceEn": "Where are you going?"
+  },
+  {
+    "simplified": "热",
+    "traditional": "熱",
+    "pinyin": "rè",
+    "definition": "hot",
+    "hskLevel": 1,
+    "sentenceZh": "今天太热了。",
+    "sentenceEn": "It's too hot today."
+  },
+  {
+    "simplified": "人",
+    "traditional": null,
+    "pinyin": "rén",
+    "definition": "person; people",
+    "hskLevel": 1,
+    "sentenceZh": "这里有很多人。",
+    "sentenceEn": "There are many people here."
+  },
+  {
+    "simplified": "认识",
+    "traditional": "認識",
+    "pinyin": "rènshi",
+    "definition": "to know (a person); to recognize",
+    "hskLevel": 1,
+    "sentenceZh": "很高兴认识你！",
+    "sentenceEn": "Nice to meet you!"
+  },
+  {
+    "simplified": "日",
+    "traditional": null,
+    "pinyin": "rì",
+    "definition": "day; sun; date",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "三",
+    "traditional": null,
+    "pinyin": "sān",
+    "definition": "three; 3",
+    "hskLevel": 1,
+    "sentenceZh": "我有三个苹果。",
+    "sentenceEn": "I have three apples."
+  },
+  {
+    "simplified": "商店",
+    "traditional": null,
+    "pinyin": "shāngdiàn",
+    "definition": "shop; store",
+    "hskLevel": 1,
+    "sentenceZh": "商店几点开门？",
+    "sentenceEn": "What time does the shop open?"
+  },
+  {
+    "simplified": "上",
+    "traditional": null,
+    "pinyin": "shàng",
+    "definition": "up; above; on top; to go up",
+    "hskLevel": 1,
+    "sentenceZh": "书在桌子上。",
+    "sentenceEn": "The book is on the desk."
+  },
+  {
+    "simplified": "上午",
+    "traditional": null,
+    "pinyin": "shàngwǔ",
+    "definition": "morning; a.m.",
+    "hskLevel": 1,
+    "sentenceZh": "我上午学习，下午休息。",
+    "sentenceEn": "I study in the morning and rest in the afternoon."
+  },
+  {
+    "simplified": "少",
+    "traditional": null,
+    "pinyin": "shǎo",
+    "definition": "few; little; less",
+    "hskLevel": 1,
+    "sentenceZh": "今天人很少。",
+    "sentenceEn": "There are very few people today."
+  },
+  {
+    "simplified": "谁",
+    "traditional": "誰",
+    "pinyin": "shéi",
+    "definition": "who; whom",
+    "hskLevel": 1,
+    "sentenceZh": "那个人是谁？",
+    "sentenceEn": "Who is that person?"
+  },
+  {
+    "simplified": "什么",
+    "traditional": "什麼",
+    "pinyin": "shénme",
+    "definition": "what; whatever",
+    "hskLevel": 1,
+    "sentenceZh": "你叫什么名字？",
+    "sentenceEn": "What is your name?"
+  },
+  {
+    "simplified": "生日",
+    "traditional": null,
+    "pinyin": "shēngrì",
+    "definition": "birthday",
+    "hskLevel": 1,
+    "sentenceZh": "今天是我的生日。",
+    "sentenceEn": "Today is my birthday."
+  },
+  {
+    "simplified": "十",
+    "traditional": null,
+    "pinyin": "shí",
+    "definition": "ten; 10",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "时候",
+    "traditional": "時候",
+    "pinyin": "shíhou",
+    "definition": "time; moment; when",
+    "hskLevel": 1,
+    "sentenceZh": "你什么时候来？",
+    "sentenceEn": "When are you coming?"
+  },
+  {
+    "simplified": "是",
+    "traditional": null,
+    "pinyin": "shì",
+    "definition": "to be; is; are; yes",
+    "hskLevel": 1,
+    "sentenceZh": "我是学生。",
+    "sentenceEn": "I am a student."
+  },
+  {
+    "simplified": "书",
+    "traditional": "書",
+    "pinyin": "shū",
+    "definition": "book",
+    "hskLevel": 1,
+    "sentenceZh": "这本书很有意思。",
+    "sentenceEn": "This book is very interesting."
+  },
+  {
+    "simplified": "水",
+    "traditional": null,
+    "pinyin": "shuǐ",
+    "definition": "water",
+    "hskLevel": 1,
+    "sentenceZh": "我想喝水。",
+    "sentenceEn": "I want to drink water."
+  },
+  {
+    "simplified": "水果",
+    "traditional": null,
+    "pinyin": "shuǐguǒ",
+    "definition": "fruit",
+    "hskLevel": 1,
+    "sentenceZh": "我每天吃水果。",
+    "sentenceEn": "I eat fruit every day."
+  },
+  {
+    "simplified": "睡觉",
+    "traditional": "睡覺",
+    "pinyin": "shuìjiào",
+    "definition": "to sleep; to go to bed",
+    "hskLevel": 1,
+    "sentenceZh": "我十点睡觉。",
+    "sentenceEn": "I go to sleep at 10 o'clock."
+  },
+  {
+    "simplified": "说",
+    "traditional": "說",
+    "pinyin": "shuō",
+    "definition": "to say; to speak; to talk",
+    "hskLevel": 1,
+    "sentenceZh": "他说中文说得很好。",
+    "sentenceEn": "He speaks Chinese very well."
+  },
+  {
+    "simplified": "四",
+    "traditional": null,
+    "pinyin": "sì",
+    "definition": "four; 4",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "岁",
+    "traditional": "歲",
+    "pinyin": "suì",
+    "definition": "year(s) old; age",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "他",
+    "traditional": null,
+    "pinyin": "tā",
+    "definition": "he; him",
+    "hskLevel": 1,
+    "sentenceZh": "他是我的老师。",
+    "sentenceEn": "He is my teacher."
+  },
+  {
+    "simplified": "她",
+    "traditional": null,
+    "pinyin": "tā",
+    "definition": "she; her",
+    "hskLevel": 1,
+    "sentenceZh": "她是我的妈妈。",
+    "sentenceEn": "She is my mother."
+  },
+  {
+    "simplified": "太",
+    "traditional": null,
+    "pinyin": "tài",
+    "definition": "too; extremely; overly",
+    "hskLevel": 1,
+    "sentenceZh": "今天太热了！",
+    "sentenceEn": "It's too hot today!"
+  },
+  {
+    "simplified": "天气",
+    "traditional": "天氣",
+    "pinyin": "tiānqì",
+    "definition": "weather",
+    "hskLevel": 1,
+    "sentenceZh": "今天天气怎么样？",
+    "sentenceEn": "How's the weather today?"
+  },
+  {
+    "simplified": "听",
+    "traditional": "聽",
+    "pinyin": "tīng",
+    "definition": "to listen; to hear",
+    "hskLevel": 1,
+    "sentenceZh": "我喜欢听音乐。",
+    "sentenceEn": "I like listening to music."
+  },
+  {
+    "simplified": "同学",
+    "traditional": "同學",
+    "pinyin": "tóngxué",
+    "definition": "classmate; fellow student",
+    "hskLevel": 1,
+    "sentenceZh": "他是我的同学。",
+    "sentenceEn": "He is my classmate."
+  },
+  {
+    "simplified": "喂",
+    "traditional": null,
+    "pinyin": "wèi",
+    "definition": "hello (on phone); hey",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "我",
+    "traditional": null,
+    "pinyin": "wǒ",
+    "definition": "I; me",
+    "hskLevel": 1,
+    "sentenceZh": "我是中国人。",
+    "sentenceEn": "I am Chinese."
+  },
+  {
+    "simplified": "我们",
+    "traditional": "我們",
+    "pinyin": "wǒmen",
+    "definition": "we; us",
+    "hskLevel": 1,
+    "sentenceZh": "我们是好朋友。",
+    "sentenceEn": "We are good friends."
+  },
+  {
+    "simplified": "五",
+    "traditional": null,
+    "pinyin": "wǔ",
+    "definition": "five; 5",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "喜欢",
+    "traditional": "喜歡",
+    "pinyin": "xǐhuan",
+    "definition": "to like; to enjoy",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "下",
+    "traditional": null,
+    "pinyin": "xià",
+    "definition": "down; below; under; next",
+    "hskLevel": 1,
+    "sentenceZh": "猫在桌子下面。",
+    "sentenceEn": "The cat is under the table."
+  },
+  {
+    "simplified": "下午",
+    "traditional": null,
+    "pinyin": "xiàwǔ",
+    "definition": "afternoon; p.m.",
+    "hskLevel": 1,
+    "sentenceZh": "我下午去看电影。",
+    "sentenceEn": "I'm going to see a movie this afternoon."
+  },
+  {
+    "simplified": "下雨",
+    "traditional": null,
+    "pinyin": "xià yǔ",
+    "definition": "to rain",
+    "hskLevel": 1,
+    "sentenceZh": "今天下雨了。",
+    "sentenceEn": "It rained today."
+  },
+  {
+    "simplified": "先生",
+    "traditional": null,
+    "pinyin": "xiānsheng",
+    "definition": "Mr.; sir; husband",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "现在",
+    "traditional": "現在",
+    "pinyin": "xiànzài",
+    "definition": "now; at present; currently",
+    "hskLevel": 1,
+    "sentenceZh": "现在几点了？",
+    "sentenceEn": "What time is it now?"
+  },
+  {
+    "simplified": "想",
+    "traditional": null,
+    "pinyin": "xiǎng",
+    "definition": "to think; to want; to miss",
+    "hskLevel": 1,
+    "sentenceZh": "我想吃苹果。",
+    "sentenceEn": "I want to eat an apple."
+  },
+  {
+    "simplified": "小",
+    "traditional": null,
+    "pinyin": "xiǎo",
+    "definition": "small; little; young",
+    "hskLevel": 1,
+    "sentenceZh": "这只猫很小。",
+    "sentenceEn": "This cat is very small."
+  },
+  {
+    "simplified": "小姐",
+    "traditional": null,
+    "pinyin": "xiǎojiě",
+    "definition": "Miss; young lady",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "谢谢",
+    "traditional": "謝謝",
+    "pinyin": "xièxie",
+    "definition": "thank you; thanks",
+    "hskLevel": 1,
+    "sentenceZh": "谢谢你的帮助！",
+    "sentenceEn": "Thank you for your help!"
+  },
+  {
+    "simplified": "写",
+    "traditional": "寫",
+    "pinyin": "xiě",
+    "definition": "to write",
+    "hskLevel": 1,
+    "sentenceZh": "请写你的名字。",
+    "sentenceEn": "Please write your name."
+  },
+  {
+    "simplified": "星期",
+    "traditional": null,
+    "pinyin": "xīngqī",
+    "definition": "week; day of the week",
+    "hskLevel": 1,
+    "sentenceZh": "今天是星期几？",
+    "sentenceEn": "What day of the week is it today?"
+  },
+  {
+    "simplified": "学生",
+    "traditional": "學生",
+    "pinyin": "xuésheng",
+    "definition": "student; pupil",
+    "hskLevel": 1,
+    "sentenceZh": "他是大学生。",
+    "sentenceEn": "He is a university student."
+  },
+  {
+    "simplified": "学习",
+    "traditional": "學習",
+    "pinyin": "xuéxí",
+    "definition": "to study; to learn",
+    "hskLevel": 1,
+    "sentenceZh": "我每天学习中文。",
+    "sentenceEn": "I study Chinese every day."
+  },
+  {
+    "simplified": "学校",
+    "traditional": "學校",
+    "pinyin": "xuéxiào",
+    "definition": "school",
+    "hskLevel": 1,
+    "sentenceZh": "我每天去学校。",
+    "sentenceEn": "I go to school every day."
+  },
+  {
+    "simplified": "一",
+    "traditional": null,
+    "pinyin": "yī",
+    "definition": "one; 1",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "衣服",
+    "traditional": null,
+    "pinyin": "yīfu",
+    "definition": "clothes; clothing",
+    "hskLevel": 1,
+    "sentenceZh": "我买了一件衣服。",
+    "sentenceEn": "I bought a piece of clothing."
+  },
+  {
+    "simplified": "医生",
+    "traditional": "醫生",
+    "pinyin": "yīshēng",
+    "definition": "doctor; physician",
+    "hskLevel": 1,
+    "sentenceZh": "他是一位好医生。",
+    "sentenceEn": "He is a good doctor."
+  },
+  {
+    "simplified": "医院",
+    "traditional": "醫院",
+    "pinyin": "yīyuàn",
+    "definition": "hospital",
+    "hskLevel": 1,
+    "sentenceZh": "我去医院看病。",
+    "sentenceEn": "I went to the hospital to see a doctor."
+  },
+  {
+    "simplified": "椅子",
+    "traditional": null,
+    "pinyin": "yǐzi",
+    "definition": "chair",
+    "hskLevel": 1,
+    "sentenceZh": "请坐在椅子上。",
+    "sentenceEn": "Please sit on the chair."
+  },
+  {
+    "simplified": "一点儿",
+    "traditional": "一點兒",
+    "pinyin": "yìdiǎnr",
+    "definition": "a little; a bit; some",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "一起",
+    "traditional": null,
+    "pinyin": "yìqǐ",
+    "definition": "together; in the same place",
+    "hskLevel": 1,
+    "sentenceZh": "我们一起走吧。",
+    "sentenceEn": "Let's walk together."
+  },
+  {
+    "simplified": "已经",
+    "traditional": "已經",
+    "pinyin": "yǐjīng",
+    "definition": "already",
+    "hskLevel": 1,
+    "sentenceZh": "我已经吃了。",
+    "sentenceEn": "I've already eaten."
+  },
+  {
+    "simplified": "意思",
+    "traditional": null,
+    "pinyin": "yìsi",
+    "definition": "meaning; idea",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "因为",
+    "traditional": "因為",
+    "pinyin": "yīnwèi",
+    "definition": "because; since",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "有",
+    "traditional": null,
+    "pinyin": "yǒu",
+    "definition": "to have; there is; there are",
+    "hskLevel": 1,
+    "sentenceZh": "我有一个哥哥。",
+    "sentenceEn": "I have an older brother."
+  },
+  {
+    "simplified": "月",
+    "traditional": null,
+    "pinyin": "yuè",
+    "definition": "month; moon",
+    "hskLevel": 1,
+    "sentenceZh": "我生日在三月。",
+    "sentenceEn": "My birthday is in March."
+  },
+  {
+    "simplified": "再见",
+    "traditional": "再見",
+    "pinyin": "zàijiàn",
+    "definition": "goodbye; see you",
+    "hskLevel": 1,
+    "sentenceZh": "再见，明天见！",
+    "sentenceEn": "Goodbye, see you tomorrow!"
+  },
+  {
+    "simplified": "在",
+    "traditional": null,
+    "pinyin": "zài",
+    "definition": "at; in; on; to be present",
+    "hskLevel": 1,
+    "sentenceZh": "我在家学习。",
+    "sentenceEn": "I'm studying at home."
+  },
+  {
+    "simplified": "怎么",
+    "traditional": "怎麼",
+    "pinyin": "zěnme",
+    "definition": "how; why; what",
+    "hskLevel": 1,
+    "sentenceZh": "怎么去火车站？",
+    "sentenceEn": "How do I get to the train station?"
+  },
+  {
+    "simplified": "怎么样",
+    "traditional": "怎麼樣",
+    "pinyin": "zěnmeyàng",
+    "definition": "how; how about; what's it like",
+    "hskLevel": 1,
+    "sentenceZh": "你最近怎么样？",
+    "sentenceEn": "How have you been lately?"
+  },
+  {
+    "simplified": "这",
+    "traditional": "這",
+    "pinyin": "zhè",
+    "definition": "this; these",
+    "hskLevel": 1,
+    "sentenceZh": "这是我的书包。",
+    "sentenceEn": "This is my backpack."
+  },
+  {
+    "simplified": "中国",
+    "traditional": "中國",
+    "pinyin": "Zhōngguó",
+    "definition": "China",
+    "hskLevel": 1,
+    "sentenceZh": "我在中国学习汉语。",
+    "sentenceEn": "I'm studying Chinese in China."
+  },
+  {
+    "simplified": "中午",
+    "traditional": null,
+    "pinyin": "zhōngwǔ",
+    "definition": "noon; midday",
+    "hskLevel": 1,
+    "sentenceZh": "中午我和同学吃饭。",
+    "sentenceEn": "At noon I eat with my classmates."
+  },
+  {
+    "simplified": "住",
+    "traditional": null,
+    "pinyin": "zhù",
+    "definition": "to live; to reside; to stay",
+    "hskLevel": 1,
+    "sentenceZh": "我住在北京。",
+    "sentenceEn": "I live in Beijing."
+  },
+  {
+    "simplified": "桌子",
+    "traditional": null,
+    "pinyin": "zhuōzi",
+    "definition": "table; desk",
+    "hskLevel": 1,
+    "sentenceZh": "书在桌子上。",
+    "sentenceEn": "The book is on the desk."
+  },
+  {
+    "simplified": "字",
+    "traditional": null,
+    "pinyin": "zì",
+    "definition": "character; word; written character",
+    "hskLevel": 1,
+    "sentenceZh": "这个字怎么写？",
+    "sentenceEn": "How do you write this character?"
+  },
+  {
+    "simplified": "昨天",
+    "traditional": null,
+    "pinyin": "zuótiān",
+    "definition": "yesterday",
+    "hskLevel": 1
+  },
+  {
+    "simplified": "坐",
+    "traditional": null,
+    "pinyin": "zuò",
+    "definition": "to sit; to travel by",
+    "hskLevel": 1,
+    "sentenceZh": "我坐火车去上海。",
+    "sentenceEn": "I take the train to Shanghai."
+  },
+  {
+    "simplified": "做",
+    "traditional": null,
+    "pinyin": "zuò",
+    "definition": "to do; to make; to be",
+    "hskLevel": 1,
+    "sentenceZh": "我在做作业。",
+    "sentenceEn": "I'm doing my homework."
+  }
+]

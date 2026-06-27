@@ -3,20 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"pnpm --filter open-chinese-server dev\" \"pnpm --filter client dev\"",
+    "dev": "pnpm --filter client dev",
     "build": "pnpm --filter client build",
-    "db:push": "pnpm --filter open-chinese-server db:push",
-    "db:studio": "pnpm --filter open-chinese-server db:studio",
-    "db:generate": "pnpm --filter open-chinese-server db:generate",
-    "build:words-db": "pnpm --filter open-chinese-server build:words-db"
+    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@prisma/client",
-      "@prisma/engines",
       "better-sqlite3",
-      "esbuild",
-      "prisma"
+      "esbuild"
     ]
   },
   "devDependencies": {

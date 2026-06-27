@@ -6,7 +6,6 @@ import { applyBinaryReview, deriveStatus } from '../lib/srs'
 import { setUserWord, appendHistory, upsertDailyStats } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
-import { getSentence } from '../lib/sentences'
 
 type Phase = 'pron-hidden' | 'pron-revealed' | 'meaning-hidden' | 'meaning-revealed'
 
@@ -76,10 +75,31 @@ export default function StudyPage() {
         }
         const result = applyBinaryReview(currentState, finalKnewPron, finalKnewMeaning)
         const status = deriveStatus(result.intervalMeaning, result.intervalPinyin, result.intervalAudio)
+        const correct = finalKnewPron && finalKnewMeaning
 
-        setUserWord(uid, card.simplified, { ...result, status, deckName: card.deckName, notes: card.notes }).catch(console.error)
-        appendHistory(uid, { simplified: card.simplified, knewPronunciation: finalKnewPron, knewMeaning: finalKnewMeaning, response: result.response }).catch(console.error)
-        upsertDailyStats(uid, new Date().toISOString().slice(0, 10), card.isNew).catch(console.error)
+        setUserWord(uid, card.simplified, { ...result, status, deckName: card.deckName, notes: card.notes }, {
+          isNew: card.isNew,
+          knewPronunciation: finalKnewPron,
+          knewMeaning: finalKnewMeaning,
+          hskLevel: card.hskLevel,
+        }).catch(console.error)
+
+        appendHistory(uid, {
+          simplified: card.simplified,
+          knewPronunciation: finalKnewPron,
+          knewMeaning: finalKnewMeaning,
+          response: result.response,
+          intervalMeaningBefore: card.intervalMeaning,
+          intervalPinyinBefore: card.intervalPinyin,
+          intervalMeaningAfter: result.intervalMeaning,
+          intervalPinyinAfter: result.intervalPinyin,
+          easeFactorBefore: card.easeFactor,
+          easeFactorAfter: result.easeFactor,
+          nextReviewDateAfter: result.nextReviewDate,
+          hskLevel: card.hskLevel,
+        }).catch(console.error)
+
+        upsertDailyStats(uid, new Date().toISOString().slice(0, 10), card.isNew, correct).catch(console.error)
       }
 
       if (index + 1 >= queue.length) {
@@ -126,8 +146,7 @@ export default function StudyPage() {
       if (e.key === 'ArrowDown') {
         e.preventDefault()
         if (card && phase === 'meaning-revealed') {
-          const s = getSentence(card.simplified)
-          if (s) speak(s.zh)
+          if (card.sentenceZh) speak(card.sentenceZh)
         }
         return
       }
@@ -215,8 +234,6 @@ export default function StudyPage() {
   const secs = elapsed % 60
   const pronVisible = phase !== 'pron-hidden'
   const meaningVisible = phase === 'meaning-revealed'
-  const sentence = card ? getSentence(card.simplified) : null
-
   return (
     <div className="min-h-screen flex flex-col">
       {/* Progress — fixed */}
@@ -270,13 +287,13 @@ export default function StudyPage() {
         <div className={`w-full max-w-lg mb-6 transition-opacity duration-150 ${meaningVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div className="bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center">
             <p className="text-lg text-text-primary leading-relaxed">{card.definition}</p>
-            {(sentence || card.notes) && (
+            {(card.sentenceZh || card.notes) && (
               <div className="pt-3 border-t border-border text-left space-y-1">
                 <p className="text-[10px] font-semibold text-text-muted uppercase tracking-widest">Example</p>
-                {sentence ? (
+                {card.sentenceZh ? (
                   <>
-                    <p className="text-base text-text-primary">{sentence.zh}</p>
-                    <p className="text-sm text-text-muted italic">{sentence.en}</p>
+                    <p className="text-base text-text-primary">{card.sentenceZh}</p>
+                    <p className="text-sm text-text-muted italic">{card.sentenceEn}</p>
                   </>
                 ) : (
                   <p className="text-sm text-text-muted italic">{card.notes}</p>

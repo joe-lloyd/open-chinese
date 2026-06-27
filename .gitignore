@@ -30,8 +30,8 @@ yarn-error.log*
 .env
 */.env
 
-# prisma generated client
-server/src/generated/
+# sqlite databases (words.db is built — don't commit)
+*.db
 
 # firebase cli
 firebase-debug.log

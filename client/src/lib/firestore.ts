@@ -88,7 +88,8 @@ export async function getUserWord(uid: string, simplified: string): Promise<Word
 export async function setUserWord(
   uid: string,
   simplified: string,
-  state: ReviewState & { status: string; deckName: string; notes?: string }
+  state: ReviewState & { status: string; deckName: string; notes?: string },
+  review?: { isNew: boolean; knewPronunciation: boolean; knewMeaning: boolean; hskLevel?: number | null }
 ): Promise<void> {
   await setDoc(
     doc(db, 'users', uid, 'words', simplified),
@@ -102,7 +103,17 @@ export async function setUserWord(
       lastSubskill: state.lastSubskill,
       status: state.status,
       deckName: state.deckName,
+      lastReviewedAt: serverTimestamp(),
       ...(state.notes !== undefined ? { notes: state.notes } : {}),
+      ...(review != null ? {
+        totalReviews: increment(1),
+        correctMeaningCount: increment(review.knewMeaning ? 1 : 0),
+        incorrectMeaningCount: increment(review.knewMeaning ? 0 : 1),
+        correctPronCount: increment(review.knewPronunciation ? 1 : 0),
+        incorrectPronCount: increment(review.knewPronunciation ? 0 : 1),
+        ...(review.isNew ? { firstSeenAt: serverTimestamp() } : {}),
+        ...(review.hskLevel != null ? { hskLevel: review.hskLevel } : {}),
+      } : {}),
     },
     { merge: true }
   )
@@ -125,19 +136,50 @@ export async function getAllUserWords(uid: string): Promise<WordState[]> {
 
 export async function appendHistory(
   uid: string,
-  entry: { simplified: string; knewPronunciation: boolean; knewMeaning: boolean; response: string }
+  entry: {
+    simplified: string
+    knewPronunciation: boolean
+    knewMeaning: boolean
+    response: string
+    intervalMeaningBefore: number
+    intervalPinyinBefore: number
+    intervalMeaningAfter: number
+    intervalPinyinAfter: number
+    easeFactorBefore: number
+    easeFactorAfter: number
+    nextReviewDateAfter: Date
+    hskLevel?: number | null
+  }
 ): Promise<void> {
   await addDoc(collection(db, 'users', uid, 'history'), {
-    ...entry,
+    simplified: entry.simplified,
+    knewPronunciation: entry.knewPronunciation,
+    knewMeaning: entry.knewMeaning,
+    response: entry.response,
+    intervalMeaningBefore: entry.intervalMeaningBefore,
+    intervalPinyinBefore: entry.intervalPinyinBefore,
+    intervalMeaningAfter: entry.intervalMeaningAfter,
+    intervalPinyinAfter: entry.intervalPinyinAfter,
+    easeFactorBefore: entry.easeFactorBefore,
+    easeFactorAfter: entry.easeFactorAfter,
+    nextReviewDateAfter: Timestamp.fromDate(entry.nextReviewDateAfter),
+    ...(entry.hskLevel != null ? { hskLevel: entry.hskLevel } : {}),
     reviewedAt: serverTimestamp(),
   })
 }
 
-export async function upsertDailyStats(uid: string, date: string, isNew: boolean): Promise<void> {
+export async function upsertDailyStats(
+  uid: string,
+  date: string,
+  isNew: boolean,
+  correct: boolean
+): Promise<void> {
   await setDoc(
     doc(db, 'users', uid, 'dailyStats', date),
     {
       totalReviewed: increment(1),
+      correctCount: increment(correct ? 1 : 0),
+      incorrectCount: increment(correct ? 0 : 1),
       ...(isNew ? { newCardsSeen: increment(1) } : {}),
       date,
     },

@@ -1,10 +1,10 @@
 ## Context
 
-Current stack runs Hono API + Prisma + SQLite on a VPS. Auth is Google OAuth via Hono, with JWT cookies. All SRS state (word intervals, review history) lives in server-side SQLite. The word dictionary (HSK 1–4, ~730 words) is also in SQLite.
+Migration from a Hono API + Prisma + SQLite VPS stack to Firebase Auth + Firestore + Netlify static hosting. The migration is complete: the `server/` workspace has been deleted from the repository.
 
-Word data is static and identical for all users. User data (SRS state) is small and user-specific — a single user reviewing HSK 1–4 will have at most ~1200 Firestore documents, each ~100 bytes.
+Word data is static and identical for all users. User data (SRS state) is small and user-specific — a single user reviewing HSK 1–4 will have at most ~1200 Firestore documents, each ~200 bytes with analytics fields.
 
-The SRS engine (`srs.ts`) is already pure TypeScript with no I/O — moving computation to the client requires no algorithmic change.
+The SRS engine (`srs.ts`) is pure TypeScript with no I/O — runs entirely in the browser.
 
 ## Goals / Non-Goals
 
@@ -44,6 +44,8 @@ Words that have never been reviewed have no Firestore document. A missing docume
 
 **Why**: SQLite is ~730 rows and ~50KB — trivially small for a CDN asset. sql.js gives full SQL query support in the browser. The file is cached aggressively (no change between deploys unless HSK data changes).
 
+**Build script**: `scripts/build-words-db.ts` reads `scripts/hsk.json` (HSK 1–4 vocabulary) and writes `client/public/words.db`. Run via `pnpm build:words-db`. The `.db` file is gitignored and must be regenerated before each deploy.
+
 **Alternative**: Convert HSK data to a static JSON array. Rejected because SQL queries (filter by HSK level, sort by `nextReviewDate`, exclude already-in-Firestore words) are much more convenient than client-side array filtering.
 
 **Alternative**: Fetch word data from Firestore. Rejected because word content is static; paying Firestore read costs on every session start is unnecessary.
@@ -78,33 +80,59 @@ SRS intervals are computed by the same `srs.ts` pure functions, now imported in 
 
 ```
 users/{uid}/
-  profile: {
+  (root doc): {
     email: string
     name: string
     picture: string
-    dailyNewLimit: number   // default 20
+    dailyNewLimit: number      // default 20
+    deckPriority: Record<string, number>
   }
 
 users/{uid}/words/{simplified}/
-  intervalMeaning: number    // days (float)
-  intervalPinyin: number     // days (float)
-  intervalAudio: number      // days (float)
-  easeFactor: number         // default 2.5
-  consecutiveFails: number   // default 0
-  nextReviewDate: Timestamp  // epoch for Unstudied
-  status: string             // Unstudied|Weak|Strong|Memorized|Mastered|Leech
-  deckName: string           // e.g. "HSK 1" — copied from SQLite at first review
+  // SRS state
+  intervalMeaning: number      // days (float)
+  intervalPinyin: number       // days (float)
+  intervalAudio: number        // days (float)
+  easeFactor: number           // default 2.5
+  consecutiveFails: number     // default 0; >8 = Leech
+  nextReviewDate: Timestamp    // epoch for Unstudied
+  status: string               // Unstudied|Weak|Strong|Memorized|Mastered|Leech
+  deckName: string             // e.g. "HSK 1" — copied from SQLite at first review
+  hskLevel: number | null      // cached from SQLite; enables Firestore-only HSK queries
+
+  // Learning analytics (all atomically incremented)
+  totalReviews: number
+  correctMeaningCount: number
+  incorrectMeaningCount: number
+  correctPronCount: number
+  incorrectPronCount: number
+  firstSeenAt: Timestamp       // set once on first review
+  lastReviewedAt: Timestamp    // updated on every review (server timestamp)
 
 users/{uid}/history/{autoId}/
+  // Outcome
   simplified: string
   knewPronunciation: boolean
   knewMeaning: boolean
-  response: string           // Good|Again|Hard (derived)
-  reviewedAt: Timestamp
+  response: string             // Good|Again|Hard (derived)
+  reviewedAt: Timestamp        // server timestamp
+
+  // SRS audit trail
+  intervalMeaningBefore: number
+  intervalPinyinBefore: number
+  intervalMeaningAfter: number
+  intervalPinyinAfter: number
+  easeFactorBefore: number
+  easeFactorAfter: number
+  nextReviewDateAfter: Timestamp
+  hskLevel: number | null
 
 users/{uid}/dailyStats/{date}/  // date = YYYY-MM-DD
-  newCardsSeen: number
+  date: string
   totalReviewed: number
+  correctCount: number           // both skills known
+  incorrectCount: number         // either skill unknown
+  newCardsSeen: number
 ```
 
 History documents are append-only. `dailyStats` is upserted (increment) on each review.
@@ -123,18 +151,8 @@ Custom words (not in SQLite HSK data) embed their word content in the Firestore 
 - **sql.js WASM bundle size** → `@sqlite.org/sqlite-wasm` adds ~700KB to the client bundle. Mitigation: lazy-load the WASM module only when the study session or dictionary page is accessed.
 - **No review history migration** → Existing SQLite review history is not migrated to Firestore. Mitigation: acceptable for personal tool; user starts fresh.
 
-## Migration Plan
+## Migration Status
 
-1. Set up Firebase project (Auth + Firestore) — manual step
-2. Add Firebase config to `client/.env`
-3. Build and deploy to Netlify with `netlify.toml`
-4. Verify Firebase Auth sign-in works on Netlify domain
-5. Add Netlify domain to Firebase Auth authorized domains
-6. Existing VPS server: shut down PM2 and Nginx after successful Netlify deploy verification
+Migration is complete. The `server/` workspace (Hono, Prisma, SQLite user data, JWT auth) has been deleted from the repository. The only server-derived artifact kept is `scripts/` which contains the `build-words-db.ts` script and `hsk.json` source data.
 
-Rollback: keep VPS running for 1 week after Netlify deploy; revert DNS if issues.
-
-## Open Questions
-
-- Should `words.db` include a `notes` column (currently in SQLite words table)? → Yes, carry it through.
-- Daily new-card limit: stored in Firestore profile or `client/.env`? → Firestore profile (user-configurable per-device).
+Netlify deploy is live. Firebase Auth is configured with the production domain in authorized domains. Firestore rules are deployed.

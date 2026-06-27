@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: HSK vocabulary served as static SQLite file
-The system SHALL serve a SQLite database file (`words.db`) from Netlify CDN at `/words.db`. The file SHALL be generated at build time from `server/src/data/hsk.json` and committed to `client/public/words.db`.
+The system SHALL serve a SQLite database file (`words.db`) from Netlify CDN at `/words.db`. The file SHALL be generated at build time by running `pnpm build:words-db` (executes `scripts/build-words-db.ts` against `scripts/hsk.json`) and output to `client/public/words.db`. The file is NOT committed to the repository (covered by `*.db` in `.gitignore`) and MUST be regenerated before each Netlify deploy.
 
 #### Scenario: words.db fetched on first app load
 - **WHEN** the app initializes for the first time

@@ -9,6 +9,8 @@ export interface StudyCard {
   hskLevel: number | null
   deckName: string
   notes?: string
+  sentenceZh: string | null
+  sentenceEn: string | null
   status: string
   isNew: boolean
   intervalMeaning: number
@@ -75,6 +77,8 @@ export async function buildQueue(
         hskLevel: wordData?.hsk_level ?? null,
         deckName: w.deckName,
         notes: w.notes,
+        sentenceZh: wordData?.sentence_zh ?? null,
+        sentenceEn: wordData?.sentence_en ?? null,
         status: w.status,
         isNew: false,
         intervalMeaning: w.intervalMeaning,
@@ -110,6 +114,8 @@ export async function buildQueue(
         hskLevel: w.hsk_level,
         deckName: w.deck_name,
         notes: undefined,
+        sentenceZh: w.sentence_zh,
+        sentenceEn: w.sentence_en,
         status: 'Unstudied',
         isNew: true,
         ...DEFAULT_SRS,

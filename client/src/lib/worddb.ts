@@ -9,6 +9,8 @@ export interface Word {
   hsk_level: number
   deck_name: string
   notes: string | null
+  sentence_zh: string | null
+  sentence_en: string | null
 }
 
 let sqlJs: SqlJsStatic | null = null

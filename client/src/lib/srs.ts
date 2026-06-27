@@ -33,9 +33,14 @@ const MIN_INTERVAL = 1
 
 export function calculateNewInterval(current: number, response: Response, easeFactor: number): number {
   if (response === 'Again') return MIN_INTERVAL
+  // Graduated initial learning steps — avoid jumping to 6+ days on first review
+  if (response === 'Good') {
+    if (current === 0) return 1
+    if (current < 2) return 4
+    if (current < 5) return 10
+  }
   const multiplier = MULTIPLIERS[response]!
-  const effectiveCurrent = current === 0 ? 1 : current
-  return Math.max(MIN_INTERVAL, effectiveCurrent * multiplier * easeFactor)
+  return Math.max(MIN_INTERVAL, (current || 1) * multiplier * easeFactor)
 }
 
 export function adjustEaseFactor(current: number, response: Response): number {

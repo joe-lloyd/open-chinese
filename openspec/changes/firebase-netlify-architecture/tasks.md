@@ -16,10 +16,10 @@
 
 ## 3. Static Word Database
 
-- [x] 3.1 Add `better-sqlite3` build script at `scripts/build-words-db.ts` that reads `server/src/data/hsk.json` and writes `client/public/words.db` (schema: `id, simplified, traditional, pinyin, definition, hsk_level, deck_name, notes`)
+- [x] 3.1 Add `better-sqlite3` build script at `scripts/build-words-db.ts` that reads `scripts/hsk.json` and writes `client/public/words.db` (schema: `id, simplified, traditional, pinyin, definition, hsk_level, deck_name, notes`)
 - [x] 3.2 Add `@sqlite.org/sqlite-wasm` package to `client/package.json`
 - [x] 3.3 Create `client/src/lib/worddb.ts` — exports `loadDB()`, `getWord(simplified)`, `getWordsByLevel(level)`, `getAllWords()`, `searchWords(query)`; lazy-loads WASM; caches instance
-- [x] 3.4 Run build script to generate `client/public/words.db` and commit it
+- [x] 3.4 Run build script to generate `client/public/words.db` (file is gitignored via `*.db`; regenerated on each dev setup and deploy)
 - [x] 3.5 Add `netlify.toml` `[[headers]]` rule to cache `/words.db` for 1 year (`Cache-Control: public, max-age=31536000, immutable`)
 
 ## 4. Firestore Data Layer
@@ -59,5 +59,23 @@
 
 - [x] 10.1 Remove `client/src/lib/api.ts` (or keep only for local dev fallback — confirm and decide) — kept unused; no longer imported by any page
 - [x] 10.2 Verify `pnpm --filter client build` completes with no TypeScript errors after all changes
-- [x] 10.3 Test local dev: `pnpm dev` (Hono server still runs; auth bypass still works in dev mode)
-- [ ] 10.4 Deploy to Netlify and verify Firebase Auth sign-in, Firestore writes, study session, and import all work on the live URL
+- [x] 10.3 Delete `server/` workspace (Hono, Prisma, Prisma dev.db, JWT auth, old SRS, Whisper); move build script + hsk.json to `scripts/` workspace
+- [x] 10.4 Deploy to Netlify; Firebase Auth live on `open-chinese.joe-lloyd.com`; domain added to Firebase Auth authorized domains
+
+## 11. SRS & Data Quality
+
+- [x] 11.1 Fix `calculateNewInterval` initial steps: 0→1→4→10 days before SM-2 kicks in (was jumping to 6.25 days on first Good)
+- [x] 11.2 Extend `setUserWord` to write per-word analytics: `totalReviews`, `correctMeaningCount`, `incorrectMeaningCount`, `correctPronCount`, `incorrectPronCount`, `firstSeenAt` (first review only), `lastReviewedAt`, `hskLevel`
+- [x] 11.3 Extend `appendHistory` to capture full before/after SRS snapshot: `intervalMeaning/PinyinBefore/After`, `easeFactorBefore/After`, `nextReviewDateAfter`, `hskLevel`
+- [x] 11.4 Extend `upsertDailyStats` to track `correctCount` and `incorrectCount` per day
+
+## 12. UX Improvements
+
+- [x] 12.1 Mobile layout: sidebar `hidden md:flex`; `BottomNav` component fixed at bottom (`md:hidden`)
+- [x] 12.2 Responsive DashboardPage grid (`grid-cols-1 sm:grid-cols-2`)
+- [x] 12.3 Responsive DictionaryPage: stacked layout on mobile, back button when word selected
+- [x] 12.4 HSK Levels page (`/hsk`): per-level progress bars, due badge, "Study HSK N" button
+- [x] 12.5 `buildQueue` HSK filter option: bypasses daily new-card limit, filters to level words
+- [x] 12.6 StudyPage keyboard redesign: `←` at any phase → fail and reveal full card (`revealedByFail`); `↑`/R → replay audio; `↓` → speak example sentence
+- [x] 12.7 StudyPage layout stability: opacity-based show/hide for pinyin and definition (no layout shift); fixed-height button area
+- [x] 12.8 Example sentences (`client/src/lib/sentences.ts`): ~150 HSK 1-2 sentences shown in definition card when meaning revealed; `↓` plays sentence via TTS
