@@ -35,7 +35,8 @@ export async function loadDB(): Promise<{
       const initSqlJs = (await import('sql.js')).default
       sqlJs = await initSqlJs({ locateFile: () => '/sql-wasm.wasm' })
     }
-    const buf = await fetch('/words.db').then((r) => r.arrayBuffer())
+    const bust = import.meta.env.VITE_BUILD_ID ?? 'dev'
+    const buf = await fetch(`/words.db?v=${bust}`).then((r) => r.arrayBuffer())
     dbInstance = new sqlJs.Database(new Uint8Array(buf))
   }
 
