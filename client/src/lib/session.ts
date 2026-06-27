@@ -30,12 +30,14 @@ const DEFAULT_SRS = {
   nextReviewDate: new Date(0),
 }
 
+export type StudyMode = 'due' | 'new' | 'cram'
+
 export async function buildQueue(
   uid: string,
   sessionSize = 50,
-  options: { hskLevel?: number } = {}
+  options: { hskLevel?: number; mode?: StudyMode } = {}
 ): Promise<StudyCard[]> {
-  const { hskLevel } = options
+  const { hskLevel, mode = 'due' } = options
 
   const [worddb, allUserWords, profile] = await Promise.all([
     loadDB(),
@@ -46,14 +48,74 @@ export async function buildQueue(
   const now = new Date()
   const knownSimplifieds = new Set(allUserWords.map((w) => w.simplified))
 
-  // When filtering by HSK level, build a set of simplified chars for that level
   let levelSimplifieds: Set<string> | null = null
   if (hskLevel) {
     const levelWords = worddb.getWordsByLevel(hskLevel)
     levelSimplifieds = new Set(levelWords.map((w) => w.simplified))
   }
 
-  // Due review cards
+  const toCard = (w: typeof allUserWords[0], isNew: boolean): StudyCard => {
+    const wordData = worddb.getWord(w.simplified)
+    return {
+      simplified: w.simplified,
+      traditional: wordData?.traditional ?? null,
+      pinyin: wordData?.pinyin ?? w.customWordData?.pinyin ?? '',
+      definition: wordData?.definition ?? w.customWordData?.definition ?? '',
+      hskLevel: wordData?.hsk_level ?? null,
+      deckName: w.deckName,
+      notes: w.notes,
+      sentenceZh: wordData?.sentence_zh ?? null,
+      sentenceEn: wordData?.sentence_en ?? null,
+      status: w.status,
+      isNew,
+      intervalMeaning: w.intervalMeaning,
+      intervalPinyin: w.intervalPinyin,
+      intervalAudio: w.intervalAudio,
+      easeFactor: w.easeFactor,
+      consecutiveFails: w.consecutiveFails,
+      nextReviewDate: w.nextReviewDate,
+    }
+  }
+
+  const toNewCard = (w: ReturnType<typeof worddb.getAllWords>[0]): StudyCard => ({
+    simplified: w.simplified,
+    traditional: w.traditional,
+    pinyin: w.pinyin,
+    definition: w.definition,
+    hskLevel: w.hsk_level,
+    deckName: w.deck_name,
+    notes: undefined,
+    sentenceZh: w.sentence_zh,
+    sentenceEn: w.sentence_en,
+    status: 'Unstudied',
+    isNew: true,
+    ...DEFAULT_SRS,
+    nextReviewDate: new Date(0),
+  })
+
+  // ── Cram mode: all studied words, hardest first, ignore schedule ──
+  if (mode === 'cram') {
+    return allUserWords
+      .filter((w) => {
+        if (w.status === 'Unstudied') return false
+        if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
+        return true
+      })
+      .sort((a, b) => a.easeFactor - b.easeFactor)
+      .slice(0, sessionSize)
+      .map((w) => toCard(w, false))
+  }
+
+  // ── New mode: unstudied words only, bypass daily limit ──
+  if (mode === 'new') {
+    const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
+    return sourceWords
+      .filter((w) => !knownSimplifieds.has(w.simplified))
+      .slice(0, sessionSize)
+      .map(toNewCard)
+  }
+
+  // ── Due mode (default): due reviews + new cards up to daily limit ──
   const reviewCards: StudyCard[] = allUserWords
     .filter((w) => {
       if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
@@ -67,30 +129,8 @@ export async function buildQueue(
     })
     .sort((a, b) => a.nextReviewDate.getTime() - b.nextReviewDate.getTime())
     .slice(0, sessionSize)
-    .map((w) => {
-      const wordData = worddb.getWord(w.simplified)
-      return {
-        simplified: w.simplified,
-        traditional: wordData?.traditional ?? null,
-        pinyin: wordData?.pinyin ?? w.customWordData?.pinyin ?? '',
-        definition: wordData?.definition ?? w.customWordData?.definition ?? '',
-        hskLevel: wordData?.hsk_level ?? null,
-        deckName: w.deckName,
-        notes: w.notes,
-        sentenceZh: wordData?.sentence_zh ?? null,
-        sentenceEn: wordData?.sentence_en ?? null,
-        status: w.status,
-        isNew: false,
-        intervalMeaning: w.intervalMeaning,
-        intervalPinyin: w.intervalPinyin,
-        intervalAudio: w.intervalAudio,
-        easeFactor: w.easeFactor,
-        consecutiveFails: w.consecutiveFails,
-        nextReviewDate: w.nextReviewDate,
-      }
-    })
+    .map((w) => toCard(w, false))
 
-  // New card slots — HSK mode bypasses daily limit
   let newCardSlots: number
   if (hskLevel) {
     newCardSlots = Math.max(0, sessionSize - reviewCards.length)
@@ -103,24 +143,10 @@ export async function buildQueue(
 
   if (newCardSlots > 0) {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
-    const newCards: StudyCard[] = sourceWords
+    const newCards = sourceWords
       .filter((w) => !knownSimplifieds.has(w.simplified))
       .slice(0, newCardSlots)
-      .map((w) => ({
-        simplified: w.simplified,
-        traditional: w.traditional,
-        pinyin: w.pinyin,
-        definition: w.definition,
-        hskLevel: w.hsk_level,
-        deckName: w.deck_name,
-        notes: undefined,
-        sentenceZh: w.sentence_zh,
-        sentenceEn: w.sentence_en,
-        status: 'Unstudied',
-        isNew: true,
-        ...DEFAULT_SRS,
-        nextReviewDate: new Date(0),
-      }))
+      .map(toNewCard)
     reviewCards.push(...newCards)
   }
 
