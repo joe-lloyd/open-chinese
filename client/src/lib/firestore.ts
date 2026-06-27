@@ -1,11 +1,9 @@
 import {
   collection,
-  collectionGroup,
   doc,
   getDoc,
   setDoc,
   updateDoc,
-  addDoc,
   getDocs,
   deleteDoc,
   writeBatch,
@@ -142,41 +140,6 @@ export async function getAllUserWords(uid: string): Promise<WordState[]> {
   })
 }
 
-export async function appendHistory(
-  uid: string,
-  entry: {
-    simplified: string
-    knewPronunciation: boolean
-    knewMeaning: boolean
-    response: string
-    intervalMeaningBefore: number
-    intervalPinyinBefore: number
-    intervalMeaningAfter: number
-    intervalPinyinAfter: number
-    easeFactorBefore: number
-    easeFactorAfter: number
-    nextReviewDateAfter: Date
-    hskLevel?: number | null
-  }
-): Promise<void> {
-  await addDoc(collection(db, 'users', uid, 'words', entry.simplified, 'history'), {
-    uid,
-    simplified: entry.simplified,
-    knewPronunciation: entry.knewPronunciation,
-    knewMeaning: entry.knewMeaning,
-    response: entry.response,
-    intervalMeaningBefore: entry.intervalMeaningBefore,
-    intervalPinyinBefore: entry.intervalPinyinBefore,
-    intervalMeaningAfter: entry.intervalMeaningAfter,
-    intervalPinyinAfter: entry.intervalPinyinAfter,
-    easeFactorBefore: entry.easeFactorBefore,
-    easeFactorAfter: entry.easeFactorAfter,
-    nextReviewDateAfter: Timestamp.fromDate(entry.nextReviewDateAfter),
-    ...(entry.hskLevel != null ? { hskLevel: entry.hskLevel } : {}),
-    reviewedAt: serverTimestamp(),
-  })
-}
-
 export async function upsertDailyStats(
   uid: string,
   date: string,
@@ -213,24 +176,6 @@ export async function getDailyStats(uid: string, days: number): Promise<{ date: 
   return snap.docs.map((d) => ({
     date: d.id,
     count: (d.data().totalReviewed as number) ?? 0,
-  }))
-}
-
-export async function getHistory(
-  uid: string,
-  days: number
-): Promise<{ response: string; reviewedAt: Date }[]> {
-  const cutoff = Timestamp.fromDate(new Date(Date.now() - days * 86400000))
-  const q = query(
-    collectionGroup(db, 'history'),
-    where('uid', '==', uid),
-    where('reviewedAt', '>=', cutoff),
-    orderBy('reviewedAt', 'asc')
-  )
-  const snap = await getDocs(q)
-  return snap.docs.map((d) => ({
-    response: d.data().response as string,
-    reviewedAt: tsToDate(d.data().reviewedAt),
   }))
 }
 

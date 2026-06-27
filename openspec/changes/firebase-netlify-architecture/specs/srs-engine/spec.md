@@ -7,7 +7,7 @@ The SRS engine SHALL operate on SRS state objects read from and written to Fires
 - **WHEN** user completes grading a card with `knewPronunciation` and `knewMeaning`
 - **THEN** `applyBinaryReview` SHALL compute the new state using the current Firestore document values (or defaults if missing)
 - **AND** the computed state SHALL be written back to `users/{uid}/words/{simplified}`
-- **AND** a history document SHALL be appended to `users/{uid}/history`
+- **AND** aggregate analytics counters on the word document SHALL be incremented atomically
 
 #### Scenario: Unstudied word (no Firestore doc) treated as zero-interval state
 - **WHEN** `applyBinaryReview` is called for a word with no existing Firestore document

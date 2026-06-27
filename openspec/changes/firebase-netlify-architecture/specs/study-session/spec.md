@@ -31,16 +31,56 @@ After the user completes both grading phases for a card, the computed SRS state 
 - **THEN** the client SHALL call `applyBinaryReview` and write the result to Firestore
 - **AND** the next card in the queue SHALL be presented immediately (optimistic update; no await block on UI)
 
+### Requirement: Failed cards re-queued within session for active recall
+When a card is failed (meaning not known), it SHALL be re-inserted into the queue approximately 3 positions ahead, up to a maximum of 2 re-queues per card per session.
+
+#### Scenario: Failed card reappears shortly after
+- **WHEN** user fails the meaning for a card
+- **THEN** the card SHALL be inserted at `currentIndex + 3` in the queue (or at the end if fewer remain)
+- **AND** this SHALL happen at most 2 times per card per session
+
+### Requirement: Timer expiry lets current card and outstanding failed cards finish
+When a timed session timer reaches zero, the session SHALL NOT end immediately. The user SHALL complete the card currently on screen. Any cards that were failed and re-queued (and are still ahead in the queue) SHALL also be shown before the session ends. Cards not yet seen that are not re-queued failures SHALL be dropped.
+
+#### Scenario: Timer expires mid-card
+- **WHEN** the timer reaches zero while a card is being reviewed
+- **THEN** the current card SHALL be completed normally
+- **AND** any re-queued failed cards remaining in the queue SHALL be shown
+- **AND** unseen cards that were never attempted SHALL be dropped from the queue
+
+#### Scenario: No outstanding failed cards when timer expires
+- **WHEN** the timer reaches zero and no failed re-queued cards are in the remaining queue
+- **THEN** after the current card is graded the session SHALL end immediately
+
+### Requirement: Audio plays automatically when a word is failed/revealed
+When the user presses "I don't know" at any phase (triggering the `failAndReveal` path), the word TTS audio SHALL play automatically as the answer is revealed. This reinforces the correct pronunciation at the moment of failure.
+
+#### Scenario: Fail path triggers automatic audio
+- **WHEN** user presses `←` or "I don't know" at any phase
+- **THEN** the full card SHALL be revealed AND the word audio SHALL play immediately
+- **AND** the user does not need to press the audio button manually
+
+### Requirement: User can mark a word as fully known from the study card
+When the meaning is revealed, a "Mark as known" button SHALL be available. Pressing it SHALL mark the word as `Mastered` in Firestore and advance to the next card. This is for words the user already knows well and does not need to review.
+
+#### Scenario: Mark as known during study
+- **WHEN** the meaning is revealed and user clicks "Mark as known"
+- **THEN** `markWordsKnown([simplified])` SHALL be called
+- **AND** the card SHALL advance immediately without counting as a graded review
+- **AND** the word SHALL not reappear in future due queues
+
 ### Requirement: Keyboard controls follow left=fail, right=pass convention
 - `→` / `Space` — reveal answer at hidden phases; grade as "knew it" at revealed phases
-- `←` — at any phase, immediately reveal the full card (pinyin + definition) and mark the card as failed (both pronunciation and meaning = false). No re-grading shown.
+- `←` — at any phase, immediately reveal the full card (pinyin + definition) and mark the card as failed (both pronunciation and meaning = false). Plays word audio automatically.
 - `↑` / `R` — replay TTS audio at any phase
+- `↓` — play example sentence audio when meaning is revealed
 - `?` — toggle keyboard help overlay
 
 #### Scenario: Left arrow pressed before answer is revealed
 - **WHEN** user presses `←` during `pron-hidden`, `pron-revealed`, or `meaning-hidden`
 - **THEN** the system SHALL immediately show the full card (transition to `meaning-revealed` state)
 - **AND** SHALL set `revealedByFail = true`
+- **AND** SHALL play the word TTS audio
 - **AND** pressing `→`, `←`, or `Space` SHALL advance to the next card with `knewPronunciation = false` and `knewMeaning = false`
 
 ### Requirement: Study card layout must not shift between phases

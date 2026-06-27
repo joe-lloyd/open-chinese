@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { buildQueue } from '../lib/session'
 import type { StudyCard, StudyMode } from '../lib/session'
 import { applyBinaryReview, deriveStatus } from '../lib/srs'
-import { setUserWord, appendHistory, upsertDailyStats } from '../lib/firestore'
+import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
 
@@ -33,6 +33,7 @@ export default function StudyPage() {
   const [done, setDone] = useState(false)
   const [writeError, setWriteError] = useState<string | null>(null)
   const failCountRef = useRef<Map<string, number>>(new Map())
+  const timerExpiredRef = useRef(false)
   const [stats, setStats] = useState<SessionStats>({ total: 0, knewPron: 0, knewMeaning: 0, knewBoth: 0 })
   const [elapsed, setElapsed] = useState(0)
   const [showHelp, setShowHelp] = useState(false)
@@ -43,6 +44,7 @@ export default function StudyPage() {
     const uid = getCurrentUid()
     if (!uid) return
     failCountRef.current = new Map()
+    timerExpiredRef.current = false
     buildQueue(uid, 50, { hskLevel, mode }).then((cards) => {
       setQueue(cards)
       setLoading(false)
@@ -51,7 +53,7 @@ export default function StudyPage() {
           const s = Math.floor((Date.now() - startRef.current) / 1000)
           setElapsed(s)
           if (maxSeconds && s >= maxSeconds) {
-            setDone(true)
+            timerExpiredRef.current = true
             clearInterval(timerRef.current!)
           }
         }, 1000)
@@ -105,32 +107,16 @@ export default function StudyPage() {
         hskLevel: card.hskLevel,
       }).then(() => console.log('[Firestore] word written:', card.simplified)).catch(onWriteError)
 
-      appendHistory(uid, {
-        simplified: card.simplified,
-        knewPronunciation: finalKnewPron,
-        knewMeaning: finalKnewMeaning,
-        response: result.response,
-        intervalMeaningBefore: card.intervalMeaning,
-        intervalPinyinBefore: card.intervalPinyin,
-        intervalMeaningAfter: result.intervalMeaning,
-        intervalPinyinAfter: result.intervalPinyin,
-        easeFactorBefore: card.easeFactor,
-        easeFactorAfter: result.easeFactor,
-        nextReviewDateAfter: result.nextReviewDate,
-        hskLevel: card.hskLevel,
-      }).catch(onWriteError)
-
       upsertDailyStats(uid, new Date().toISOString().slice(0, 10), card.isNew, correct)
         .then(() => console.log('[Firestore] dailyStats written'))
         .catch(onWriteError)
 
       // Re-queue failed cards within the session (max 2 times per card)
-      let requeued = false
+      let nextQueue = queue
       if (!finalKnewMeaning) {
         const failCount = failCountRef.current.get(card.simplified) ?? 0
         if (failCount < 2) {
           failCountRef.current.set(card.simplified, failCount + 1)
-          requeued = true
           const requeuedCard: StudyCard = {
             ...card,
             intervalMeaning: result.intervalMeaning,
@@ -140,20 +126,25 @@ export default function StudyPage() {
             nextReviewDate: result.nextReviewDate,
             isNew: false,
           }
-          setQueue((q) => {
-            const next = [...q]
-            next.splice(Math.min(index + 3, next.length), 0, requeuedCard)
-            return next
-          })
+          nextQueue = [...queue]
+          nextQueue.splice(Math.min(index + 3, nextQueue.length), 0, requeuedCard)
         }
       }
 
-      const effectiveLength = queue.length + (requeued ? 1 : 0)
-      if (index + 1 >= effectiveLength) {
+      const nextIndex = index + 1
+      // If timer expired, only keep failed-requeued cards ahead
+      const remaining = timerExpiredRef.current
+        ? nextQueue.slice(nextIndex).filter((c) => failCountRef.current.has(c.simplified))
+        : nextQueue.slice(nextIndex)
+
+      if (remaining.length === 0) {
         setDone(true)
-        if (timerRef.current) clearInterval(timerRef.current)
       } else {
-        setIndex((i) => i + 1)
+        const trimmed = timerExpiredRef.current
+          ? [...nextQueue.slice(0, nextIndex), ...remaining]
+          : nextQueue
+        setQueue(trimmed)
+        setIndex(nextIndex)
         setPhase('pron-hidden')
         setKnewPron(null)
         setRevealedByFail(false)
@@ -166,7 +157,8 @@ export default function StudyPage() {
     setKnewPron(false)
     setRevealedByFail(true)
     setPhase('meaning-revealed')
-  }, [])
+    speak(card?.simplified ?? '')
+  }, [card])
 
   const revealPron = useCallback(() => {
     setPhase('pron-revealed')
@@ -184,6 +176,26 @@ export default function StudyPage() {
     (knew: boolean) => advance(knewPron ?? false, knew),
     [advance, knewPron]
   )
+
+  const markAsKnown = useCallback(() => {
+    if (!card) return
+    const uid = getCurrentUid()
+    if (!uid) return
+    markWordsKnown(uid, [card.simplified]).catch(console.error)
+    const nextIndex = index + 1
+    const remaining = timerExpiredRef.current
+      ? queue.slice(nextIndex).filter((c) => failCountRef.current.has(c.simplified))
+      : queue.slice(nextIndex)
+    if (remaining.length === 0) {
+      setDone(true)
+    } else {
+      if (timerExpiredRef.current) setQueue([...queue.slice(0, nextIndex), ...remaining])
+      setIndex(nextIndex)
+      setPhase('pron-hidden')
+      setKnewPron(null)
+      setRevealedByFail(false)
+    }
+  }, [card, index, queue])
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -385,7 +397,7 @@ export default function StudyPage() {
 
       {/* Button area — fixed height, content swaps without layout shift */}
       <div className="flex-shrink-0 px-6 pb-6 sm:pb-8">
-        <div className="w-full max-w-md mx-auto h-28 flex flex-col justify-start gap-3">
+        <div className="w-full max-w-md mx-auto min-h-28 flex flex-col justify-start gap-3">
           {phase === 'pron-hidden' && <>
             <p className="text-center text-text-muted text-sm">Do you know the pronunciation?</p>
             <div className="grid grid-cols-2 gap-3">
@@ -410,6 +422,9 @@ export default function StudyPage() {
           {phase === 'meaning-revealed' && revealedByFail && <>
             <p className="text-center text-text-muted text-sm">Marked as not known</p>
             <ActionBtn label="Next card" sub="→ / Space / ←" variant="neutral" onClick={() => advance(false, false)} />
+            <button onClick={markAsKnown} className="text-xs text-text-muted hover:text-accent transition-colors text-center">
+              Mark as fully known →
+            </button>
           </>}
           {phase === 'meaning-revealed' && !revealedByFail && <>
             <p className="text-center text-text-muted text-sm">Did you know the meaning?</p>
@@ -417,6 +432,9 @@ export default function StudyPage() {
               <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={() => gradeMeaning(false)} />
               <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradeMeaning(true)} />
             </div>
+            <button onClick={markAsKnown} className="text-xs text-text-muted hover:text-accent transition-colors text-center">
+              Mark as fully known →
+            </button>
           </>}
         </div>
       </div>

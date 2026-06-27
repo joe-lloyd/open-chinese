@@ -13,7 +13,9 @@ Each user's word SRS state SHALL be stored in Firestore at `users/{uid}/words/{s
 - **THEN** the system SHALL update the document fields (`intervalMeaning`, `intervalPinyin`, `easeFactor`, `consecutiveFails`, `nextReviewDate`, `status`)
 - **AND** SHALL NOT overwrite `deckName`
 
-### Requirement: Firestore document structure matches SRS state plus per-word analytics
+### Requirement: All word data lives on the word document — no separate history collection
+There is no separate history subcollection. All data needed to drive the SRS algorithm and compute a knowledge percentage SHALL live directly on `users/{uid}/words/{simplified}`. The knowledge percentage for a word is `correctMeaningCount / totalReviews`.
+
 Each `users/{uid}/words/{simplified}` document SHALL contain:
 
 **SRS state:**
@@ -44,25 +46,20 @@ Each `users/{uid}/words/{simplified}` document SHALL contain:
 - **WHEN** a new card (`isNew: true`) is reviewed for the first time
 - **THEN** `firstSeenAt` SHALL be written with the current server timestamp
 - **WHEN** an existing card is reviewed subsequently
-- **THEN** `firstSeenAt` SHALL NOT be overwritten (field absent from the update object)
+- **THEN** `firstSeenAt` SHALL NOT be overwritten
 
-### Requirement: Review history appended as subcollection documents with full SRS snapshot
-Each completed review SHALL append a document to `users/{uid}/history/{autoId}` with:
+#### Scenario: Knowledge percentage derivable from word document
+- **GIVEN** `totalReviews > 0`
+- **THEN** knowledge % = `correctMeaningCount / totalReviews * 100`
+- **AND** no query to a separate history collection is required
 
-**Outcome:** `simplified`, `knewPronunciation`, `knewMeaning`, `response`, `reviewedAt` (server timestamp)
+### Requirement: User can mark words as fully known
+The user SHALL be able to mark a word as `Mastered` directly from the study card when the meaning is revealed. This sets `intervalMeaning`, `intervalPinyin`, `intervalAudio` to 365, `status` to `Mastered`, and `nextReviewDate` to one year in the future.
 
-**SRS audit trail:**
-- `intervalMeaningBefore`, `intervalPinyinBefore` — intervals before this review
-- `intervalMeaningAfter`, `intervalPinyinAfter` — intervals computed by this review
-- `easeFactorBefore`, `easeFactorAfter` — ease factor before and after
-- `nextReviewDateAfter` (Timestamp) — when the card is next scheduled
-- `hskLevel` (number | null) — HSK level of the word
-
-#### Scenario: Review history written on card completion
-- **WHEN** user grades both pronunciation and meaning for a card
-- **THEN** a history document SHALL be written with `reviewedAt` = current server timestamp
-- **AND** the document SHALL include the full before/after SRS snapshot
-- **AND** the document SHALL NOT overwrite any existing history (append-only)
+#### Scenario: Mark as known from study card
+- **WHEN** the meaning is revealed and user presses "Mark as known"
+- **THEN** the word SHALL be written to Firestore as `Mastered` and advanced past immediately
+- **AND** the word SHALL NOT reappear in future due-review queues
 
 ### Requirement: Daily stats upserted on each review with accuracy tracking
 The system SHALL upsert `users/{uid}/dailyStats/{YYYY-MM-DD}` on each review incrementing:
@@ -86,11 +83,11 @@ The system SHALL upsert `users/{uid}/dailyStats/{YYYY-MM-DD}` on each review inc
 - **THEN** `incorrectCount` SHALL be incremented
 
 ### Requirement: User profile document stores preferences
-`users/{uid}/profile` SHALL store: `email`, `name`, `picture`, `dailyNewLimit` (default 20). Profile SHALL be created/updated on each sign-in.
+`users/{uid}` SHALL store: `email`, `name`, `picture`, `dailyNewLimit` (default 20). Profile SHALL be created/updated on each sign-in.
 
 #### Scenario: Profile upserted on sign-in
 - **WHEN** user successfully signs in
-- **THEN** `users/{uid}/profile` SHALL be set with current Firebase Auth user fields
+- **THEN** `users/{uid}` SHALL be set with current Firebase Auth user fields
 - **AND** `dailyNewLimit` SHALL be set to 20 if not already present
 
 ### Requirement: Firestore security rules enforce per-user isolation
@@ -103,3 +100,8 @@ Firestore rules SHALL allow read and write only to `users/{uid}/**` where `uid` 
 #### Scenario: Unauthenticated request denied
 - **WHEN** a request arrives without a valid Firebase Auth token
 - **THEN** all Firestore reads and writes SHALL be denied
+
+## REMOVED Requirements
+
+### Requirement: Review history appended as subcollection documents
+**Reason**: Per-review history entries create unbounded write volume and are not needed. All data required for the SRS algorithm and knowledge percentage is maintained as aggregate counters on the word document itself. The `history` subcollection and collection group index have been removed.
