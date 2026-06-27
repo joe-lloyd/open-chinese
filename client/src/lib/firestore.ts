@@ -1,5 +1,6 @@
 import {
   collection,
+  collectionGroup,
   doc,
   getDoc,
   setDoc,
@@ -91,8 +92,11 @@ export async function setUserWord(
   state: ReviewState & { status: string; deckName: string; notes?: string },
   review?: { isNew: boolean; knewPronunciation: boolean; knewMeaning: boolean; hskLevel?: number | null }
 ): Promise<void> {
+  const ref = doc(db, 'users', uid, 'words', simplified)
+
+  // Write SRS state with plain values only — no FieldValue transforms
   await setDoc(
-    doc(db, 'users', uid, 'words', simplified),
+    ref,
     {
       intervalMeaning: state.intervalMeaning,
       intervalPinyin: state.intervalPinyin,
@@ -103,20 +107,24 @@ export async function setUserWord(
       lastSubskill: state.lastSubskill,
       status: state.status,
       deckName: state.deckName,
-      lastReviewedAt: serverTimestamp(),
       ...(state.notes !== undefined ? { notes: state.notes } : {}),
-      ...(review != null ? {
-        totalReviews: increment(1),
-        correctMeaningCount: increment(review.knewMeaning ? 1 : 0),
-        incorrectMeaningCount: increment(review.knewMeaning ? 0 : 1),
-        correctPronCount: increment(review.knewPronunciation ? 1 : 0),
-        incorrectPronCount: increment(review.knewPronunciation ? 0 : 1),
-        ...(review.isNew ? { firstSeenAt: serverTimestamp() } : {}),
-        ...(review.hskLevel != null ? { hskLevel: review.hskLevel } : {}),
-      } : {}),
+      ...(review?.hskLevel != null ? { hskLevel: review.hskLevel } : {}),
     },
     { merge: true }
   )
+
+  // Write analytics separately using updateDoc (supports increment + serverTimestamp cleanly)
+  if (review != null) {
+    await updateDoc(ref, {
+      totalReviews: increment(1),
+      correctMeaningCount: increment(review.knewMeaning ? 1 : 0),
+      incorrectMeaningCount: increment(review.knewMeaning ? 0 : 1),
+      correctPronCount: increment(review.knewPronunciation ? 1 : 0),
+      incorrectPronCount: increment(review.knewPronunciation ? 0 : 1),
+      lastReviewedAt: serverTimestamp(),
+      ...(review.isNew ? { firstSeenAt: serverTimestamp() } : {}),
+    })
+  }
 }
 
 export async function getAllUserWords(uid: string): Promise<WordState[]> {
@@ -151,7 +159,8 @@ export async function appendHistory(
     hskLevel?: number | null
   }
 ): Promise<void> {
-  await addDoc(collection(db, 'users', uid, 'history'), {
+  await addDoc(collection(db, 'users', uid, 'words', entry.simplified, 'history'), {
+    uid,
     simplified: entry.simplified,
     knewPronunciation: entry.knewPronunciation,
     knewMeaning: entry.knewMeaning,
@@ -174,17 +183,16 @@ export async function upsertDailyStats(
   isNew: boolean,
   correct: boolean
 ): Promise<void> {
-  await setDoc(
-    doc(db, 'users', uid, 'dailyStats', date),
-    {
-      totalReviewed: increment(1),
-      correctCount: increment(correct ? 1 : 0),
-      incorrectCount: increment(correct ? 0 : 1),
-      ...(isNew ? { newCardsSeen: increment(1) } : {}),
-      date,
-    },
-    { merge: true }
-  )
+  const ref = doc(db, 'users', uid, 'dailyStats', date)
+  // Ensure doc exists with plain date field first
+  await setDoc(ref, { date }, { merge: true })
+  // Then apply increments separately
+  await updateDoc(ref, {
+    totalReviewed: increment(1),
+    correctCount: increment(correct ? 1 : 0),
+    incorrectCount: increment(correct ? 0 : 1),
+    ...(isNew ? { newCardsSeen: increment(1) } : {}),
+  })
 }
 
 export async function getNewCardsSeen(uid: string, date: string): Promise<number> {
@@ -214,7 +222,8 @@ export async function getHistory(
 ): Promise<{ response: string; reviewedAt: Date }[]> {
   const cutoff = Timestamp.fromDate(new Date(Date.now() - days * 86400000))
   const q = query(
-    collection(db, 'users', uid, 'history'),
+    collectionGroup(db, 'history'),
+    where('uid', '==', uid),
     where('reviewedAt', '>=', cutoff),
     orderBy('reviewedAt', 'asc')
   )

@@ -7,6 +7,14 @@
         { "fieldPath": "deckName", "order": "ASCENDING" },
         { "fieldPath": "nextReviewDate", "order": "ASCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "history",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        { "fieldPath": "uid", "order": "ASCENDING" },
+        { "fieldPath": "reviewedAt", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

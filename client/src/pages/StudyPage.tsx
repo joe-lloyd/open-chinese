@@ -74,6 +74,7 @@ export default function StudyPage() {
       }))
 
       const uid = getCurrentUid()
+      console.log('[advance] uid:', uid, 'card:', card.simplified)
       if (!uid) {
         setWriteError('Not signed in — review not saved.')
         return
@@ -102,7 +103,7 @@ export default function StudyPage() {
         knewPronunciation: finalKnewPron,
         knewMeaning: finalKnewMeaning,
         hskLevel: card.hskLevel,
-      }).catch(onWriteError)
+      }).then(() => console.log('[Firestore] word written:', card.simplified)).catch(onWriteError)
 
       appendHistory(uid, {
         simplified: card.simplified,
@@ -119,7 +120,9 @@ export default function StudyPage() {
         hskLevel: card.hskLevel,
       }).catch(onWriteError)
 
-      upsertDailyStats(uid, new Date().toISOString().slice(0, 10), card.isNew, correct).catch(onWriteError)
+      upsertDailyStats(uid, new Date().toISOString().slice(0, 10), card.isNew, correct)
+        .then(() => console.log('[Firestore] dailyStats written'))
+        .catch(onWriteError)
 
       // Re-queue failed cards within the session (max 2 times per card)
       let requeued = false
