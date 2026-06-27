@@ -90,7 +90,7 @@ export default function DashboardPage() {
   if (!data) return <div className="p-8 text-text-muted">Loading…</div>
 
   return (
-    <div className="p-8 space-y-8 max-w-5xl mx-auto">
+    <div className="p-4 sm:p-8 space-y-6 sm:space-y-8 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold text-text-primary">Dashboard</h1>
 
       <DueSummary dueCount={data.dueCount} newCount={data.newCount} leechCount={data.leeches.length} />
@@ -100,7 +100,7 @@ export default function DashboardPage() {
         <ActivityHeatmap data={data.dailyCounts} />
       </section>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
         <section>
           <h2 className="text-lg font-semibold text-text-primary mb-3">Vocabulary Progress</h2>
           <LifecycleChart statusCounts={data.statusCounts} />
