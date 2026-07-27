@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getAllUserWords, getDailyStats, getHistory } from '../lib/firestore'
+import { getAllUserWords, getDailyStats } from '../lib/firestore'
+import type { WordState } from '../lib/firestore'
 import { loadDB } from '../lib/worddb'
 import { getCurrentUid } from '../lib/auth'
 import ActivityHeatmap from '../components/ActivityHeatmap'
@@ -25,11 +26,10 @@ export default function DashboardPage() {
     const uid = getCurrentUid()
     if (!uid) return
     try {
-      const [allWords, worddb, dailyCounts, history] = await Promise.all([
+      const [allWords, worddb, dailyCounts] = await Promise.all([
         getAllUserWords(uid),
         loadDB(),
         getDailyStats(uid, 365),
-        getHistory(uid, 30),
       ])
 
       const now = new Date()
@@ -55,21 +55,21 @@ export default function DashboardPage() {
       }
 
       const totalWords = worddb.getAllWords().length
-      const studiedCount = allWords.filter((w) => w.status !== 'Unstudied').length
+      const studiedCount = allWords.filter((w: WordState) => w.status !== 'Unstudied').length
       statusCounts['Unstudied'] = Math.max(0, totalWords - studiedCount)
 
-      const byDate = new Map<string, { good: number; total: number }>()
-      for (const h of history) {
-        const d = h.reviewedAt.toISOString().slice(0, 10)
-        const entry = byDate.get(d) ?? { good: 0, total: 0 }
-        entry.total++
-        if (h.response === 'Good') entry.good++
-        byDate.set(d, entry)
-      }
-      const retention = Array.from(byDate.entries()).map(([date, { good, total }]) => ({
-        date,
-        rate: total > 0 ? Math.round((good / total) * 100) : 0,
-      }))
+      // Retention comes from the same 365-day dailyStats fetch as the heatmap — no extra reads.
+      // Days with no reviews, or written before `correctCount` existed, are omitted rather than
+      // plotted at 0%, which also keeps NaN out of the Recharts series.
+      const retentionCutoff = new Date()
+      retentionCutoff.setDate(retentionCutoff.getDate() - 30)
+      const retentionCutoffStr = retentionCutoff.toISOString().slice(0, 10)
+      const retention = dailyCounts
+        .filter((d) => d.date >= retentionCutoffStr && d.totalReviewed > 0 && d.hasCorrectCount)
+        .map((d) => ({
+          date: d.date,
+          rate: Math.round((d.correctCount / d.totalReviewed) * 100),
+        }))
 
       setData({
         dailyCounts,
