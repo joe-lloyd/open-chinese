@@ -1,7 +1,7 @@
 # csv-import Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Migrates an existing Hack Chinese vocabulary export into the user's Firestore word collection, reconstructing each word's SRS state from the CSV's status and next-review columns.
 ## Requirements
 ### Requirement: Hack Chinese CSV format parsing
 The system SHALL accept CSV files matching the Hack Chinese export schema with columns: `Simplified`, `Traditional`, `Pinyin`, `Definitions`, `List Name`, `Status`, `Next Review`.

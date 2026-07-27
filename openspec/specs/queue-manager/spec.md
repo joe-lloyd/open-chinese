@@ -1,7 +1,7 @@
 # queue-manager Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Gives the learner control over what gets studied: deck listing and priority order, targeted study modes, the daily new-card limit, and marking words as already known.
 ## Requirements
 ### Requirement: Deck list view
 The system SHALL display every word list imported from the `List Name` CSV column as a sortable deck entry, each showing the deck's word count and due count. Decks SHALL be rendered in the user's saved priority order from `users/{uid}.deckPriority`; decks with no saved rank SHALL be listed after all ranked decks.

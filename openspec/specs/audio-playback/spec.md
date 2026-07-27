@@ -1,7 +1,7 @@
 # audio-playback Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Speaks Mandarin words and example sentences aloud in the browser using the Web Speech API, so the learner hears correct pronunciation during study. Requires no audio assets, no network calls, and no server.
 ## Requirements
 ### Requirement: TTS audio generation
 The system SHALL generate spoken audio for any word using the browser's Web Speech API with a Mandarin Chinese voice (`lang=zh-CN`). If no `zh-CN` voice is available, the system SHALL fall back silently without error.

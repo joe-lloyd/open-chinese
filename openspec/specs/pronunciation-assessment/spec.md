@@ -1,7 +1,7 @@
 # pronunciation-assessment Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Lets the learner speak a word into the browser's Web Speech API and reports which word was recognised against the card's target characters. The verdict is advisory only — it never verifies tones and never affects SRS scheduling — and the feature disappears silently where the API is unavailable.
 ## Requirements
 ### Requirement: SpeechRecognition capability detection
 The system SHALL feature-detect `window.SpeechRecognition ?? window.webkitSpeechRecognition` before offering any pronunciation affordance. Where the constructor is absent the system SHALL hide or disable the microphone control entirely, with an explanatory tooltip on the disabled control, and SHALL NOT show an error toast, error text, or any failure state — an unsupported browser is a permanent condition the user cannot remedy, so absence is the correct signal. Detection SHALL be performed once and its result reused; the system SHALL NOT attempt to construct a recognizer to test for support.

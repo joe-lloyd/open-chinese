@@ -1,7 +1,7 @@
 # study-session Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Drives the review loop: building the card queue, the two-phase pronunciation-then-meaning reveal, grading, re-queuing failed cards, and the end-of-session summary.
 ## Requirements
 ### Requirement: Card queue construction
 The system SHALL build a study queue from all words with `nextReviewDate ≤ now` and status not `Mastered` or `Leech`. Queue size SHALL be configurable (default 50 cards per session).

@@ -1,7 +1,7 @@
 # srs-engine Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Computes the spaced-repetition schedule from binary knew / didn't-know grades: per-sub-skill intervals, ease factor, next review date, derived word status and leech state. Pure client-side computation with no I/O.
 ## Requirements
 ### Requirement: Multi-dimensional interval tracking
 Each word SHALL have three independent float intervals: `intervalMeaning`, `intervalPinyin`, and `intervalAudio`. Intervals are stored in days and default to 0.0 for unstudied words.
