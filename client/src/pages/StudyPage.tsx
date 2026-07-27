@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { buildQueue } from '../lib/session'
 import type { StudyCard, StudyMode } from '../lib/session'
-import { applyBinaryReview, deriveStatus } from '../lib/srs'
+import { applyBinaryReview, resolveStatus } from '../lib/srs'
 import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
@@ -92,7 +92,12 @@ export default function StudyPage() {
         lastSubskill: null as null,
       }
       const result = applyBinaryReview(currentState, finalKnewPron, finalKnewMeaning)
-      const status = deriveStatus(result.intervalMeaning, result.intervalPinyin, result.intervalAudio)
+      const status = resolveStatus(
+        result.intervalMeaning,
+        result.intervalPinyin,
+        result.intervalAudio,
+        result.consecutiveFails,
+      )
       const correct = finalKnewPron && finalKnewMeaning
 
       const onWriteError = (e: unknown) => {
