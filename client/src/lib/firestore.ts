@@ -163,7 +163,22 @@ export async function getNewCardsSeen(uid: string, date: string): Promise<number
   return (snap.data()?.newCardsSeen as number) ?? 0
 }
 
-export async function getDailyStats(uid: string, days: number): Promise<{ date: string; count: number }[]> {
+export interface DailyStat {
+  date: string
+  /** Alias of totalReviewed, kept for ActivityHeatmap's `{ date, count }[]` prop shape */
+  count: number
+  totalReviewed: number
+  correctCount: number
+  incorrectCount: number
+  /**
+   * False for documents written before `correctCount` existed. Such a day has
+   * totalReviewed > 0 but no correct/incorrect split, so it must be omitted from
+   * retention rather than plotted as a false 0%.
+   */
+  hasCorrectCount: boolean
+}
+
+export async function getDailyStats(uid: string, days: number): Promise<DailyStat[]> {
   const cutoff = new Date()
   cutoff.setDate(cutoff.getDate() - days)
   const cutoffStr = cutoff.toISOString().slice(0, 10)
@@ -173,10 +188,18 @@ export async function getDailyStats(uid: string, days: number): Promise<{ date: 
     orderBy('date', 'asc')
   )
   const snap = await getDocs(q)
-  return snap.docs.map((d) => ({
-    date: d.id,
-    count: (d.data().totalReviewed as number) ?? 0,
-  }))
+  return snap.docs.map((d) => {
+    const data = d.data() as Record<string, unknown>
+    const totalReviewed = (data.totalReviewed as number) ?? 0
+    return {
+      date: d.id,
+      count: totalReviewed,
+      totalReviewed,
+      correctCount: (data.correctCount as number) ?? 0,
+      incorrectCount: (data.incorrectCount as number) ?? 0,
+      hasCorrectCount: typeof data.correctCount === 'number',
+    }
+  })
 }
 
 export async function upsertProfile(

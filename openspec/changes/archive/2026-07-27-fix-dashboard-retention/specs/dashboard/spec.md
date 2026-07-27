@@ -1,39 +1,4 @@
-# dashboard Specification
-
-## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
-## Requirements
-### Requirement: Activity heatmap
-The system SHALL render a calendar heatmap showing daily study activity over a rolling 52-week (1-year) window. Each cell represents one day, colored by intensity proportional to cards reviewed that day.
-
-#### Scenario: Active study day shown with color
-- **WHEN** user reviewed 30 cards on a given day
-- **THEN** that day's cell SHALL render with a non-zero intensity color
-
-#### Scenario: No activity shown as empty cell
-- **WHEN** no cards were reviewed on a given day
-- **THEN** that day's cell SHALL render as the base/empty color (not hidden)
-
-### Requirement: Vocabulary lifecycle stack chart
-The system SHALL render a stacked bar or area chart showing the count of words in each lifecycle state: Unstudied, Weak, Strong, Memorized, Mastered. Chart SHALL update on page load to reflect current database state.
-
-#### Scenario: Chart reflects current word distribution
-- **WHEN** user has 200 Unstudied, 50 Weak, 30 Strong, 20 Memorized, 10 Mastered words
-- **THEN** the chart SHALL show those exact proportions across the five state segments
-
-### Requirement: Due cards summary
-The system SHALL show a prominent counter on the dashboard for: cards due today, new cards available, and leeches requiring attention.
-
-#### Scenario: Dashboard shows due card count
-- **WHEN** user visits the dashboard
-- **THEN** a summary card SHALL display the number of reviews due now and the count of leech words flagged
-
-### Requirement: Leech management panel
-The system SHALL display a list of words tagged as Leech with options to: reset the word's fail counter, suspend it indefinitely, or delete it.
-
-#### Scenario: Leech word reset from dashboard
-- **WHEN** user clicks Reset on a leech word
-- **THEN** `consecutiveFails` SHALL be set to 0, status SHALL return to `Weak`, and the word SHALL re-enter the review queue
+## ADDED Requirements
 
 ### Requirement: Retention rate from daily aggregates
 The system SHALL track and display a rolling retention rate over the last 30 days, plotted as a line chart by day. Retention for a day SHALL be the percentage of that day's reviews where the user knew BOTH the pinyin and the meaning, computed as `correctCount / totalReviewed * 100` from the daily aggregate document at `users/{uid}/dailyStats/{date}`. The system SHALL NOT depend on per-review history documents, which no longer exist. Days on which no reviews were recorded SHALL be omitted from the series rather than plotted as 0%.
@@ -69,3 +34,9 @@ Daily aggregate documents written before the `correctCount` field existed record
 - **WHEN** the user has no `dailyStats` documents with recorded reviews in the last 30 days
 - **THEN** the chart SHALL render an empty state rather than an empty or zeroed plot
 
+## REMOVED Requirements
+
+### Requirement: Retention rate line chart
+**Reason**: The requirement defined retention as the "percentage of reviews answered Good or Easy (not Again or Hard)" over the last 30 days. That describes a four-button Anki-style rating scale this application has never had. The study flow is two binary self-assessments — knew pinyin, knew meaning — and the SRS engine derives only `Good`, `Hard` or `Again` from them; `Easy` is never produced, so the stated grading buckets cannot be evaluated. Its "Retention calculated from review history" scenario also depends on the per-review history collection deleted in commit `5986ae3`, leaving the requirement with no data source and the chart permanently showing its empty state.
+
+**Migration**: Replaced by `Retention rate from daily aggregates`, which defines retention against the binary self-assessment the app actually performs and sources it from the `correctCount` / `totalReviewed` counters already written per day to `users/{uid}/dailyStats/{date}`. The "Target band displayed on retention chart" scenario carries over unchanged. No data migration is required — the aggregates are already being written — but days recorded before the `correctCount` field existed cannot be backfilled and are omitted from the series.
