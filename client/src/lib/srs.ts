@@ -30,6 +30,7 @@ const MIN_EASE = 1.3
 const LEECH_THRESHOLD = 8
 export const MASTERY_THRESHOLD = 180
 const MIN_INTERVAL = 1
+const MS_PER_DAY = 86400000
 
 export function calculateNewInterval(current: number, response: Response, easeFactor: number): number {
   if (response === 'Again') return MIN_INTERVAL
@@ -53,8 +54,22 @@ export function deriveStatus(intervalMeaning: number, intervalPinyin: number, _i
   if (min === 0) return 'Unstudied'
   if (min <= 7) return 'Weak'
   if (min <= 21) return 'Strong'
-  if (min <= MASTERY_THRESHOLD) return 'Memorized'
-  return 'Mastered'
+  if (checkMastery(intervalMeaning, intervalPinyin, _intervalAudio)) return 'Mastered'
+  return 'Memorized'
+}
+
+/**
+ * Single authoritative status resolver: leech state takes precedence over the
+ * interval-derived bucket. `deriveStatus` stays a pure function of intervals.
+ */
+export function resolveStatus(
+  intervalMeaning: number,
+  intervalPinyin: number,
+  intervalAudio: number,
+  consecutiveFails: number,
+): WordStatus {
+  if (consecutiveFails > LEECH_THRESHOLD) return 'Leech'
+  return deriveStatus(intervalMeaning, intervalPinyin, intervalAudio)
 }
 
 export function updateLeechState(consecutiveFails: number, response: Response): { consecutiveFails: number; isLeech: boolean } {
@@ -73,7 +88,7 @@ export function applyBinaryReview(
   review: ReviewState,
   knewPronunciation: boolean,
   knewMeaning: boolean,
-): ReviewState & { response: Response } {
+): ReviewState & { response: Response; isLeech: boolean } {
   const pronResponse: Response = knewPronunciation ? 'Good' : 'Again'
   const meaningResponse: Response = knewMeaning ? 'Good' : 'Again'
 
@@ -91,8 +106,9 @@ export function applyBinaryReview(
       : updateLeechState(review.consecutiveFails, 'Again')
 
   const daysUntilNext = Math.min(newIntervalMeaning, newIntervalPinyin)
-  const nextReviewDate = new Date()
-  nextReviewDate.setDate(nextReviewDate.getDate() + daysUntilNext)
+  // Millisecond arithmetic keeps the fractional part of a float day interval —
+  // Date.prototype.setDate would truncate 6.25 days to 6.
+  const nextReviewDate = new Date(Date.now() + daysUntilNext * MS_PER_DAY)
 
   const derived: Response =
     knewPronunciation && knewMeaning ? 'Good' : !knewPronunciation && !knewMeaning ? 'Again' : 'Hard'
@@ -102,9 +118,10 @@ export function applyBinaryReview(
     intervalPinyin: newIntervalPinyin,
     intervalMeaning: newIntervalMeaning,
     easeFactor: newEase,
-    consecutiveFails: isLeech ? review.consecutiveFails + 1 : consecutiveFails,
+    consecutiveFails,
     nextReviewDate,
     lastSubskill: 'meaning',
     response: derived,
+    isLeech,
   }
 }
