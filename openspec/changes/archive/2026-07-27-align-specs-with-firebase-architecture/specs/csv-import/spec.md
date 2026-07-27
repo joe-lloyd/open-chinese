@@ -1,59 +1,4 @@
-# csv-import Specification
-
-## Purpose
-Migrates an existing Hack Chinese vocabulary export into the user's Firestore word collection, reconstructing each word's SRS state from the CSV's status and next-review columns.
-## Requirements
-### Requirement: Hack Chinese CSV format parsing
-The system SHALL accept CSV files matching the Hack Chinese export schema with columns: `Simplified`, `Traditional`, `Pinyin`, `Definitions`, `List Name`, `Status`, `Next Review`.
-
-#### Scenario: Valid CSV uploaded
-- **WHEN** a valid Hack Chinese CSV is uploaded
-- **THEN** all rows SHALL be parsed without error and a preview SHALL be shown before commit
-
-#### Scenario: Missing required column
-- **WHEN** the CSV is missing the `Simplified` column
-- **THEN** the import SHALL be rejected with a descriptive error message before any database writes
-
-### Requirement: Status mapping to SRS state
-The system SHALL map Hack Chinese status values to internal states:
-- `Unstudied` → `Unstudied` (all intervals = 0, ease = 2.5)
-- `Weak` → `Weak` (interval derived from nextReview − importDate, capped at 7 days)
-- `Strong` → `Strong` (interval derived from nextReview − importDate, capped at 21 days)
-- `Memorized` → `Memorized` (interval derived from nextReview − importDate, capped at 180 days)
-- `Mastered` → `Mastered` (all intervals pinned to 365 days)
-
-#### Scenario: Mastered word gets max interval
-- **WHEN** a row has `Status` = `Mastered`
-- **THEN** all three sub-skill intervals SHALL be set to 365.0 days
-
-#### Scenario: Weak word derives interval from timestamp
-- **WHEN** a row has `Status` = `Weak` and `Next Review` is 5 days from import date
-- **THEN** the intervals SHALL be set to 5.0 days (capped at 7)
-
-### Requirement: Interval reconstruction from Next Review timestamp
-The system SHALL derive the initial interval as `nextReviewDate − importTimestamp` in days. Negative values (overdue cards) SHALL be clamped to 1 day.
-
-#### Scenario: Overdue card interval clamped
-- **WHEN** `Next Review` is in the past relative to import date
-- **THEN** the derived interval SHALL be set to 1.0 day, not a negative value
-
-### Requirement: Import preview before commit
-The system SHALL display a summary of records to be imported (count by status, count of errors/skipped rows) before the user confirms the import.
-
-#### Scenario: User sees preview before confirming
-- **WHEN** CSV parsing completes
-- **THEN** the UI SHALL show total rows, breakdown by status, and any rows with parse errors
-
-#### Scenario: User cancels import at preview
-- **WHEN** user clicks Cancel at the preview step
-- **THEN** no database writes SHALL occur
-
-### Requirement: Duplicate detection
-The system SHALL detect duplicate words by `simplified` field. On duplicate: skip the row and report it in the import summary.
-
-#### Scenario: Duplicate simplified character skipped
-- **WHEN** a CSV row's `simplified` value already exists in the database
-- **THEN** that row SHALL be skipped and counted in the "skipped duplicates" summary tally
+## ADDED Requirements
 
 ### Requirement: Chunked Firestore import with per-batch atomicity
 The import SHALL write parsed rows to Firestore in sequential batches of at most 500 documents. Each batch SHALL be committed as a single Firestore `writeBatch`, so a batch is applied in full or not at all. There SHALL NOT be any transaction spanning more than one batch: if a later batch fails, the documents written by earlier batches SHALL remain committed, and the system SHALL NOT attempt to roll them back.
@@ -113,3 +58,9 @@ The import SHALL report progress to the UI after each committed batch, identifyi
 - **THEN** the progress message SHALL be cleared
 - **AND** either the import summary or the error message SHALL be shown in its place
 
+## REMOVED Requirements
+
+### Requirement: Atomic transactional import
+**Reason**: The requirement is false in every particular. It mandates "all database writes in a single SQLite transaction" with a full rollback on partial failure, but there is no writable SQLite database: the bundled `words.db` is fetched as a static asset and opened read-only in memory by sql.js, and the server that once owned a writable SQLite file was deleted in commit `8850661`. Imports write to Firestore, where the maximum batch size is 500 documents, so an import larger than 500 rows is necessarily more than one transaction and cannot be rolled back as a unit.
+
+**Migration**: Replaced by `Chunked Firestore import with per-batch atomicity`, which states the real guarantee (atomic per batch of at most 500, no cross-batch rollback), and by `Import is idempotent and safe to re-run`, which supplies the compensating property: because every write is a merging write addressed by `simplified` as the document id, re-importing the same file repairs a partially failed import. No rollback mechanism is provided or needed.

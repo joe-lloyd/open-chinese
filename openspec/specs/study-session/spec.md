@@ -1,7 +1,7 @@
 # study-session Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Drives the review loop: building the card queue, the two-phase pronunciation-then-meaning reveal, grading, re-queuing failed cards, and the end-of-session summary.
 ## Requirements
 ### Requirement: Card queue construction
 The system SHALL build a study queue from all words with `nextReviewDate ≤ now` and status not `Mastered` or `Leech`. Queue size SHALL be configurable (default 50 cards per session).
@@ -67,13 +67,6 @@ After meaning is revealed, two grading buttons appear:
 - **WHEN** meaning phase begins
 - **THEN** the pinyin SHALL remain visible on screen throughout the meaning phase
 
-### Requirement: SRS submission after both phases
-After both phases are complete, the system SHALL submit a single review record containing `knewPronunciation` and `knewMeaning` and advance to the next card.
-
-#### Scenario: Full card reviewed
-- **WHEN** user completes both phases
-- **THEN** a POST to `/api/session/review` SHALL be made with `{ wordId, knewPronunciation, knewMeaning }` and the next card SHALL load
-
 ### Requirement: Centered study layout
 The study interface SHALL be centered both horizontally and vertically within the viewport. The character SHALL be displayed at a minimum of 6rem font size.
 
@@ -89,11 +82,20 @@ The system SHALL display a progress bar showing cards completed vs total session
 - **THEN** the progress counter SHALL increment by 1
 
 ### Requirement: Audio replay
-The system SHALL play the word's audio when user presses R during any phase of review.
+The system SHALL play the word's audio when the user presses ↑ or R during any phase of review. Both keys SHALL be bound, and the in-app keyboard help SHALL advertise the binding as `↑ / R`. The on-screen play control SHALL be labelled with the same binding.
 
 #### Scenario: R key triggers audio
 - **WHEN** user presses R
 - **THEN** the word's TTS audio SHALL play immediately regardless of current phase
+
+#### Scenario: Up arrow triggers audio
+- **WHEN** user presses ↑
+- **THEN** the word's TTS audio SHALL play immediately regardless of current phase
+- **AND** the default scroll behaviour of the arrow key SHALL be suppressed
+
+#### Scenario: Keyboard help lists both keys
+- **WHEN** the user opens the keyboard help overlay
+- **THEN** the replay entry SHALL read `↑ / R`
 
 ### Requirement: Session completion summary
 The system SHALL display a summary screen after the last card showing: cards reviewed, pronunciation accuracy %, meaning accuracy %, combined accuracy %, and session duration.
@@ -101,4 +103,22 @@ The system SHALL display a summary screen after the last card showing: cards rev
 #### Scenario: Session end shows per-dimension accuracy
 - **WHEN** the last card is completed
 - **THEN** the summary SHALL show separate accuracy percentages for pronunciation and meaning, plus a combined "fully known" percentage
+
+### Requirement: Review result written directly to Firestore
+After the user completes both grading phases for a card, the computed SRS state SHALL be written to `users/{uid}/words/{simplified}` via the Firestore adapter. No server API call is made.
+
+#### Scenario: Card graded and Firestore updated
+- **WHEN** user grades both pronunciation and meaning
+- **THEN** the client SHALL call `applyBinaryReview` and write the result to Firestore
+- **AND** the next card in the queue SHALL be presented immediately (optimistic update; no await block on UI)
+
+#### Scenario: Day's aggregate updated alongside the word document
+- **WHEN** a review is written
+- **THEN** the system SHALL also update `users/{uid}/dailyStats/{YYYY-MM-DD}` for the current local date
+- **AND** neither write SHALL block presentation of the next card
+
+#### Scenario: Failed write surfaces without losing the session
+- **WHEN** a Firestore write for a graded card is rejected
+- **THEN** the system SHALL display an error banner naming the failure
+- **AND** the session SHALL remain usable rather than terminating
 

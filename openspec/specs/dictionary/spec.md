@@ -1,7 +1,7 @@
 # dictionary Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Provides search and browse over the static HSK word database, showing definitions, character breakdown and HSK level alongside the user's own SRS status and notes for each word.
 ## Requirements
 ### Requirement: Inline dictionary search
 The system SHALL provide a search input that queries the local word database by simplified character, traditional character, pinyin, or English definition. Results SHALL appear as a list below the search input.

@@ -1,7 +1,7 @@
 # dashboard Specification
 
 ## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
+Summarises the learner's progress on the landing page — study activity, vocabulary lifecycle distribution, retention, due workload and leeches — from per-word and per-day Firestore aggregates.
 ## Requirements
 ### Requirement: Activity heatmap
 The system SHALL render a calendar heatmap showing daily study activity over a rolling 52-week (1-year) window. Each cell represents one day, colored by intensity proportional to cards reviewed that day.
