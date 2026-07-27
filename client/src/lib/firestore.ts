@@ -16,6 +16,7 @@ import {
 } from 'firebase/firestore'
 import { db } from './firebase'
 import type { ReviewState } from './srs'
+import type { StudyMode } from './session'
 
 export interface WordState extends ReviewState {
   simplified: string
@@ -36,6 +37,7 @@ export interface UserProfile {
   picture: string
   dailyNewLimit: number
   deckPriority?: Record<string, number>
+  deckModes?: Record<string, StudyMode>
 }
 
 const DEFAULT_REVIEW_STATE: ReviewState = {
@@ -294,6 +296,10 @@ export async function saveDeckPriority(uid: string, order: string[]): Promise<vo
   const priority: Record<string, number> = {}
   order.forEach((name, i) => { priority[name] = i })
   await setDoc(doc(db, 'users', uid), { deckPriority: priority }, { merge: true })
+}
+
+export async function saveDeckMode(uid: string, deckName: string, mode: StudyMode): Promise<void> {
+  await setDoc(doc(db, 'users', uid), { deckModes: { [deckName]: mode } }, { merge: true })
 }
 
 export async function importWordsToFirestore(

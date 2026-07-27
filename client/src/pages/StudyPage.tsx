@@ -16,11 +16,25 @@ interface SessionStats {
   knewBoth: number
 }
 
+// Exhaustive so a new StudyMode member fails to compile until it is handled here.
+const STUDY_MODES: Record<StudyMode, true> = {
+  due: true,
+  new: true,
+  cram: true,
+  refreshWeak: true,
+  hardOnly: true,
+}
+
+function toStudyMode(value: string | null): StudyMode {
+  return value && value in STUDY_MODES ? (value as StudyMode) : 'due'
+}
+
 export default function StudyPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const hskLevel = searchParams.get('hsk') ? Number(searchParams.get('hsk')) : undefined
-  const mode = (searchParams.get('mode') as StudyMode | null) ?? 'due'
+  const deck = searchParams.get('deck') ?? undefined
+  const mode = toStudyMode(searchParams.get('mode'))
   const minutes = searchParams.get('minutes') ? Number(searchParams.get('minutes')) : null
   const maxSeconds = minutes ? minutes * 60 : null
 
@@ -45,7 +59,7 @@ export default function StudyPage() {
     if (!uid) return
     failCountRef.current = new Map()
     timerExpiredRef.current = false
-    buildQueue(uid, 50, { hskLevel, mode }).then((cards) => {
+    buildQueue(uid, 50, { hskLevel, deckName: deck, mode }).then((cards) => {
       setQueue(cards)
       setLoading(false)
       if (cards.length > 0) {
@@ -60,7 +74,7 @@ export default function StudyPage() {
       }
     })
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [hskLevel, mode, maxSeconds])
+  }, [hskLevel, deck, mode, maxSeconds])
 
   const card = queue[index]
 
@@ -254,6 +268,7 @@ export default function StudyPage() {
       currentMode={mode}
       currentMinutes={minutes}
       hskLevel={hskLevel}
+      deck={deck}
       onStart={(m, mins) => {
         // Reset all session state — useEffect re-runs due to URL change and rebuilds queue
         setQueue([])
@@ -270,6 +285,7 @@ export default function StudyPage() {
         if (m !== 'due') params.set('mode', m)
         if (mins) params.set('minutes', String(mins))
         if (hskLevel) params.set('hsk', String(hskLevel))
+        if (deck) params.set('deck', deck)
         navigate(`/study?${params.toString()}`, { replace: true })
       }}
     />
@@ -502,6 +518,8 @@ const MODES: { value: StudyMode; label: string; desc: string }[] = [
   { value: 'due', label: 'Due reviews', desc: 'Cards scheduled for today' },
   { value: 'new', label: 'New words', desc: 'Words you haven\'t studied yet' },
   { value: 'cram', label: 'Cram', desc: 'All studied words, hardest first' },
+  { value: 'refreshWeak', label: 'Refresh Weak', desc: 'Cards with status Weak, ignoring schedule' },
+  { value: 'hardOnly', label: 'Hard Only', desc: 'Cards you missed on your last review' },
 ]
 
 const TIME_OPTIONS = [
@@ -516,11 +534,13 @@ function SessionPicker({
   currentMode,
   currentMinutes,
   hskLevel,
+  deck,
   onStart,
 }: {
   currentMode: StudyMode
   currentMinutes: number | null
   hskLevel?: number
+  deck?: string
   onStart: (mode: StudyMode, minutes: number | null) => void
 }) {
   const [mode, setMode] = useState<StudyMode>(currentMode)
@@ -529,7 +549,9 @@ function SessionPicker({
   const modeDesc: Record<StudyMode, string> = {
     due: 'No cards are due right now.',
     new: 'No new words available.',
-    cram: 'No studied words yet.',
+    cram: 'No cards in this deck yet.',
+    refreshWeak: 'No weak cards right now.',
+    hardOnly: 'Nothing you missed on your last review.',
   }
 
   return (
@@ -537,9 +559,13 @@ function SessionPicker({
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-1">
           <h1 className="text-3xl font-light text-text-primary">All caught up</h1>
+          {deck && <p className="text-text-primary text-sm font-medium">{deck}</p>}
           <p className="text-text-muted text-sm">{modeDesc[currentMode]}</p>
           {hskLevel && (
             <Link to="/hsk" className="text-xs text-accent hover:underline">← Back to HSK levels</Link>
+          )}
+          {deck && (
+            <Link to="/queue" className="block text-xs text-accent hover:underline">← Back to queue</Link>
           )}
         </div>
 
