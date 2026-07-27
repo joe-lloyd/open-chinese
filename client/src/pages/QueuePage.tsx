@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   DndContext,
   closestCenter,
@@ -16,9 +17,10 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { getDeckSummaries, getDeckWords, markWordsKnown, saveDeckPriority, getProfile } from '../lib/firestore'
+import { getDeckSummaries, getDeckWords, markWordsKnown, saveDeckPriority, saveDeckMode, getProfile } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { loadDB } from '../lib/worddb'
+import type { StudyMode } from '../lib/session'
 
 interface Deck {
   deckName: string
@@ -33,15 +35,12 @@ interface DeckWord {
   status: string
 }
 
-const MODES = ['Standard', 'RefreshWeak', 'Cram', 'HardOnly'] as const
-type Mode = (typeof MODES)[number]
-
-const MODE_LABELS: Record<Mode, string> = {
-  Standard: 'Standard',
-  RefreshWeak: 'Refresh Weak',
-  Cram: 'Cram',
-  HardOnly: 'Hard Only',
-}
+const MODE_OPTIONS: { value: StudyMode; label: string }[] = [
+  { value: 'due', label: 'Standard' },
+  { value: 'refreshWeak', label: 'Refresh Weak' },
+  { value: 'cram', label: 'Cram' },
+  { value: 'hardOnly', label: 'Hard Only' },
+]
 
 function SortableDeck({
   deck,
@@ -53,6 +52,7 @@ function SortableDeck({
   onMarkKnown,
   mode,
   onModeChange,
+  onStartSession,
 }: {
   deck: Deck
   expanded: boolean
@@ -61,8 +61,9 @@ function SortableDeck({
   selectedIds: Set<string>
   onToggleWord: (s: string) => void
   onMarkKnown: () => void
-  mode: Mode
-  onModeChange: (m: Mode) => void
+  mode: StudyMode
+  onModeChange: (m: StudyMode) => void
+  onStartSession: () => void
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: deck.deckName,
@@ -83,14 +84,20 @@ function SortableDeck({
         </button>
         <select
           value={mode}
-          onChange={(e) => onModeChange(e.target.value as Mode)}
+          onChange={(e) => onModeChange(e.target.value as StudyMode)}
           onClick={(e) => e.stopPropagation()}
           className="text-sm bg-surface border border-border rounded-lg px-2 py-1 text-text-muted focus:outline-none focus:border-accent"
         >
-          {MODES.map((m) => (
-            <option key={m} value={m}>{MODE_LABELS[m]}</option>
+          {MODE_OPTIONS.map((m) => (
+            <option key={m.value} value={m.value}>{m.label}</option>
           ))}
         </select>
+        <button
+          onClick={(e) => { e.stopPropagation(); onStartSession() }}
+          className="text-sm px-3 py-1 bg-accent text-white rounded-lg hover:opacity-90 whitespace-nowrap"
+        >
+          Start session
+        </button>
       </div>
 
       {expanded && (
@@ -130,7 +137,8 @@ export default function QueuePage() {
   const [expandedDeck, setExpandedDeck] = useState<string | null>(null)
   const [deckWords, setDeckWords] = useState<Record<string, DeckWord[]>>({})
   const [selectedIds, setSelectedIds] = useState<Record<string, Set<string>>>({})
-  const [deckModes, setDeckModes] = useState<Record<string, Mode>>({})
+  const [deckModes, setDeckModes] = useState<Record<string, StudyMode>>({})
+  const navigate = useNavigate()
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -144,6 +152,10 @@ export default function QueuePage() {
     const priority = profile?.deckPriority ?? {}
     const sorted = [...summaries].sort((a, b) => (priority[a.deckName] ?? 99) - (priority[b.deckName] ?? 99))
     setDecks(sorted)
+    const saved = profile?.deckModes ?? {}
+    const modes: Record<string, StudyMode> = {}
+    for (const d of sorted) modes[d.deckName] = saved[d.deckName] ?? 'due'
+    setDeckModes(modes)
   }
 
   useEffect(() => { loadDecks() }, [])
@@ -181,6 +193,17 @@ export default function QueuePage() {
     }
   }
 
+  async function changeDeckMode(deckName: string, mode: StudyMode) {
+    setDeckModes((prev) => ({ ...prev, [deckName]: mode }))
+    const uid = getCurrentUid()
+    if (uid) await saveDeckMode(uid, deckName, mode)
+  }
+
+  function startSession(deckName: string) {
+    const mode = deckModes[deckName] ?? 'due'
+    navigate(`/study?deck=${encodeURIComponent(deckName)}&mode=${mode}`)
+  }
+
   function toggleWord(deckName: string, simplified: string) {
     setSelectedIds((prev) => {
       const set = new Set(prev[deckName] ?? [])
@@ -207,7 +230,10 @@ export default function QueuePage() {
   return (
     <div className="p-8 max-w-3xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold text-text-primary">Queue Manager</h1>
-      <p className="text-text-muted text-sm">Drag to reorder deck priority. Top decks are reviewed first.</p>
+      <p className="text-text-muted text-sm">
+        Drag to reorder deck priority — cards from decks nearer the top are presented first in a mixed review
+        session. Pick a mode on any deck and hit “Start session” to study just that deck.
+      </p>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={decks.map((d) => d.deckName)} strategy={verticalListSortingStrategy}>
@@ -222,8 +248,9 @@ export default function QueuePage() {
                 selectedIds={selectedIds[deck.deckName] ?? new Set()}
                 onToggleWord={(s) => toggleWord(deck.deckName, s)}
                 onMarkKnown={() => markKnown(deck.deckName)}
-                mode={(deckModes[deck.deckName] ?? 'Standard') as Mode}
-                onModeChange={(m) => setDeckModes((prev) => ({ ...prev, [deck.deckName]: m }))}
+                mode={deckModes[deck.deckName] ?? 'due'}
+                onModeChange={(m) => changeDeckMode(deck.deckName, m)}
+                onStartSession={() => startSession(deck.deckName)}
               />
             ))}
           </div>

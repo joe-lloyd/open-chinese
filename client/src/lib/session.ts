@@ -30,14 +30,14 @@ const DEFAULT_SRS = {
   nextReviewDate: new Date(0),
 }
 
-export type StudyMode = 'due' | 'new' | 'cram'
+export type StudyMode = 'due' | 'new' | 'cram' | 'refreshWeak' | 'hardOnly'
 
 export async function buildQueue(
   uid: string,
   sessionSize = 50,
-  options: { hskLevel?: number; mode?: StudyMode } = {}
+  options: { hskLevel?: number; deckName?: string; mode?: StudyMode } = {}
 ): Promise<StudyCard[]> {
-  const { hskLevel, mode = 'due' } = options
+  const { hskLevel, deckName, mode = 'due' } = options
 
   const [worddb, allUserWords, profile] = await Promise.all([
     loadDB(),
@@ -53,6 +53,15 @@ export async function buildQueue(
     const levelWords = worddb.getWordsByLevel(hskLevel)
     levelSimplifieds = new Set(levelWords.map((w) => w.simplified))
   }
+
+  // Deck scope: applies to the user's word documents. Undefined deckName = all decks.
+  const matchesDeck = (w: { deckName: string }) => !deckName || w.deckName === deckName
+
+  // Deck scope for the unstudied pool, which carries deck_name from the static dictionary.
+  const matchesDeckRaw = (w: { deck_name: string }) => !deckName || w.deck_name === deckName
+
+  // Deck priority rank: lower is higher priority; unranked decks sort last.
+  const rank = (deck: string) => profile?.deckPriority?.[deck] ?? Number.MAX_SAFE_INTEGER
 
   const toCard = (w: typeof allUserWords[0], isNew: boolean): StudyCard => {
     const wordData = worddb.getWord(w.simplified)
@@ -93,11 +102,11 @@ export async function buildQueue(
     nextReviewDate: new Date(0),
   })
 
-  // ── Cram mode: all studied words, hardest first, ignore schedule ──
+  // ── Cram mode: every card in scope, any status, hardest first, ignore schedule ──
   if (mode === 'cram') {
     return allUserWords
       .filter((w) => {
-        if (w.status === 'Unstudied') return false
+        if (!matchesDeck(w)) return false
         if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
         return true
       })
@@ -110,14 +119,41 @@ export async function buildQueue(
   if (mode === 'new') {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     return sourceWords
-      .filter((w) => !knownSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified))
       .slice(0, sessionSize)
       .map(toNewCard)
+  }
+
+  // ── Refresh Weak: cards with status Weak, ignore schedule, no new cards ──
+  if (mode === 'refreshWeak') {
+    return allUserWords
+      .filter((w) => {
+        if (!matchesDeck(w)) return false
+        if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
+        return w.status === 'Weak'
+      })
+      .sort((a, b) => a.easeFactor - b.easeFactor)
+      .slice(0, sessionSize)
+      .map((w) => toCard(w, false))
+  }
+
+  // ── Hard Only: cards whose most recent review missed both subskills ──
+  if (mode === 'hardOnly') {
+    return allUserWords
+      .filter((w) => {
+        if (!matchesDeck(w)) return false
+        if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
+        return w.consecutiveFails > 0 && w.status !== 'Unstudied'
+      })
+      .sort((a, b) => b.consecutiveFails - a.consecutiveFails || a.easeFactor - b.easeFactor)
+      .slice(0, sessionSize)
+      .map((w) => toCard(w, false))
   }
 
   // ── Due mode (default): due reviews + new cards up to daily limit ──
   const reviewCards: StudyCard[] = allUserWords
     .filter((w) => {
+      if (!matchesDeck(w)) return false
       if (levelSimplifieds && !levelSimplifieds.has(w.simplified)) return false
       return (
         w.nextReviewDate <= now &&
@@ -127,7 +163,11 @@ export async function buildQueue(
         w.intervalMeaning > 0
       )
     })
-    .sort((a, b) => a.nextReviewDate.getTime() - b.nextReviewDate.getTime())
+    .sort(
+      (a, b) =>
+        rank(a.deckName) - rank(b.deckName) ||
+        a.nextReviewDate.getTime() - b.nextReviewDate.getTime()
+    )
     .slice(0, sessionSize)
     .map((w) => toCard(w, false))
 
@@ -144,7 +184,7 @@ export async function buildQueue(
   if (newCardSlots > 0) {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     const newCards = sourceWords
-      .filter((w) => !knownSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified))
       .slice(0, newCardSlots)
       .map(toNewCard)
     reviewCards.push(...newCards)

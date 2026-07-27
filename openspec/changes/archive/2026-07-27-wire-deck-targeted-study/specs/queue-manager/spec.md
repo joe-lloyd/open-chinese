@@ -1,8 +1,5 @@
-# queue-manager Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
-## Requirements
 ### Requirement: Deck list view
 The system SHALL display every word list imported from the `List Name` CSV column as a sortable deck entry, each showing the deck's word count and due count. Decks SHALL be rendered in the user's saved priority order from `users/{uid}.deckPriority`; decks with no saved rank SHALL be listed after all ranked decks.
 
@@ -100,18 +97,3 @@ The supported modes are:
 #### Scenario: Unrecognised mode falls back to Standard
 - **WHEN** user opens `/study?deck=HSK%201&mode=nonsense`
 - **THEN** the session SHALL be built in Standard mode scoped to that deck
-
-### Requirement: Mark words as Assumed Known
-The system SHALL allow users to select words in a deck and mark them as `Mastered` (skipping the normal review progression). This is intended for vocabulary the user already knows before starting the app.
-
-#### Scenario: Bulk mark as assumed known
-- **WHEN** user selects multiple words and clicks "Mark as Known"
-- **THEN** all selected words SHALL have their status set to `Mastered` with all intervals set to 365 days
-
-### Requirement: New cards per day limit
-The system SHALL enforce a configurable daily limit on new (Unstudied) cards introduced per deck. Default: 20 new cards per day per deck.
-
-#### Scenario: New card limit respected
-- **WHEN** user has already seen 20 new cards from a deck today and starts another session
-- **THEN** no additional Unstudied cards from that deck SHALL appear in the session queue
-
