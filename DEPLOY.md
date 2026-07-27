@@ -229,5 +229,3 @@ Add to cron for daily backups:
 | `ALLOWED_EMAIL` | no | Restrict to one Gmail address |
 | `APP_URL` | yes (prod) | Public frontend URL |
 | `NODE_ENV` | no | Set to `production` to enable secure cookies |
-| `WHISPER_BACKEND` | no | `api` or `local` |
-| `OPENAI_API_KEY` | no | Required if `WHISPER_BACKEND=api` |
