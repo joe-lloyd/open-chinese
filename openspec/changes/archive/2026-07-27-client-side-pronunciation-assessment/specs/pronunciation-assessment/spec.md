@@ -1,8 +1,5 @@
-# pronunciation-assessment Specification
+## ADDED Requirements
 
-## Purpose
-TBD - created by archiving change open-chinese. Update Purpose after archive.
-## Requirements
 ### Requirement: SpeechRecognition capability detection
 The system SHALL feature-detect `window.SpeechRecognition ?? window.webkitSpeechRecognition` before offering any pronunciation affordance. Where the constructor is absent the system SHALL hide or disable the microphone control entirely, with an explanatory tooltip on the disabled control, and SHALL NOT show an error toast, error text, or any failure state — an unsupported browser is a permanent condition the user cannot remedy, so absence is the correct signal. Detection SHALL be performed once and its result reused; the system SHALL NOT attempt to construct a recognizer to test for support.
 
@@ -131,3 +128,28 @@ The pronunciation verdict SHALL be advisory only. It SHALL NOT be passed to `app
 - **THEN** no verdict, transcript, or attempt count SHALL appear in any document under `users/{uid}`
 - **AND** the daily aggregate SHALL count only self-assessed reviews
 
+## REMOVED Requirements
+
+### Requirement: Audio capture via MediaRecorder
+**Reason**: The Web Speech API owns the microphone stream end to end, so `MediaRecorder`, `getUserMedia`, and the audio `Blob` are all unnecessary. The requirement's "WAV/PCM audio stream" was never accurate either: `client/src/components/PronunciationAssessor.tsx:31` labelled its `Blob` `audio/wav`, but `MediaRecorder` emits WebM/Opus in Chrome and Firefox and MP4/AAC in Safari — the WAV claim was a mislabel, not a format.
+**Migration**: Superseded by "Speech capture via the Web Speech API". Push-to-talk is preserved, mapped to `SpeechRecognition.start()` / `stop()` instead of recorder start/stop.
+
+### Requirement: Whisper transcription backend
+**Reason**: There is no backend. `server/src/routes/pronounce.ts`, `server/src/lib/whisper.ts`, `whisper-cache.ts`, and `tone-compare.ts` were deleted in commit `8850661`, and the entire `server/` workspace was removed by the `firebase-netlify-architecture` change. The app deploys to Netlify as static files — `netlify.toml` declares only a `[build]` block, one SPA redirect, and two cache headers, with no functions directory. `WHISPER_BACKEND` and `OPENAI_API_KEY` exist only in stale documentation and have never appeared in shipping code.
+**Migration**: All transcription runs in the browser via `SpeechRecognition`. No API key, no environment variable, and no server or serverless function is involved.
+
+### Requirement: Pinyin tone comparison
+**Reason**: Unachievable on this platform. `SpeechRecognition` with `lang='zh-CN'` returns a transcript of Han characters only — never pinyin, never tone marks, never tone numbers — and exposes no phoneme segmentation, pitch track, or per-syllable confidence, so the requirement's stated inputs (base syllables and tone numbers 1–5) do not exist. Furthermore a Mandarin recognizer's language model silently repairs tone errors, so recognizer output is biased toward false "correct" verdicts and cannot serve as a tone check at all.
+**Migration**: Superseded by "Word-identity assessment against the target", which checks which word was recognized and states in its own text that it does not verify tones. Genuine tone assessment would require F0 contour analysis over raw audio and is explicitly deferred to a future change; see `design.md`.
+
+### Requirement: Color-coded feedback display
+**Reason**: Its semantics — "green for correct tone, red for incorrect tone, yellow for unrecognized syllable" — promise a per-syllable tone verdict the browser cannot produce, and it operates on syllables split from the target pinyin rather than on recognized words.
+**Migration**: Superseded by "Feedback display with tone-limitation disclaimer". The same three CSS tokens (`--color-correct`, `--color-incorrect`, `--color-unrecognized` at `client/src/index.css:12-14` and `:28-30`) are reused, remapped from tone correctness to word-identity verdicts, and a persistent tone disclaimer is added.
+
+### Requirement: Assessment result caching
+**Reason**: The cache key was an audio content hash, but the Web Speech API never hands the page an audio buffer to hash. There is also nothing to save: recognition is free, runs in the browser, and has no per-call cost or rate limit to amortise. The server-side `whisper-cache.ts` that implemented this was deleted in commit `8850661`.
+**Migration**: None. Each attempt runs a fresh recognition; repeated attempts on the same card are expected practice behaviour rather than waste.
+
+### Requirement: Graceful degradation on backend unavailability
+**Reason**: There is no backend that can be unavailable, so a 10-second Whisper API timeout has no meaning. The real failure modes are different in kind: an unsupported browser, a denied microphone permission, silence, or a lost network connection.
+**Migration**: Replaced by two targeted requirements. "SpeechRecognition capability detection" covers permanent unavailability by hiding the feature silently rather than showing an error. "Speech capture via the Web Speech API" covers transient failures with explicit handling for the `no-speech`, `audio-capture`, `not-allowed`, `network`, and `aborted` error codes plus a watchdog timeout. The session continues without pronunciation feedback in every case.

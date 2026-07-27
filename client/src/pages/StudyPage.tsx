@@ -6,6 +6,7 @@ import { applyBinaryReview, resolveStatus } from '../lib/srs'
 import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
+import PronunciationAssessor from '../components/PronunciationAssessor'
 
 type Phase = 'pron-hidden' | 'pron-revealed' | 'meaning-hidden' | 'meaning-revealed'
 
@@ -382,8 +383,14 @@ export default function StudyPage() {
           </p>
         </div>
 
-        {/* Pinyin — always reserves h-14, fades in */}
-        <div className="h-14 flex flex-col items-center justify-center gap-0.5 mb-4">
+        {/*
+          Pinyin + pronunciation practice. The h-14 pinyin block was extended to
+          h-40 to reserve room for the assessor; the height is unconditional, so
+          mounting the assessor at pron-revealed causes no layout shift.
+          The assessor is genuinely unmounted during pron-hidden — that phase is
+          a recall test, and a verdict there would leak the answer.
+        */}
+        <div className="h-40 flex flex-col items-center justify-start gap-1 mb-4">
           <div className={`text-center transition-opacity duration-150 ${pronVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <p className="text-3xl font-medium text-accent">{card.pinyin}</p>
             <button
@@ -393,6 +400,10 @@ export default function StudyPage() {
               ▶ play (↑ / R)
             </button>
           </div>
+          {/* Advisory only — the verdict never reaches advance(), srs.ts or firestore.ts. */}
+          {pronVisible && (
+            <PronunciationAssessor target={card.simplified} targetPinyin={card.pinyin} />
+          )}
         </div>
 
         {/* Definition + sentence — always reserves space, fades in */}
