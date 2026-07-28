@@ -1,5 +1,11 @@
-## ADDED Requirements
+# monetization Specification
 
+## Purpose
+Defines what a user is allowed to access and how they pay for it. Entitlements are stored server-authoritatively in Firestore and written only by a payment webhook running as trusted compute; the client may read its own and never write them. A single pure `canAccess` decision gates content for both commercial models at once — a recurring subscription that unlocks everything, and one-off pack purchases that unlock a single catalogue entry permanently — with the free allowance expressed as configuration. Payment collection happens exclusively on a provider's hosted checkout page behind a provider-agnostic interface, so no card data, no PCI scope and no secret key ever enters this codebase.
+
+Scope boundary worth stating plainly: what is *enforced* is that a client cannot grant itself an entitlement, act as another user, or forge a webhook. Content gating itself is a purchase prompt rather than a lock, because the word database ships as a public static asset. Real content protection would require serving paid content from an authenticated endpoint and is deliberately out of scope.
+
+## Requirements
 ### Requirement: Entitlements are server-authoritative and never client-writable
 The system SHALL store each user's entitlements at `users/{uid}/entitlements/current` in Firestore. The document SHALL be readable by its owner and writable by no client under any circumstances. Only trusted server-side code authenticating with the Firebase Admin SDK SHALL write it.
 
@@ -205,6 +211,8 @@ The checkout endpoint SHALL derive the purchasing user's uid exclusively from a 
 ### Requirement: Webhooks are signature-verified and idempotent
 The webhook endpoint SHALL verify the provider's signature against the raw, unparsed request body before interpreting the payload, and SHALL reject unverified requests with 400 without writing to Firestore. It SHALL record each processed event id and SHALL ignore repeat deliveries of an event it has already processed. It SHALL respond 2xx to event types it does not handle.
 
+An event SHALL be recorded as fully processed only after its entitlement write has succeeded. An event whose processing was interrupted SHALL remain eligible for reprocessing on a later delivery, so that a handler terminated mid-flight cannot permanently suppress an entitlement the user has paid for.
+
 #### Scenario: Forged webhook
 - **WHEN** a request arrives with a payload granting Pro but an invalid signature
 - **THEN** the endpoint SHALL respond 400
@@ -226,6 +234,25 @@ The webhook endpoint SHALL verify the provider's signature against the raw, unpa
 #### Scenario: Unhandled event type
 - **WHEN** a verified event of an unhandled type arrives
 - **THEN** the endpoint SHALL respond 2xx and write nothing
+
+#### Scenario: Handler terminated before the write completes
+- **GIVEN** an event whose processing began but was interrupted before the entitlement write succeeded
+- **WHEN** the provider redelivers that event
+- **THEN** the endpoint SHALL process it rather than dismissing it as a duplicate
+- **AND** the resulting entitlement SHALL be the same as if it had succeeded the first time
+
+### Requirement: Entitlement writes tolerate out-of-order webhook delivery
+Payment providers do not guarantee webhook ordering. Subscription state SHALL therefore be written only when the incoming event is not older than the event last applied to that user, compared using the provider's own event timestamp. Pack grants SHALL be applied regardless of ordering, since they are additive and never expire.
+
+#### Scenario: Stale subscription event arrives after a newer one
+- **GIVEN** a cancellation has been applied for a user
+- **WHEN** an earlier-generated subscription event with an active status and a future period end is delivered afterwards
+- **THEN** the subscription fields SHALL NOT be overwritten
+- **AND** the user SHALL remain not-Pro
+
+#### Scenario: Pack purchase delivered out of order
+- **WHEN** a pack purchase event is delivered after a newer subscription event
+- **THEN** the pack SHALL still be added to `packs`
 
 ### Requirement: Post-checkout return waits for the entitlement, never trusts the redirect
 The post-checkout return page SHALL NOT infer purchase success from URL parameters. It SHALL subscribe to the user's entitlement document and report success only when the server-written entitlement reflects the purchase. If the entitlement has not arrived within a bounded wait, it SHALL tell the user the purchase is safe and to check back shortly.
