@@ -51,23 +51,27 @@ export function hasActiveFilters(f: DictFilters): boolean {
  */
 export function toEntry(simplified: string, word?: Word, user?: WordState): DictEntry {
   const custom = user?.customWordData
-  const totalReviews = user?.totalReviews ?? null
+  const analytics = user?.analytics
+  // `dataToWordState` defaults the counters to 0, so a word that has never been
+  // reviewed reads 0 rather than absent. Collapse that back to null — the UI
+  // distinguishes "no reviews yet" from "0% correct".
+  const totalReviews = analytics?.totalReviews || null
   return {
     simplified,
     traditional: word?.traditional ?? custom?.traditional ?? null,
     pinyin: word?.pinyin ?? custom?.pinyin ?? '',
     definition: word?.definition ?? custom?.definition ?? '',
-    hskLevel: word?.hsk_level ?? user?.hskLevel ?? null,
+    hskLevel: word?.hsk_level ?? analytics?.hskLevel ?? null,
     deckName: user?.deckName || word?.deck_name || '',
     status: user?.status ?? 'Unstudied',
     notes: user?.notes ?? '',
     totalReviews,
     knowledge:
       totalReviews && totalReviews > 0
-        ? Math.round(((user?.correctMeaningCount ?? 0) / totalReviews) * 100)
+        ? Math.round(((analytics?.correctMeaningCount ?? 0) / totalReviews) * 100)
         : null,
-    firstSeenAt: user?.firstSeenAt,
-    lastReviewedAt: user?.lastReviewedAt,
+    firstSeenAt: analytics?.firstSeenAt ?? undefined,
+    lastReviewedAt: analytics?.lastReviewedAt ?? undefined,
     inDictionary: user != null,
   }
 }

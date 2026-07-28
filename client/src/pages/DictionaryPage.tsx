@@ -143,7 +143,7 @@ export default function DictionaryPage() {
     return {
       simplified,
       deckName: user?.deckName || word?.deck_name || '',
-      hskLevel: word?.hsk_level ?? user?.hskLevel ?? null,
+      hskLevel: word?.hsk_level ?? user?.analytics.hskLevel ?? null,
     }
   }
 
@@ -187,7 +187,13 @@ export default function DictionaryPage() {
       const uid = getCurrentUid()
       if (!uid) return
       await ensureUserWords(uid, [seedFor(simplified)])
-      patchLocal([simplified], { firstSeenAt: new Date() })
+      const existing = userMap.get(simplified)
+      patchLocal([simplified], {
+        analytics: {
+          ...(existing?.analytics ?? blankState(simplified, meta.get(simplified)).analytics),
+          firstSeenAt: new Date(),
+        },
+      })
     })
   }
 
@@ -361,7 +367,16 @@ function blankState(simplified: string, word?: Word): WordState {
     ...getDefaultState(),
     status: 'Unstudied',
     deckName: word?.deck_name ?? '',
-    hskLevel: word?.hsk_level ?? null,
+    analytics: {
+      totalReviews: 0,
+      correctMeaningCount: 0,
+      incorrectMeaningCount: 0,
+      correctPronCount: 0,
+      incorrectPronCount: 0,
+      hskLevel: word?.hsk_level ?? null,
+      firstSeenAt: null,
+      lastReviewedAt: null,
+    },
   }
 }
 
