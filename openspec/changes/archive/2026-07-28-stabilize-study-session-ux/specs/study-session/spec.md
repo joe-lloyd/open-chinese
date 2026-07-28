@@ -5,7 +5,7 @@ The study interface SHALL be centered both horizontally and vertically within th
 
 The study card column SHALL have a deterministic height: every region — HSK badge, character, traditional form, pinyin and pronunciation practice, definition and example, and the grading button area — SHALL reserve a fixed height that does not vary with its content, with each region's content centered within its reserved box. As a consequence the character SHALL occupy identical pixel coordinates on every card and in every reveal phase.
 
-The character's font size SHALL be selected from the word's character count so that a multi-character word renders on a single line without wrapping. Words of different lengths SHALL therefore share the same optical center.
+The character's font size SHALL be derived from the word's character count, the width available to its row, and the height of its reserved box — never from anything else — so that a word of any length renders on a single line without wrapping, always fits inside its box, and is as large as those constraints allow. Words of different lengths SHALL therefore share the same optical center.
 
 Content that exceeds its reserved region SHALL scroll within that region rather than resize it.
 
@@ -29,6 +29,10 @@ Transient chrome that is not part of the card — such as the failed-write banne
 - **WHEN** a card whose simplified form is three or four characters is presented
 - **THEN** the characters SHALL render on a single line
 - **AND** the font size SHALL be reduced so the line fits the viewport width
+
+#### Scenario: Character never overflows its reserved box
+- **WHEN** a card is presented at any viewport width, including widths either side of a layout breakpoint
+- **THEN** the rendered character SHALL be no taller than its reserved box
 
 #### Scenario: Failed-write banner does not move the character
 - **WHEN** a Firestore write fails mid-session and the error banner appears, and is later dismissed
