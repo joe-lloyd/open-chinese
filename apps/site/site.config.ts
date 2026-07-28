@@ -16,8 +16,14 @@ export const SITE = {
    */
   domain: 'https://open-chinese.joe-lloyd.com',
 
-  /** Where the app itself lives. Path-based, so it stays on the same origin. */
-  appPath: '/app',
+  /**
+   * Where the app itself lives. Path-based, so it stays on the same origin.
+   *
+   * Trailing slash on purpose: the app's dev server serves at `/app/` and does
+   * not redirect the bare path, so every marketing CTA would 404 in `pnpm dev`
+   * without it. In production it also saves a redirect hop.
+   */
+  appPath: '/app/',
 
   tagline: 'Learn Mandarin that sticks',
 

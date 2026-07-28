@@ -9,7 +9,7 @@
  */
 
 import { verifyRequestUser } from './_lib/firebase'
-import { getProvider, json, siteUrl } from './_lib/providers'
+import { appUrl, getProvider, json } from './_lib/providers'
 import { isCatalogSku } from './_lib/types'
 
 export default async function handler(req: Request): Promise<Response> {
@@ -30,13 +30,16 @@ export default async function handler(req: Request): Promise<Response> {
   if (!isCatalogSku(sku)) return json(400, { error: 'unknown_sku' })
 
   try {
-    const site = siteUrl()
+    // Both return URLs are app routes, so they hang off appUrl(). Built from
+    // the origin root they would 404 (success) or land the user on the public
+    // marketing page instead of back in the app (cancel).
+    const app = appUrl()
     const { url } = await provider.createCheckoutSession({
       sku,
       uid: user.uid,
       email: user.email,
-      successUrl: `${site}/billing/return?sku=${encodeURIComponent(sku)}`,
-      cancelUrl: `${site}/pricing`,
+      successUrl: `${app}/billing/return?sku=${encodeURIComponent(sku)}`,
+      cancelUrl: `${app}/pricing`,
     })
     return json(200, { url })
   } catch (e) {

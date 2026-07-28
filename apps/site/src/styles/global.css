@@ -1,7 +1,10 @@
 /* Shared with the app — one definition, no drift.
+   `auto-dark` follows the OS setting; this site ships no theme switcher, and no
+   JavaScript at all, so there is nothing to toggle a class.
    Must stay above the @tailwind directives: CSS requires @import to precede
    every other statement, and PostCSS warns rather than reordering it. */
 @import '@open-chinese/tokens/tokens.css';
+@import '@open-chinese/tokens/auto-dark.css';
 
 @tailwind base;
 @tailwind components;
@@ -10,24 +13,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-  }
-
-  /* Respect the OS setting without shipping a theme toggle. The token file keys
-     dark mode off a `.dark` class for the app's manual switcher; here there is
-     no switcher, so map the media query onto the same class contract. */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --surface-rgb: 17 24 39;
-      --surface-raised-rgb: 31 41 55;
-      --text-primary-rgb: 249 250 251;
-      --text-muted-rgb: 156 163 175;
-      --accent-rgb: 129 140 248;
-      --border-rgb: 55 65 81;
-      --correct-rgb: 74 222 128;
-      --incorrect-rgb: 248 113 113;
-      --unrecognized-rgb: 217 119 6;
-      color-scheme: dark;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

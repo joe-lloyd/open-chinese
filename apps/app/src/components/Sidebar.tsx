@@ -23,7 +23,11 @@ export default function Sidebar({ user }: { user: User }) {
 
   async function handleLogout() {
     await signOut()
-    window.location.href = '/login'
+    // A hard navigation rather than a router push, so in-memory state (the
+    // loaded word DB, the entitlement snapshot) is dropped on a shared device.
+    // Must carry BASE_URL: the app lives at /app, and the origin root is the
+    // public marketing site, so a bare '/login' is a 404.
+    window.location.href = `${import.meta.env.BASE_URL}login`
   }
 
   return (

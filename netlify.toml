@@ -49,18 +49,21 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# The marketing pages are the ones search engines and ad clicks land on. HTML
-# stays revalidated so a copy change ships immediately; the hashed CSS/JS Astro
-# emits is immutable.
+# Hashed assets Astro emits. Currently matches nothing: the site's CSS is
+# inlined (`inlineStylesheets: 'always'`) and it ships no JavaScript, so no
+# /_astro/ directory is produced. Kept because it becomes correct the moment a
+# stylesheet grows past the inline threshold or a component ships JS, and a
+# fingerprinted asset served without it costs a revalidation round trip.
 [[headers]]
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Baseline security headers. Lighthouse's best-practices audit checks for CSP and
-# HSTS; these are also just correct. The CSP is deliberately strict because the
-# marketing site ships no JavaScript at all — the only inline element is the
-# JSON-LD block, which is not script-src-executable content.
+# Baseline security headers. No Content-Security-Policy is set: the app loads
+# Firebase and a payment provider's hosted checkout, so a policy tight enough to
+# be worth having needs to be written against that real origin list and verified
+# against a live sign-in and checkout. Shipping a guessed one would break auth in
+# production and nowhere else. Tracked as follow-up rather than half-done here.
 [[headers]]
   for = "/*"
   [headers.values]

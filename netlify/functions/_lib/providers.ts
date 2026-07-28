@@ -22,11 +22,25 @@ export function getProvider(): PaymentProvider | null {
   return PROVIDERS[id] ?? null
 }
 
-/** Absolute origin for building checkout return URLs. */
+/** Absolute origin of the deployment. The marketing site is served from here. */
 export function siteUrl(): string {
   const url = process.env.PUBLIC_SITE_URL ?? process.env.URL
   if (!url) throw new Error('PUBLIC_SITE_URL is not set')
   return url.replace(/\/$/, '')
+}
+
+/**
+ * Absolute base of the app, which lives under /app — the origin root is the
+ * marketing site.
+ *
+ * Every checkout and portal return URL must be built from this, not from
+ * `siteUrl()`. A payment redirect landing on the origin root would drop a
+ * customer who has just paid onto a marketing page, or onto a 404: the Netlify
+ * SPA fallback is scoped to `/app/*`, so no route outside it resolves to the
+ * app at all.
+ */
+export function appUrl(): string {
+  return `${siteUrl()}/app`
 }
 
 export function json(status: number, body: unknown): Response {

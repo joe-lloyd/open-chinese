@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { assetUrl } from '../lib/assets'
 
 interface RadicalEntry {
   char: string
@@ -13,10 +14,14 @@ let cachedRadicals: Map<string, RadicalEntry> | null = null
 async function loadRadicals(): Promise<Map<string, RadicalEntry>> {
   if (cachedRadicals) return cachedRadicals
   try {
-    const res = await fetch('/data/radicals.json')
+    const res = await fetch(assetUrl('data/radicals.json'))
     const data: RadicalEntry[] = await res.json()
     cachedRadicals = new Map(data.map((e) => [e.char, e]))
-  } catch {
+  } catch (e) {
+    // Cache the empty map so a genuine absence is not re-fetched per character.
+    // Log it, though: this used to swallow a 404 silently and every character
+    // rendered "No breakdown available" with nothing in the console to explain it.
+    console.error('[radicals] failed to load', e)
     cachedRadicals = new Map()
   }
   return cachedRadicals
