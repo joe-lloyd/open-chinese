@@ -17,11 +17,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "地图",
             "。",
             "她",
-            "想",
+            "准备",
             "地图",
             "，",
             "也",
@@ -29,7 +29,7 @@
             "地图",
             "。"
           ],
-          "translation": "Zhou Ning prepared the map. She thought about the map and packed the map."
+          "translation": "Zhou Ning thought about map. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -38,11 +38,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "相机",
             "。",
             "她",
-            "想",
+            "准备",
             "相机",
             "，",
             "也",
@@ -50,7 +50,7 @@
             "相机",
             "。"
           ],
-          "translation": "Zhou Ning prepared the camera. She thought about the camera and packed the camera."
+          "translation": "Zhou Ning thought about camera. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -59,11 +59,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "护照",
             "。",
             "她",
-            "想",
+            "准备",
             "护照",
             "，",
             "也",
@@ -71,7 +71,7 @@
             "护照",
             "。"
           ],
-          "translation": "Zhou Ning prepared the passport. She thought about the passport and packed the passport."
+          "translation": "Zhou Ning thought about passport. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -80,11 +80,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "药",
             "。",
             "她",
-            "想",
+            "准备",
             "药",
             "，",
             "也",
@@ -92,7 +92,7 @@
             "药",
             "。"
           ],
-          "translation": "Zhou Ning prepared the medicine. She thought about the medicine and packed the medicine."
+          "translation": "Zhou Ning thought about medicine. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -101,11 +101,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "票",
             "。",
             "她",
-            "想",
+            "准备",
             "票",
             "，",
             "也",
@@ -113,7 +113,7 @@
             "票",
             "。"
           ],
-          "translation": "Zhou Ning prepared the ticket. She thought about the ticket and packed the ticket."
+          "translation": "Zhou Ning thought about ticket. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -122,11 +122,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "照片",
             "。",
             "她",
-            "想",
+            "准备",
             "照片",
             "，",
             "也",
@@ -134,7 +134,7 @@
             "照片",
             "。"
           ],
-          "translation": "Zhou Ning prepared the photo. She thought about the photo and packed the photo."
+          "translation": "Zhou Ning thought about photo. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -143,11 +143,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "礼物",
             "。",
             "她",
-            "想",
+            "准备",
             "礼物",
             "，",
             "也",
@@ -155,7 +155,7 @@
             "礼物",
             "。"
           ],
-          "translation": "Zhou Ning prepared the gift. She thought about the gift and packed the gift."
+          "translation": "Zhou Ning thought about gift. She prepared it and packed it."
         },
         {
           "tokens": [
@@ -164,11 +164,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "准备",
+            "想到",
             "笔记",
             "。",
             "她",
-            "想",
+            "准备",
             "笔记",
             "，",
             "也",
@@ -176,7 +176,7 @@
             "笔记",
             "。"
           ],
-          "translation": "Zhou Ning prepared the notes. She thought about the notes and packed the notes."
+          "translation": "Zhou Ning thought about notes. She prepared it and packed it."
         }
       ]
     },
@@ -192,11 +192,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "路口",
             "。",
             "她",
-            "想",
+            "经过",
             "路口",
             "，",
             "也",
@@ -204,7 +204,7 @@
             "路口",
             "。"
           ],
-          "translation": "Zhou Ning passed the intersection. She thought about the intersection and remembered the intersection."
+          "translation": "Zhou Ning thought about intersection. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -213,11 +213,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "银行",
             "。",
             "她",
-            "想",
+            "经过",
             "银行",
             "，",
             "也",
@@ -225,7 +225,7 @@
             "银行",
             "。"
           ],
-          "translation": "Zhou Ning passed the bank. She thought about the bank and remembered the bank."
+          "translation": "Zhou Ning thought about bank. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -234,11 +234,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "超市",
             "。",
             "她",
-            "想",
+            "经过",
             "超市",
             "，",
             "也",
@@ -246,7 +246,7 @@
             "超市",
             "。"
           ],
-          "translation": "Zhou Ning passed the supermarket. She thought about the supermarket and remembered the supermarket."
+          "translation": "Zhou Ning thought about supermarket. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -255,11 +255,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "广场",
             "。",
             "她",
-            "想",
+            "经过",
             "广场",
             "，",
             "也",
@@ -267,7 +267,7 @@
             "广场",
             "。"
           ],
-          "translation": "Zhou Ning passed the square. She thought about the square and remembered the square."
+          "translation": "Zhou Ning thought about square. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -276,11 +276,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "地铁",
             "。",
             "她",
-            "想",
+            "经过",
             "地铁",
             "，",
             "也",
@@ -288,7 +288,7 @@
             "地铁",
             "。"
           ],
-          "translation": "Zhou Ning passed the metro. She thought about the metro and remembered the metro."
+          "translation": "Zhou Ning thought about metro. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -297,11 +297,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "公园",
             "。",
             "她",
-            "想",
+            "经过",
             "公园",
             "，",
             "也",
@@ -309,7 +309,7 @@
             "公园",
             "。"
           ],
-          "translation": "Zhou Ning passed the park. She thought about the park and remembered the park."
+          "translation": "Zhou Ning thought about park. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -318,11 +318,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "交通",
             "。",
             "她",
-            "想",
+            "经过",
             "交通",
             "，",
             "也",
@@ -330,7 +330,7 @@
             "交通",
             "。"
           ],
-          "translation": "Zhou Ning passed the traffic. She thought about the traffic and remembered the traffic."
+          "translation": "Zhou Ning thought about traffic. She passed it and remembered it."
         },
         {
           "tokens": [
@@ -339,11 +339,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "经过",
+            "想到",
             "地点",
             "。",
             "她",
-            "想",
+            "经过",
             "地点",
             "，",
             "也",
@@ -351,7 +351,7 @@
             "地点",
             "。"
           ],
-          "translation": "Zhou Ning passed the location. She thought about the location and remembered the location."
+          "translation": "Zhou Ning thought about location. She passed it and remembered it."
         }
       ]
     },
@@ -367,11 +367,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "活动",
             "。",
             "她",
-            "想",
+            "讨论",
             "活动",
             "，",
             "也",
@@ -379,7 +379,7 @@
             "活动",
             "。"
           ],
-          "translation": "Zhou Ning discussed the activity. She thought about the activity and planned the activity."
+          "translation": "Zhou Ning thought about activity. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -388,11 +388,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "节目",
             "。",
             "她",
-            "想",
+            "讨论",
             "节目",
             "，",
             "也",
@@ -400,7 +400,7 @@
             "节目",
             "。"
           ],
-          "translation": "Zhou Ning discussed the show. She thought about the show and planned the show."
+          "translation": "Zhou Ning thought about show. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -409,11 +409,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "旅行",
             "。",
             "她",
-            "想",
+            "讨论",
             "旅行",
             "，",
             "也",
@@ -421,7 +421,7 @@
             "旅行",
             "。"
           ],
-          "translation": "Zhou Ning discussed the trip. She thought about the trip and planned the trip."
+          "translation": "Zhou Ning thought about trip. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -430,11 +430,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "运动",
             "。",
             "她",
-            "想",
+            "讨论",
             "运动",
             "，",
             "也",
@@ -442,7 +442,7 @@
             "运动",
             "。"
           ],
-          "translation": "Zhou Ning discussed the exercise. She thought about the exercise and planned the exercise."
+          "translation": "Zhou Ning thought about exercise. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -451,11 +451,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "工作",
             "。",
             "她",
-            "想",
+            "讨论",
             "工作",
             "，",
             "也",
@@ -463,7 +463,7 @@
             "工作",
             "。"
           ],
-          "translation": "Zhou Ning discussed the work. She thought about the work and planned the work."
+          "translation": "Zhou Ning thought about work. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -472,11 +472,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "教育",
             "。",
             "她",
-            "想",
+            "讨论",
             "教育",
             "，",
             "也",
@@ -484,7 +484,7 @@
             "教育",
             "。"
           ],
-          "translation": "Zhou Ning discussed the education. She thought about the education and planned the education."
+          "translation": "Zhou Ning thought about education. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -493,11 +493,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "住房",
             "。",
             "她",
-            "想",
+            "讨论",
             "住房",
             "，",
             "也",
@@ -505,7 +505,7 @@
             "住房",
             "。"
           ],
-          "translation": "Zhou Ning discussed the housing. She thought about the housing and planned the housing."
+          "translation": "Zhou Ning thought about housing. She discussed it and planned it."
         },
         {
           "tokens": [
@@ -514,11 +514,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "讨论",
+            "想到",
             "人口",
             "。",
             "她",
-            "想",
+            "讨论",
             "人口",
             "，",
             "也",
@@ -526,7 +526,7 @@
             "人口",
             "。"
           ],
-          "translation": "Zhou Ning discussed the population. She thought about the population and planned the population."
+          "translation": "Zhou Ning thought about population. She discussed it and planned it."
         }
       ]
     },
@@ -542,11 +542,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "问题",
             "。",
             "她",
-            "想",
+            "发现",
             "问题",
             "，",
             "也",
@@ -554,7 +554,7 @@
             "问题",
             "。"
           ],
-          "translation": "Zhou Ning found the problem. She thought about the problem and explained the problem."
+          "translation": "Zhou Ning thought about problem. She found it and explained it."
         },
         {
           "tokens": [
@@ -563,11 +563,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "办法",
             "。",
             "她",
-            "想",
+            "发现",
             "办法",
             "，",
             "也",
@@ -575,7 +575,7 @@
             "办法",
             "。"
           ],
-          "translation": "Zhou Ning found the solution. She thought about the solution and explained the solution."
+          "translation": "Zhou Ning thought about solution. She found it and explained it."
         },
         {
           "tokens": [
@@ -584,11 +584,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "原因",
             "。",
             "她",
-            "想",
+            "发现",
             "原因",
             "，",
             "也",
@@ -596,7 +596,7 @@
             "原因",
             "。"
           ],
-          "translation": "Zhou Ning found the reason. She thought about the reason and explained the reason."
+          "translation": "Zhou Ning thought about reason. She found it and explained it."
         },
         {
           "tokens": [
@@ -605,11 +605,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "机会",
             "。",
             "她",
-            "想",
+            "发现",
             "机会",
             "，",
             "也",
@@ -617,7 +617,7 @@
             "机会",
             "。"
           ],
-          "translation": "Zhou Ning found the opportunity. She thought about the opportunity and explained the opportunity."
+          "translation": "Zhou Ning thought about opportunity. She found it and explained it."
         },
         {
           "tokens": [
@@ -626,11 +626,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "方向",
             "。",
             "她",
-            "想",
+            "发现",
             "方向",
             "，",
             "也",
@@ -638,7 +638,7 @@
             "方向",
             "。"
           ],
-          "translation": "Zhou Ning found the direction. She thought about the direction and explained the direction."
+          "translation": "Zhou Ning thought about direction. She found it and explained it."
         },
         {
           "tokens": [
@@ -647,11 +647,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "方法",
             "。",
             "她",
-            "想",
+            "发现",
             "方法",
             "，",
             "也",
@@ -659,7 +659,7 @@
             "方法",
             "。"
           ],
-          "translation": "Zhou Ning found the method. She thought about the method and explained the method."
+          "translation": "Zhou Ning thought about method. She found it and explained it."
         },
         {
           "tokens": [
@@ -668,11 +668,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "重点",
             "。",
             "她",
-            "想",
+            "发现",
             "重点",
             "，",
             "也",
@@ -680,7 +680,7 @@
             "重点",
             "。"
           ],
-          "translation": "Zhou Ning found the key point. She thought about the key point and explained the key point."
+          "translation": "Zhou Ning thought about key point. She found it and explained it."
         },
         {
           "tokens": [
@@ -689,11 +689,11 @@
               "pinyin": "Zhōu Níng",
               "definition": "Zhou Ning (a given name)"
             },
-            "发现",
+            "想到",
             "意见",
             "。",
             "她",
-            "想",
+            "发现",
             "意见",
             "，",
             "也",
@@ -701,7 +701,7 @@
             "意见",
             "。"
           ],
-          "translation": "Zhou Ning found the opinion. She thought about the opinion and explained the opinion."
+          "translation": "Zhou Ning thought about opinion. She found it and explained it."
         }
       ]
     }

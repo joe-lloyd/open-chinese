@@ -124,7 +124,7 @@ const readers = [
       },
       {
         title: '书店的故事', titleEn: 'The Bookshop’s Story',
-        verbs: [v('认识', 'got to know'), v('保护', 'protected')],
+        verbs: [v('认识', 'learned about'), v('保护', 'protected')],
         items: [n('老板', 'owner'), n('顾客', 'customer'), n('作者', 'author'), n('读者', 'reader'), n('文化', 'culture'), n('历史', 'history'), n('传统', 'tradition'), n('价值', 'value')],
       },
     ],
@@ -169,12 +169,12 @@ const readers = [
     chapters: [
       {
         title: '重新打开', titleEn: 'Reopened',
-        verbs: [v('访问', 'visited'), v('记录', 'documented')],
+        verbs: [v('调查', 'investigated'), v('记录', 'documented')],
         items: [n('档案', 'archive'), n('港口', 'port'), n('仓库', 'warehouse'), n('政策', 'policy'), n('监督', 'oversight'), n('协调', 'coordination'), n('改革', 'reform'), n('社区', 'community')],
       },
       {
         title: '核对材料', titleEn: 'Checking the Material',
-        verbs: [v('分析', 'analysed'), v('调查', 'investigated')],
+        verbs: [v('分析', 'analysed'), v('检查', 'checked')],
         items: [n('来源', 'source'), n('数据', 'data'), n('年代', 'date'), n('文件', 'document'), n('证据', 'evidence'), n('线索', 'clue'), n('细节', 'detail'), n('结论', 'conclusion')],
       },
       {
@@ -214,23 +214,43 @@ const readers = [
       },
       {
         title: '海岸的代价', titleEn: 'The Cost to the Coast',
-        verbs: [v('揭示', 'revealed'), v('保障', 'safeguarded')],
+        verbs: [v('调查', 'investigated'), v('研究', 'studied')],
         items: [n('生态', 'ecology'), n('生物', 'wildlife'), n('能源', 'energy'), n('海岸', 'coast'), n('岩石', 'rock'), n('湿度', 'humidity'), n('样本', 'sample'), n('结果', 'result')],
       },
     ],
   },
 ]
 
-function paragraph(name, verbs, item) {
+const ENGLISH_OBJECT_PHRASES = new Map([
+  ['put away', 'put it away'],
+  ['went to', 'went there'],
+  ['saw', 'saw them'],
+  ['met', 'met them'],
+  ['interviewed people about', 'interviewed people about it'],
+  ['searched for', 'searched for it'],
+  ['decided on', 'decided on it'],
+  ['learned about', 'learned about it'],
+  ['reflected on', 'reflected on it'],
+  ['set out', 'set it out'],
+])
+
+function withObject(verb) {
+  return ENGLISH_OBJECT_PHRASES.get(verb) ?? `${verb} it`
+}
+
+function paragraph(name, verbs, item, hskLevel) {
   const [first, second] = verbs
+  const frame = hskLevel === 1
+    ? { text: '看', en: `looked at the ${item.en}` }
+    : { text: '想到', en: `thought about ${item.en}` }
   return {
     tokens: [
       { text: name.text, pinyin: name.pinyin, definition: name.definition },
-      first.text,
+      frame.text,
       item.text,
       '。',
       '她',
-      '想',
+      first.text,
       item.text,
       '，',
       '也',
@@ -238,7 +258,7 @@ function paragraph(name, verbs, item) {
       item.text,
       '。',
     ],
-    translation: `${name.en} ${first.en} the ${item.en}. She thought about the ${item.en} and ${second.en} the ${item.en}.`,
+    translation: `${name.en} ${frame.en}. She ${withObject(first.en)} and ${withObject(second.en)}.`,
   }
 }
 
@@ -253,7 +273,9 @@ function makeReader(source) {
       id: `ch${index + 1}`,
       title: chapter.title,
       titleEn: chapter.titleEn,
-      paragraphs: chapter.items.map((item) => paragraph(source.name, chapter.verbs, item)),
+      paragraphs: chapter.items.map((item) =>
+        paragraph(source.name, chapter.verbs, item, source.hskLevel)
+      ),
     })),
   }
 }

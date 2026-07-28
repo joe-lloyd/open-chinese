@@ -7,14 +7,16 @@ represents the official combined advanced band, HSK 7–9.
 Run `pnpm import:hsk` to rebuild the files. The importer:
 
 1. takes the level assignments and intended readings from the cleaned
-   [HSK 3.0 index](https://github.com/ivankra/hsk30), which traces back to the
-   PRC Ministry of Education's GF0025-2021 standard;
+   [HSK 3.0 index](https://github.com/ivankra/hsk30/tree/4ff9e3915ce87baaecd7ebe263085573a4ea3192),
+   which traces back to the PRC Ministry of Education's GF0025-2021 standard;
 2. takes traditional forms and English definitions from
-   [Complete HSK Vocabulary](https://github.com/drkameleon/complete-hsk-vocabulary);
+   [Complete HSK Vocabulary](https://github.com/drkameleon/complete-hsk-vocabulary/tree/7ac65bf1a6387d35f1ade478906172a19311c7f9);
 3. preserves the hand-authored example sentences and established glosses that
    were already present in this project.
 
 Both upstream datasets are MIT licensed. Their required notices follow.
+The importer pins both commits and checks every band count so regeneration
+cannot silently change the shipped corpus.
 
 ## hsk30
 

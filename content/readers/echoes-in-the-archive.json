@@ -17,11 +17,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "档案",
             "。",
             "她",
-            "想",
+            "鉴别",
             "档案",
             "，",
             "也",
@@ -29,7 +29,7 @@
             "档案",
             "。"
           ],
-          "translation": "Gu Yan authenticated the archive. She thought about the archive and verified the archive."
+          "translation": "Gu Yan thought about archive. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -38,11 +38,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "文献",
             "。",
             "她",
-            "想",
+            "鉴别",
             "文献",
             "，",
             "也",
@@ -50,7 +50,7 @@
             "文献",
             "。"
           ],
-          "translation": "Gu Yan authenticated the literature. She thought about the literature and verified the literature."
+          "translation": "Gu Yan thought about literature. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -59,11 +59,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "契约",
             "。",
             "她",
-            "想",
+            "鉴别",
             "契约",
             "，",
             "也",
@@ -71,7 +71,7 @@
             "契约",
             "。"
           ],
-          "translation": "Gu Yan authenticated the contract. She thought about the contract and verified the contract."
+          "translation": "Gu Yan thought about contract. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -80,11 +80,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "印章",
             "。",
             "她",
-            "想",
+            "鉴别",
             "印章",
             "，",
             "也",
@@ -92,7 +92,7 @@
             "印章",
             "。"
           ],
-          "translation": "Gu Yan authenticated the seal. She thought about the seal and verified the seal."
+          "translation": "Gu Yan thought about seal. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -101,11 +101,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "图纸",
             "。",
             "她",
-            "想",
+            "鉴别",
             "图纸",
             "，",
             "也",
@@ -113,7 +113,7 @@
             "图纸",
             "。"
           ],
-          "translation": "Gu Yan authenticated the blueprint. She thought about the blueprint and verified the blueprint."
+          "translation": "Gu Yan thought about blueprint. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -122,11 +122,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "编号",
             "。",
             "她",
-            "想",
+            "鉴别",
             "编号",
             "，",
             "也",
@@ -134,7 +134,7 @@
             "编号",
             "。"
           ],
-          "translation": "Gu Yan authenticated the reference number. She thought about the reference number and verified the reference number."
+          "translation": "Gu Yan thought about reference number. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -143,11 +143,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "纤维",
             "。",
             "她",
-            "想",
+            "鉴别",
             "纤维",
             "，",
             "也",
@@ -155,7 +155,7 @@
             "纤维",
             "。"
           ],
-          "translation": "Gu Yan authenticated the fibre. She thought about the fibre and verified the fibre."
+          "translation": "Gu Yan thought about fibre. She authenticated it and verified it."
         },
         {
           "tokens": [
@@ -164,11 +164,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "鉴别",
+            "想到",
             "来源",
             "。",
             "她",
-            "想",
+            "鉴别",
             "来源",
             "，",
             "也",
@@ -176,7 +176,7 @@
             "来源",
             "。"
           ],
-          "translation": "Gu Yan authenticated the source. She thought about the source and verified the source."
+          "translation": "Gu Yan thought about source. She authenticated it and verified it."
         }
       ]
     },
@@ -192,11 +192,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "假设",
             "。",
             "她",
-            "想",
+            "推断",
             "假设",
             "，",
             "也",
@@ -204,7 +204,7 @@
             "假设",
             "。"
           ],
-          "translation": "Gu Yan inferred the assumption. She thought about the assumption and challenged the assumption."
+          "translation": "Gu Yan thought about assumption. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -213,11 +213,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "证据",
             "。",
             "她",
-            "想",
+            "推断",
             "证据",
             "，",
             "也",
@@ -225,7 +225,7 @@
             "证据",
             "。"
           ],
-          "translation": "Gu Yan inferred the evidence. She thought about the evidence and challenged the evidence."
+          "translation": "Gu Yan thought about evidence. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -234,11 +234,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "结论",
             "。",
             "她",
-            "想",
+            "推断",
             "结论",
             "，",
             "也",
@@ -246,7 +246,7 @@
             "结论",
             "。"
           ],
-          "translation": "Gu Yan inferred the conclusion. She thought about the conclusion and challenged the conclusion."
+          "translation": "Gu Yan thought about conclusion. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -255,11 +255,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "矛盾",
             "。",
             "她",
-            "想",
+            "推断",
             "矛盾",
             "，",
             "也",
@@ -267,7 +267,7 @@
             "矛盾",
             "。"
           ],
-          "translation": "Gu Yan inferred the contradiction. She thought about the contradiction and challenged the contradiction."
+          "translation": "Gu Yan thought about contradiction. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -276,11 +276,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "漏洞",
             "。",
             "她",
-            "想",
+            "推断",
             "漏洞",
             "，",
             "也",
@@ -288,7 +288,7 @@
             "漏洞",
             "。"
           ],
-          "translation": "Gu Yan inferred the flaw. She thought about the flaw and challenged the flaw."
+          "translation": "Gu Yan thought about flaw. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -297,11 +297,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "动机",
             "。",
             "她",
-            "想",
+            "推断",
             "动机",
             "，",
             "也",
@@ -309,7 +309,7 @@
             "动机",
             "。"
           ],
-          "translation": "Gu Yan inferred the motive. She thought about the motive and challenged the motive."
+          "translation": "Gu Yan thought about motive. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -318,11 +318,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "立场",
             "。",
             "她",
-            "想",
+            "推断",
             "立场",
             "，",
             "也",
@@ -330,7 +330,7 @@
             "立场",
             "。"
           ],
-          "translation": "Gu Yan inferred the position. She thought about the position and challenged the position."
+          "translation": "Gu Yan thought about position. She inferred it and challenged it."
         },
         {
           "tokens": [
@@ -339,11 +339,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "推断",
+            "想到",
             "逻辑",
             "。",
             "她",
-            "想",
+            "推断",
             "逻辑",
             "，",
             "也",
@@ -351,7 +351,7 @@
             "逻辑",
             "。"
           ],
-          "translation": "Gu Yan inferred the logic. She thought about the logic and challenged the logic."
+          "translation": "Gu Yan thought about logic. She inferred it and challenged it."
         }
       ]
     },
@@ -367,11 +367,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "记忆",
             "。",
             "她",
-            "想",
+            "阐述",
             "记忆",
             "，",
             "也",
@@ -379,7 +379,7 @@
             "记忆",
             "。"
           ],
-          "translation": "Gu Yan set out the memory. She thought about the memory and reflected on the memory."
+          "translation": "Gu Yan thought about memory. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -388,11 +388,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "身份",
             "。",
             "她",
-            "想",
+            "阐述",
             "身份",
             "，",
             "也",
@@ -400,7 +400,7 @@
             "身份",
             "。"
           ],
-          "translation": "Gu Yan set out the identity. She thought about the identity and reflected on the identity."
+          "translation": "Gu Yan thought about identity. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -409,11 +409,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "伦理",
             "。",
             "她",
-            "想",
+            "阐述",
             "伦理",
             "，",
             "也",
@@ -421,7 +421,7 @@
             "伦理",
             "。"
           ],
-          "translation": "Gu Yan set out the ethics. She thought about the ethics and reflected on the ethics."
+          "translation": "Gu Yan thought about ethics. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -430,11 +430,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "权力",
             "。",
             "她",
-            "想",
+            "阐述",
             "权力",
             "，",
             "也",
@@ -442,7 +442,7 @@
             "权力",
             "。"
           ],
-          "translation": "Gu Yan set out the power. She thought about the power and reflected on the power."
+          "translation": "Gu Yan thought about power. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -451,11 +451,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "责任",
             "。",
             "她",
-            "想",
+            "阐述",
             "责任",
             "，",
             "也",
@@ -463,7 +463,7 @@
             "责任",
             "。"
           ],
-          "translation": "Gu Yan set out the responsibility. She thought about the responsibility and reflected on the responsibility."
+          "translation": "Gu Yan thought about responsibility. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -472,11 +472,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "偏见",
             "。",
             "她",
-            "想",
+            "阐述",
             "偏见",
             "，",
             "也",
@@ -484,7 +484,7 @@
             "偏见",
             "。"
           ],
-          "translation": "Gu Yan set out the bias. She thought about the bias and reflected on the bias."
+          "translation": "Gu Yan thought about bias. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -493,11 +493,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "真相",
             "。",
             "她",
-            "想",
+            "阐述",
             "真相",
             "，",
             "也",
@@ -505,7 +505,7 @@
             "真相",
             "。"
           ],
-          "translation": "Gu Yan set out the truth. She thought about the truth and reflected on the truth."
+          "translation": "Gu Yan thought about truth. She set it out and reflected on it."
         },
         {
           "tokens": [
@@ -514,11 +514,11 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "阐述",
+            "想到",
             "传统",
             "。",
             "她",
-            "想",
+            "阐述",
             "传统",
             "，",
             "也",
@@ -526,7 +526,7 @@
             "传统",
             "。"
           ],
-          "translation": "Gu Yan set out the tradition. She thought about the tradition and reflected on the tradition."
+          "translation": "Gu Yan thought about tradition. She set it out and reflected on it."
         }
       ]
     },
@@ -542,19 +542,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "生态",
             "。",
             "她",
-            "想",
+            "调查",
             "生态",
             "，",
             "也",
-            "保障",
+            "研究",
             "生态",
             "。"
           ],
-          "translation": "Gu Yan revealed the ecology. She thought about the ecology and safeguarded the ecology."
+          "translation": "Gu Yan thought about ecology. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -563,19 +563,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "生物",
             "。",
             "她",
-            "想",
+            "调查",
             "生物",
             "，",
             "也",
-            "保障",
+            "研究",
             "生物",
             "。"
           ],
-          "translation": "Gu Yan revealed the wildlife. She thought about the wildlife and safeguarded the wildlife."
+          "translation": "Gu Yan thought about wildlife. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -584,19 +584,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "能源",
             "。",
             "她",
-            "想",
+            "调查",
             "能源",
             "，",
             "也",
-            "保障",
+            "研究",
             "能源",
             "。"
           ],
-          "translation": "Gu Yan revealed the energy. She thought about the energy and safeguarded the energy."
+          "translation": "Gu Yan thought about energy. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -605,19 +605,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "海岸",
             "。",
             "她",
-            "想",
+            "调查",
             "海岸",
             "，",
             "也",
-            "保障",
+            "研究",
             "海岸",
             "。"
           ],
-          "translation": "Gu Yan revealed the coast. She thought about the coast and safeguarded the coast."
+          "translation": "Gu Yan thought about coast. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -626,19 +626,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "岩石",
             "。",
             "她",
-            "想",
+            "调查",
             "岩石",
             "，",
             "也",
-            "保障",
+            "研究",
             "岩石",
             "。"
           ],
-          "translation": "Gu Yan revealed the rock. She thought about the rock and safeguarded the rock."
+          "translation": "Gu Yan thought about rock. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -647,19 +647,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "湿度",
             "。",
             "她",
-            "想",
+            "调查",
             "湿度",
             "，",
             "也",
-            "保障",
+            "研究",
             "湿度",
             "。"
           ],
-          "translation": "Gu Yan revealed the humidity. She thought about the humidity and safeguarded the humidity."
+          "translation": "Gu Yan thought about humidity. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -668,19 +668,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "样本",
             "。",
             "她",
-            "想",
+            "调查",
             "样本",
             "，",
             "也",
-            "保障",
+            "研究",
             "样本",
             "。"
           ],
-          "translation": "Gu Yan revealed the sample. She thought about the sample and safeguarded the sample."
+          "translation": "Gu Yan thought about sample. She investigated it and studied it."
         },
         {
           "tokens": [
@@ -689,19 +689,19 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "揭示",
+            "想到",
             "结果",
             "。",
             "她",
-            "想",
+            "调查",
             "结果",
             "，",
             "也",
-            "保障",
+            "研究",
             "结果",
             "。"
           ],
-          "translation": "Gu Yan revealed the result. She thought about the result and safeguarded the result."
+          "translation": "Gu Yan thought about result. She investigated it and studied it."
         }
       ]
     }

@@ -17,11 +17,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "书",
             "。",
             "她",
-            "想",
+            "找到",
             "书",
             "，",
             "也",
@@ -29,7 +29,7 @@
             "书",
             "。"
           ],
-          "translation": "Lin An found the book. She thought about the book and put away the book."
+          "translation": "Lin An looked at the book. She found it and put it away."
         },
         {
           "tokens": [
@@ -38,11 +38,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "手机",
             "。",
             "她",
-            "想",
+            "找到",
             "手机",
             "，",
             "也",
@@ -50,7 +50,7 @@
             "手机",
             "。"
           ],
-          "translation": "Lin An found the phone. She thought about the phone and put away the phone."
+          "translation": "Lin An looked at the phone. She found it and put it away."
         },
         {
           "tokens": [
@@ -59,11 +59,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "钱",
             "。",
             "她",
-            "想",
+            "找到",
             "钱",
             "，",
             "也",
@@ -71,7 +71,7 @@
             "钱",
             "。"
           ],
-          "translation": "Lin An found the money. She thought about the money and put away the money."
+          "translation": "Lin An looked at the money. She found it and put it away."
         },
         {
           "tokens": [
@@ -80,11 +80,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "水",
             "。",
             "她",
-            "想",
+            "找到",
             "水",
             "，",
             "也",
@@ -92,7 +92,7 @@
             "水",
             "。"
           ],
-          "translation": "Lin An found the water. She thought about the water and put away the water."
+          "translation": "Lin An looked at the water. She found it and put it away."
         },
         {
           "tokens": [
@@ -101,11 +101,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "米饭",
             "。",
             "她",
-            "想",
+            "找到",
             "米饭",
             "，",
             "也",
@@ -113,7 +113,7 @@
             "米饭",
             "。"
           ],
-          "translation": "Lin An found the rice. She thought about the rice and put away the rice."
+          "translation": "Lin An looked at the rice. She found it and put it away."
         },
         {
           "tokens": [
@@ -122,11 +122,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "杯子",
             "。",
             "她",
-            "想",
+            "找到",
             "杯子",
             "，",
             "也",
@@ -134,7 +134,7 @@
             "杯子",
             "。"
           ],
-          "translation": "Lin An found the cup. She thought about the cup and put away the cup."
+          "translation": "Lin An looked at the cup. She found it and put it away."
         },
         {
           "tokens": [
@@ -143,11 +143,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "电脑",
             "。",
             "她",
-            "想",
+            "找到",
             "电脑",
             "，",
             "也",
@@ -155,7 +155,7 @@
             "电脑",
             "。"
           ],
-          "translation": "Lin An found the computer. She thought about the computer and put away the computer."
+          "translation": "Lin An looked at the computer. She found it and put it away."
         },
         {
           "tokens": [
@@ -164,11 +164,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "找到",
+            "看",
             "衣服",
             "。",
             "她",
-            "想",
+            "找到",
             "衣服",
             "，",
             "也",
@@ -176,7 +176,7 @@
             "衣服",
             "。"
           ],
-          "translation": "Lin An found the clothes. She thought about the clothes and put away the clothes."
+          "translation": "Lin An looked at the clothes. She found it and put it away."
         }
       ]
     },
@@ -192,11 +192,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "包子",
             "。",
             "她",
-            "想",
+            "买",
             "包子",
             "，",
             "也",
@@ -204,7 +204,7 @@
             "包子",
             "。"
           ],
-          "translation": "Lin An bought the steamed bun. She thought about the steamed bun and liked the steamed bun."
+          "translation": "Lin An looked at the steamed bun. She bought it and liked it."
         },
         {
           "tokens": [
@@ -213,11 +213,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "鸡蛋",
             "。",
             "她",
-            "想",
+            "买",
             "鸡蛋",
             "，",
             "也",
@@ -225,7 +225,7 @@
             "鸡蛋",
             "。"
           ],
-          "translation": "Lin An bought the egg. She thought about the egg and liked the egg."
+          "translation": "Lin An looked at the egg. She bought it and liked it."
         },
         {
           "tokens": [
@@ -234,11 +234,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "牛奶",
             "。",
             "她",
-            "想",
+            "买",
             "牛奶",
             "，",
             "也",
@@ -246,7 +246,7 @@
             "牛奶",
             "。"
           ],
-          "translation": "Lin An bought the milk. She thought about the milk and liked the milk."
+          "translation": "Lin An looked at the milk. She bought it and liked it."
         },
         {
           "tokens": [
@@ -255,11 +255,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "面包",
             "。",
             "她",
-            "想",
+            "买",
             "面包",
             "，",
             "也",
@@ -267,7 +267,7 @@
             "面包",
             "。"
           ],
-          "translation": "Lin An bought the bread. She thought about the bread and liked the bread."
+          "translation": "Lin An looked at the bread. She bought it and liked it."
         },
         {
           "tokens": [
@@ -276,11 +276,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "水果",
             "。",
             "她",
-            "想",
+            "买",
             "水果",
             "，",
             "也",
@@ -288,7 +288,7 @@
             "水果",
             "。"
           ],
-          "translation": "Lin An bought the fruit. She thought about the fruit and liked the fruit."
+          "translation": "Lin An looked at the fruit. She bought it and liked it."
         },
         {
           "tokens": [
@@ -297,11 +297,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "茶",
             "。",
             "她",
-            "想",
+            "买",
             "茶",
             "，",
             "也",
@@ -309,7 +309,7 @@
             "茶",
             "。"
           ],
-          "translation": "Lin An bought the tea. She thought about the tea and liked the tea."
+          "translation": "Lin An looked at the tea. She bought it and liked it."
         },
         {
           "tokens": [
@@ -318,11 +318,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "菜",
             "。",
             "她",
-            "想",
+            "买",
             "菜",
             "，",
             "也",
@@ -330,7 +330,7 @@
             "菜",
             "。"
           ],
-          "translation": "Lin An bought the vegetables. She thought about the vegetables and liked the vegetables."
+          "translation": "Lin An looked at the vegetables. She bought it and liked it."
         },
         {
           "tokens": [
@@ -339,11 +339,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "买",
+            "看",
             "票",
             "。",
             "她",
-            "想",
+            "买",
             "票",
             "，",
             "也",
@@ -351,7 +351,7 @@
             "票",
             "。"
           ],
-          "translation": "Lin An bought the ticket. She thought about the ticket and liked the ticket."
+          "translation": "Lin An looked at the ticket. She bought it and liked it."
         }
       ]
     },
@@ -367,11 +367,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "老师",
             "。",
             "她",
-            "想",
+            "看见",
             "老师",
             "，",
             "也",
@@ -379,7 +379,7 @@
             "老师",
             "。"
           ],
-          "translation": "Lin An saw the teacher. She thought about the teacher and met the teacher."
+          "translation": "Lin An looked at the teacher. She saw them and met them."
         },
         {
           "tokens": [
@@ -388,11 +388,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "同学",
             "。",
             "她",
-            "想",
+            "看见",
             "同学",
             "，",
             "也",
@@ -400,7 +400,7 @@
             "同学",
             "。"
           ],
-          "translation": "Lin An saw the classmate. She thought about the classmate and met the classmate."
+          "translation": "Lin An looked at the classmate. She saw them and met them."
         },
         {
           "tokens": [
@@ -409,11 +409,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "医生",
             "。",
             "她",
-            "想",
+            "看见",
             "医生",
             "，",
             "也",
@@ -421,7 +421,7 @@
             "医生",
             "。"
           ],
-          "translation": "Lin An saw the doctor. She thought about the doctor and met the doctor."
+          "translation": "Lin An looked at the doctor. She saw them and met them."
         },
         {
           "tokens": [
@@ -430,11 +430,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "朋友",
             "。",
             "她",
-            "想",
+            "看见",
             "朋友",
             "，",
             "也",
@@ -442,7 +442,7 @@
             "朋友",
             "。"
           ],
-          "translation": "Lin An saw the friend. She thought about the friend and met the friend."
+          "translation": "Lin An looked at the friend. She saw them and met them."
         },
         {
           "tokens": [
@@ -451,11 +451,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "孩子",
             "。",
             "她",
-            "想",
+            "看见",
             "孩子",
             "，",
             "也",
@@ -463,7 +463,7 @@
             "孩子",
             "。"
           ],
-          "translation": "Lin An saw the child. She thought about the child and met the child."
+          "translation": "Lin An looked at the child. She saw them and met them."
         },
         {
           "tokens": [
@@ -472,11 +472,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "妈妈",
             "。",
             "她",
-            "想",
+            "看见",
             "妈妈",
             "，",
             "也",
@@ -484,7 +484,7 @@
             "妈妈",
             "。"
           ],
-          "translation": "Lin An saw the mother. She thought about the mother and met the mother."
+          "translation": "Lin An looked at the mother. She saw them and met them."
         },
         {
           "tokens": [
@@ -493,11 +493,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "爸爸",
             "。",
             "她",
-            "想",
+            "看见",
             "爸爸",
             "，",
             "也",
@@ -505,7 +505,7 @@
             "爸爸",
             "。"
           ],
-          "translation": "Lin An saw the father. She thought about the father and met the father."
+          "translation": "Lin An looked at the father. She saw them and met them."
         },
         {
           "tokens": [
@@ -514,11 +514,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "看见",
+            "看",
             "姐姐",
             "。",
             "她",
-            "想",
+            "看见",
             "姐姐",
             "，",
             "也",
@@ -526,7 +526,7 @@
             "姐姐",
             "。"
           ],
-          "translation": "Lin An saw the older sister. She thought about the older sister and met the older sister."
+          "translation": "Lin An looked at the older sister. She saw them and met them."
         }
       ]
     },
@@ -542,11 +542,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "学校",
             "。",
             "她",
-            "想",
+            "去",
             "学校",
             "，",
             "也",
@@ -554,7 +554,7 @@
             "学校",
             "。"
           ],
-          "translation": "Lin An went to the school. She thought about the school and liked the school."
+          "translation": "Lin An looked at the school. She went there and liked it."
         },
         {
           "tokens": [
@@ -563,11 +563,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "商店",
             "。",
             "她",
-            "想",
+            "去",
             "商店",
             "，",
             "也",
@@ -575,7 +575,7 @@
             "商店",
             "。"
           ],
-          "translation": "Lin An went to the shop. She thought about the shop and liked the shop."
+          "translation": "Lin An looked at the shop. She went there and liked it."
         },
         {
           "tokens": [
@@ -584,11 +584,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "医院",
             "。",
             "她",
-            "想",
+            "去",
             "医院",
             "，",
             "也",
@@ -596,7 +596,7 @@
             "医院",
             "。"
           ],
-          "translation": "Lin An went to the hospital. She thought about the hospital and liked the hospital."
+          "translation": "Lin An looked at the hospital. She went there and liked it."
         },
         {
           "tokens": [
@@ -605,11 +605,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "饭店",
             "。",
             "她",
-            "想",
+            "去",
             "饭店",
             "，",
             "也",
@@ -617,7 +617,7 @@
             "饭店",
             "。"
           ],
-          "translation": "Lin An went to the restaurant. She thought about the restaurant and liked the restaurant."
+          "translation": "Lin An looked at the restaurant. She went there and liked it."
         },
         {
           "tokens": [
@@ -626,11 +626,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "机场",
             "。",
             "她",
-            "想",
+            "去",
             "机场",
             "，",
             "也",
@@ -638,7 +638,7 @@
             "机场",
             "。"
           ],
-          "translation": "Lin An went to the airport. She thought about the airport and liked the airport."
+          "translation": "Lin An looked at the airport. She went there and liked it."
         },
         {
           "tokens": [
@@ -647,11 +647,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "车站",
             "。",
             "她",
-            "想",
+            "去",
             "车站",
             "，",
             "也",
@@ -659,7 +659,7 @@
             "车站",
             "。"
           ],
-          "translation": "Lin An went to the station. She thought about the station and liked the station."
+          "translation": "Lin An looked at the station. She went there and liked it."
         },
         {
           "tokens": [
@@ -668,11 +668,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "图书馆",
             "。",
             "她",
-            "想",
+            "去",
             "图书馆",
             "，",
             "也",
@@ -680,7 +680,7 @@
             "图书馆",
             "。"
           ],
-          "translation": "Lin An went to the library. She thought about the library and liked the library."
+          "translation": "Lin An looked at the library. She went there and liked it."
         },
         {
           "tokens": [
@@ -689,11 +689,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "家",
             "。",
             "她",
-            "想",
+            "去",
             "家",
             "，",
             "也",
@@ -701,7 +701,7 @@
             "家",
             "。"
           ],
-          "translation": "Lin An went to the home. She thought about the home and liked the home."
+          "translation": "Lin An looked at the home. She went there and liked it."
         },
         {
           "tokens": [
@@ -710,11 +710,11 @@
               "pinyin": "Lín Ān",
               "definition": "Lin An (a given name)"
             },
-            "去",
+            "看",
             "北京",
             "。",
             "她",
-            "想",
+            "去",
             "北京",
             "，",
             "也",
@@ -722,7 +722,7 @@
             "北京",
             "。"
           ],
-          "translation": "Lin An went to the Beijing. She thought about the Beijing and liked the Beijing."
+          "translation": "Lin An looked at the Beijing. She went there and liked it."
         }
       ]
     }

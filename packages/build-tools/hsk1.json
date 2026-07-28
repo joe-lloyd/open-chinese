@@ -12,7 +12,7 @@
     "simplified": "爱好",
     "traditional": "愛好",
     "pinyin": "àihào",
-    "definition": "hobby; interest; to have a hobby",
+    "definition": "to like; to be fond of; to take pleasure in; to be keen on; interest; hobby",
     "hskLevel": 1
   },
   {
@@ -51,7 +51,7 @@
     "simplified": "白",
     "traditional": null,
     "pinyin": "bái",
-    "definition": "white; blank; in vain",
+    "definition": "white; snowy; pure; bright; empty; blank; plain; clear; to make clear; in vain; gratuitous; free of charge; reactionary; anti-communist; funeral; to stare coldly; to write wrong character; to state; to explain; vernacular; spoken lines in opera; surname Bai",
     "hskLevel": 1
   },
   {
@@ -65,21 +65,21 @@
     "simplified": "百",
     "traditional": null,
     "pinyin": "bǎi",
-    "definition": "hundred; 100",
+    "definition": "hundred; numerous; all kinds of; surname Bai",
     "hskLevel": 1
   },
   {
     "simplified": "班",
     "traditional": null,
     "pinyin": "bān",
-    "definition": "class; shift; team; group",
+    "definition": "team; class; grade; (military) squad; work shift; classifier for groups of people and scheduled transport vehicles; surname Ban",
     "hskLevel": 1
   },
   {
     "simplified": "半",
     "traditional": null,
     "pinyin": "bàn",
-    "definition": "half; semi-",
+    "definition": "half; semi-; incomplete; (after a number) and a half",
     "hskLevel": 1
   },
   {
@@ -100,7 +100,7 @@
     "simplified": "帮",
     "traditional": "幫",
     "pinyin": "bāng",
-    "definition": "to help; to assist",
+    "definition": "old variant of 帮; to help; to assist; to support; for sb (i.e. as a help); hired (as worker); side (of pail, boat etc); outer layer; upper (of a shoe); group; gang; clique; party; secret society",
     "hskLevel": 1
   },
   {
@@ -114,7 +114,7 @@
     "simplified": "包",
     "traditional": null,
     "pinyin": "bāo",
-    "definition": "bag; package; to wrap; to include",
+    "definition": "to cover; to wrap; to hold; to include; to take charge of; to contract (to or for); package; wrapper; container; bag; to hold or embrace; bundle; packet; surname Bao",
     "hskLevel": 1
   },
   {
@@ -128,7 +128,7 @@
     "simplified": "杯",
     "traditional": null,
     "pinyin": "bēi",
-    "definition": "cup; trophy cup; classifier for certain containers of liquids: glass, cup",
+    "definition": "cup; trophy cup; classifier for certain containers of liquids: glass, cup; variant of 杯",
     "hskLevel": 1
   },
   {
@@ -206,7 +206,7 @@
     "simplified": "别人",
     "traditional": "別人",
     "pinyin": "biérén",
-    "definition": "other people; others; another person",
+    "definition": "other people; others; other person",
     "hskLevel": 1
   },
   {
@@ -284,14 +284,14 @@
     "simplified": "差",
     "traditional": null,
     "pinyin": "chà",
-    "definition": "to differ; poor; wrong; lacking",
+    "definition": "different; wrong; mistaken; to fall short; to lack; not up to standard; inferior; Taiwan pr. [chā]",
     "hskLevel": 1
   },
   {
     "simplified": "常",
     "traditional": null,
     "pinyin": "cháng",
-    "definition": "surname Chang",
+    "definition": "always; ever; often; frequently; common; general; constant; surname Chang",
     "hskLevel": 1
   },
   {
@@ -321,7 +321,7 @@
     "simplified": "车",
     "traditional": "車",
     "pinyin": "chē",
-    "definition": "surname Che",
+    "definition": "car; vehicle; machine; to shape with a lathe; Kangxi radical 159; surname Che",
     "hskLevel": 1
   },
   {
@@ -397,7 +397,7 @@
     "simplified": "床",
     "traditional": null,
     "pinyin": "chuáng",
-    "definition": "bed; couch; classifier for beds",
+    "definition": "bed; couch; classifier for beds; variant of 床",
     "hskLevel": 1
   },
   {
@@ -477,7 +477,7 @@
     "simplified": "大学",
     "traditional": "大學",
     "pinyin": "dàxué",
-    "definition": "the Great Learning, one of the Four Books 四书 in Confucianism",
+    "definition": "the Great Learning, one of the Four Books 四书 in Confucianism; university; college",
     "hskLevel": 1
   },
   {
@@ -491,7 +491,7 @@
     "simplified": "到",
     "traditional": null,
     "pinyin": "dào",
-    "definition": "to arrive; to reach; to go to",
+    "definition": "to reach; to arrive; to leave for; to go to; to (a place); until (a time); up to (a point); (verb complement indicating arriving at a place or reaching a point); considerate; thoughtful; thorough",
     "hskLevel": 1
   },
   {
@@ -504,8 +504,8 @@
   {
     "simplified": "地",
     "traditional": null,
-    "pinyin": "dì",
-    "definition": "earth; ground; field; place; land",
+    "pinyin": "de",
+    "definition": "-ly; structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct",
     "hskLevel": 1
   },
   {
@@ -654,7 +654,7 @@
     "simplified": "东",
     "traditional": "東",
     "pinyin": "dōng",
-    "definition": "east",
+    "definition": "east; host (i.e. sitting on east side of guest); landlord; surname Dong",
     "hskLevel": 1
   },
   {
@@ -770,7 +770,7 @@
     "simplified": "二",
     "traditional": null,
     "pinyin": "èr",
-    "definition": "two; 2",
+    "definition": "two; 2; (Beijing dialect) stupid",
     "hskLevel": 1
   },
   {
@@ -809,7 +809,7 @@
     "simplified": "放",
     "traditional": null,
     "pinyin": "fàng",
-    "definition": "to put; to place; to release; to let go",
+    "definition": "to put; to place; to release; to free; to let go; to let out; to set off (fireworks)",
     "hskLevel": 1
   },
   {
@@ -837,7 +837,7 @@
     "simplified": "飞机",
     "traditional": "飛機",
     "pinyin": "fēijī",
-    "definition": "airplane; aircraft",
+    "definition": "airplane",
     "hskLevel": 1
   },
   {
@@ -853,7 +853,7 @@
     "simplified": "分",
     "traditional": null,
     "pinyin": "fēn",
-    "definition": "minute; point; to divide; cent",
+    "definition": "to divide; to separate; to distribute; to allocate; to distinguish (good and bad); (bound form) branch of (an organization); sub- (as in 局); fraction; one tenth (of certain units); unit of length equivalent to 0.33 cm; minute (unit of time); minute (angular measurement unit); a point (in sports or games); 0.01 yuan (unit of money)",
     "hskLevel": 1
   },
   {
@@ -865,16 +865,16 @@
   },
   {
     "simplified": "干",
-    "traditional": "幹",
-    "pinyin": "gàn",
-    "definition": "tree trunk; main part of sth; to manage; to work; to do; capable; cadre; to kill (slang); to fuck (vulgar); (coll.) pissed off; annoyed",
+    "traditional": "乾",
+    "pinyin": "gān",
+    "definition": "old variant of 干; dry; dried food; empty; hollow; taken in to nominal kinship; adoptive; foster; futile; in vain; (dialect) rude; blunt; (dialect) to cold-shoulder; (bound form) to have to do with; to concern oneself with; one of the ten heavenly stems 干; (archaic) shield; surname Gan; variant of 干",
     "hskLevel": 1
   },
   {
     "simplified": "干净",
     "traditional": "乾淨",
     "pinyin": "gānjìng",
-    "definition": "clean; neat; tidy",
+    "definition": "clean; neat",
     "hskLevel": 1
   },
   {
@@ -931,14 +931,14 @@
     "simplified": "歌",
     "traditional": null,
     "pinyin": "gē",
-    "definition": "song; to sing",
+    "definition": "song; to sing; variant of 歌",
     "hskLevel": 1
   },
   {
     "simplified": "个",
     "traditional": "個",
     "pinyin": "gè",
-    "definition": "(general measure word)",
+    "definition": "(classifier used before a noun that has no specific classifier); (bound form) individual; variant of 个",
     "hskLevel": 1
   },
   {
@@ -979,7 +979,7 @@
     "simplified": "关",
     "traditional": "關",
     "pinyin": "guān",
-    "definition": "surname Guan",
+    "definition": "mountain pass; to close; to shut; to turn off; to confine; to lock (sb) up; to shut (sb in a room, a bird in a cage etc); to concern; to involve; surname Guan",
     "hskLevel": 1
   },
   {
@@ -1002,7 +1002,7 @@
     "simplified": "国",
     "traditional": "國",
     "pinyin": "guó",
-    "definition": "surname Guo",
+    "definition": "country; nation; state; (bound form) national; surname Guo",
     "hskLevel": 1
   },
   {
@@ -1121,7 +1121,7 @@
     "simplified": "号",
     "traditional": "號",
     "pinyin": "hào",
-    "definition": "number; date; day of month",
+    "definition": "ordinal number; day of a month; mark; sign; business establishment; size; ship suffix; horn (wind instrument); bugle call; assumed name; to take a pulse; classifier used to indicate number of people",
     "hskLevel": 1
   },
   {
@@ -1155,7 +1155,7 @@
     "simplified": "后",
     "traditional": "後",
     "pinyin": "hòu",
-    "definition": "surname Hou",
+    "definition": "empress; queen; (archaic) monarch; ruler; back; behind; rear; afterwards; after; later; post-; surname Hou",
     "hskLevel": 1
   },
   {
@@ -1176,21 +1176,21 @@
     "simplified": "花",
     "traditional": null,
     "pinyin": "huā",
-    "definition": "flower; to spend",
+    "definition": "flower; blossom; fancy pattern; florid; to spend (money, time); (coll.) lecherous; lustful; old variant of 花; also pr. [wěi]; surname Hua; variant of 花",
     "hskLevel": 1
   },
   {
     "simplified": "话",
     "traditional": "話",
     "pinyin": "huà",
-    "definition": "dialect; language; spoken words; speech; talk; words; conversation; what sb said",
+    "definition": "dialect; language; spoken words; speech; talk; words; conversation; what sb said; old variant of 话",
     "hskLevel": 1
   },
   {
     "simplified": "坏",
     "traditional": "壞",
     "pinyin": "huài",
-    "definition": "bad; broken; to go bad",
+    "definition": "bad; spoiled; broken; to break down; (suffix) to the utmost",
     "hskLevel": 1
   },
   {
@@ -1206,7 +1206,7 @@
     "simplified": "回答",
     "traditional": null,
     "pinyin": "huídá",
-    "definition": "to answer; to reply; answer",
+    "definition": "to reply; to answer; reply; answer",
     "hskLevel": 1
   },
   {
@@ -1226,8 +1226,8 @@
   {
     "simplified": "回来",
     "traditional": "回來",
-    "pinyin": "huí lái",
-    "definition": "to come back; to return",
+    "pinyin": "huílái",
+    "definition": "to return; to come back",
     "hskLevel": 1
   },
   {
@@ -1282,7 +1282,7 @@
     "simplified": "几",
     "traditional": "幾",
     "pinyin": "jǐ",
-    "definition": "how many; several",
+    "definition": "how much; how many; several; a few",
     "hskLevel": 1
   },
   {
@@ -1296,7 +1296,7 @@
     "simplified": "记得",
     "traditional": "記得",
     "pinyin": "jìde",
-    "definition": "to remember; to recall",
+    "definition": "to remember",
     "hskLevel": 1
   },
   {
@@ -1310,7 +1310,7 @@
     "simplified": "家",
     "traditional": null,
     "pinyin": "jiā",
-    "definition": "home; family; house",
+    "definition": "used in 家伙 and 家俱; home; family; (polite) my (sister, uncle etc); classifier for families or businesses; refers to the philosophical schools of pre-Han China; noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian",
     "hskLevel": 1
   },
   {
@@ -1344,8 +1344,8 @@
   {
     "simplified": "见面",
     "traditional": "見面",
-    "pinyin": "jiàn miàn",
-    "definition": "to meet; to see someone",
+    "pinyin": "jiànmiàn",
+    "definition": "to meet; to see each other",
     "hskLevel": 1
   },
   {
@@ -1361,7 +1361,7 @@
     "simplified": "教",
     "traditional": null,
     "pinyin": "jiāo",
-    "definition": "to teach; to instruct",
+    "definition": "to teach",
     "hskLevel": 1
   },
   {
@@ -1522,14 +1522,14 @@
     "simplified": "考",
     "traditional": null,
     "pinyin": "kǎo",
-    "definition": "to beat; to hit; variant of 考; to inspect; to test; to take an exam",
+    "definition": "to beat; to hit; to inspect; to test; to take an exam; to check; to verify; to examine; to take an entrance exam for; deceased father; variant of 考",
     "hskLevel": 1
   },
   {
     "simplified": "考试",
     "traditional": "考試",
     "pinyin": "kǎoshì",
-    "definition": "exam; test; to take an exam",
+    "definition": "to take an exam; exam",
     "hskLevel": 1
   },
   {
@@ -1571,7 +1571,7 @@
     "simplified": "块",
     "traditional": "塊",
     "pinyin": "kuài",
-    "definition": "piece; lump; chunk; yuan (money)",
+    "definition": "lump; chunk; piece; classifier for pieces of cloth, cake, soap etc; (coll.) classifier for money and currency units",
     "hskLevel": 1
   },
   {
@@ -1603,7 +1603,7 @@
     "simplified": "老",
     "traditional": null,
     "pinyin": "lǎo",
-    "definition": "old; elderly; always; all the time",
+    "definition": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity; old (of people); venerable (person); experienced; of long standing; always; all the time; of the past; very; outdated; (of meat etc) tough",
     "hskLevel": 1
   },
   {
@@ -1626,14 +1626,14 @@
     "simplified": "了",
     "traditional": null,
     "pinyin": "le",
-    "definition": "(particle: completed action or change of state)",
+    "definition": "(completed action marker); (modal particle indicating change of state, situation now); (modal particle intensifying preceding clause)",
     "hskLevel": 1
   },
   {
     "simplified": "累",
     "traditional": null,
     "pinyin": "lèi",
-    "definition": "tired; exhausted; to tire",
+    "definition": "tired; weary; to strain; to wear out; to work hard",
     "hskLevel": 1
   },
   {
@@ -1674,7 +1674,7 @@
     "simplified": "零",
     "traditional": null,
     "pinyin": "líng",
-    "definition": "zero; 0",
+    "definition": "zero; nought; zero sign; fractional; fragmentary; odd (of numbers); (placed between two numbers to indicate a smaller quantity followed by a larger one); fraction; (in mathematics) remainder (after division); extra; to wither and fall; to wither",
     "hskLevel": 1
   },
   {
@@ -1688,7 +1688,7 @@
     "simplified": "楼",
     "traditional": "樓",
     "pinyin": "lóu",
-    "definition": "building; floor; story; upstairs",
+    "definition": "house with more than 1 story; storied building; floor; surname Lou",
     "hskLevel": 1
   },
   {
@@ -1755,14 +1755,14 @@
     "simplified": "马上",
     "traditional": "馬上",
     "pinyin": "mǎshàng",
-    "definition": "immediately; right away; at once",
+    "definition": "at once; right away; immediately; on horseback (i.e. by military force)",
     "hskLevel": 1
   },
   {
     "simplified": "吗",
     "traditional": "嗎",
     "pinyin": "ma",
-    "definition": "(question particle)",
+    "definition": "(question particle for \"yes-no\" questions)",
     "hskLevel": 1
   },
   {
@@ -1796,7 +1796,7 @@
     "simplified": "毛",
     "traditional": null,
     "pinyin": "máo",
-    "definition": "hair; feather; 10 cents; Mao",
+    "definition": "hair; feather; down; wool; mildew; mold; coarse or semifinished; young; raw; careless; unthinking; nervous; scared; (of currency) to devalue or depreciate; classifier for Chinese fractional monetary unit ( = 角 , = one-tenth of a yuan or 10 fen 分); surname Mao",
     "hskLevel": 1
   },
   {
@@ -1881,7 +1881,7 @@
     "simplified": "们",
     "traditional": "們",
     "pinyin": "men",
-    "definition": "(plural suffix for pronouns)",
+    "definition": "plural marker for pronouns, and nouns referring to individuals",
     "hskLevel": 1
   },
   {
@@ -1916,7 +1916,7 @@
     "simplified": "明白",
     "traditional": null,
     "pinyin": "míngbai",
-    "definition": "clear; obvious; to understand",
+    "definition": "clear; obvious; unequivocal; to understand; to realize",
     "hskLevel": 1
   },
   {
@@ -1939,7 +1939,7 @@
     "simplified": "拿",
     "traditional": null,
     "pinyin": "ná",
-    "definition": "to hold; to take; to get",
+    "definition": "old variant of 拿; to hold; to seize; to catch; to apprehend; to take; (used in the same way as 把: to mark the following noun as a direct object); variant of 拿",
     "hskLevel": 1
   },
   {
@@ -1955,7 +1955,7 @@
     "simplified": "哪儿",
     "traditional": "哪兒",
     "pinyin": "nǎr",
-    "definition": "where",
+    "definition": "where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can ...?; how could ...?",
     "hskLevel": 1
   },
   {
@@ -2013,14 +2013,14 @@
     "simplified": "奶",
     "traditional": null,
     "pinyin": "nǎi",
-    "definition": "breast; milk; to breastfeed",
+    "definition": "breast; milk; to breastfeed; mother; variant of 奶",
     "hskLevel": 1
   },
   {
     "simplified": "奶奶",
     "traditional": null,
     "pinyin": "nǎinai",
-    "definition": "paternal grandmother; grandma",
+    "definition": "(informal) grandma (paternal grandmother); (respectful) mistress of the house; (coll.) boobies; breasts",
     "hskLevel": 1
   },
   {
@@ -2064,7 +2064,7 @@
     "simplified": "南",
     "traditional": null,
     "pinyin": "nán",
-    "definition": "south",
+    "definition": "south; surname Nan",
     "hskLevel": 1
   },
   {
@@ -2078,28 +2078,28 @@
     "simplified": "难",
     "traditional": "難",
     "pinyin": "nán",
-    "definition": "difficult; hard; bad",
+    "definition": "difficult (to...); problem; difficulty; difficult; not good",
     "hskLevel": 1
   },
   {
     "simplified": "呢",
     "traditional": null,
     "pinyin": "ne",
-    "definition": "(question particle; and you?)",
+    "definition": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\"); particle for inquiring about location (\"Where is ...?\"); particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\"); (at the end of a declarative sentence) particle indicating continuation of a state or action; particle indicating strong affirmation",
     "hskLevel": 1
   },
   {
     "simplified": "能",
     "traditional": null,
     "pinyin": "néng",
-    "definition": "can; to be able to; capable",
+    "definition": "can; to be able to; might possibly; ability; (physics) energy; surname Neng",
     "hskLevel": 1
   },
   {
     "simplified": "你",
     "traditional": null,
     "pinyin": "nǐ",
-    "definition": "you (singular)",
+    "definition": "you (informal, as opposed to courteous 您); you (Note: In Taiwan, 妳 is used to address females, but in mainland China, it is not commonly used. Instead, 你 is used to address both males and females.)",
     "hskLevel": 1
   },
   {
@@ -2239,7 +2239,7 @@
     "simplified": "起来",
     "traditional": "起來",
     "pinyin": "qǐlái",
-    "definition": "to stand up; to get up; also pr. [qǐ lái]",
+    "definition": "to stand up; to get up; also pr. [qǐ lái]; (after a verb) indicating the beginning and continuation of an action or a state; indicating an upward movement (e.g. after 站); indicating completion; (after a perception verb, e.g. 看) expressing preliminary judgment; also pr. [qǐ lai]",
     "hskLevel": 1
   },
   {
@@ -2298,8 +2298,8 @@
   {
     "simplified": "请假",
     "traditional": "請假",
-    "pinyin": "qǐng jià",
-    "definition": "to ask for leave; to take time off",
+    "pinyin": "qǐngjià",
+    "definition": "to request leave of absence",
     "hskLevel": 1
   },
   {
@@ -2377,21 +2377,21 @@
     "simplified": "认真",
     "traditional": "認真",
     "pinyin": "rènzhēn",
-    "definition": "serious; earnest; conscientious",
+    "definition": "conscientious; earnest; serious; to take seriously; to take to heart",
     "hskLevel": 1
   },
   {
     "simplified": "日",
     "traditional": null,
     "pinyin": "rì",
-    "definition": "day; sun; date",
+    "definition": "abbr. for 本, Japan; sun; day; date, day of the month",
     "hskLevel": 1
   },
   {
     "simplified": "日期",
     "traditional": null,
     "pinyin": "rìqī",
-    "definition": "date; calendar date",
+    "definition": "date",
     "hskLevel": 1
   },
   {
@@ -2414,7 +2414,7 @@
     "simplified": "山",
     "traditional": null,
     "pinyin": "shān",
-    "definition": "surname Shan",
+    "definition": "mountain; hill; (coll.) small bundle of straw for silkworms to spin cocoons on; surname Shan",
     "hskLevel": 1
   },
   {
@@ -2445,8 +2445,8 @@
   {
     "simplified": "上班",
     "traditional": null,
-    "pinyin": "shàng bān",
-    "definition": "to go to work; to work",
+    "pinyin": "shàngbān",
+    "definition": "to go to work; to be on duty; to start work; to go to the office",
     "hskLevel": 1
   },
   {
@@ -2480,8 +2480,8 @@
   {
     "simplified": "上网",
     "traditional": "上網",
-    "pinyin": "shàng wǎng",
-    "definition": "to go online; to surf the internet",
+    "pinyin": "shàngwǎng",
+    "definition": "to go online; to connect to the Internet; (of a document etc) to be uploaded to the Internet; (tennis, volleyball etc) to move in close to the net",
     "hskLevel": 1
   },
   {
@@ -2668,7 +2668,7 @@
     "simplified": "树",
     "traditional": "樹",
     "pinyin": "shù",
-    "definition": "tree",
+    "definition": "tree; to cultivate; to set up",
     "hskLevel": 1
   },
   {
@@ -2732,14 +2732,14 @@
     "simplified": "送",
     "traditional": null,
     "pinyin": "sòng",
-    "definition": "to give; to deliver; to send; to see off",
+    "definition": "to send; to deliver; to transmit; to give (as a present); to see (sb) off; to accompany; to go along with",
     "hskLevel": 1
   },
   {
     "simplified": "岁",
     "traditional": "歲",
     "pinyin": "suì",
-    "definition": "year(s) old; age",
+    "definition": "years old; classifier for years (of age); year; year (of crop harvests); variant of 岁, year",
     "hskLevel": 1
   },
   {
@@ -2755,7 +2755,7 @@
     "simplified": "他们",
     "traditional": "他們",
     "pinyin": "tāmen",
-    "definition": "they; them (mixed or male)",
+    "definition": "they",
     "hskLevel": 1
   },
   {
@@ -2771,7 +2771,7 @@
     "simplified": "她们",
     "traditional": "她們",
     "pinyin": "tāmen",
-    "definition": "they; them (all female)",
+    "definition": "they; them (for females)",
     "hskLevel": 1
   },
   {
@@ -2976,7 +2976,7 @@
     "simplified": "西",
     "traditional": null,
     "pinyin": "xī",
-    "definition": "west",
+    "definition": "the West; abbr. for Spain 牙; Spanish; west",
     "hskLevel": 1
   },
   {
@@ -3004,7 +3004,7 @@
     "simplified": "喜欢",
     "traditional": "喜歡",
     "pinyin": "xǐhuan",
-    "definition": "to like; to enjoy",
+    "definition": "to like; to be fond of",
     "hskLevel": 1
   },
   {
@@ -3082,7 +3082,7 @@
     "simplified": "先生",
     "traditional": null,
     "pinyin": "xiānsheng",
-    "definition": "Mr.; sir; husband",
+    "definition": "teacher; gentleman; sir; mister (Mr.); husband; (dialect) doctor",
     "hskLevel": 1
   },
   {
@@ -3123,7 +3123,7 @@
     "simplified": "小姐",
     "traditional": null,
     "pinyin": "xiǎojiě",
-    "definition": "Miss; young lady",
+    "definition": "young lady; miss; (slang) prostitute",
     "hskLevel": 1
   },
   {
@@ -3158,7 +3158,7 @@
     "simplified": "笑",
     "traditional": null,
     "pinyin": "xiào",
-    "definition": "to laugh; to smile",
+    "definition": "old variant of 笑; to laugh; to smile; to laugh at",
     "hskLevel": 1
   },
   {
@@ -3221,8 +3221,8 @@
   {
     "simplified": "行",
     "traditional": null,
-    "pinyin": "háng",
-    "definition": "row; line; commercial firm; line of business; profession; to rank (first, second etc) among one's siblings (by age); (in data tables) row; (Tw) column",
+    "pinyin": "xíng",
+    "definition": "to walk; to go; to travel; a visit; temporary; makeshift; current; in circulation; to do; to perform; capable; competent; effective; all right; OK!; will do; behavior; conduct; Taiwan pr. [xìng] for the behavior-conduct sense",
     "hskLevel": 1
   },
   {
@@ -3295,7 +3295,7 @@
     "simplified": "也",
     "traditional": null,
     "pinyin": "yě",
-    "definition": "surname Ye",
+    "definition": "(adverb) also; both ... and ... (before predicates only); (literary) particle having functions similar to 啊; surname Ye",
     "hskLevel": 1
   },
   {
@@ -3309,7 +3309,7 @@
     "simplified": "一",
     "traditional": null,
     "pinyin": "yī",
-    "definition": "one; 1",
+    "definition": "one; single; a (article); as soon as; entire; whole; all; throughout; \"one\" radical in Chinese characters (Kangxi radical 1); also pr. [yāo] for greater clarity when spelling out numbers digit by digit",
     "hskLevel": 1
   },
   {
@@ -3329,8 +3329,8 @@
   {
     "simplified": "一点儿",
     "traditional": "一點兒",
-    "pinyin": "yìdiǎnr",
-    "definition": "a little; a bit; some",
+    "pinyin": "yīdiǎnr",
+    "definition": "erhua variant of 一点; a bit; a little bit; (used in negative expressions) (not) the least bit; (after an adjective, used to form the comparative) a bit more",
     "hskLevel": 1
   },
   {
@@ -3374,7 +3374,7 @@
     "simplified": "一样",
     "traditional": "一樣",
     "pinyin": "yīyàng",
-    "definition": "same; alike; as...as",
+    "definition": "same; like; equal to; the same as; just like",
     "hskLevel": 1
   },
   {
@@ -3408,7 +3408,7 @@
     "simplified": "用",
     "traditional": null,
     "pinyin": "yòng",
-    "definition": "to use; to employ; with",
+    "definition": "to use; to employ; to have to; to eat or drink; expense or outlay; usefulness; hence; therefore",
     "hskLevel": 1
   },
   {
@@ -3496,7 +3496,7 @@
     "simplified": "元",
     "traditional": null,
     "pinyin": "yuán",
-    "definition": "surname Yuan; the Yuan or Mongol dynasty (1279-1368)",
+    "definition": "the Yuan or Mongol dynasty (1279-1368); currency unit (esp. Chinese yuan); first; original; primary; fundamental; constituent; part; era (of a reign); meta- (prefix); (math.) argument; variable; (Tw) (geology) eon; surname Yuan",
     "hskLevel": 1
   },
   {
@@ -3553,7 +3553,7 @@
     "simplified": "早",
     "traditional": null,
     "pinyin": "zǎo",
-    "definition": "early; morning; long ago",
+    "definition": "early; morning; Good morning!; long ago; prematurely",
     "hskLevel": 1
   },
   {
@@ -3633,7 +3633,7 @@
     "simplified": "这里",
     "traditional": "這裡",
     "pinyin": "zhèlǐ",
-    "definition": "here",
+    "definition": "here; variant of 这里",
     "hskLevel": 1
   },
   {
@@ -3698,7 +3698,7 @@
     "simplified": "中",
     "traditional": null,
     "pinyin": "zhōng",
-    "definition": "China; Chinese; surname Zhong",
+    "definition": "China; Chinese; within; among; in; middle; center; while (doing sth); during; (dialect) OK; all right; surname Zhong",
     "hskLevel": 1
   },
   {
@@ -3753,7 +3753,7 @@
     "simplified": "重",
     "traditional": null,
     "pinyin": "zhòng",
-    "definition": "heavy; weight; important",
+    "definition": "heavy; serious; to attach importance to",
     "hskLevel": 1
   },
   {
@@ -3778,7 +3778,7 @@
     "simplified": "准备",
     "traditional": "準備",
     "pinyin": "zhǔnbèi",
-    "definition": "to prepare; to get ready; preparation",
+    "definition": "preparation; to prepare; to intend; to be about to; reserve (fund)",
     "hskLevel": 1
   },
   {
@@ -3810,7 +3810,7 @@
     "simplified": "走",
     "traditional": null,
     "pinyin": "zǒu",
-    "definition": "to walk; to go; to leave",
+    "definition": "to walk; to go; to run; to move (of vehicle); to visit; to leave; to go away; to die (euph.); from; through; away (in compound verbs, such as 走); to change (shape, form, meaning)",
     "hskLevel": 1
   },
   {
@@ -3824,21 +3824,21 @@
     "simplified": "最",
     "traditional": null,
     "pinyin": "zuì",
-    "definition": "most; -est (superlative)",
+    "definition": "old variant of 最; most; the most; -est (superlative suffix); variant of 最",
     "hskLevel": 1
   },
   {
     "simplified": "最好",
     "traditional": null,
     "pinyin": "zuìhǎo",
-    "definition": "best; had better; most ideal",
+    "definition": "best; (you) had better (do what we suggest)",
     "hskLevel": 1
   },
   {
     "simplified": "最后",
     "traditional": "最後",
     "pinyin": "zuìhòu",
-    "definition": "last; final; finally; at last",
+    "definition": "final; last; finally; ultimate",
     "hskLevel": 1
   },
   {
@@ -3852,7 +3852,7 @@
     "simplified": "左",
     "traditional": null,
     "pinyin": "zuǒ",
-    "definition": "surname Zuo",
+    "definition": "left; the Left (politics); east; unorthodox; queer; wrong; differing; opposite; surname Zuo; variant of 佐",
     "hskLevel": 1
   },
   {
