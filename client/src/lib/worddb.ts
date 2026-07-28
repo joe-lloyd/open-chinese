@@ -18,6 +18,8 @@ export interface Word {
 }
 
 const SEARCH_LIMIT = 50
+/** Paired with `ESCAPE '\'` so a literal `%` or `_` in the query isn't a wildcard. */
+const LIKE_ESCAPE = /[\\%_]/g
 /** SQLite's default SQLITE_MAX_VARIABLE_NUMBER is 999; stay well inside it. */
 const IN_CHUNK = 500
 
@@ -105,36 +107,42 @@ export async function loadDB(): Promise<{
       // predicates match every row.
       const usePinyin = pq.length > 0
 
+      // Equality params stay raw; only the LIKE patterns are escaped, so a query
+      // of `%` or `_` matches those characters literally instead of everything.
+      const qLike = q.replace(LIKE_ESCAPE, '\\$&')
+      const pqLike = pq.replace(LIKE_ESCAPE, '\\$&')
+      const E = "ESCAPE '\\'"
+
       const params: Record<string, string> = {
         ':q': q,
-        ':prefix': `${q}%`,
-        ':like': `%${q}%`,
+        ':prefix': `${qLike}%`,
+        ':like': `%${qLike}%`,
       }
       if (usePinyin) {
         params[':pq'] = pq
-        params[':pqPrefix'] = `${pq}%`
-        params[':pqLike'] = `%${pq}%`
+        params[':pqPrefix'] = `${pqLike}%`
+        params[':pqLike'] = `%${pqLike}%`
       }
 
       const rank = [
         'CASE',
         'WHEN simplified = :q OR traditional = :q THEN 0',
-        'WHEN simplified LIKE :prefix OR traditional LIKE :prefix THEN 1',
+        `WHEN simplified LIKE :prefix ${E} OR traditional LIKE :prefix ${E} THEN 1`,
         ...(usePinyin
           ? [
               `WHEN ${pinyinColumn} = :pq THEN 2`,
-              `WHEN ${pinyinColumn} LIKE :pqPrefix THEN 3`,
+              `WHEN ${pinyinColumn} LIKE :pqPrefix ${E} THEN 3`,
             ]
           : []),
-        'WHEN definition LIKE :prefix THEN 4',
+        `WHEN definition LIKE :prefix ${E} THEN 4`,
         'ELSE 5 END',
       ].join(' ')
 
       const where = [
-        'simplified LIKE :like',
-        'traditional LIKE :like',
-        'definition LIKE :like',
-        ...(usePinyin ? [`${pinyinColumn} LIKE :pqLike`] : []),
+        `simplified LIKE :like ${E}`,
+        `traditional LIKE :like ${E}`,
+        `definition LIKE :like ${E}`,
+        ...(usePinyin ? [`${pinyinColumn} LIKE :pqLike ${E}`] : []),
       ].join(' OR ')
 
       const result = db.exec(

@@ -303,42 +303,58 @@ export async function getDeckWords(uid: string, deckName: string): Promise<WordS
  */
 export async function markWordsKnown(uid: string, words: (string | WordSeed)[]): Promise<void> {
   const farFuture = Timestamp.fromDate(new Date(Date.now() + 365 * 86400000))
-  const batch = writeBatch(db)
-  for (const w of words) {
-    const seed: WordSeed = typeof w === 'string' ? { simplified: w } : w
-    batch.set(
-      doc(db, 'users', uid, 'words', seed.simplified),
-      {
-        intervalMeaning: 365,
-        intervalPinyin: 365,
-        intervalAudio: 365,
-        status: 'Mastered',
-        nextReviewDate: farFuture,
-        ...(seed.deckName !== undefined ? { deckName: seed.deckName } : {}),
-        ...(seed.hskLevel != null ? { hskLevel: seed.hskLevel } : {}),
-      },
-      { merge: true }
-    )
+  // Selection accumulates across pages, so this can exceed Firestore's 500-write cap.
+  for (let i = 0; i < words.length; i += BATCH_LIMIT) {
+    const batch = writeBatch(db)
+    for (const w of words.slice(i, i + BATCH_LIMIT)) {
+      const seed: WordSeed = typeof w === 'string' ? { simplified: w } : w
+      batch.set(
+        doc(db, 'users', uid, 'words', seed.simplified),
+        {
+          intervalMeaning: 365,
+          intervalPinyin: 365,
+          intervalAudio: 365,
+          status: 'Mastered',
+          nextReviewDate: farFuture,
+          ...(seed.deckName !== undefined ? { deckName: seed.deckName } : {}),
+          ...(seed.hskLevel != null ? { hskLevel: seed.hskLevel } : {}),
+        },
+        { merge: true }
+      )
+    }
+    await batch.commit()
   }
-  await batch.commit()
 }
 
 /**
  * Reverses `markWordsKnown`. The intervals it overwrote are gone, so rather than
  * inventing a history this puts the word back at the front of the queue the same
  * way `resetLeech` does — due now, `Weak`, ease untouched.
+ *
+ * `consecutiveFails` is cleared for the same reason `resetLeech` clears it:
+ * without it a word that was a Leech before being marked known would be dragged
+ * straight back to `Leech` by `resolveStatus` on its next missed review.
  */
 export async function unmarkWordsKnown(uid: string, simplifieds: string[]): Promise<void> {
   const now = Timestamp.fromDate(new Date())
-  const batch = writeBatch(db)
-  for (const s of simplifieds) {
-    batch.set(
-      doc(db, 'users', uid, 'words', s),
-      { intervalMeaning: 1, intervalPinyin: 1, intervalAudio: 1, status: 'Weak', nextReviewDate: now },
-      { merge: true }
-    )
+  for (let i = 0; i < simplifieds.length; i += BATCH_LIMIT) {
+    const batch = writeBatch(db)
+    for (const s of simplifieds.slice(i, i + BATCH_LIMIT)) {
+      batch.set(
+        doc(db, 'users', uid, 'words', s),
+        {
+          intervalMeaning: 1,
+          intervalPinyin: 1,
+          intervalAudio: 1,
+          consecutiveFails: 0,
+          status: 'Weak',
+          nextReviewDate: now,
+        },
+        { merge: true }
+      )
+    }
+    await batch.commit()
   }
-  await batch.commit()
 }
 
 /**

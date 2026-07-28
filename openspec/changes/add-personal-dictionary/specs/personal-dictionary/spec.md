@@ -87,8 +87,13 @@ Marking a word that has no document in `users/{uid}/words` SHALL first create th
 
 #### Scenario: Bulk mark known
 - **WHEN** user selects several words and activates "Mark as known"
-- **THEN** every selected word SHALL be written as `Mastered` in a single batch
+- **THEN** every selected word SHALL be written as `Mastered` in batched writes
 - **AND** the selection SHALL be cleared
+
+#### Scenario: Bulk write exceeding the Firestore batch limit
+- **WHEN** the user marks more words known than a single Firestore batch permits
+- **THEN** the writes SHALL be split across as many batches as required
+- **AND** every selected word SHALL be written
 
 #### Scenario: Mark known from a search result with no existing document
 - **GIVEN** a word that has never been studied and has no document in `users/{uid}/words`
@@ -101,17 +106,24 @@ Marking a word that has no document in `users/{uid}/words` SHALL first create th
 - **THEN** it SHALL NOT appear in a subsequent due-review session
 
 ### Requirement: Unmark a fully known word
-The user SHALL be able to reverse "mark as known" from the personal dictionary, individually or for a multi-select. Unmarking SHALL set `intervalMeaning`, `intervalPinyin` and `intervalAudio` to 1, `status` to `Weak`, and `nextReviewDate` to the current time, leaving `easeFactor` unchanged.
+The user SHALL be able to reverse "mark as known" from the personal dictionary, individually or for a multi-select. Unmarking SHALL set `intervalMeaning`, `intervalPinyin` and `intervalAudio` to 1, `consecutiveFails` to 0, `status` to `Weak`, and `nextReviewDate` to the current time, leaving `easeFactor` unchanged.
+
+`consecutiveFails` is cleared so that a word which was a `Leech` before being marked known is not resolved straight back to `Leech` on its next missed review.
 
 #### Scenario: Unmark returns a word to the review queue
 - **GIVEN** a word with `status: Mastered`
 - **WHEN** user activates "Unmark"
-- **THEN** its intervals SHALL be 1, its `status` SHALL be `Weak` and `nextReviewDate` SHALL be now
+- **THEN** its intervals SHALL be 1, its `consecutiveFails` SHALL be 0, its `status` SHALL be `Weak` and `nextReviewDate` SHALL be now
 - **AND** it SHALL appear in the next due-review session
 
-#### Scenario: Unmark offered only for mastered words
+#### Scenario: Unmark unavailable for a word that is not mastered
 - **WHEN** a word's status is not `Mastered`
-- **THEN** the unmark control SHALL NOT be offered for it
+- **THEN** no unmark control SHALL be actionable for that word
+
+#### Scenario: Bulk unmark with no mastered words selected
+- **WHEN** the current selection contains no `Mastered` word
+- **THEN** the bulk unmark control SHALL be disabled rather than silently doing nothing
+- **AND** it SHALL explain why it is unavailable
 
 ### Requirement: Word detail view
 Selecting a word from the personal list or from search results SHALL open a detail view showing the word, its traditional form when different, pinyin, definition, HSK badge, character breakdown, the user's notes, the user's status, and — when the word has been reviewed — `totalReviews`, knowledge percentage, first seen and last reviewed. The mark-as-known and unmark controls SHALL be available from this view.
@@ -147,3 +159,17 @@ The helper SHALL accept a list of seeds carrying `simplified` and optionally `de
 #### Scenario: Encountered words appear in the personal dictionary
 - **WHEN** words are added through the helper by any surface
 - **THEN** they SHALL appear in the personal dictionary with `status` `Unstudied` and no knowledge percentage
+
+#### Scenario: An encountered word is still introducible as a new card
+- **GIVEN** a word added through the helper, so it has a document at `status` `Unstudied` with zero intervals
+- **WHEN** the user starts a study session that would introduce new cards
+- **THEN** that word SHALL remain eligible for the new-card pool
+- **AND** the existence of its document alone SHALL NOT exclude it
+
+### Requirement: Failed writes are surfaced
+Every write the personal dictionary performs — mark known, unmark, add to dictionary, save notes — SHALL report failure to the user rather than failing silently.
+
+#### Scenario: A rejected write is reported
+- **WHEN** a Firestore write from the personal dictionary rejects
+- **THEN** an error SHALL be displayed to the user
+- **AND** the user SHALL be able to dismiss it

@@ -31,7 +31,20 @@
 - [x] 4.6 Annotate search results with the user's status from the loaded word map, and offer add-to-dictionary / mark-known for results with no document.
 - [x] 4.7 Empty states: no words at all, and filters matching nothing.
 
-## 5. Verify
+## 5. Review fixes
 
-- [x] 5.1 `pnpm --filter client build` passes with zero TypeScript errors.
-- [x] 5.2 Re-read the full diff: confirm the `StudyPage` change is limited to the mark-as-known removal, and that no unused imports or dead state remain in `DictionaryPage`.
+- [x] 5.0.1 Close the new-card dead zone in `client/src/lib/session.ts`: key the new-card pool off `status !== 'Unstudied' || intervalMeaning > 0` rather than document existence, so words added via `ensureUserWords` stay introducible.
+- [x] 5.0.2 Chunk `markWordsKnown` and `unmarkWordsKnown` against `BATCH_LIMIT` — selection accumulates across pages and can exceed Firestore's 500-write cap.
+- [x] 5.0.3 Store colour tokens as `R G B` triplets consumed as `rgb(var(--x-rgb) / <alpha-value>)`, keeping the `--color-*` vars as derived values so non-Tailwind consumers are untouched. Fixes every previously-dead alpha modifier including `StatusBadge`'s own.
+- [x] 5.0.4 Clear `consecutiveFails` in `unmarkWordsKnown`, matching the `resetLeech` it mirrors.
+- [x] 5.0.5 Escape `%` and `_` in `searchWords` LIKE patterns with an `ESCAPE` clause.
+- [x] 5.0.6 Strip `[0-5]` rather than `[1-5]` in `normalizePinyin` — the neutral tone is written both ways. Verify no corpus row changes so `words.db` need not be regenerated.
+- [x] 5.0.7 Add the deck column and a per-row mark-known / unmark toggle to `PersonalWordList`.
+- [x] 5.0.8 Disable bulk Unmark when the selection contains no `Mastered` word, and explain why.
+- [x] 5.0.9 Surface failed writes in a dismissible banner; clear the selection when filters change.
+- [x] 5.0.10 Correct `design.md`'s claim that `words.db` is gitignored, and the "sticky" description of the action bar.
+
+## 6. Verify
+
+- [x] 6.1 `pnpm --filter client build` passes with zero TypeScript errors.
+- [x] 6.2 Re-read the full diff: confirm the `StudyPage` change is limited to the mark-as-known removal, and that no unused imports or dead state remain in `DictionaryPage`.

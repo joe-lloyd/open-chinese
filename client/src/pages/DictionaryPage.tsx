@@ -41,6 +41,7 @@ export default function DictionaryPage() {
 
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Word[]>([])
+  const [error, setError] = useState<string | null>(null)
 
   const dbRef = useRef<Awaited<ReturnType<typeof loadDB>> | null>(null)
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -108,8 +109,21 @@ export default function DictionaryPage() {
   // current page past the end.
   const safePage = Math.min(page, Math.max(0, Math.ceil(visibleEntries.length / PAGE_SIZE) - 1))
 
-  function changeFilters(f: DictFilters) { setFilters(f); setPage(0) }
+  // Filters change which words are reachable, so a surviving selection could act
+  // on words the user can no longer see. Sorting only reorders the same set.
+  function changeFilters(f: DictFilters) { setFilters(f); setPage(0); setSelected(new Set()) }
   function changeSort(s: SortKey) { setSort(s); setPage(0) }
+
+  /** Firestore writes here are otherwise silent; StudyPage has the same banner. */
+  async function run(action: () => Promise<void>) {
+    try {
+      setError(null)
+      await action()
+    } catch (e) {
+      console.error('[Firestore]', e)
+      setError((e as Error).message ?? 'Something went wrong')
+    }
+  }
 
   /** Applies a Firestore mutation to local state so the list updates without a refetch. */
   function patchLocal(simplifieds: string[], patch: Partial<WordState>) {
@@ -133,48 +147,57 @@ export default function DictionaryPage() {
     }
   }
 
-  async function markKnown(simplifieds: string[]) {
-    const uid = getCurrentUid()
-    if (!uid || simplifieds.length === 0) return
-    await markWordsKnown(uid, simplifieds.map(seedFor))
-    patchLocal(simplifieds, {
-      status: 'Mastered',
-      intervalMeaning: 365,
-      intervalPinyin: 365,
-      intervalAudio: 365,
-      nextReviewDate: new Date(Date.now() + 365 * 86400000),
+  function markKnown(simplifieds: string[]) {
+    return run(async () => {
+      const uid = getCurrentUid()
+      if (!uid || simplifieds.length === 0) return
+      await markWordsKnown(uid, simplifieds.map(seedFor))
+      patchLocal(simplifieds, {
+        status: 'Mastered',
+        intervalMeaning: 365,
+        intervalPinyin: 365,
+        intervalAudio: 365,
+        nextReviewDate: new Date(Date.now() + 365 * 86400000),
+      })
+      setSelected(new Set())
     })
-    setSelected(new Set())
   }
 
-  async function unmark(simplifieds: string[]) {
-    const uid = getCurrentUid()
-    if (!uid || simplifieds.length === 0) return
-    const mastered = simplifieds.filter((s) => userMap.get(s)?.status === 'Mastered')
-    if (mastered.length === 0) return
-    await unmarkWordsKnown(uid, mastered)
-    patchLocal(mastered, {
-      status: 'Weak',
-      intervalMeaning: 1,
-      intervalPinyin: 1,
-      intervalAudio: 1,
-      nextReviewDate: new Date(),
+  function unmark(simplifieds: string[]) {
+    return run(async () => {
+      const uid = getCurrentUid()
+      if (!uid) return
+      const mastered = simplifieds.filter((s) => userMap.get(s)?.status === 'Mastered')
+      setSelected(new Set())
+      if (mastered.length === 0) return
+      await unmarkWordsKnown(uid, mastered)
+      patchLocal(mastered, {
+        status: 'Weak',
+        intervalMeaning: 1,
+        intervalPinyin: 1,
+        intervalAudio: 1,
+        consecutiveFails: 0,
+        nextReviewDate: new Date(),
+      })
     })
-    setSelected(new Set())
   }
 
-  async function addToDictionary(simplified: string) {
-    const uid = getCurrentUid()
-    if (!uid) return
-    await ensureUserWords(uid, [seedFor(simplified)])
-    patchLocal([simplified], { firstSeenAt: new Date() })
+  function addToDictionary(simplified: string) {
+    return run(async () => {
+      const uid = getCurrentUid()
+      if (!uid) return
+      await ensureUserWords(uid, [seedFor(simplified)])
+      patchLocal([simplified], { firstSeenAt: new Date() })
+    })
   }
 
-  async function saveNote(simplified: string, notes: string) {
-    const uid = getCurrentUid()
-    if (!uid) return
-    await saveNotes(uid, simplified, notes)
-    patchLocal([simplified], { notes })
+  function saveNote(simplified: string, notes: string) {
+    return run(async () => {
+      const uid = getCurrentUid()
+      if (!uid) return
+      await saveNotes(uid, simplified, notes)
+      patchLocal([simplified], { notes })
+    })
   }
 
   function toggleSelect(simplified: string) {
@@ -206,6 +229,18 @@ export default function DictionaryPage() {
           <ViewTab label="My words" active={view === 'mine'} onClick={() => setView('mine')} />
           <ViewTab label="Search" active={view === 'search'} onClick={() => setView('search')} />
         </div>
+
+        {error && (
+          <div className="px-4 py-2 bg-incorrect/10 border-b border-incorrect/30 flex items-center gap-3">
+            <p className="text-sm text-incorrect flex-1">Save failed: {error}</p>
+            <button
+              onClick={() => setError(null)}
+              className="text-xs text-incorrect hover:underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {view === 'mine' ? (
           loading ? (
@@ -248,6 +283,7 @@ export default function DictionaryPage() {
                   onMarkKnown={markKnown}
                   onUnmark={unmark}
                   onClearSelection={() => setSelected(new Set())}
+                  showDeck={decks.length > 1}
                 />
               )}
             </>

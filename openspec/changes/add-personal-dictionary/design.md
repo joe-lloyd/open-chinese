@@ -55,7 +55,9 @@ HSK level likewise prefers the joined `hsk_level` and falls back to the stored `
 3. `v` → `u` (for people who type `lv` for `lǜ`).
 4. Strip tone digits `1–5` and every separator: spaces, apostrophes, hyphens, middle dots.
 
-`péngyou`, `pengyou`, `peng you`, `peng'you`, `peng2you5` and `PENGYOU` all collapse to `pengyou`, which is exactly the stored value for 朋友. The column is a strict addition to the schema; the file is gitignored and regenerated per deploy, so there is no migration — only a note that `pnpm build:words-db` must run before the next build.
+`péngyou`, `pengyou`, `peng you`, `peng'you`, `peng2you5` and `PENGYOU` all collapse to `pengyou`, which is exactly the stored value for 朋友. Tone digits are stripped as `[0-5]`, not `[1-5]`, because the neutral tone is written either `you5` or `you0`.
+
+The column is a strict addition to the schema. Note that `client/public/words.db` is **tracked in git** despite the `*.db` rule in `.gitignore` — it was committed before that rule was added, so the rule has no effect on it — which means the regenerated binary has to be committed alongside this change. `netlify.toml` also runs `pnpm build:words-db` before `vite build`, so the deployed file is rebuilt regardless; the tracked copy is effectively redundant. Untracking it (`git rm --cached`) is the tidier end state but is out of scope here.
 
 *Alternative rejected:* an FTS5 virtual table. Heavier `words.db`, and substring-in-the-middle matching (`engyo`) is what FTS is worst at.
 
@@ -99,7 +101,25 @@ The personal dictionary uses it for "Add to my dictionary" from a search result 
 
 `DictionaryPage` keeps its stacked-mobile / back-button shape and gains a `view` state of `'mine' | 'search'`, toggled by a segmented control above the left pane. `'mine'` renders the filter bar + paginated list; `'search'` renders the input + ranked results. Selecting a word in either mode opens the same detail pane. Three components split out of the page so it stays readable: `PersonalWordList`, `WordFilterBar`, `WordDetail`.
 
-Multi-select is a per-row checkbox that only exists in `'mine'` mode, with a sticky action bar (`n selected` · Mark as known · Unmark · Clear) appearing above the list — the same idiom `QueuePage` already uses for its deck word list, so nothing new to learn. Mutations update local state in place; no refetch.
+Multi-select is a per-row checkbox that only exists in `'mine'` mode, with an action bar (`n selected` · Mark as known · Unmark · Clear) sitting above the scroll container so it stays visible as the list scrolls — the same idiom `QueuePage` already uses for its deck word list, so nothing new to learn. Each row also carries its own mark-known / unmark toggle, so acting on one word does not require selecting it first. Mutations update local state in place; no refetch, with failures surfaced in a dismissible banner.
+
+Selection is cleared when a filter changes, because filters change which words are reachable and a surviving selection could otherwise act on words the user can no longer see. Changing the sort keeps the selection, since it reorders the same set.
+
+### The new-card pool keys off review history, not document existence
+
+`ensureUserWords` writes a document at `status: 'Unstudied'` with zero intervals. `buildQueue` previously excluded every word that had *any* document from the new-card pool, while the due-review filter required `status !== 'Unstudied' && intervalMeaning > 0`. A word added but never studied therefore satisfied neither: not new, not due, reachable only through Cram.
+
+The dead zone predates this change (CSV import can also produce `Unstudied` rows), but "Add to my dictionary" turns it into a button, so it has to be closed here. The fix belongs in `session.ts`, not in `ensureUserWords`: the bug is that `buildQueue` conflates "has a document" with "has been studied", and writing fake intervals to dodge that would corrupt the SRS state instead. The new-card pool is now keyed off `status !== 'Unstudied' || intervalMeaning > 0`.
+
+*Alternative rejected:* having `ensureUserWords` not write a document at all until the word is first reviewed. Then an encountered word could not carry notes, `firstSeenAt`, or appear in the personal dictionary — which is the entire point of the helper.
+
+### Colour tokens are stored as channel triplets
+
+`StatusBadge` needs `bg-incorrect/10`-style tints. Tailwind v3 cannot apply an opacity modifier to a colour declared as a bare `var(--x)`: it cannot split the value into channels, so it drops the class entirely rather than emitting it without alpha. Every such class in the codebase — `bg-accent/10`, `border-incorrect/50`, `ring-incorrect/40` — was compiling to nothing.
+
+Each colour is therefore stored once as an unwrapped `R G B` triplet (`--accent-rgb: 99 102 241`) which `tailwind.config.ts` consumes as `rgb(var(--accent-rgb) / <alpha-value>)`.
+
+The wrapped `--color-*` variables are kept, now derived from the triplets (`--color-accent: rgb(var(--accent-rgb))`). About thirty call sites consume colours outside Tailwind — Recharts props, inline `style` objects, `accent-[var(…)]` arbitrary values — and converting the base variables to raw triplets would have broken every one of them. Deriving instead keeps a single source of truth per colour with no changes outside `index.css` and `tailwind.config.ts`. Because custom properties resolve at use time, `.dark` overrides only the triplets and the derived values follow.
 
 ## Risks / Trade-offs
 
@@ -111,9 +131,11 @@ Multi-select is a per-row checkbox that only exists in `'mine'` mode, with a sti
 
 ## Migration Plan
 
-1. `pnpm build:words-db` regenerates `client/public/words.db` with `pinyin_normalized`. Gitignored, regenerated per deploy — no data migration, no rollback artifact.
+1. `pnpm build:words-db` regenerates `client/public/words.db` with `pinyin_normalized`. The file is tracked in git (see the normalized-pinyin decision above), so the regenerated binary is committed with this change; Netlify also rebuilds it before every deploy.
 2. No Firestore migration. Documents missing `hskLevel` or `totalReviews` render from the words.db join and as `—` respectively.
 3. Rollback is a straight revert; nothing written by this change is unreadable by the previous code.
+
+**Merge hazard:** `scripts/build-words-db.ts` assigns `words.id` with `randomUUID()`, so every rebuild produces a wholly different binary. Two branches that both regenerate `words.db` conflict irreconcilably on it. The resolution is to union the schema changes in the build script and rebuild exactly once, at merge time — not to merge the binaries.
 
 ## Open Questions
 

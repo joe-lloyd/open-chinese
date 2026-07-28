@@ -20,6 +20,7 @@ export function normalizePinyin(value: string): string {
     .replace(COMBINING_MARKS, '')
     .toLowerCase()
     .replace(/v/g, 'u')
-    .replace(/[1-5]/g, '')
+    // 0 as well as 1-5: the neutral tone is written either way (`you5`, `you0`).
+    .replace(/[0-5]/g, '')
     .replace(SEPARATORS, '')
 }

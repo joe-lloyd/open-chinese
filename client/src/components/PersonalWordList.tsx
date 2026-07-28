@@ -16,6 +16,7 @@ interface Props {
   onMarkKnown: (simplifieds: string[]) => void
   onUnmark: (simplifieds: string[]) => void
   onClearSelection: () => void
+  showDeck: boolean
 }
 
 export default function PersonalWordList({
@@ -30,6 +31,7 @@ export default function PersonalWordList({
   onMarkKnown,
   onUnmark,
   onClearSelection,
+  showDeck,
 }: Props) {
   const pageCount = Math.max(1, Math.ceil(entries.length / PAGE_SIZE))
   const start = page * PAGE_SIZE
@@ -39,6 +41,7 @@ export default function PersonalWordList({
   const visibleKeys = visible.map((e) => e.simplified)
   const allPageSelected = visibleKeys.length > 0 && visibleKeys.every((k) => selected.has(k))
   const selectedList = [...selected]
+  const masteredSelected = entries.filter((e) => selected.has(e.simplified) && e.status === 'Mastered')
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
@@ -53,8 +56,14 @@ export default function PersonalWordList({
               Mark as known
             </button>
             <button
-              onClick={() => onUnmark(selectedList)}
-              className="text-sm px-3 py-1 border border-border rounded-lg text-text-muted hover:text-text-primary transition-colors"
+              onClick={() => onUnmark(masteredSelected.map((e) => e.simplified))}
+              disabled={masteredSelected.length === 0}
+              title={
+                masteredSelected.length === 0
+                  ? 'None of the selected words are marked as known'
+                  : `Unmark ${masteredSelected.length} mastered`
+              }
+              className="text-sm px-3 py-1 border border-border rounded-lg text-text-muted enabled:hover:text-text-primary disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               Unmark
             </button>
@@ -78,10 +87,12 @@ export default function PersonalWordList({
         />
         <span className="w-28 shrink-0">Word</span>
         <span className="flex-1 min-w-0">Definition</span>
+        {showDeck && <span className="hidden xl:block w-24 truncate">Deck</span>}
         <span className="w-24 text-center">Status</span>
         <span className="hidden lg:block w-14 text-right">HSK</span>
         <span className="w-14 text-right">Known</span>
         <span className="hidden lg:block w-24 text-right">Reviewed</span>
+        <span className="w-7" />
       </div>
 
       <div className="flex-1 overflow-y-auto divide-y divide-border">
@@ -108,6 +119,11 @@ export default function PersonalWordList({
                 <span className="block text-xs text-text-muted truncate">{e.pinyin}</span>
               </span>
               <span className="flex-1 min-w-0 truncate text-sm text-text-muted">{e.definition}</span>
+              {showDeck && (
+                <span className="hidden xl:block w-24 truncate text-xs text-text-muted">
+                  {e.deckName || '—'}
+                </span>
+              )}
               <span className="w-24 flex justify-center">
                 <StatusBadge status={e.status} />
               </span>
@@ -121,6 +137,25 @@ export default function PersonalWordList({
                 {formatDate(e.lastReviewedAt)}
               </span>
             </button>
+            {e.status === 'Mastered' ? (
+              <button
+                onClick={() => onUnmark([e.simplified])}
+                title={`Unmark ${e.simplified} as known`}
+                aria-label={`Unmark ${e.simplified} as known`}
+                className="w-7 h-7 shrink-0 rounded-lg text-correct hover:bg-correct/10 transition-colors"
+              >
+                ✓
+              </button>
+            ) : (
+              <button
+                onClick={() => onMarkKnown([e.simplified])}
+                title={`Mark ${e.simplified} as fully known`}
+                aria-label={`Mark ${e.simplified} as fully known`}
+                className="w-7 h-7 shrink-0 rounded-lg text-text-muted opacity-40 hover:opacity-100 hover:text-accent hover:bg-accent/10 transition-all"
+              >
+                ✓
+              </button>
+            )}
           </div>
         ))}
       </div>

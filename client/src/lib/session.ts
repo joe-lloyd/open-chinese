@@ -46,7 +46,15 @@ export async function buildQueue(
   ])
 
   const now = new Date()
-  const knownSimplifieds = new Set(allUserWords.map((w) => w.simplified))
+
+  // A document existing is not the same as the word having been studied: finishing a
+  // reader chapter (and saving a note) writes an Unstudied, zero-interval document.
+  // Keying the new-card pool off review history keeps those words introducible.
+  const studiedSimplifieds = new Set(
+    allUserWords
+      .filter((w) => w.status !== 'Unstudied' || w.intervalMeaning > 0)
+      .map((w) => w.simplified)
+  )
 
   let levelSimplifieds: Set<string> | null = null
   if (hskLevel) {
@@ -119,7 +127,7 @@ export async function buildQueue(
   if (mode === 'new') {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     return sourceWords
-      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified))
       .slice(0, sessionSize)
       .map(toNewCard)
   }
@@ -184,7 +192,7 @@ export async function buildQueue(
   if (newCardSlots > 0) {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     const newCards = sourceWords
-      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified))
       .slice(0, newCardSlots)
       .map(toNewCard)
     reviewCards.push(...newCards)
