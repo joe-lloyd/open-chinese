@@ -3,7 +3,7 @@
 ### Requirement: words.db schema
 The SQLite file SHALL contain a `words` table with columns: `id` (TEXT PRIMARY KEY), `simplified` (TEXT UNIQUE), `traditional` (TEXT), `pinyin` (TEXT), `definition` (TEXT), `pinyin_normalized` (TEXT), `hsk_level` (INTEGER), `deck_name` (TEXT), `notes` (TEXT).
 
-`pinyin_normalized` SHALL be derived at build time from `pinyin` by the same normalisation the client applies to a search query: NFD decomposition with combining marks removed, lowercased, `v` mapped to `u`, and tone digits `1`–`5`, spaces, apostrophes, hyphens and middle dots stripped. The column SHALL be indexed.
+`pinyin_normalized` SHALL be derived at build time from `pinyin` by the same normalisation the client applies to a search query: NFD decomposition with combining marks removed, lowercased, `v` mapped to `u`, and tone digits `0`–`5`, spaces, apostrophes, hyphens and middle dots stripped. The column SHALL be indexed.
 
 #### Scenario: Word queried by simplified returns full record
 - **WHEN** code queries `SELECT * FROM words WHERE simplified = '爱'`

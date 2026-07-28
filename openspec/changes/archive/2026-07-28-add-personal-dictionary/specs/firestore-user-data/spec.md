@@ -7,7 +7,7 @@ The control SHALL NOT be offered during a study session; the study card exposes 
 
 Marking a word that has no document in `users/{uid}/words` SHALL create the document carrying `deckName` and `hskLevel` before applying the mastered state.
 
-The action SHALL be reversible: unmarking a `Mastered` word SHALL set `intervalMeaning`, `intervalPinyin` and `intervalAudio` to 1, `status` to `Weak` and `nextReviewDate` to now, leaving `easeFactor` unchanged, so the word returns to the review queue.
+The action SHALL be reversible: unmarking a `Mastered` word SHALL set `intervalMeaning`, `intervalPinyin` and `intervalAudio` to 1, `consecutiveFails` to 0, `status` to `Weak` and `nextReviewDate` to now, leaving `easeFactor` unchanged, so the word returns to the review queue.
 
 #### Scenario: Mark as known from the personal dictionary
 - **WHEN** user activates "Mark as known" on a word in the personal dictionary
@@ -16,7 +16,8 @@ The action SHALL be reversible: unmarking a `Mastered` word SHALL set `intervalM
 
 #### Scenario: Bulk mark as known
 - **WHEN** user selects several words in the personal dictionary and marks them known
-- **THEN** all selected words SHALL be written as `Mastered` in a single batched write
+- **THEN** all selected words SHALL be written as `Mastered` in batched writes
+- **AND** the writes SHALL be split across multiple batches when they exceed the Firestore batch limit
 
 #### Scenario: No mark-as-known control on the study card
 - **WHEN** a study card reveals the meaning
@@ -26,7 +27,7 @@ The action SHALL be reversible: unmarking a `Mastered` word SHALL set `intervalM
 #### Scenario: Unmark restores review scheduling
 - **GIVEN** a word previously marked known
 - **WHEN** user unmarks it
-- **THEN** its intervals SHALL be 1, `status` SHALL be `Weak` and `nextReviewDate` SHALL be now
+- **THEN** its intervals SHALL be 1, `consecutiveFails` SHALL be 0, `status` SHALL be `Weak` and `nextReviewDate` SHALL be now
 - **AND** it SHALL appear in the next due-review session
 
 ## ADDED Requirements
