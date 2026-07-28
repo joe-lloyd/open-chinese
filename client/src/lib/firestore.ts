@@ -56,8 +56,9 @@ export interface LastReadPosition {
   chapterId: string
   readerTitle?: string
   chapterTitle?: string
-  /** 0..1; a value of 1 or more means the chapter is finished. */
+  /** `[0, 1)`; 1 or more means the chapter is finished. Optional. */
   progress?: number
+  /** Accepted from either `updatedAt` or `at` on the stored document. */
   updatedAt?: Date
 }
 
@@ -128,22 +129,33 @@ function dataToWordState(simplified: string, data: Record<string, unknown>): Wor
 }
 
 /**
- * Validates a `users/{uid}.lastRead` value. Anything that is not an object
- * carrying non-empty `readerId` and `chapterId` — including the field being
- * absent entirely, which is the case until the readers feature ships — is
- * treated as "no reading position". A chapter already read to the end is too.
+ * Validates a `users/{uid}.lastRead` value written by the graded-readers
+ * feature. This is the tolerant side of a cross-branch contract, so it accepts
+ * the union of the shapes in play rather than one exact spelling:
+ *
+ * - required: non-empty string `readerId` and `chapterId`
+ * - optional: `readerTitle`, `chapterTitle`
+ * - optional timestamp under either `at` or `updatedAt`
+ * - optional `progress` in `[0, 1)`
+ *
+ * `progress` is genuinely optional — a writer that omits it still produces a
+ * valid position, and the CTA simply drops the percentage from its copy.
+ * Anything else, including the field being absent entirely, is "no reading
+ * position". A chapter already read to the end is too, as is a nonsensical
+ * negative progress, which would otherwise render as "-500% through".
  */
 export function normalizeLastRead(value: unknown): LastReadPosition | null {
-  if (value == null || typeof value !== 'object') return null
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) return null
   const raw = value as Record<string, unknown>
   const readerId = typeof raw.readerId === 'string' ? raw.readerId.trim() : ''
   const chapterId = typeof raw.chapterId === 'string' ? raw.chapterId.trim() : ''
   if (!readerId || !chapterId) return null
 
-  const progress = typeof raw.progress === 'number' && Number.isFinite(raw.progress)
-    ? raw.progress
-    : undefined
-  if (progress != null && progress >= 1) return null
+  let progress: number | undefined
+  if (typeof raw.progress === 'number' && Number.isFinite(raw.progress)) {
+    if (raw.progress < 0 || raw.progress >= 1) return null
+    progress = raw.progress
+  }
 
   return {
     readerId,
@@ -151,7 +163,7 @@ export function normalizeLastRead(value: unknown): LastReadPosition | null {
     readerTitle: typeof raw.readerTitle === 'string' ? raw.readerTitle : undefined,
     chapterTitle: typeof raw.chapterTitle === 'string' ? raw.chapterTitle : undefined,
     progress,
-    updatedAt: tsToDateOrNull(raw.updatedAt) ?? undefined,
+    updatedAt: tsToDateOrNull(raw.updatedAt ?? raw.at) ?? undefined,
   }
 }
 

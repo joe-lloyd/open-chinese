@@ -36,6 +36,11 @@ export function isScheduled(word: { status: string }): boolean {
  * key or skip one.
  */
 export function dateKey(d: Date): string {
+  // An unparseable date reaching `toISOString` throws a RangeError, which the
+  // dashboard's catch would turn into a whole-page error. Nothing written by
+  // the app can produce one, but hand-edited data can, and a word silently
+  // missing from a forecast bucket beats a blank dashboard.
+  if (Number.isNaN(d.getTime())) return ''
   return d.toISOString().slice(0, 10)
 }
 
@@ -148,7 +153,8 @@ export function computeForecast(words: SchedulableWord[], now: Date, days = 14):
   for (const w of words) {
     if (!isScheduled(w)) continue
     const key = dateKey(w.nextReviewDate)
-    if (key > lastKey) continue
+    // Empty key = unparseable date; skip rather than mis-bucket it as overdue.
+    if (!key || key > lastKey) continue
     if (key < todayKey) {
       buckets[0].count++
       buckets[0].overdue = true

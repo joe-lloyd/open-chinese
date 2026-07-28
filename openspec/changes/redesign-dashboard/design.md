@@ -64,7 +64,13 @@ export interface Recommendation { id, title, detail, cta, to, tone, priority }
 export function recommend(ctx: RecommendationContext): Recommendation[]
 ```
 
-Each rule is an entry in a `RULES` array: `(ctx) => Recommendation | null`. `recommend` maps over them, drops nulls, sorts by `priority` descending, de-duplicates by destination, and slices to three. There is a terminal fallback rule that always fires, so the panel is never empty.
+Each rule is an entry in a `RULES` array: `{ id, suppresses?, run: (ctx) => Recommendation | null }`. `recommend` runs them, drops nulls, sorts by `priority` descending, applies suppression, de-duplicates by destination, applies a per-category cap, and slices to three.
+
+Three selection mechanisms rather than one, because a flat priority scalar cannot express all three jobs:
+
+- **Suppression.** `suppresses` lists ids a rule makes redundant; `'*'` means "everything below". Ranking only *orders* candidates, it never removes them, so without this `first-steps` and `backlog-focus` cannot mean "instead of" — they would ship alongside the very cards they replace.
+- **Category cap.** Each recommendation declares a `category` (`study` / `reading` / `browse`), and one category may take at most two of the three slots while another has a candidate waiting. Otherwise three variants of "go and study now" fill the panel and push out the reading CTA the owner specifically asked for. If the cap leaves slots empty they are backfilled in rank order, so a learner whose only firing rules are study rules still gets three.
+- **Fallback, not a rule.** "Keep the habit going / Everything is caught up" is produced by a `fallback()` function used only when nothing fires, not by a bottom-priority rule. As a rule it appeared *beside* other cards and asserted everything was caught up next to a 250-card backlog.
 
 The module has no runtime imports — no React, no Firestore, no router, no `Date.now()`. Its single `import type { LastReadPosition }` is erased at build, so the shape is shared with the Firestore layer without coupling to it. `now` is on the context. That makes it a pure function of its input, which is the only thing needed for a test file to be dropped in later without any harness beyond a runner.
 
@@ -74,20 +80,24 @@ The module has no runtime imports — no React, no Firestore, no router, no `Dat
 
 Rule set and priorities (higher wins):
 
-| Priority | Rule | Fires when | Destination |
-|---|---|---|---|
-| 100 | `first-steps` | no words studied at all | `/hsk` |
-| 90 | `backlog-cram` | due ≥ 100 | `/study?mode=cram&minutes=15` |
-| 80 | `streak-at-risk` | streak ≥ 2, nothing reviewed today, local hour ≥ 17 | `/study?minutes=5` |
-| 70 | `due-review` | due > 0 | `/study` |
-| 60 | `leeches` | leeches ≥ 5 | `/study?mode=hardOnly` |
-| 50 | `continue-reading` | valid `lastRead` present | `/readers/{readerId}/{chapterId}` |
-| 40 | `finish-hsk-level` | a level ≥ 70% and < 100% studied | `/study?hsk=N&mode=new` |
-| 30 | `refresh-weak` | ≥ 20 Weak words and nothing due | `/study?mode=refreshWeak` |
-| 20 | `learn-new` | nothing reviewed today and nothing due | `/study?mode=new` |
-| 10 | `keep-going` | terminal fallback | `/study` |
+| Priority | Rule | Category | Fires when | Destination |
+|---|---|---|---|---|
+| 100 | `first-steps` | browse | no words studied at all | `/hsk` (suppresses `*`) |
+| 90 | `backlog-focus` | study | due ≥ 100 | `/study?minutes=15` (suppresses `due-review`) |
+| 80 | `streak-at-risk` | study | streak ≥ 2, nothing reviewed today, **UTC** hour ≥ 20 | `/study?minutes=5` |
+| 70 | `due-review` | study | due > 0 | `/study` |
+| 60 | `leeches` | study | leeches ≥ 5 | `/study?mode=hardOnly` |
+| 50 | `continue-reading` | reading | valid `lastRead` present | `/readers/{readerId}/{chapterId}` |
+| 40 | `finish-hsk-level` | study | a level ≥ 70% and < 100% studied | `/study?hsk=N&mode=new` |
+| 30 | `refresh-weak` | study | ≥ 20 Weak words and nothing due | `/study?mode=refreshWeak` |
+| 20 | `learn-new` | study | nothing reviewed today and nothing due | `/study?mode=new` |
+| — | `keep-going` | study | fallback; only when nothing above fires | `/study` |
 
-`backlog-cram` outranks `due-review` and both resolve to `/study`-family routes; the dedupe key is the full destination string, so `/study?mode=cram&minutes=15` and `/study` are distinct entries — deliberate, since they are genuinely different sessions. Rules that would produce an identical destination collapse to the highest priority one.
+Rules that would produce an identical destination collapse to the highest-priority one.
+
+**`streak-at-risk` measures lateness in UTC, deliberately.** `reviewedToday` and the streak are both keyed by `dateKey()`, which is UTC. Gating on `now.getHours()` (local) puts the test and the data it interprets in different days for every learner west of Greenwich: a UTC-7 learner who reviews at 09:00 local has those reviews recorded under yesterday's key, so at 17:00 local — when `now.toISOString()` has already rolled over — `reviewedToday` reads 0 and the rule announces "you have not studied today" eight hours after they did. Measuring lateness in the same day the data is bucketed in keeps the claim true everywhere; the cost is that the nudge arrives at a time-of-day that varies by longitude. That is the right trade while day keys are UTC, and the constant is named `streakRiskHourUtc` so the day-key migration has an obvious thing to change.
+
+**`backlog-focus` is a time-boxed *due* session, not `mode=cram`.** The rule was originally written assuming cram meant "the due pile, hardest first". It does not: `buildQueue`'s cram branch ignores `nextReviewDate` entirely and returns the lowest-`easeFactor` cards across the whole collection, `Mastered` and `Leech` included. A learner with 137 due could get a session mostly of cards that were not due — the copy would have been a lie and the backlog would not shrink. Due mode already sorts by `nextReviewDate`, so `/study?minutes=15` does what the card promises. The delta spec was corrected to match; it had encoded the same wrong assumption.
 
 ### D5 — `lastRead` is read defensively from the profile document
 
@@ -104,7 +114,11 @@ export interface LastReadPosition {
 }
 ```
 
-stored at `users/{uid}.lastRead`. A `normalizeLastRead(value: unknown): LastReadPosition | null` guard rejects anything that is not an object with non-empty string `readerId` and `chapterId`, and rejects `progress >= 1` (finished). Until the readers branch lands, the field is absent, the guard returns `null`, and the rule never fires — no error, no placeholder card. The route `/readers/{readerId}/{chapterId}` is the contract to confirm at merge time; it is produced by a single `readerRoute()` helper so retargeting is a one-line change.
+stored at `users/{uid}.lastRead`.
+
+**The reader is the tolerant side of the contract.** The graded-readers branch writes `at` for its timestamp and does not write `progress` at all, which is not what this shape originally assumed. Rather than demand they change, `normalizeLastRead` accepts the union: the timestamp under either `at` or `updatedAt`, and `progress` genuinely optional (its absence just drops the percentage from the CTA copy). It rejects anything that is not an object with non-empty string `readerId` and `chapterId`, and rejects `progress` outside `[0, 1)` — at or above 1 because the chapter is finished, below 0 because "-500% through" is worse than no card. Until the readers branch lands the field is absent, the guard returns `null`, and the rule stays dormant — no error, no placeholder.
+
+The route `/readers/{readerId}/{chapterId}` is produced by a single `readerRoute()` helper so retargeting is a one-line change. That route must exist *before* anything writes `lastRead`: `App.tsx`'s catch-all silently redirects unknown paths to `/`, so a CTA shipped ahead of the route would bounce the learner straight back to the dashboard.
 
 ### D6 — Layout: stack → two-up → main + rail
 
@@ -143,7 +157,7 @@ These land in `client/src/index.css` as `--chart-*` custom properties defined on
 
 Mark specs applied uniformly: 2px lines with no per-point dots, ≤24px bar thickness with 4px rounded data-ends, hairline recessive gridlines (horizontal only), tooltips on every chart, and a shared fixed-height empty state so cards do not resize when a series is empty.
 
-**Related bug found while wiring this up:** `text-correct`, `text-incorrect` and `text-unrecognized` are used throughout the app (`LeechPanel`, `DueSummary`, `StudyPage`) but were never mapped in `client/tailwind.config.ts`, so they have always emitted nothing. Three lines added to the config; this is why some existing UI will visibly gain color in this PR.
+**Related bug, fixed elsewhere:** `text-correct`, `text-incorrect` and `text-unrecognized` are used throughout the app (`LeechPanel`, `DueSummary`, `StudyPage`) but were never mapped in `client/tailwind.config.ts`, so they have always emitted nothing. This change originally carried a three-line mapping, which was **removed**: mapping a slot to a bare `var()` does not let Tailwind v3 apply alpha modifiers, so it would have revived only the plain `text-*` usages and left every `bg-incorrect/10`-style usage dead. The complete fix — channel-triplet variables plus `<alpha-value>` — is a strict superset and lands in the personal-dictionary change. Nothing added here uses an alpha modifier on a semantic colour, so this change's tone system works under either version.
 
 ### D8 — Small shared presentation primitives, not a component framework
 

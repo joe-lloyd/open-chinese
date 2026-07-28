@@ -33,7 +33,10 @@
   --chart-series-2: #eb6834;
 
   --chart-grid: #e5e7eb;
-  --chart-empty: #e5e7eb;
+  /* The heatmap's zero cell. Stepped off --chart-grid so the legend's "Less"
+     swatch reads as the bottom of the ramp rather than as an empty gap
+     (1.33:1 against the chart surface, up from 1.17:1). */
+  --chart-empty: #d6dae1;
 
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -63,7 +66,7 @@
   --chart-series-2: #d95926;
 
   --chart-grid: #374151;
-  --chart-empty: #374151;
+  --chart-empty: #445267;
 
   color-scheme: dark;
 }

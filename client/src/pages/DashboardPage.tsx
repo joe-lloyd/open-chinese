@@ -95,7 +95,13 @@ export default function DashboardPage() {
         allWords.filter((w: WordState) => w.status !== 'Unstudied').map((w) => w.simplified)
       )
       const studiedCount = studiedSimplifieds.size
-      const newCount = Math.max(0, dbWords.length - studiedCount)
+      // `newCount` must exclude every word that already has a document, not
+      // just the ones whose status is past Unstudied: `buildQueue` filters new
+      // cards against all document ids, and a CSV import can create thousands
+      // of Unstudied documents. Counting by status would promise words that
+      // `mode=new` will never serve. `studiedCount` and HSK progress stay on
+      // the status-based set, which is how the spec defines "studied".
+      const newCount = Math.max(0, dbWords.length - allWords.length)
       statusCounts['Unstudied'] = newCount
 
       // Retention comes from the same 365-day dailyStats fetch as the heatmap — no extra reads.

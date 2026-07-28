@@ -11,6 +11,13 @@ import type { LastReadPosition } from './firestore'
 
 export type RecommendationTone = 'accent' | 'good' | 'warning' | 'critical' | 'neutral'
 
+/**
+ * What kind of activity the card sends the learner to. Used to stop three
+ * variations of "go and study now" from filling every slot and crowding out
+ * the one non-study action that fired.
+ */
+export type RecommendationCategory = 'study' | 'reading' | 'browse'
+
 export interface Recommendation {
   id: string
   title: string
@@ -20,6 +27,7 @@ export interface Recommendation {
   /** Route including params; also the de-duplication key. */
   to: string
   tone: RecommendationTone
+  category: RecommendationCategory
   priority: number
 }
 
@@ -52,8 +60,18 @@ export const THRESHOLDS = {
   weak: 20,
   /** Proportion of an HSK level studied before "nearly there" applies. */
   hskNearlyDone: 0.7,
-  /** Local hour from which an unstudied day counts as a streak at risk. */
-  streakRiskHour: 17,
+  /**
+   * Hour of the **UTC** day from which an unstudied day counts as a streak at
+   * risk. It must be UTC, not local: `reviewedToday` and the streak are both
+   * keyed off `dateKey()`, which is UTC, so a local-hour gate would let the
+   * rule claim "you have not studied today" hours after a learner west of
+   * Greenwich actually did. Measuring lateness in the same day the data is
+   * bucketed in keeps the claim true everywhere. Revisit once day keys are
+   * migrated to local dates, at which point this should become a local hour.
+   */
+  streakRiskHourUtc: 20,
+  /** Slots any one category may take before another category gets a look in. */
+  maxPerCategory: 2,
 } as const
 
 export function readerRoute(position: LastReadPosition): string {
@@ -64,141 +82,201 @@ function plural(n: number, one: string, many: string): string {
   return `${n} ${n === 1 ? one : many}`
 }
 
-type Rule = (ctx: RecommendationContext) => Recommendation | null
+interface Rule {
+  id: string
+  /**
+   * Ids this rule makes redundant when it fires. `'*'` suppresses every
+   * lower-priority rule. Without this, a flat priority sort cannot express
+   * "recommend X *instead of* Y", which two of the rules below need.
+   */
+  suppresses?: readonly string[]
+  run: (ctx: RecommendationContext) => Recommendation | null
+}
 
 const RULES: Rule[] = [
-  // Nothing studied at all — everything else would read as noise.
-  (ctx) =>
-    ctx.studiedCount > 0
-      ? null
-      : {
-          id: 'first-steps',
-          title: 'Start with HSK 1',
-          detail: 'You have not studied any words yet. Pick a level and take the first session.',
-          cta: 'Choose a level',
-          to: '/hsk',
-          tone: 'accent',
-          priority: 100,
-        },
-
-  // A backlog this size is not a normal session — offer a time-boxed cram.
-  (ctx) =>
-    ctx.dueCount < THRESHOLDS.backlog
-      ? null
-      : {
-          id: 'backlog-cram',
-          title: 'Clear the backlog',
-          detail: `${ctx.dueCount} cards are waiting. A 15-minute cram takes the hardest ones first.`,
-          cta: 'Cram for 15 minutes',
-          to: '/study?mode=cram&minutes=15',
-          tone: 'warning',
-          priority: 90,
-        },
-
-  // Late in the day, a live streak, nothing done yet.
-  (ctx) =>
-    ctx.currentStreak >= 2 &&
-    ctx.reviewedToday === 0 &&
-    ctx.now.getHours() >= THRESHOLDS.streakRiskHour
-      ? {
-          id: 'streak-at-risk',
-          title: 'Keep your streak alive',
-          detail: `You are on a ${ctx.currentStreak}-day streak and have not studied today. Five minutes is enough.`,
-          cta: 'Study for 5 minutes',
-          to: '/study?minutes=5',
-          tone: 'critical',
-          priority: 80,
-        }
-      : null,
-
-  (ctx) =>
-    ctx.dueCount === 0
-      ? null
-      : {
-          id: 'due-review',
-          title: 'Reviews are due',
-          detail: `${plural(ctx.dueCount, 'card is', 'cards are')} scheduled for today.`,
-          cta: 'Start reviewing',
-          to: '/study',
-          tone: 'accent',
-          priority: 70,
-        },
-
-  (ctx) =>
-    ctx.leechCount < THRESHOLDS.leeches
-      ? null
-      : {
-          id: 'leeches',
-          title: 'Leeches are piling up',
-          detail: `${plural(ctx.leechCount, 'word keeps', 'words keep')} slipping. A session of just these breaks the loop.`,
-          cta: 'Drill the hard ones',
-          to: '/study?mode=hardOnly',
-          tone: 'critical',
-          priority: 60,
-        },
-
-  // Owned by the graded-readers feature; absent until that ships.
-  (ctx) => {
-    const position = ctx.lastRead
-    if (!position) return null
-    const where = position.chapterTitle ?? position.readerTitle ?? 'where you left off'
-    const pct = position.progress != null ? ` You are ${Math.round(position.progress * 100)}% through.` : ''
-    return {
-      id: 'continue-reading',
-      title: 'Continue reading',
-      detail: `Pick up ${where}.${pct}`,
-      cta: 'Resume chapter',
-      to: readerRoute(position),
-      tone: 'neutral',
-      priority: 50,
-    }
+  // Nothing studied at all. Every other card would be addressed to a learner
+  // who does not exist yet, so this one stands alone.
+  {
+    id: 'first-steps',
+    suppresses: ['*'],
+    run: (ctx) =>
+      ctx.studiedCount > 0
+        ? null
+        : {
+            id: 'first-steps',
+            title: 'Start with HSK 1',
+            detail: 'You have not studied any words yet. Pick a level and take the first session.',
+            cta: 'Choose a level',
+            to: '/hsk',
+            tone: 'accent',
+            category: 'browse',
+            priority: 100,
+          },
   },
 
-  (ctx) => {
-    const candidate = ctx.hskProgress
-      .filter((l) => l.total > 0 && l.studied < l.total && l.studied / l.total >= THRESHOLDS.hskNearlyDone)
-      .sort((a, b) => b.pct - a.pct)[0]
-    if (!candidate) return null
-    const remaining = candidate.total - candidate.studied
-    return {
-      id: 'finish-hsk-level',
-      title: `Finish HSK ${candidate.level}`,
-      detail: `${candidate.pct}% done — ${plural(remaining, 'word', 'words')} left to see for the first time.`,
-      cta: `Learn the rest of HSK ${candidate.level}`,
-      to: `/study?hsk=${candidate.level}&mode=new`,
-      tone: 'good',
-      priority: 40,
-    }
+  // A backlog this size is not a normal session. Note this is a time-boxed
+  // *due* session, not `mode=cram`: cram ignores `nextReviewDate` entirely and
+  // returns the lowest-ease cards in the whole collection, Mastered and Leech
+  // included, so it would not actually reduce a backlog. Due mode already
+  // sorts by `nextReviewDate`, which is exactly the job here.
+  {
+    id: 'backlog-focus',
+    suppresses: ['due-review'],
+    run: (ctx) =>
+      ctx.dueCount < THRESHOLDS.backlog
+        ? null
+        : {
+            id: 'backlog-focus',
+            title: 'Clear the backlog',
+            detail: `${ctx.dueCount.toLocaleString()} cards are waiting. Fifteen focused minutes takes the most overdue first.`,
+            cta: 'Study for 15 minutes',
+            to: '/study?minutes=15',
+            tone: 'warning',
+            category: 'study',
+            priority: 90,
+          },
   },
 
-  (ctx) =>
-    ctx.dueCount === 0 && ctx.weakCount >= THRESHOLDS.weak
-      ? {
-          id: 'refresh-weak',
-          title: 'Shore up the weak words',
-          detail: `${plural(ctx.weakCount, 'word sits', 'words sit')} at Weak. Nothing is due, so this is free time well spent.`,
-          cta: 'Refresh weak words',
-          to: '/study?mode=refreshWeak',
-          tone: 'warning',
-          priority: 30,
-        }
-      : null,
+  // Late in the UTC day — the day the streak is actually counted in — with a
+  // live streak and nothing recorded yet.
+  {
+    id: 'streak-at-risk',
+    run: (ctx) =>
+      ctx.currentStreak >= 2 &&
+      ctx.reviewedToday === 0 &&
+      ctx.now.getUTCHours() >= THRESHOLDS.streakRiskHourUtc
+        ? {
+            id: 'streak-at-risk',
+            title: 'Keep your streak alive',
+            detail: `You are on a ${ctx.currentStreak}-day streak and have not studied today. Five minutes is enough.`,
+            cta: 'Study for 5 minutes',
+            to: '/study?minutes=5',
+            tone: 'critical',
+            category: 'study',
+            priority: 80,
+          }
+        : null,
+  },
 
-  (ctx) =>
-    ctx.dueCount === 0 && ctx.reviewedToday === 0 && ctx.newAvailable > 0
-      ? {
-          id: 'learn-new',
-          title: 'Learn something new',
-          detail: `Nothing is due and you have not studied today. ${ctx.newAvailable.toLocaleString()} words are still unseen.`,
-          cta: 'Start new words',
-          to: '/study?mode=new',
-          tone: 'good',
-          priority: 20,
-        }
-      : null,
+  {
+    id: 'due-review',
+    run: (ctx) =>
+      ctx.dueCount === 0
+        ? null
+        : {
+            id: 'due-review',
+            title: 'Reviews are due',
+            detail: `${plural(ctx.dueCount, 'card is', 'cards are')} scheduled for today.`,
+            cta: 'Start reviewing',
+            to: '/study',
+            tone: 'accent',
+            category: 'study',
+            priority: 70,
+          },
+  },
 
-  // Terminal fallback — the panel is never empty.
-  (ctx) => ({
+  {
+    id: 'leeches',
+    run: (ctx) =>
+      ctx.leechCount < THRESHOLDS.leeches
+        ? null
+        : {
+            id: 'leeches',
+            title: 'Leeches are piling up',
+            detail: `${plural(ctx.leechCount, 'word keeps', 'words keep')} slipping. A session of just these breaks the loop.`,
+            cta: 'Drill the hard ones',
+            to: '/study?mode=hardOnly',
+            tone: 'critical',
+            category: 'study',
+            priority: 60,
+          },
+  },
+
+  // Owned by the graded-readers feature; dormant until that ships.
+  {
+    id: 'continue-reading',
+    run: (ctx) => {
+      const position = ctx.lastRead
+      if (!position) return null
+      const where = position.chapterTitle ?? position.readerTitle ?? 'where you left off'
+      const pct = position.progress != null ? ` You are ${Math.round(position.progress * 100)}% through.` : ''
+      return {
+        id: 'continue-reading',
+        title: 'Continue reading',
+        detail: `Pick up ${where}.${pct}`,
+        cta: 'Resume chapter',
+        to: readerRoute(position),
+        tone: 'neutral',
+        category: 'reading',
+        priority: 50,
+      }
+    },
+  },
+
+  {
+    id: 'finish-hsk-level',
+    run: (ctx) => {
+      const candidate = ctx.hskProgress
+        .filter((l) => l.total > 0 && l.studied < l.total && l.studied / l.total >= THRESHOLDS.hskNearlyDone)
+        .sort((a, b) => b.pct - a.pct)[0]
+      if (!candidate) return null
+      const remaining = candidate.total - candidate.studied
+      return {
+        id: 'finish-hsk-level',
+        title: `Finish HSK ${candidate.level}`,
+        detail: `${candidate.pct}% done — ${plural(remaining, 'word', 'words')} left to see for the first time.`,
+        cta: `Learn the rest of HSK ${candidate.level}`,
+        to: `/study?hsk=${candidate.level}&mode=new`,
+        tone: 'good',
+        category: 'study',
+        priority: 40,
+      }
+    },
+  },
+
+  {
+    id: 'refresh-weak',
+    run: (ctx) =>
+      ctx.dueCount === 0 && ctx.weakCount >= THRESHOLDS.weak
+        ? {
+            id: 'refresh-weak',
+            title: 'Shore up the weak words',
+            detail: `${plural(ctx.weakCount, 'word sits', 'words sit')} at Weak. Nothing is due, so this is free time well spent.`,
+            cta: 'Refresh weak words',
+            to: '/study?mode=refreshWeak',
+            tone: 'warning',
+            category: 'study',
+            priority: 30,
+          }
+        : null,
+  },
+
+  {
+    id: 'learn-new',
+    run: (ctx) =>
+      ctx.dueCount === 0 && ctx.reviewedToday === 0 && ctx.newAvailable > 0
+        ? {
+            id: 'learn-new',
+            title: 'Learn something new',
+            detail: `Nothing is due and you have not studied today. ${ctx.newAvailable.toLocaleString()} words are still unseen.`,
+            cta: 'Start new words',
+            to: '/study?mode=new',
+            tone: 'good',
+            category: 'study',
+            priority: 20,
+          }
+        : null,
+  },
+
+]
+
+/**
+ * Used only when no rule above fires. It is deliberately not a rule: its copy
+ * asserts that everything is caught up, which would contradict any other card
+ * sitting beside it.
+ */
+function fallback(ctx: RecommendationContext): Recommendation {
+  return {
     id: 'keep-going',
     title: ctx.reviewedToday > 0 ? 'Nicely done today' : 'Keep the habit going',
     detail:
@@ -208,26 +286,59 @@ const RULES: Rule[] = [
     cta: 'Open a session',
     to: '/study',
     tone: 'neutral',
-    priority: 10,
-  }),
-]
+    category: 'study',
+    priority: 0,
+  }
+}
 
 /**
- * Highest-priority firing rules, at most one per destination, capped at three.
- * Always returns at least one recommendation.
+ * Highest-priority firing rules, at most one per destination, capped at
+ * `limit`. Rules may suppress lower-priority ones they make redundant, and a
+ * single category may not take every slot while another category is waiting —
+ * otherwise three flavours of "go and study now" crowd out the one reading or
+ * browsing action that fired. If the category cap leaves slots unfilled, they
+ * are backfilled in priority order. When nothing fires at all, the general
+ * fallback stands in, so the panel is never empty (unless `limit` is zero or
+ * less).
  */
 export function recommend(ctx: RecommendationContext, limit = 3): Recommendation[] {
-  const fired = RULES.map((rule) => rule(ctx))
-    .filter((r): r is Recommendation => r !== null)
-    .sort((a, b) => b.priority - a.priority)
+  if (limit <= 0) return []
 
+  const fired: { rule: Rule; rec: Recommendation }[] = []
+  for (const rule of RULES) {
+    const rec = rule.run(ctx)
+    if (rec) fired.push({ rule, rec })
+  }
+  if (fired.length === 0) return [fallback(ctx)]
+  fired.sort((a, b) => b.rec.priority - a.rec.priority)
+
+  const suppressed = new Set<string>()
+  let suppressAll = false
+  const eligible: Recommendation[] = []
   const seen = new Set<string>()
+  for (const { rule, rec } of fired) {
+    if (suppressAll || suppressed.has(rec.id) || seen.has(rec.to)) continue
+    seen.add(rec.to)
+    eligible.push(rec)
+    for (const id of rule.suppresses ?? []) {
+      if (id === '*') suppressAll = true
+      else suppressed.add(id)
+    }
+  }
+
+  const perCategory = new Map<RecommendationCategory, number>()
   const picked: Recommendation[] = []
-  for (const r of fired) {
-    if (seen.has(r.to)) continue
-    seen.add(r.to)
-    picked.push(r)
-    if (picked.length === limit) break
+  for (const rec of eligible) {
+    const used = perCategory.get(rec.category) ?? 0
+    if (used >= THRESHOLDS.maxPerCategory) continue
+    perCategory.set(rec.category, used + 1)
+    picked.push(rec)
+    if (picked.length >= limit) return picked
+  }
+
+  for (const rec of eligible) {
+    if (picked.length >= limit) break
+    if (!picked.includes(rec)) picked.push(rec)
   }
   return picked
 }

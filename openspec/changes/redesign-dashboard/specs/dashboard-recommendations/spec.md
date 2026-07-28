@@ -28,6 +28,31 @@ At most one recommendation per distinct destination SHALL be shown, so two rules
 - **WHEN** the learner has 137 cards due
 - **THEN** the recommendation's detail text SHALL reference 137 rather than generic phrasing
 
+### Requirement: A rule may suppress rules it makes redundant
+A rule SHALL be able to declare which lower-ranked rules it renders redundant when it fires, and a suppressed rule SHALL NOT be displayed even when its own condition holds. Ranking alone SHALL NOT be relied on to express "recommend this *instead of* that", because ranking only orders candidates and never removes them.
+
+#### Scenario: Backlog session replaces the plain due session
+- **WHEN** the backlog rule and the plain due-review rule both fire
+- **THEN** only the backlog recommendation SHALL be displayed
+- **AND** the plain due-review recommendation SHALL be absent rather than merely ranked lower
+
+#### Scenario: New learner sees only the starting action
+- **WHEN** the learner has no word documents
+- **THEN** the starting recommendation SHALL be the only one displayed
+- **AND** no fallback or catch-up recommendation SHALL appear alongside it
+
+### Requirement: One activity category may not take every slot
+Each recommendation SHALL declare the kind of activity it leads to. When candidates from more than one category are available, a single category SHALL NOT occupy every displayed slot. If applying that limit leaves slots unfilled, the remaining slots SHALL be backfilled in rank order rather than left empty.
+
+#### Scenario: Reading action survives a crowd of study actions
+- **WHEN** four study recommendations and one reading recommendation all fire
+- **THEN** the reading recommendation SHALL be displayed
+- **AND** at most two of the displayed recommendations SHALL be study recommendations
+
+#### Scenario: Slots backfilled when only one category fired
+- **WHEN** three study recommendations fire and no other category does
+- **THEN** all three SHALL be displayed rather than only two
+
 ### Requirement: A recommendation is always available
 The engine SHALL always return at least one recommendation. When no state-specific rule fires, it SHALL fall back to a general action appropriate to whether the learner has started studying at all.
 
@@ -40,25 +65,38 @@ The engine SHALL always return at least one recommendation. When no state-specif
 - **WHEN** the learner has nothing due, no leeches, has already studied today, and no other rule fires
 - **THEN** the engine SHALL still return at least one recommendation
 
-### Requirement: Backlog triggers a cram recommendation
-When the number of due cards exceeds a defined backlog threshold, the engine SHALL recommend a time-boxed cram session in preference to a plain due-review session, and the recommendation SHALL link to the study route with the cram mode and a duration parameter.
+### Requirement: Backlog triggers a time-boxed session recommendation
+When the number of due cards exceeds a defined backlog threshold, the engine SHALL recommend a time-boxed session in preference to an open-ended due-review session, and the recommendation SHALL link to the study route with a duration parameter.
 
-#### Scenario: Large backlog recommends cram
+The destination SHALL target the scheduled-review queue, which is ordered by `nextReviewDate` and therefore actually reduces the backlog. It SHALL NOT use the cram mode: cram ignores `nextReviewDate` entirely and selects the lowest-ease cards across the whole collection including `Mastered` and `Leech`, so it does not address a backlog of due cards.
+
+#### Scenario: Large backlog recommends a time-boxed session
 - **WHEN** 250 cards are due
-- **THEN** a cram recommendation SHALL be returned ranked above the plain due-review recommendation
-- **AND** its destination SHALL carry the cram mode and a duration parameter
+- **THEN** a backlog recommendation SHALL be returned and the plain due-review recommendation SHALL be suppressed
+- **AND** its destination SHALL carry a duration parameter and SHALL target the scheduled-review queue
+
+#### Scenario: Backlog destination does not use cram mode
+- **WHEN** the backlog recommendation is produced
+- **THEN** its destination SHALL NOT carry the cram mode
 
 #### Scenario: Small due count recommends a normal session
 - **WHEN** 12 cards are due
-- **THEN** the plain due-review recommendation SHALL be returned and the cram recommendation SHALL NOT fire
+- **THEN** the plain due-review recommendation SHALL be returned and the backlog recommendation SHALL NOT fire
 
 ### Requirement: Streak-at-risk recommendation
-When the learner has an active multi-day streak, has reviewed nothing today, and the local time is late in the day, the engine SHALL recommend a short session framed around preserving the streak, linking to a duration-limited study session.
+When the learner has an active multi-day streak, has reviewed nothing today, and the day is nearly over, the engine SHALL recommend a short session framed around preserving the streak, linking to a duration-limited study session.
 
-#### Scenario: Evening with an unstudied day and a live streak
-- **WHEN** the learner has a 12-day streak, has reviewed 0 cards today, and the context time is 20:00 local
+"Nearly over" SHALL be measured against the same calendar day that the reviewed-today count and the streak are bucketed in. Because those are keyed in UTC, the lateness test SHALL use the UTC hour. A local-hour test SHALL NOT be used while day keys are UTC: for a learner west of Greenwich the local evening falls in the *next* UTC day, whose review count is legitimately zero, and the rule would tell a learner who studied that morning that they had not studied today.
+
+#### Scenario: Late in the day with an unstudied day and a live streak
+- **WHEN** the learner has a 12-day streak, has reviewed 0 cards in the current day key, and the context time is late in that same UTC day
 - **THEN** a streak-preserving recommendation SHALL fire referencing the 12-day streak
 - **AND** its destination SHALL carry a short duration parameter
+
+#### Scenario: Learner west of Greenwich who already studied
+- **GIVEN** a learner at UTC-7 who reviewed 40 cards at 09:00 local, recorded against that moment's UTC day key
+- **WHEN** the dashboard loads at 17:00 local, by which point the UTC day has rolled over
+- **THEN** the streak-preserving recommendation SHALL NOT claim they have not studied today
 
 #### Scenario: Streak already safe
 - **WHEN** the learner has a 12-day streak and has already reviewed cards today
