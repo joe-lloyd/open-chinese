@@ -11,6 +11,7 @@ import {
   Timestamp,
   increment,
   arrayUnion,
+  documentId,
   query,
   where,
   orderBy,
@@ -279,7 +280,17 @@ export async function getDeckSummaries(uid: string): Promise<
   for (const w of words) {
     const entry = decks.get(w.deckName) ?? { wordCount: 0, dueCount: 0 }
     entry.wordCount++
-    if (w.nextReviewDate <= now && w.status !== 'Mastered' && w.status !== 'Leech') {
+    // Mirrors the due filter in buildQueue. Without the Unstudied guard, documents
+    // written with an epoch nextReviewDate and no review yet — reader-encountered
+    // words, CSV rows imported as Unstudied — are counted as due here but never
+    // returned by the queue, so the deck advertises a backlog that cannot be studied.
+    if (
+      w.nextReviewDate <= now &&
+      w.status !== 'Mastered' &&
+      w.status !== 'Leech' &&
+      w.status !== 'Unstudied' &&
+      w.intervalMeaning > 0
+    ) {
       entry.dueCount++
     }
     decks.set(w.deckName, entry)
@@ -346,22 +357,28 @@ export async function getReaderProgress(uid: string, readerId: string): Promise<
   return dataToReaderProgress(readerId, snap.data() as Record<string, unknown>)
 }
 
-/** Idempotent: arrayUnion means re-finishing a chapter cannot duplicate it. */
-export async function markChapterComplete(
-  uid: string,
-  readerId: string,
-  chapterId: string
-): Promise<void> {
-  await setDoc(
-    doc(db, 'users', uid, 'readerProgress', readerId),
-    {
-      readerId,
-      completedChapters: arrayUnion(chapterId),
-      lastChapterId: chapterId,
-      lastReadAt: serverTimestamp(),
-    },
-    { merge: true }
+/** Firestore caps an `in` filter at 30 values. */
+const IN_CHUNK = 30
+
+/**
+ * Which of these words the user has already met. Bounded by the words asked about
+ * rather than scanning the whole `words` collection — a chapter asks about ~30
+ * words, and a reader with thousands of studied words should not pay for all of
+ * them to render one chapter.
+ */
+export async function getEncounteredWords(uid: string, simplifieds: string[]): Promise<Set<string>> {
+  const unique = [...new Set(simplifieds)]
+  if (unique.length === 0) return new Set()
+
+  const chunks: string[][] = []
+  for (let i = 0; i < unique.length; i += IN_CHUNK) chunks.push(unique.slice(i, i + IN_CHUNK))
+
+  const snaps = await Promise.all(
+    chunks.map((chunk) =>
+      getDocs(query(collection(db, 'users', uid, 'words'), where(documentId(), 'in', chunk)))
+    )
   )
+  return new Set(snaps.flatMap((snap) => snap.docs.map((d) => d.id)))
 }
 
 export async function recordChapterOpened(
@@ -403,26 +420,35 @@ export interface EncounteredWord {
 }
 
 /**
- * Records words met while reading. Writes an Unstudied document so the word shows
- * up in the personal dictionary without inventing a new status value; the queue
- * builder keys new cards off review history, not document existence, so these
- * words stay studiable.
+ * Finishes a chapter: records every word the user had not met and marks the chapter
+ * complete, in one atomic batch.
  *
- * Re-reads the user's words first so a word studied since the chapter was opened
- * never has its SRS state clobbered. Returns the words actually written.
+ * Both halves commit together on purpose. Writing the words and then marking the
+ * chapter would, if the second write failed, leave the words in the dictionary with
+ * the chapter still unfinished — and a retry would then filter every word out as
+ * already-existing and report "no new words", which is both wrong and unrecoverable.
+ *
+ * Words are re-checked immediately before the batch so a word studied since the
+ * chapter was opened never has its SRS state overwritten. `completedChapters` uses
+ * arrayUnion, so re-finishing a chapter cannot duplicate it.
+ *
+ * Returns the words actually written.
  */
-export async function addEncounteredWords(
+export async function completeChapter(
   uid: string,
-  words: EncounteredWord[],
-  encounteredIn: string
+  readerId: string,
+  chapterId: string,
+  words: EncounteredWord[]
 ): Promise<string[]> {
-  if (words.length === 0) return []
-
-  const existing = new Set((await getAllUserWords(uid)).map((w) => w.simplified))
+  const existing = await getEncounteredWords(
+    uid,
+    words.map((w) => w.simplified)
+  )
   const toWrite = words.filter((w) => !existing.has(w.simplified))
-  if (toWrite.length === 0) return []
 
   const batch = writeBatch(db)
+  const encounteredIn = `${readerId}/${chapterId}`
+
   for (const word of toWrite) {
     batch.set(doc(db, 'users', uid, 'words', word.simplified), {
       intervalMeaning: 0,
@@ -440,6 +466,18 @@ export async function addEncounteredWords(
       ...(word.customWordData ? { customWordData: word.customWordData } : {}),
     })
   }
+
+  batch.set(
+    doc(db, 'users', uid, 'readerProgress', readerId),
+    {
+      readerId,
+      completedChapters: arrayUnion(chapterId),
+      lastChapterId: chapterId,
+      lastReadAt: serverTimestamp(),
+    },
+    { merge: true }
+  )
+
   await batch.commit()
 
   return toWrite.map((w) => w.simplified)

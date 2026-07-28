@@ -50,11 +50,24 @@ export async function buildQueue(
   // A document existing is not the same as the word having been studied: finishing a
   // reader chapter (and saving a note) writes an Unstudied, zero-interval document.
   // Keying the new-card pool off review history keeps those words introducible.
+  //
+  // This set is a strict subset of "documents that exist", so the pool only ever
+  // grows — a reviewed word can never fall back into it. That relies on a reviewed
+  // word never holding intervalMeaning 0 while status reads Unstudied, which holds
+  // only because calculateNewInterval in srs.ts floors EVERY response, Again
+  // included, at MIN_INTERVAL = 1. If MIN_INTERVAL ever reaches 0, a lapsed card
+  // re-enters this pool and gets its easeFactor and consecutiveFails reset.
   const studiedSimplifieds = new Set(
     allUserWords
       .filter((w) => w.status !== 'Unstudied' || w.intervalMeaning > 0)
       .map((w) => w.simplified)
   )
+
+  // Deck of record for a word the user already has a document for. The unstudied pool
+  // is sourced from the static dictionary, whose deck_name is always `HSK n`; without
+  // this, a CSV row imported into "My List" and never studied would surface as a new
+  // card carrying "HSK 3" and be written back under that deck on first review.
+  const existingDeck = new Map(allUserWords.map((w) => [w.simplified, w.deckName]))
 
   let levelSimplifieds: Set<string> | null = null
   if (hskLevel) {
@@ -100,7 +113,7 @@ export async function buildQueue(
     pinyin: w.pinyin,
     definition: w.definition,
     hskLevel: w.hsk_level,
-    deckName: w.deck_name,
+    deckName: existingDeck.get(w.simplified) || w.deck_name,
     notes: undefined,
     sentenceZh: w.sentence_zh,
     sentenceEn: w.sentence_en,

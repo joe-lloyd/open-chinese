@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { loadReader, unencounteredWords } from '../lib/readers'
 import type { Reader } from '../lib/readers'
-import { getAllUserWords, getReaderProgress } from '../lib/firestore'
+import { getEncounteredWords, getReaderProgress } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import HskBadge from '../components/HskBadge'
 
@@ -31,13 +31,12 @@ export default function ReaderPage() {
 
       const uid = getCurrentUid()
       if (loaded && uid) {
-        const [userWords, progress] = await Promise.all([
-          getAllUserWords(uid),
+        const [encountered, progress] = await Promise.all([
+          getEncounteredWords(uid, loaded.chapters.flatMap((c) => c.vocab)),
           getReaderProgress(uid, readerId),
         ])
         if (cancelled) return
 
-        const encountered = new Set(userWords.map((w) => w.simplified))
         const completed = new Set(progress?.completedChapters ?? [])
         setRows(
           loaded.chapters.map((c) => ({

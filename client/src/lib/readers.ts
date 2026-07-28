@@ -46,24 +46,37 @@ const bust = import.meta.env.VITE_BUILD_ID ?? 'dev'
 let indexPromise: Promise<ReaderSummary[]> | null = null
 const readerPromises = new Map<string, Promise<Reader | null>>()
 
+// Caching the promise, not the value, means a failure would otherwise be cached too —
+// one dropped request and that reader stays unloadable until a full page reload. Both
+// caches evict themselves when the fetch did not produce content.
+
 export function loadReaderIndex(): Promise<ReaderSummary[]> {
   if (!indexPromise) {
-    indexPromise = fetch(`/data/readers/index.json?v=${bust}`)
+    const promise = fetch(`/data/readers/index.json?v=${bust}`)
       .then((r) => (r.ok ? r.json() : { readers: [] }))
       .then((data: { readers: ReaderSummary[] }) => data.readers ?? [])
       .catch(() => [])
+    promise.then((readers) => {
+      if (readers.length === 0 && indexPromise === promise) indexPromise = null
+    })
+    indexPromise = promise
   }
   return indexPromise
 }
 
 export function loadReader(readerId: string): Promise<Reader | null> {
-  let promise = readerPromises.get(readerId)
-  if (!promise) {
-    promise = fetch(`/data/readers/${encodeURIComponent(readerId)}.json?v=${bust}`)
-      .then((r) => (r.ok ? (r.json() as Promise<Reader>) : null))
-      .catch(() => null)
-    readerPromises.set(readerId, promise)
-  }
+  const cached = readerPromises.get(readerId)
+  if (cached) return cached
+
+  const promise = fetch(`/data/readers/${encodeURIComponent(readerId)}.json?v=${bust}`)
+    .then((r) => (r.ok ? (r.json() as Promise<Reader>) : null))
+    .catch(() => null)
+  promise.then((reader) => {
+    if (reader === null && readerPromises.get(readerId) === promise) {
+      readerPromises.delete(readerId)
+    }
+  })
+  readerPromises.set(readerId, promise)
   return promise
 }
 

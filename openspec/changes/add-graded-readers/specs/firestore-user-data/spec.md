@@ -17,6 +17,11 @@ A missing document SHALL be treated as no progress in that reader.
 - **WHEN** an already-completed chapter is marked finished again
 - **THEN** `completedChapters` SHALL contain that chapter id exactly once
 
+#### Scenario: Word writes and chapter completion commit together
+- **WHEN** a chapter is finished
+- **THEN** the encountered-word documents and the `completedChapters` update SHALL be committed as one atomic write
+- **AND** if that write fails, neither the words nor the completion SHALL be recorded, leaving the chapter cleanly retryable
+
 #### Scenario: Missing document means no progress
 - **WHEN** no document exists for a reader
 - **THEN** that reader SHALL be shown with zero chapters finished

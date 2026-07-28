@@ -114,6 +114,18 @@ function buildReader(source: SourceReader): Reader {
   const where = (chapterId: string) => `${source.id}/${chapterId}`
   const seenInReader = new Set<string>()
 
+  // Chapter ids address both the route and the entries in `completedChapters`, so a
+  // duplicate silently conflates two chapters' progress and makes the second
+  // unreachable.
+  const seenChapterIds = new Set<string>()
+  for (const chapter of source.chapters) {
+    if (!chapter.id?.trim()) errors.push(`${source.id}: chapter with no id`)
+    else if (seenChapterIds.has(chapter.id)) {
+      errors.push(`${source.id}: duplicate chapter id "${chapter.id}"`)
+    }
+    seenChapterIds.add(chapter.id)
+  }
+
   const chapters = source.chapters.map((chapter) => {
     const occurrences = new Map<string, number>()
     const vocab: string[] = []
@@ -131,10 +143,35 @@ function buildReader(source: SourceReader): Reader {
 
       const tokens = paragraph.tokens.map((token): ReaderToken => {
         if (typeof token !== 'string') {
-          // Inline gloss — proper nouns and anything outside HSK 1–4. Exempt from the
-          // level-fit gate because there is no level to check it against.
-          record(token.text)
-          return { kind: 'word', text: token.text, pinyin: token.pinyin, definition: token.definition }
+          // Inline gloss — proper nouns and anything outside HSK 1–4. This is the one
+          // path the HSK data cannot cross-check, so the gloss gate has to be applied
+          // by hand here or it does not exist at all.
+          const { text, pinyin, definition } = token
+          if (!text?.trim()) {
+            errors.push(`${where(chapter.id)}: inline token has empty text`)
+          } else if (!pinyin?.trim() || !definition?.trim()) {
+            errors.push(
+              `${where(chapter.id)}: inline token "${text}" is missing ${
+                !pinyin?.trim() ? 'a pinyin' : 'a definition'
+              } — every word token must open a usable popover`
+            )
+          }
+          // An inline gloss is for words the HSK data does not have. If the data does
+          // have it and it is above the reader's level, glossing it inline is smuggling
+          // vocabulary past the level-fit gate rather than naming a person or place.
+          const known = hsk.get(text)
+          if (known && known.hskLevel > source.hskLevel) {
+            errors.push(
+              `${where(chapter.id)}: inline token "${text}" is HSK ${known.hskLevel}, above the reader's level ${source.hskLevel} — an inline gloss is not a way around the level gate`
+            )
+          }
+          record(text)
+          return { kind: 'word', text, pinyin, definition }
+        }
+
+        if (!token.trim()) {
+          errors.push(`${where(chapter.id)}: empty token`)
+          return { kind: 'punct', text: token }
         }
 
         if (isPunctuation(token)) return { kind: 'punct', text: token }

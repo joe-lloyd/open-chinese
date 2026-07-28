@@ -5,10 +5,9 @@ import { findChapter, loadReader, nextChapter, unencounteredWords } from '../lib
 import type { Reader, ReaderChapter } from '../lib/readers'
 import { loadDB } from '../lib/worddb'
 import {
-  addEncounteredWords,
-  getAllUserWords,
+  completeChapter,
+  getEncounteredWords,
   getReaderProgress,
-  markChapterComplete,
   recordChapterOpened,
 } from '../lib/firestore'
 import type { EncounteredWord } from '../lib/firestore'
@@ -33,6 +32,7 @@ export default function ChapterPage() {
   const [finished, setFinished] = useState(false)
   const [addedWords, setAddedWords] = useState<string[] | null>(null)
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [showPinyin, setShowPinyin] = useState(() => storedToggle(PINYIN_KEY))
@@ -58,6 +58,7 @@ export default function ChapterPage() {
     async function load() {
       setLoading(true)
       setAddedWords(null)
+      setError(null)
 
       const loaded = await loadReader(readerId)
       const loadedChapter = loaded ? findChapter(loaded, chapterId) : null
@@ -68,13 +69,12 @@ export default function ChapterPage() {
 
       const uid = getCurrentUid()
       if (loaded && loadedChapter && uid) {
-        const [userWords, progress] = await Promise.all([
-          getAllUserWords(uid),
+        const [encountered, progress] = await Promise.all([
+          getEncounteredWords(uid, loadedChapter.vocab),
           getReaderProgress(uid, readerId),
         ])
         if (cancelled) return
 
-        const encountered = new Set(userWords.map((w) => w.simplified))
         setUnencountered(new Set(unencounteredWords(loadedChapter, encountered)))
         setFinished(progress?.completedChapters.includes(chapterId) ?? false)
 
@@ -100,7 +100,21 @@ export default function ChapterPage() {
     const uid = getCurrentUid()
     if (!uid || !chapter) return
     setSaving(true)
+    setError(null)
 
+    try {
+      const added = await writeCompletion(uid, chapter)
+      setAddedWords(added)
+      setUnencountered(new Set())
+      setFinished(true)
+    } catch {
+      setError('Could not save this chapter. Check your connection and try again.')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  async function writeCompletion(uid: string, chapter: ReaderChapter): Promise<string[]> {
     const worddb = await loadDB()
     const glosses = new Map(
       chapter.paragraphs
@@ -128,13 +142,7 @@ export default function ChapterPage() {
       }
     })
 
-    const added = await addEncounteredWords(uid, words, `${readerId}/${chapterId}`)
-    await markChapterComplete(uid, readerId, chapterId)
-
-    setAddedWords(added)
-    setUnencountered(new Set())
-    setFinished(true)
-    setSaving(false)
+    return completeChapter(uid, readerId, chapterId, words)
   }
 
   if (loading) return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
@@ -236,8 +244,9 @@ export default function ChapterPage() {
                 disabled={saving}
                 className="w-full py-2.5 bg-accent text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                {saving ? 'Saving…' : 'Mark as finished'}
+                {saving ? 'Saving…' : error ? 'Try again' : 'Mark as finished'}
               </button>
+              {error && <p className="text-sm text-accent">{error}</p>}
             </>
           )}
         </div>

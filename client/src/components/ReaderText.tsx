@@ -11,6 +11,8 @@ const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia('(hover: ho
 interface ActiveWord {
   /** Identifies the occurrence, not the word — the same word appears many times. */
   key: string
+  /** Opened by click rather than hover, so moving the pointer away must not dismiss it. */
+  pinned: boolean
   text: string
   pinyin: string
   definition: string
@@ -56,19 +58,25 @@ export default function ReaderText({ paragraphs, showPinyin, showTranslation, un
     }
   }, [active])
 
-  function open(key: string, token: Extract<ReaderToken, { kind: 'word' }>, el: HTMLElement) {
-    setActive({ key, ...token, rect: el.getBoundingClientRect() })
+  function hover(key: string, token: Extract<ReaderToken, { kind: 'word' }>, el: HTMLElement) {
+    setActive((current) =>
+      current?.pinned ? current : { key, pinned: false, ...token, rect: el.getBoundingClientRect() }
+    )
   }
 
   function toggle(key: string, token: Extract<ReaderToken, { kind: 'word' }>, el: HTMLElement) {
     setActive((current) =>
-      current?.key === key ? null : { key, ...token, rect: el.getBoundingClientRect() }
+      current?.key === key && current.pinned
+        ? null
+        : { key, pinned: true, ...token, rect: el.getBoundingClientRect() }
     )
   }
 
   return (
     <>
-      <div className={showPinyin ? 'leading-[2.6]' : 'leading-[2.1]'}>
+      {/* One line height in both modes: ruby needs the headroom, and switching it with
+          the toggle shifted the reader's place on the page by ~15px per line. */}
+      <div className="leading-[2.6]">
         {paragraphs.map((paragraph, i) => (
           <div key={i} className="mb-8">
             <p className="text-2xl sm:text-3xl text-text-primary">
@@ -83,8 +91,10 @@ export default function ReaderText({ paragraphs, showPinyin, showTranslation, un
                     key={j}
                     data-reader-token
                     onClick={(e) => toggle(key, token, e.currentTarget)}
-                    onPointerEnter={(e) => CAN_HOVER && open(key, token, e.currentTarget)}
-                    onPointerLeave={() => CAN_HOVER && setActive(null)}
+                    onPointerEnter={(e) => CAN_HOVER && hover(key, token, e.currentTarget)}
+                    onPointerLeave={() =>
+                      CAN_HOVER && setActive((current) => (current?.pinned ? current : null))
+                    }
                     className={`cursor-pointer rounded-sm transition-colors ${
                       isActive
                         ? 'bg-accent/30'
@@ -94,7 +104,9 @@ export default function ReaderText({ paragraphs, showPinyin, showTranslation, un
                     }`}
                   >
                     {showPinyin ? (
-                      <ruby className="[&>rt]:text-[0.4em] [&>rt]:text-text-muted [&>rt]:tracking-tight">
+                      // 0.5em keeps tone marks legible — at 0.4em with tight tracking
+                      // this was 9.6px on mobile, where ǎ and à stop being separable.
+                      <ruby className="[&>rt]:text-[0.5em] [&>rt]:text-text-muted">
                         {token.text}
                         <rt>{token.pinyin}</rt>
                       </ruby>
@@ -118,7 +130,7 @@ export default function ReaderText({ paragraphs, showPinyin, showTranslation, un
         <div
           ref={popoverRef}
           style={popoverPosition(active.rect)}
-          className="fixed z-50 bg-surface-raised border border-border rounded-xl shadow-lg p-3"
+          className="fixed z-50 bg-surface-raised border border-border rounded-xl shadow-lg p-3 overflow-y-auto"
         >
           <p className="text-2xl text-text-primary leading-tight">{active.text}</p>
           <p className="text-sm text-accent mt-0.5">{active.pinyin}</p>
@@ -137,12 +149,14 @@ function popoverPosition(rect: DOMRect): CSSProperties {
     Math.min(rect.left + rect.width / 2 - width / 2, window.innerWidth - width - 8)
   )
   // Below the token when near the top, so the popover never lands under the sticky header.
+  // Height is bounded either way: anchoring by `bottom` alone lets a long definition —
+  // a multi-sense HSK 3/4 gloss — run off the top of the viewport.
   const above = rect.top > 160
   return {
     width,
     left,
     ...(above
-      ? { bottom: window.innerHeight - rect.top + 8 }
-      : { top: rect.bottom + 8 }),
+      ? { bottom: window.innerHeight - rect.top + 8, maxHeight: rect.top - 16 }
+      : { top: rect.bottom + 8, maxHeight: window.innerHeight - rect.bottom - 16 }),
   }
 }

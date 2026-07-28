@@ -34,11 +34,13 @@ A build script SHALL transform authored reader sources into runtime assets, reso
 
 ### Requirement: Content quality gates enforced at build time
 The build script SHALL validate every chapter and SHALL fail the build, naming the offending reader, chapter and tokens, when any of the following is violated:
-- every word token resolves to a pinyin and a definition
+- every word token resolves to a non-empty pinyin and a non-empty definition, whether it was resolved from the HSK word data or supplied as an inline gloss
+- no token is empty
+- chapter ids are unique within a reader
 - each chapter introduces between 10 and 20 words not already introduced by an earlier chapter of the same reader
 - each word a chapter introduces appears at least 3 times within that chapter
 - every paragraph has a non-empty English translation
-- every token resolved from the HSK word data is at or below the reader's declared HSK level
+- every token that the HSK word data knows is at or below the reader's declared HSK level, including tokens supplied as an inline gloss
 
 #### Scenario: Unresolvable token fails the build
 - **WHEN** a chapter contains a bare word token absent from the HSK word data and with no inline gloss
@@ -56,10 +58,27 @@ The build script SHALL validate every chapter and SHALL fail the build, naming t
 - **WHEN** a paragraph has an empty or absent English translation
 - **THEN** the build SHALL fail and report the reader, chapter and paragraph index
 
+#### Scenario: Inline gloss with an empty pinyin or definition fails the build
+- **WHEN** a chapter contains an inline token whose `pinyin` or `definition` is empty
+- **THEN** the build SHALL fail and report the reader, chapter and token
+
 #### Scenario: Above-level vocabulary fails the build
 - **GIVEN** a reader declares HSK level 2
 - **WHEN** a chapter contains a token resolved from the HSK word data at level 3
 - **THEN** the build SHALL fail and report the token and its level
+
+#### Scenario: An inline gloss cannot smuggle above-level vocabulary
+- **GIVEN** a reader declares HSK level 1
+- **WHEN** a chapter supplies an inline gloss for a word the HSK word data knows at level 3
+- **THEN** the build SHALL fail and report the token and its level
+
+#### Scenario: Empty token fails the build
+- **WHEN** a chapter contains a token that is an empty or whitespace-only string, or an inline token with empty `text`
+- **THEN** the build SHALL fail and report the reader and chapter
+
+#### Scenario: Duplicate chapter id fails the build
+- **WHEN** two chapters of the same reader declare the same `id`
+- **THEN** the build SHALL fail and report the duplicated id
 
 #### Scenario: Valid content builds cleanly
 - **WHEN** every chapter satisfies all gates

@@ -40,7 +40,11 @@ A token is either:
   definition. Never retype those; deriving them keeps readers consistent with the
   dictionary and flashcards, and keeps tone marks correct.
 - **an object** with `text`, `pinyin` and `definition` — for anything outside HSK 1–4,
-  typically proper nouns. Inline tokens are exempt from the level-fit gate.
+  typically proper nouns. `pinyin` and `definition` must both be non-empty: this is the
+  one path the HSK data cannot cross-check, so it is where the gloss gate matters most.
+  Inline tokens skip the level-fit check only when the HSK data does not know the word.
+  Glossing a word the data *does* know, above the reader's level, is rejected — an
+  inline gloss names a person or place, it is not a way around the level gate.
 
 ## Quality gates
 
@@ -48,7 +52,8 @@ A token is either:
 
 | Gate | Rule |
 | --- | --- |
-| Gloss coverage | every word token resolves to a pinyin and a definition |
+| Gloss coverage | every word token resolves to a pinyin and a definition, inline tokens included |
+| Well-formedness | no empty tokens; chapter ids unique within a reader |
 | New-word count | 10–20 words per chapter not already introduced by an earlier chapter of the same reader |
 | Repetition floor | every word a chapter introduces appears at least 3× in that chapter |
 | Translation coverage | every paragraph has a non-empty English translation |

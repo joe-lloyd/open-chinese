@@ -144,6 +144,10 @@ customWordData: { … }   // only for words absent from words.db
 
 Writing `status: 'Unstudied'` rather than inventing a new status value keeps the existing `WordStatus` union and every `status`-based filter in the app untouched — a deliberate choice given four branches are editing those same surfaces concurrently.
 
+**Encountered-word lookups are bounded, not collection scans.** The obvious implementation asks `getAllUserWords` whether each chapter word is known, which is an unfiltered read of `users/{uid}/words` — around 3,000 document reads per navigation for an established user, to answer a question about 30 words. Instead `getEncounteredWords(uid, simplifieds)` issues `where(documentId(), 'in', chunk)` in chunks of 30, so a chapter costs roughly its own vocabulary size. `buildQueue` genuinely needs every word and keeps its full scan; readers are opened far more often than sessions are started, so they should not pay the same price.
+
+**Completion is one atomic batch.** The word documents and the `completedChapters` update commit together. Split across two writes, a failure between them leaves the words in the dictionary with the chapter still unfinished — and because the retry then filters every word out as already-existing, it would report "no new words to add", which is both false and unrecoverable. One batch removes the failure mode rather than trying to report it.
+
 **This exposes a latent bug.** `buildQueue` computes its new-card pool as "words in `words.db` with no user document". A reader-encountered word has a document, so it would silently become unstudiable forever. The fix is to define the pool by *not yet studied* instead of *no document*:
 
 ```ts
@@ -172,7 +176,7 @@ The duplication is intentional. The dashboard's "continue reading your last stor
 
 `completedChapters` as an array is safe here: chapters per reader are in the single digits to low tens, so the array stays far from Firestore's 1 MiB document limit, and `arrayUnion` makes re-completion idempotent without a read.
 
-`firestore.rules` already matches `users/{userId}/{document=**}`, so the new subcollection is covered without a rule change; the rules file comment is updated so the enumeration stays honest.
+`firestore.rules` gets an explicit `match /users/{userId}/readerProgress/{readerId}` block. The existing recursive `users/{userId}/{document=**}` would cover it, but that wildcard is being removed by the concurrent monetization work: Firestore ORs matching rules together rather than letting the most specific win, so a recursive `allow write` would re-grant client writes to the server-authoritative entitlement documents. Relying on the wildcard would mean every reader-progress write starts failing at runtime the moment the two branches merge, with no build error and nothing either PR shows in isolation. The explicit block is what survives.
 
 **Reading position within a chapter is not stored.** Chapters are short by design — a screen or two. Persisting scroll offsets buys nothing and would need throttled writes.
 
