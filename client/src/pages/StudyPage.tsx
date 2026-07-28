@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { buildQueue } from '../lib/session'
 import type { StudyCard, StudyMode } from '../lib/session'
 import { applyBinaryReview, resolveStatus } from '../lib/srs'
-import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
+import { setUserWord, upsertDailyStats } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
 import PronunciationAssessor from '../components/PronunciationAssessor'
@@ -196,26 +196,6 @@ export default function StudyPage() {
     (knew: boolean) => advance(knewPron ?? false, knew),
     [advance, knewPron]
   )
-
-  const markAsKnown = useCallback(() => {
-    if (!card) return
-    const uid = getCurrentUid()
-    if (!uid) return
-    markWordsKnown(uid, [card.simplified]).catch(console.error)
-    const nextIndex = index + 1
-    const remaining = timerExpiredRef.current
-      ? queue.slice(nextIndex).filter((c) => failCountRef.current.has(c.simplified))
-      : queue.slice(nextIndex)
-    if (remaining.length === 0) {
-      setDone(true)
-    } else {
-      if (timerExpiredRef.current) setQueue([...queue.slice(0, nextIndex), ...remaining])
-      setIndex(nextIndex)
-      setPhase('pron-hidden')
-      setKnewPron(null)
-      setRevealedByFail(false)
-    }
-  }, [card, index, queue])
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -454,9 +434,6 @@ export default function StudyPage() {
           {phase === 'meaning-revealed' && revealedByFail && <>
             <p className="text-center text-text-muted text-sm">Marked as not known</p>
             <ActionBtn label="Next card" sub="→ / Space / ←" variant="neutral" onClick={() => advance(false, false)} />
-            <button onClick={markAsKnown} className="text-xs text-text-muted hover:text-accent transition-colors text-center">
-              Mark as fully known →
-            </button>
           </>}
           {phase === 'meaning-revealed' && !revealedByFail && <>
             <p className="text-center text-text-muted text-sm">Did you know the meaning?</p>
@@ -464,9 +441,6 @@ export default function StudyPage() {
               <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={() => gradeMeaning(false)} />
               <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradeMeaning(true)} />
             </div>
-            <button onClick={markAsKnown} className="text-xs text-text-muted hover:text-accent transition-colors text-center">
-              Mark as fully known →
-            </button>
           </>}
         </div>
       </div>

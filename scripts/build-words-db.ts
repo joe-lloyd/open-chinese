@@ -3,6 +3,7 @@ import { readFileSync, mkdirSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { randomUUID } from 'crypto'
+import { normalizePinyin } from '../client/src/lib/pinyin.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const outPath = resolve(__dirname, '../client/public/words.db')
@@ -32,6 +33,7 @@ db.exec(`
     simplified TEXT UNIQUE NOT NULL,
     traditional TEXT,
     pinyin TEXT NOT NULL,
+    pinyin_normalized TEXT NOT NULL,
     definition TEXT NOT NULL,
     hsk_level INTEGER,
     deck_name TEXT,
@@ -41,12 +43,13 @@ db.exec(`
   );
   CREATE INDEX idx_simplified ON words(simplified);
   CREATE INDEX idx_hsk_level ON words(hsk_level);
+  CREATE INDEX idx_pinyin_normalized ON words(pinyin_normalized);
 `)
 
 const seen = new Set<string>()
 const insert = db.prepare(
-  `INSERT INTO words (id, simplified, traditional, pinyin, definition, hsk_level, deck_name, sentence_zh, sentence_en)
-   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  `INSERT INTO words (id, simplified, traditional, pinyin, pinyin_normalized, definition, hsk_level, deck_name, sentence_zh, sentence_en)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 )
 
 const insertMany = db.transaction(() => {
@@ -58,6 +61,7 @@ const insertMany = db.transaction(() => {
       w.simplified,
       w.traditional ?? null,
       w.pinyin,
+      normalizePinyin(w.pinyin),
       w.definition,
       w.hskLevel,
       `HSK ${w.hskLevel}`,
