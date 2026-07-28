@@ -2,6 +2,13 @@
   command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs"
   publish = "apps/site/dist"
 
+[build.environment]
+  # Pin both, because neither default is stable across Netlify's build images and
+  # a mismatch here fails in CI only. The lockfile is v9 format, which needs
+  # pnpm 9+; `packageManager` in package.json pins the exact version via corepack,
+  # and NODE_VERSION keeps the runtime aligned with .nvmrc.
+  NODE_VERSION = "22"
+
 [functions]
   directory = "netlify/functions"
   # firebase-admin must not be bundled. It pulls in google-gax/grpc, which uses

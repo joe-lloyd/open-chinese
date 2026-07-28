@@ -2,6 +2,10 @@
   "name": "open-chinese",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "concurrently -n site,app -c magenta,cyan --kill-others \"pnpm dev:site\" \"pnpm dev:app\"",
     "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
