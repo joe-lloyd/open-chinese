@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "pnpm --filter client dev",
     "build": "pnpm --filter client build",
-    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db"
+    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db",
+    "build:readers": "pnpm --filter open-chinese-scripts build:readers"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

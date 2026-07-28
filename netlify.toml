@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install && pnpm build:words-db && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
+  command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
   publish = "client/dist"
 
 [[redirects]]

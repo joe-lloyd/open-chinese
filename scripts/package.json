@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:words-db": "tsx build-words-db.ts"
+    "build:words-db": "tsx build-words-db.ts",
+    "build:readers": "tsx build-readers.ts"
   },
   "dependencies": {
     "@types/better-sqlite3": "7.6.13",

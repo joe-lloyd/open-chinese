@@ -1,0 +1,110 @@
+{
+  "id": "my-day",
+  "title": "我的一天",
+  "titleEn": "My Day",
+  "description": "Xiao Ming takes you through an ordinary school day — mornings at home, afternoons with books, and the friend next door.",
+  "hskLevel": 1,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "上午",
+      "titleEn": "Morning",
+      "paragraphs": [
+        {
+          "tokens": ["我", "叫", { "text": "小明", "pinyin": "Xiǎo Míng", "definition": "Xiao Ming (a given name)" }, "。", "我", "是", "学生", "。", "我", "很", "喜欢", "学习", "。"],
+          "translation": "My name is Xiao Ming. I am a student. I really like studying."
+        },
+        {
+          "tokens": ["上午", "，", "我", "在", "家", "。", "在", "家", "，", "我", "吃", "苹果", "，", "我", "喝", "水", "。"],
+          "translation": "In the morning I am at home. At home I eat apples and I drink water."
+        },
+        {
+          "tokens": ["我", "很", "喜欢", "吃", "苹果", "，", "我", "很", "喜欢", "喝", "水", "。", "上午", "，", "我", "吃", "苹果", "，", "喝", "水", "。"],
+          "translation": "I really like eating apples, and I really like drinking water. In the morning I eat apples and drink water."
+        },
+        {
+          "tokens": ["上午", "，", "我", "去", "学校", "。", "我", "叫", { "text": "小明", "pinyin": "Xiǎo Míng", "definition": "Xiao Ming (a given name)" }, "，", "我", "是", "学生", "，", "学生", "去", "学校", "学习", "。"],
+          "translation": "In the morning I go to school. My name is Xiao Ming, I am a student, and students go to school to study."
+        },
+        {
+          "tokens": ["在", "学校", "，", "我", "学习", "。", "我", "很", "喜欢", "学习", "，", "我", "很", "喜欢", "学校", "。"],
+          "translation": "At school I study. I really like studying and I really like school."
+        },
+        {
+          "tokens": ["我", "叫", { "text": "小明", "pinyin": "Xiǎo Míng", "definition": "Xiao Ming (a given name)" }, "。", "我", "是", "学生", "。", "我", "很", "喜欢", "家", "，", "我", "很", "喜欢", "学校", "。", "上午", "我", "去", "学校", "，", "我", "很", "喜欢", "去", "学校", "。"],
+          "translation": "My name is Xiao Ming. I am a student. I love my home and I love my school. In the morning I go to school, and I really like going to school."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "下午",
+      "titleEn": "Afternoon",
+      "paragraphs": [
+        {
+          "tokens": ["下午", "，", "我", "在", "学校", "。", "老师", "和", "学生", "在", "学校", "。", "下午", "，", "老师", "说", "汉语", "。"],
+          "translation": "In the afternoon I am at school. The teacher and the students are at school. In the afternoon the teacher speaks Chinese."
+        },
+        {
+          "tokens": ["老师", "说", "汉语", "，", "我", "说", "汉语", "。", "我", "很", "喜欢", "说", "汉语", "。", "汉语", "很", "好", "。"],
+          "translation": "The teacher speaks Chinese and I speak Chinese. I really like speaking Chinese. Chinese is great."
+        },
+        {
+          "tokens": ["下午", "，", "我", "写", "字", "。", "我", "写", "汉语", "字", "。", "老师", "看", "字", "，", "老师", "说", "字", "很", "好", "。"],
+          "translation": "In the afternoon I write characters. I write Chinese characters. The teacher looks at the characters and says the characters are good."
+        },
+        {
+          "tokens": ["我", "读", "书", "。", "我", "读", "汉语", "书", "。", "我", "很", "喜欢", "读", "书", "，", "书", "很", "好", "。"],
+          "translation": "I read books. I read Chinese books. I really like reading books — books are wonderful."
+        },
+        {
+          "tokens": ["我", "和", "朋友", "一起", "读", "书", "。", "我", "和", "朋友", "一起", "写", "字", "。", "我", "和", "朋友", "一起", "说", "汉语", "。"],
+          "translation": "My friend and I read books together. My friend and I write characters together. My friend and I speak Chinese together."
+        },
+        {
+          "tokens": ["下午", "，", "我", "回", "家", "。", "朋友", "回", "家", "，", "老师", "回", "家", "。"],
+          "translation": "In the afternoon I go home. My friend goes home and the teacher goes home."
+        },
+        {
+          "tokens": ["在", "家", "，", "我", "看", "电视", "。", "我", "和", "朋友", "一起", "看", "电视", "。", "我", "很", "喜欢", "看", "电视", "。"],
+          "translation": "At home I watch television. My friend and I watch television together. I really like watching television."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "我的朋友",
+      "titleEn": "My Friend",
+      "paragraphs": [
+        {
+          "tokens": ["我", "的", "朋友", "叫", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "。", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "是", "学生", "，", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "是", "中国", "人", "。"],
+          "translation": "My friend is called Xiao Mei. Xiao Mei is a student, and Xiao Mei is Chinese."
+        },
+        {
+          "tokens": [{ "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "家", "很", "大", "。", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "家", "有", "猫", "，", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "家", "有", "狗", "。"],
+          "translation": "Xiao Mei's home is big. Xiao Mei's home has a cat, and Xiao Mei's home has a dog."
+        },
+        {
+          "tokens": ["我", "很", "喜欢", "猫", "，", "我", "很", "喜欢", "狗", "。", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "猫", "很", "大", "，", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "狗", "不", "大", "。"],
+          "translation": "I really like cats and I really like dogs. Xiao Mei's cat is big, and Xiao Mei's dog is not big."
+        },
+        {
+          "tokens": [{ "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "有", "妈妈", "，", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "有", "爸爸", "。", "妈妈", "是", "老师", "，", "爸爸", "不", "是", "老师", "。"],
+          "translation": "Xiao Mei has a mother and Xiao Mei has a father. Her mother is a teacher; her father is not a teacher."
+        },
+        {
+          "tokens": ["我", "说", "：", "“", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "，", "你", "有", "猫", "吗", "？", "”", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "说", "：", "“", "有", "！", "”", "我", "说", "：", "“", "你", "有", "狗", "吗", "？", "”", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "说", "：", "“", "有", "！", "”"],
+          "translation": "I said: \"Xiao Mei, do you have a cat?\" Xiao Mei said: \"I do!\" I said: \"Do you have a dog?\" Xiao Mei said: \"I do!\""
+        },
+        {
+          "tokens": ["我", "说", "：", "“", "你", "喜欢", "什么", "？", "”", { "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "说", "：", "“", "我", "喜欢", "猫", "和", "狗", "。", "你", "喜欢", "什么", "？", "”", "我", "说", "：", "“", "我", "喜欢", "什么", "？", "我", "喜欢", "苹果", "！", "”"],
+          "translation": "I said: \"What do you like?\" Xiao Mei said: \"I like cats and dogs. What do you like?\" I said: \"What do I like? I like apples!\""
+        },
+        {
+          "tokens": [{ "text": "小美", "pinyin": "Xiǎo Měi", "definition": "Xiao Mei (a given name)" }, "的", "爸爸", "是", "老师", "吗", "？", "他", "是", "老师", "。", "他", "是", "中国", "人", "，", "妈妈", "是", "中国", "人", "。", "我", "不", "是", "中国", "人", "，", "我", "很", "喜欢", "中国", "。", "他", "说", "汉语", "，", "妈妈", "说", "汉语", "。"],
+          "translation": "Is Xiao Mei's father a teacher? He is a teacher. He is Chinese and her mother is Chinese. I am not Chinese, but I love China. He speaks Chinese and her mother speaks Chinese."
+        }
+      ]
+    }
+  ]
+}

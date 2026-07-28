@@ -1,0 +1,148 @@
+import { useEffect, useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
+import type { ReaderParagraph, ReaderToken } from '../lib/readers'
+
+const POPOVER_WIDTH = 256
+
+// Touch devices fire a phantom pointerenter on tap, so hover-to-open is gated on
+// the device actually having a hover-capable pointer.
+const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches
+
+interface ActiveWord {
+  /** Identifies the occurrence, not the word — the same word appears many times. */
+  key: string
+  text: string
+  pinyin: string
+  definition: string
+  rect: DOMRect
+}
+
+interface Props {
+  paragraphs: ReaderParagraph[]
+  showPinyin: boolean
+  showTranslation: boolean
+  /** Words the user has never met — rendered with a highlight. */
+  unencountered: Set<string>
+}
+
+export default function ReaderText({ paragraphs, showPinyin, showTranslation, unencountered }: Props) {
+  const [active, setActive] = useState<ActiveWord | null>(null)
+  const popoverRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!active) return
+
+    const close = () => setActive(null)
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close()
+    }
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as HTMLElement
+      if (popoverRef.current?.contains(target)) return
+      if (target.closest('[data-reader-token]')) return
+      close()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('pointerdown', onPointerDown)
+    // Capture phase so scrolling inside the page's own scroll container also closes it.
+    window.addEventListener('scroll', close, true)
+    window.addEventListener('resize', close)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('scroll', close, true)
+      window.removeEventListener('resize', close)
+    }
+  }, [active])
+
+  function open(key: string, token: Extract<ReaderToken, { kind: 'word' }>, el: HTMLElement) {
+    setActive({ key, ...token, rect: el.getBoundingClientRect() })
+  }
+
+  function toggle(key: string, token: Extract<ReaderToken, { kind: 'word' }>, el: HTMLElement) {
+    setActive((current) =>
+      current?.key === key ? null : { key, ...token, rect: el.getBoundingClientRect() }
+    )
+  }
+
+  return (
+    <>
+      <div className={showPinyin ? 'leading-[2.6]' : 'leading-[2.1]'}>
+        {paragraphs.map((paragraph, i) => (
+          <div key={i} className="mb-8">
+            <p className="text-2xl sm:text-3xl text-text-primary">
+              {paragraph.tokens.map((token, j) => {
+                if (token.kind === 'punct') return <span key={j}>{token.text}</span>
+
+                const key = `${i}-${j}`
+                const isNew = unencountered.has(token.text)
+                const isActive = active?.key === key
+                return (
+                  <span
+                    key={j}
+                    data-reader-token
+                    onClick={(e) => toggle(key, token, e.currentTarget)}
+                    onPointerEnter={(e) => CAN_HOVER && open(key, token, e.currentTarget)}
+                    onPointerLeave={() => CAN_HOVER && setActive(null)}
+                    className={`cursor-pointer rounded-sm transition-colors ${
+                      isActive
+                        ? 'bg-accent/30'
+                        : isNew
+                          ? 'bg-accent/15 underline decoration-dotted decoration-accent/60 underline-offset-4'
+                          : 'hover:bg-accent/10'
+                    }`}
+                  >
+                    {showPinyin ? (
+                      <ruby className="[&>rt]:text-[0.4em] [&>rt]:text-text-muted [&>rt]:tracking-tight">
+                        {token.text}
+                        <rt>{token.pinyin}</rt>
+                      </ruby>
+                    ) : (
+                      token.text
+                    )}
+                  </span>
+                )
+              })}
+            </p>
+            {showTranslation && (
+              <p className="mt-2 text-sm sm:text-base text-text-muted leading-relaxed">
+                {paragraph.translation}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {active && (
+        <div
+          ref={popoverRef}
+          style={popoverPosition(active.rect)}
+          className="fixed z-50 bg-surface-raised border border-border rounded-xl shadow-lg p-3"
+        >
+          <p className="text-2xl text-text-primary leading-tight">{active.text}</p>
+          <p className="text-sm text-accent mt-0.5">{active.pinyin}</p>
+          <p className="text-sm text-text-primary mt-1.5 leading-snug">{active.definition}</p>
+        </div>
+      )}
+    </>
+  )
+}
+
+/** Centred on the token, clamped so it stays fully on screen at any viewport width. */
+function popoverPosition(rect: DOMRect): CSSProperties {
+  const width = Math.min(POPOVER_WIDTH, window.innerWidth - 16)
+  const left = Math.max(
+    8,
+    Math.min(rect.left + rect.width / 2 - width / 2, window.innerWidth - width - 8)
+  )
+  // Below the token when near the top, so the popover never lands under the sticky header.
+  const above = rect.top > 160
+  return {
+    width,
+    left,
+    ...(above
+      ? { bottom: window.innerHeight - rect.top + 8 }
+      : { top: rect.bottom + 8 }),
+  }
+}

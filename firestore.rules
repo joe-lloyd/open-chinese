@@ -5,7 +5,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
-    // All subcollections: words, dailyStats
+    // All subcollections: words, dailyStats, readerProgress
     match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
