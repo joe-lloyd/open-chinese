@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getSettings, saveSettings } from '../lib/tts'
 
 interface Props {
@@ -13,9 +13,14 @@ interface Props {
  */
 export default function StudySessionDrawer({ open, onClose, onEndSession }: Props) {
   const [volume, setVolume] = useState(1)
+  const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (open) setVolume(getSettings().volume)
+    if (!open) return
+    setVolume(getSettings().volume)
+    // Focus must enter the panel, or Tab resumes from wherever it was on the
+    // now-inert page behind it.
+    closeRef.current?.focus()
   }, [open])
 
   function updateVolume(next: number) {
@@ -25,10 +30,14 @@ export default function StudySessionDrawer({ open, onClose, onEndSession }: Prop
 
   // `inert` while closed: the panel is only translated off-screen, so without it
   // the volume slider and both buttons would stay in the tab order.
+  //
+  // z-[60], not z-50: BottomNav is a later sibling at z-50 in the same stacking
+  // context, so at equal z-index it paints over the drawer and stays tappable —
+  // navigating out of the very session "End session now" exists to leave cleanly.
   return (
     <div
       inert={!open}
-      className={`fixed inset-0 z-50 overflow-hidden ${open ? '' : 'pointer-events-none'}`}
+      className={`fixed inset-0 z-[60] overflow-hidden ${open ? '' : 'pointer-events-none'}`}
     >
       <div
         onClick={onClose}
@@ -46,6 +55,7 @@ export default function StudySessionDrawer({ open, onClose, onEndSession }: Prop
         <div className="flex items-center justify-between px-5 h-14 border-b border-border flex-shrink-0">
           <h2 className="text-sm font-semibold text-text-primary">Session</h2>
           <button
+            ref={closeRef}
             onClick={onClose}
             aria-label="Close menu"
             className="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors"

@@ -23,10 +23,15 @@ export default function ExampleSentence({ zh, en, pinyin, pinned, onTogglePinned
     <button
       type="button"
       tabIndex={-1}
+      // tabIndex alone blocks Tab, not click focus; without this the control
+      // keeps focus after a tap.
+      onMouseDown={(e) => e.preventDefault()}
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHovered(true) }}
       onPointerLeave={() => setHovered(false)}
-      onClick={onTogglePinned}
-      aria-pressed={pinned}
+      // Clearing hover on click keeps the toggle honest under a mouse: otherwise
+      // un-pinning leaves the reading on screen because the pointer is still over it.
+      onClick={() => { setHovered(false); onTogglePinned() }}
+      aria-pressed={visible}
       className="block w-full text-left text-base text-text-primary cursor-pointer"
     >
       {zh}
@@ -44,7 +49,9 @@ export default function ExampleSentence({ zh, en, pinyin, pinned, onTogglePinned
       <div className="relative h-5 pointer-events-none">
         {pinyin && (
           <>
-            <span className={`absolute inset-0 flex items-center text-sm text-accent truncate ${visible ? 'opacity-100 transition-opacity duration-150' : 'opacity-0 transition-none'}`}>
+            {/* truncate must sit on the block itself — on a flex container the
+                text becomes an anonymous item and ellipsis never applies. */}
+            <span className={`absolute inset-0 leading-5 text-sm text-accent truncate ${visible ? 'opacity-100 transition-opacity duration-150' : 'opacity-0 transition-none'}`}>
               {pinyin}
             </span>
             <span className={`absolute inset-0 flex items-center text-[10px] text-text-muted/70 ${visible ? 'opacity-0 transition-none' : 'opacity-100'}`}>

@@ -10,10 +10,8 @@
     "@types/better-sqlite3": "7.6.13",
     "@types/node": "20.19.43",
     "better-sqlite3": "11.10.0",
+    "pinyin-pro": "^3.28.2",
     "tsx": "4.19.4",
     "typescript": "5.7.3"
-  },
-  "devDependencies": {
-    "pinyin-pro": "^3.28.2"
   }
 }

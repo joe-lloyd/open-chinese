@@ -9,6 +9,8 @@ The character's font size SHALL be selected from the word's character count so t
 
 Content that exceeds its reserved region SHALL scroll within that region rather than resize it.
 
+Transient chrome that is not part of the card — such as the failed-write banner — SHALL be overlaid rather than inserted into the column, so that its appearance and dismissal do not displace the character.
+
 #### Scenario: Character fills center of screen
 - **WHEN** a card is presented
 - **THEN** the character SHALL be rendered in the center of the page with substantial vertical whitespace above and below
@@ -27,6 +29,11 @@ Content that exceeds its reserved region SHALL scroll within that region rather 
 - **WHEN** a card whose simplified form is three or four characters is presented
 - **THEN** the characters SHALL render on a single line
 - **AND** the font size SHALL be reduced so the line fits the viewport width
+
+#### Scenario: Failed-write banner does not move the character
+- **WHEN** a Firestore write fails mid-session and the error banner appears, and is later dismissed
+- **THEN** the character SHALL remain at the same position throughout
+- **AND** the height of the study column SHALL NOT change
 
 #### Scenario: Long definition scrolls inside its region
 - **WHEN** a card's definition is too tall for its reserved region
@@ -105,7 +112,11 @@ The keyboard help overlay SHALL list `P` as the sentence-pinyin toggle.
 ### Requirement: In-session menu
 The system SHALL provide a menu, opened from the study screen, that presents session-scoped actions and settings in a panel anchored to the right edge of the viewport. The panel SHALL be usable at mobile widths.
 
-While the menu is open, the study keyboard shortcuts SHALL be inert, so no key can grade or advance a card behind the open panel. `Escape` SHALL close the menu. Dismissing the backdrop SHALL close the menu.
+While the menu is open it SHALL be modal. No control behind it SHALL be reachable — by key, by pointer, or by focus. `Escape` SHALL close the menu. Dismissing the backdrop SHALL close the menu.
+
+The panel SHALL paint above every other fixed element in the app, including the mobile bottom navigation, which SHALL NOT be tappable while the menu is open.
+
+Opening the menu SHALL move focus into the panel; closing it SHALL return focus to the control that opened it. While the menu is closed, no control inside the panel SHALL be reachable by keyboard.
 
 The menu SHALL contain a TTS volume control and an "End session now" action, and SHALL be structured so further entries can be added without restructuring it.
 
@@ -118,10 +129,34 @@ The menu SHALL contain a TTS volume control and an "End session now" action, and
 - **WHEN** the menu is open and the user presses `→`, `←`, or Space
 - **THEN** the card SHALL NOT be graded, revealed, or advanced
 
+#### Scenario: Grading controls cannot be reached by focus behind the panel
+- **WHEN** the menu is open and the user presses Tab repeatedly and then Enter
+- **THEN** focus SHALL NOT reach any control behind the backdrop
+- **AND** no card SHALL be graded or advanced
+
+#### Scenario: Bottom navigation cannot be tapped through the panel
+- **WHEN** the menu is open at a mobile width and the user taps where the bottom navigation sits
+- **THEN** the panel or its backdrop SHALL receive the tap
+- **AND** the app SHALL NOT navigate away from the running session
+
+#### Scenario: Focus enters the panel and returns on close
+- **WHEN** the user opens the menu and then closes it
+- **THEN** focus SHALL move into the panel on open
+- **AND** SHALL return to the menu control on close
+
+#### Scenario: Closed panel is out of the tab order
+- **WHEN** the menu is closed and the user tabs through the study screen
+- **THEN** focus SHALL NOT land on the volume control or any action inside the panel
+
 #### Scenario: Escape closes the menu
 - **WHEN** the menu is open and the user presses `Escape`
 - **THEN** the menu SHALL close
 - **AND** the study shortcuts SHALL become active again
+
+#### Scenario: The keyboard help overlay is equally inert
+- **WHEN** the keyboard help overlay is open and the user presses `→` or `←`
+- **THEN** the card SHALL NOT be graded or advanced
+- **AND** `Escape` or `?` SHALL close the overlay
 
 ### Requirement: End session on demand
 The in-session menu SHALL provide an "End session now" action that ends the current session gracefully. Activating it SHALL stop the session timer and present the standard end-of-session summary for the cards graded so far, rather than navigating away from the study screen.

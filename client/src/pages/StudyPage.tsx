@@ -24,17 +24,19 @@ function revealClass(visible: boolean): string {
 }
 
 /**
- * Chosen from the character count so a four-character word still renders on one
- * line. The box around it is a fixed height, so words of different lengths share
- * an optical centre and the character never moves between cards.
+ * The two things that actually constrain the character are the width available
+ * to the row and the height of its fixed box, so it is sized from those directly
+ * rather than from a hand-tuned ladder. A CJK glyph's advance width equals its
+ * font size, so `avail / count` is exactly the largest size that fits on one
+ * line; `--hanzi-box` tracks the box height across the breakpoint, and 0.92
+ * leaves room for the glyph inside its em square.
+ *
+ * Both terms are viewport-derived and count-derived only — never content-derived
+ * — so the box stays a constant height and the character never moves.
  */
 function hanziFontSize(simplified: string): string {
-  switch ([...simplified].length) {
-    case 1: return 'clamp(6.5rem, 24vw, 11rem)'
-    case 2: return 'clamp(4.5rem, 18vw, 9rem)'
-    case 3: return 'clamp(3.5rem, 13vw, 7rem)'
-    default: return 'clamp(2.5rem, 9.5vw, 5.5rem)'
-  }
+  const count = [...simplified].length
+  return `min(calc(var(--hanzi-avail) / ${count}), calc(var(--hanzi-box) * 0.92))`
 }
 
 interface SessionStats {
@@ -81,6 +83,7 @@ export default function StudyPage() {
   const [stats, setStats] = useState<SessionStats>({ total: 0, knewPron: 0, knewMeaning: 0, knewBoth: 0 })
   const [elapsed, setElapsed] = useState(0)
   const [showHelp, setShowHelp] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
   const startRef = useRef(Date.now())
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -255,11 +258,25 @@ export default function StudyPage() {
     setDone(true)
   }, [])
 
+  // Focus returns to the control that opened the drawer; `inert` has already been
+  // lifted by the time effects run, so the target is focusable again.
+  const wasMenuOpen = useRef(false)
+  useEffect(() => {
+    if (wasMenuOpen.current && !menuOpen) menuButtonRef.current?.focus()
+    wasMenuOpen.current = menuOpen
+  }, [menuOpen])
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       // Nothing behind the drawer is gradable while it is open.
       if (menuOpen) {
         if (e.key === 'Escape') { e.preventDefault(); setMenuOpen(false) }
+        return
+      }
+      // Same for the help overlay, which previously let arrow keys grade the
+      // card behind it.
+      if (showHelp) {
+        if (e.key === 'Escape' || e.key === '?') { e.preventDefault(); setShowHelp(false) }
         return
       }
 
@@ -306,7 +323,7 @@ export default function StudyPage() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [phase, revealPron, gradePron, revealMeaning, gradeMeaning, card, revealedByFail, advance, failAndReveal, menuOpen])
+  }, [phase, revealPron, gradePron, revealMeaning, gradeMeaning, card, revealedByFail, advance, failAndReveal, menuOpen, showHelp])
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center text-text-muted">Loading cards…</div>
@@ -389,9 +406,15 @@ export default function StudyPage() {
   const remSecs = timeRemaining != null ? timeRemaining % 60 : null
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
+      {/* `inert` while the drawer is open: guarding the keydown handler stops key
+          grading, but without this Tab still reaches the buttons behind the
+          backdrop and Enter activates them. */}
+      <div className="min-h-screen flex flex-col" inert={menuOpen}>
+      {/* Overlaid, not stacked: as a flex child this banner would steal height
+          from the centred card column and shift the character while it shows. */}
       {writeError && (
-        <div className="bg-incorrect/10 border-b border-incorrect/30 px-4 py-2 text-xs text-incorrect flex items-center justify-between">
+        <div className="fixed top-0 inset-x-0 z-40 bg-incorrect/10 backdrop-blur-sm border-b border-incorrect/30 px-4 py-2 text-xs text-incorrect flex items-center justify-between">
           <span>⚠ {writeError}</span>
           <button onClick={() => setWriteError(null)} className="ml-4 underline">dismiss</button>
         </div>
@@ -408,6 +431,7 @@ export default function StudyPage() {
           }
         </span>
         <button
+          ref={menuButtonRef}
           onClick={() => setMenuOpen(true)}
           aria-label="Session menu"
           className="w-8 h-8 -mr-1 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors"
@@ -435,7 +459,8 @@ export default function StudyPage() {
           )}
         </div>
 
-        <div className="h-36 sm:h-48 flex items-center justify-center">
+        {/* --hanzi-avail subtracts this row's px-6 and, from md up, the app sidebar. */}
+        <div className="h-36 sm:h-48 flex items-center justify-center [--hanzi-box:9rem] sm:[--hanzi-box:12rem] [--hanzi-avail:calc(100vw-3rem)] md:[--hanzi-avail:calc(100vw-6.5rem)]">
           <p
             className="font-light text-text-primary select-none leading-none text-center whitespace-nowrap"
             style={{ fontSize: hanziFontSize(card.simplified) }}
@@ -472,8 +497,10 @@ export default function StudyPage() {
           )}
         </div>
 
-        <div className={`w-full max-w-lg h-52 sm:h-56 ${revealClass(meaningVisible)}`}>
-          <div className="h-full bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center overflow-y-auto">
+        {/* The region's height is reserved; the box inside it is content-sized and
+            centred, so a one-line definition doesn't leave a tall empty card. */}
+        <div className={`w-full max-w-lg h-52 sm:h-56 flex items-center ${revealClass(meaningVisible)}`}>
+          <div className="w-full max-h-full bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center overflow-y-auto">
             <p className="text-lg text-text-primary leading-relaxed">{card.definition}</p>
             {(card.sentenceZh || card.notes) && (
               <div className="pt-3 border-t border-border text-left space-y-1">
@@ -564,9 +591,10 @@ export default function StudyPage() {
       <button onClick={() => setShowHelp(true)} className="fixed bottom-16 right-4 md:bottom-4 text-xs text-text-muted hover:text-text-primary transition-colors">
         ? help
       </button>
+      </div>
 
       <StudySessionDrawer open={menuOpen} onClose={() => setMenuOpen(false)} onEndSession={endSession} />
-    </div>
+    </>
   )
 }
 

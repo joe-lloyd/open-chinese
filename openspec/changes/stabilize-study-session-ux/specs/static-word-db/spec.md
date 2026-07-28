@@ -40,3 +40,31 @@ The generator SHALL run only at build time. No pinyin generation library SHALL b
 #### Scenario: Generator is absent from the client bundle
 - **WHEN** the client is built
 - **THEN** no pinyin generation library SHALL be present in the client's dependency graph
+
+### Requirement: Generated readings agree with the headword pinyin
+A generated `sentence_pinyin` SHALL NOT contradict the `pinyin` column of any word it contains. Where a word's own dictionary reading gives a syllable a neutral tone, the generated sentence reading SHALL use that neutral tone rather than the syllable's full citation tone.
+
+A correction SHALL only ever remove a tone that the dictionary says is absent. It SHALL NOT change which syllable is read, and SHALL NOT replace one tone with a different tone. Where a word's dictionary reading and the generated reading disagree about the syllable itself, the generated reading SHALL be kept unchanged.
+
+Longer words SHALL be matched before shorter ones, so a compound claims its characters before any single-character particle can.
+
+#### Scenario: Neutral tone taken from the headword
+- **WHEN** the build generates a reading for a sentence containing 谢谢, whose `pinyin` column is `xièxie`
+- **THEN** the stored reading SHALL contain `xiè xie`, not `xiè xiè`
+
+#### Scenario: Structural particle is not given a full tone
+- **WHEN** the build generates a reading for a sentence containing the structural particle 得, whose `pinyin` column is `de`
+- **THEN** the stored reading SHALL contain `de`, not `dé`
+
+#### Scenario: A different reading is never forced onto a sentence
+- **WHEN** a word's dictionary reading differs from the generated reading by more than tone — for example 长 as `cháng` in the sentence against a `zhǎng` headword
+- **THEN** the generated reading SHALL be kept unchanged
+
+#### Scenario: Tone sandhi in the sentence survives reconciliation
+- **WHEN** a sentence applies tone sandhi that the headword's citation form does not, such as 一 read `yì` in 一直 against a `yīzhí` headword
+- **THEN** the sentence's reading SHALL be kept unchanged
+
+#### Scenario: Compound wins over its component particle
+- **WHEN** a sentence contains a compound such as 了解 or 着急 whose component is also a neutral-toned headword (了, 着)
+- **THEN** the compound's reading SHALL be applied
+- **AND** the single-character particle's neutral tone SHALL NOT be forced onto it
