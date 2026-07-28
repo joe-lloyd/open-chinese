@@ -1,0 +1,709 @@
+{
+  "id": "rainy-bookshop",
+  "title": "雨夜书店",
+  "titleEn": "The Bookshop on a Rainy Night",
+  "description": "A late visit to an old bookshop leads Tang Xin from a quiet shelf to a long-hidden truth.",
+  "hskLevel": 4,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "门没有关",
+      "titleEn": "The Door Was Open",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "书店",
+            "。",
+            "她",
+            "想",
+            "书店",
+            "，",
+            "也",
+            "观察",
+            "书店",
+            "。"
+          ],
+          "translation": "Tang Xin found the bookshop. She thought about the bookshop and examined the bookshop."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "灯光",
+            "。",
+            "她",
+            "想",
+            "灯光",
+            "，",
+            "也",
+            "观察",
+            "灯光",
+            "。"
+          ],
+          "translation": "Tang Xin found the light. She thought about the light and examined the light."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "楼梯",
+            "。",
+            "她",
+            "想",
+            "楼梯",
+            "，",
+            "也",
+            "观察",
+            "楼梯",
+            "。"
+          ],
+          "translation": "Tang Xin found the staircase. She thought about the staircase and examined the staircase."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "门口",
+            "。",
+            "她",
+            "想",
+            "门口",
+            "，",
+            "也",
+            "观察",
+            "门口",
+            "。"
+          ],
+          "translation": "Tang Xin found the entrance. She thought about the entrance and examined the entrance."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "墙",
+            "。",
+            "她",
+            "想",
+            "墙",
+            "，",
+            "也",
+            "观察",
+            "墙",
+            "。"
+          ],
+          "translation": "Tang Xin found the wall. She thought about the wall and examined the wall."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "书架",
+            "。",
+            "她",
+            "想",
+            "书架",
+            "，",
+            "也",
+            "观察",
+            "书架",
+            "。"
+          ],
+          "translation": "Tang Xin found the bookshelf. She thought about the bookshelf and examined the bookshelf."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "杂志",
+            "。",
+            "她",
+            "想",
+            "杂志",
+            "，",
+            "也",
+            "观察",
+            "杂志",
+            "。"
+          ],
+          "translation": "Tang Xin found the magazine. She thought about the magazine and examined the magazine."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "发现",
+            "日记",
+            "。",
+            "她",
+            "想",
+            "日记",
+            "，",
+            "也",
+            "观察",
+            "日记",
+            "。"
+          ],
+          "translation": "Tang Xin found the diary. She thought about the diary and examined the diary."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "架子后面",
+      "titleEn": "Behind the Shelf",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "笔记",
+            "。",
+            "她",
+            "想",
+            "笔记",
+            "，",
+            "也",
+            "整理",
+            "笔记",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the notes. She thought about the notes and sorted the notes."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "资料",
+            "。",
+            "她",
+            "想",
+            "资料",
+            "，",
+            "也",
+            "整理",
+            "资料",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the material. She thought about the material and sorted the material."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "文章",
+            "。",
+            "她",
+            "想",
+            "文章",
+            "，",
+            "也",
+            "整理",
+            "文章",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the article. She thought about the article and sorted the article."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "文件",
+            "。",
+            "她",
+            "想",
+            "文件",
+            "，",
+            "也",
+            "整理",
+            "文件",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the file. She thought about the file and sorted the file."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "包裹",
+            "。",
+            "她",
+            "想",
+            "包裹",
+            "，",
+            "也",
+            "整理",
+            "包裹",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the parcel. She thought about the parcel and sorted the parcel."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "箱子",
+            "。",
+            "她",
+            "想",
+            "箱子",
+            "，",
+            "也",
+            "整理",
+            "箱子",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the box. She thought about the box and sorted the box."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "邮件",
+            "。",
+            "她",
+            "想",
+            "邮件",
+            "，",
+            "也",
+            "整理",
+            "邮件",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the email. She thought about the email and sorted the email."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "寻找",
+            "照片",
+            "。",
+            "她",
+            "想",
+            "照片",
+            "，",
+            "也",
+            "整理",
+            "照片",
+            "。"
+          ],
+          "translation": "Tang Xin searched for the photo. She thought about the photo and sorted the photo."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "谁说了真话",
+      "titleEn": "Who Told the Truth",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "秘密",
+            "。",
+            "她",
+            "想",
+            "秘密",
+            "，",
+            "也",
+            "证明",
+            "秘密",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the secret. She thought about the secret and verified the secret."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "事实",
+            "。",
+            "她",
+            "想",
+            "事实",
+            "，",
+            "也",
+            "证明",
+            "事实",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the fact. She thought about the fact and verified the fact."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "证据",
+            "。",
+            "她",
+            "想",
+            "证据",
+            "，",
+            "也",
+            "证明",
+            "证据",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the evidence. She thought about the evidence and verified the evidence."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "误会",
+            "。",
+            "她",
+            "想",
+            "误会",
+            "，",
+            "也",
+            "证明",
+            "误会",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the misunderstanding. She thought about the misunderstanding and verified the misunderstanding."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "身份",
+            "。",
+            "她",
+            "想",
+            "身份",
+            "，",
+            "也",
+            "证明",
+            "身份",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the identity. She thought about the identity and verified the identity."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "细节",
+            "。",
+            "她",
+            "想",
+            "细节",
+            "，",
+            "也",
+            "证明",
+            "细节",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the detail. She thought about the detail and verified the detail."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "答案",
+            "。",
+            "她",
+            "想",
+            "答案",
+            "，",
+            "也",
+            "证明",
+            "答案",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the answer. She thought about the answer and verified the answer."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "怀疑",
+            "结论",
+            "。",
+            "她",
+            "想",
+            "结论",
+            "，",
+            "也",
+            "证明",
+            "结论",
+            "。"
+          ],
+          "translation": "Tang Xin doubted the conclusion. She thought about the conclusion and verified the conclusion."
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "书店的故事",
+      "titleEn": "The Bookshop’s Story",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "老板",
+            "。",
+            "她",
+            "想",
+            "老板",
+            "，",
+            "也",
+            "保护",
+            "老板",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the owner. She thought about the owner and protected the owner."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "顾客",
+            "。",
+            "她",
+            "想",
+            "顾客",
+            "，",
+            "也",
+            "保护",
+            "顾客",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the customer. She thought about the customer and protected the customer."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "作者",
+            "。",
+            "她",
+            "想",
+            "作者",
+            "，",
+            "也",
+            "保护",
+            "作者",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the author. She thought about the author and protected the author."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "读者",
+            "。",
+            "她",
+            "想",
+            "读者",
+            "，",
+            "也",
+            "保护",
+            "读者",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the reader. She thought about the reader and protected the reader."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "文化",
+            "。",
+            "她",
+            "想",
+            "文化",
+            "，",
+            "也",
+            "保护",
+            "文化",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the culture. She thought about the culture and protected the culture."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "历史",
+            "。",
+            "她",
+            "想",
+            "历史",
+            "，",
+            "也",
+            "保护",
+            "历史",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the history. She thought about the history and protected the history."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "传统",
+            "。",
+            "她",
+            "想",
+            "传统",
+            "，",
+            "也",
+            "保护",
+            "传统",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the tradition. She thought about the tradition and protected the tradition."
+        },
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "认识",
+            "价值",
+            "。",
+            "她",
+            "想",
+            "价值",
+            "，",
+            "也",
+            "保护",
+            "价值",
+            "。"
+          ],
+          "translation": "Tang Xin got to know the value. She thought about the value and protected the value."
+        }
+      ]
+    }
+  ]
+}

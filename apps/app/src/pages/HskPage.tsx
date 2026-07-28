@@ -5,13 +5,16 @@ import { loadDB } from '../lib/worddb'
 import { getCurrentUid } from '../lib/auth'
 import { useEntitlements } from '../hooks/useEntitlements'
 import LockBadge, { LockIcon } from '../components/LockBadge'
+import { HSK_LEVELS, hskLabel } from '../lib/hsk'
 
-const HSK_LEVELS = [1, 2, 3, 4] as const
 const HSK_LABELS: Record<number, string> = {
   1: 'Beginner',
   2: 'Elementary',
-  3: 'Intermediate',
-  4: 'Upper-Intermediate',
+  3: 'Pre-Intermediate',
+  4: 'Intermediate',
+  5: 'Upper-Intermediate',
+  6: 'Advanced',
+  7: 'Advanced band',
 }
 
 interface LevelData {
@@ -86,7 +89,7 @@ export default function HskPage() {
             <div key={l.level} className="bg-surface-raised border border-border rounded-2xl p-5 space-y-4">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="text-3xl font-bold text-text-primary">HSK {l.level}</p>
+                  <p className="text-3xl font-bold text-text-primary">{hskLabel(l.level)}</p>
                   <p className="text-sm text-text-muted">{HSK_LABELS[l.level]}</p>
                 </div>
                 {locked ? (

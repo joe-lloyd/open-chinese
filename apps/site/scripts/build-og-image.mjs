@@ -23,7 +23,7 @@ const out = resolve(pkgRoot, 'public/og.png')
 // avoiding a transpile step for.
 const NAME = 'OpenChinese'
 const TAGLINE = 'Learn Mandarin that sticks'
-const SUB = 'Spaced repetition · Graded readers · HSK 1–4'
+const SUB = '10,969 words · 33 reader chapters · HSK 1–9'
 
 // librsvg (what sharp uses to rasterise SVG) resolves fonts through fontconfig
 // and has no notion of `system-ui` — asking for it silently yields a serif on

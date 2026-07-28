@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro'
 import Cta from '../components/Cta.astro'
 import { SITE } from '../../site.config'
-import { FEATURES, STEPS } from '../data/content'
+import { CONTENT_STATS, FEATURES, STEPS } from '../data/content'
 ---
 
 <Base
@@ -40,6 +40,17 @@ import { FEATURES, STEPS } from '../data/content'
       <p class="mt-4 text-sm text-text-muted">
         Free through half of HSK 1 · €{SITE.priceEur}/year for everything
       </p>
+
+      <ul class="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
+        {
+          CONTENT_STATS.map((stat) => (
+            <li class="bg-surface px-3 py-4">
+              <strong class="block text-lg font-semibold text-text-primary">{stat.value}</strong>
+              <span class="mt-0.5 block text-xs text-text-muted">{stat.label}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
     <!-- Product glimpse. Pure markup rather than a screenshot: it stays sharp at
@@ -69,8 +80,8 @@ import { FEATURES, STEPS } from '../data/content'
     <div class="mx-auto max-w-6xl px-5 py-16 sm:py-20">
       <h2 class="text-balance text-center text-3xl font-bold">Built for the part that is hard</h2>
       <p class="mx-auto mt-3 max-w-2xl text-pretty text-center text-text-muted">
-        Not the first hundred words. The thousand after them, and remembering the ones you
-        learned last month.
+        From the first hundred words to advanced reading: learning what comes next, and
+        remembering what you studied last month.
       </p>
 
       <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

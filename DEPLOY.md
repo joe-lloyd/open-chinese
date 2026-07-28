@@ -65,7 +65,7 @@ VITE_ALLOWED_EMAIL=you@gmail.com
 pnpm build:words-db
 ```
 
-This writes `apps/app/public/words.db` (731 HSK 1–4 words), served as a static CDN asset.
+This writes `apps/app/public/words.db` (more than 10,900 HSK 1–9 words), served as a static CDN asset.
 
 **The file is not committed.** It is gitignored, and Netlify regenerates it on every
 deploy — `netlify.toml`'s build command runs `build:words-db` before the client build.

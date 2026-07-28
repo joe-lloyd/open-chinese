@@ -9,6 +9,7 @@ import { speak } from '../lib/tts'
 import PronunciationAssessor from '../components/PronunciationAssessor'
 import Paywall from '../components/Paywall'
 import { useEntitlements } from '../hooks/useEntitlements'
+import { hskLabel } from '../lib/hsk'
 import ExampleSentence from '../components/ExampleSentence'
 import StudySessionDrawer from '../components/StudySessionDrawer'
 
@@ -451,7 +452,7 @@ export default function StudyPage() {
           <div className="h-6 flex items-center justify-center">
             {card.hskLevel && (
               <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-0.5 rounded-full">
-                HSK {card.hskLevel}
+                {hskLabel(card.hskLevel)}
               </span>
             )}
           </div>

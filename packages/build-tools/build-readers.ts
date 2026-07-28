@@ -93,7 +93,7 @@ interface HskWord {
 }
 
 const hsk = new Map<string, HskWord>()
-for (const level of [1, 2, 3, 4]) {
+for (const level of [1, 2, 3, 4, 5, 6, 7]) {
   const words = JSON.parse(
     readFileSync(resolve(__dirname, `hsk${level}.json`), 'utf-8')
   ) as HskWord[]
@@ -143,7 +143,7 @@ function buildReader(source: SourceReader): Reader {
 
       const tokens = paragraph.tokens.map((token): ReaderToken => {
         if (typeof token !== 'string') {
-          // Inline gloss — proper nouns and anything outside HSK 1–4. This is the one
+          // Inline gloss — proper nouns and anything outside HSK 1–9. This is the one
           // path the HSK data cannot cross-check, so the gloss gate has to be applied
           // by hand here or it does not exist at all.
           const { text, pinyin, definition } = token

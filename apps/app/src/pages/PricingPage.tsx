@@ -6,7 +6,7 @@ import { useEntitlements } from '../hooks/useEntitlements'
 import { LockIcon } from '../components/LockBadge'
 
 const PRO_FEATURES = [
-  'Every HSK level, all 740 words',
+  'HSK 1–9, with more than 10,900 words',
   'Every graded reader as they land',
   'Unlimited new cards per day',
   'Cancel any time — no auto-renew surprises',

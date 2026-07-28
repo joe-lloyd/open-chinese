@@ -1,0 +1,709 @@
+{
+  "id": "factory-files",
+  "title": "旧工厂档案",
+  "titleEn": "The Old Factory Files",
+  "description": "Researcher Shen Qing reopens a closed factory’s records and finds a debate the city never resolved.",
+  "hskLevel": 6,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "重新打开",
+      "titleEn": "Reopened",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "档案",
+            "。",
+            "她",
+            "想",
+            "档案",
+            "，",
+            "也",
+            "记录",
+            "档案",
+            "。"
+          ],
+          "translation": "Shen Qing visited the archive. She thought about the archive and documented the archive."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "港口",
+            "。",
+            "她",
+            "想",
+            "港口",
+            "，",
+            "也",
+            "记录",
+            "港口",
+            "。"
+          ],
+          "translation": "Shen Qing visited the port. She thought about the port and documented the port."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "仓库",
+            "。",
+            "她",
+            "想",
+            "仓库",
+            "，",
+            "也",
+            "记录",
+            "仓库",
+            "。"
+          ],
+          "translation": "Shen Qing visited the warehouse. She thought about the warehouse and documented the warehouse."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "政策",
+            "。",
+            "她",
+            "想",
+            "政策",
+            "，",
+            "也",
+            "记录",
+            "政策",
+            "。"
+          ],
+          "translation": "Shen Qing visited the policy. She thought about the policy and documented the policy."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "监督",
+            "。",
+            "她",
+            "想",
+            "监督",
+            "，",
+            "也",
+            "记录",
+            "监督",
+            "。"
+          ],
+          "translation": "Shen Qing visited the oversight. She thought about the oversight and documented the oversight."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "协调",
+            "。",
+            "她",
+            "想",
+            "协调",
+            "，",
+            "也",
+            "记录",
+            "协调",
+            "。"
+          ],
+          "translation": "Shen Qing visited the coordination. She thought about the coordination and documented the coordination."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "改革",
+            "。",
+            "她",
+            "想",
+            "改革",
+            "，",
+            "也",
+            "记录",
+            "改革",
+            "。"
+          ],
+          "translation": "Shen Qing visited the reform. She thought about the reform and documented the reform."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "访问",
+            "社区",
+            "。",
+            "她",
+            "想",
+            "社区",
+            "，",
+            "也",
+            "记录",
+            "社区",
+            "。"
+          ],
+          "translation": "Shen Qing visited the community. She thought about the community and documented the community."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "核对材料",
+      "titleEn": "Checking the Material",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "来源",
+            "。",
+            "她",
+            "想",
+            "来源",
+            "，",
+            "也",
+            "调查",
+            "来源",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the source. She thought about the source and investigated the source."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "数据",
+            "。",
+            "她",
+            "想",
+            "数据",
+            "，",
+            "也",
+            "调查",
+            "数据",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the data. She thought about the data and investigated the data."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "年代",
+            "。",
+            "她",
+            "想",
+            "年代",
+            "，",
+            "也",
+            "调查",
+            "年代",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the date. She thought about the date and investigated the date."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "文件",
+            "。",
+            "她",
+            "想",
+            "文件",
+            "，",
+            "也",
+            "调查",
+            "文件",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the document. She thought about the document and investigated the document."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "证据",
+            "。",
+            "她",
+            "想",
+            "证据",
+            "，",
+            "也",
+            "调查",
+            "证据",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the evidence. She thought about the evidence and investigated the evidence."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "线索",
+            "。",
+            "她",
+            "想",
+            "线索",
+            "，",
+            "也",
+            "调查",
+            "线索",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the clue. She thought about the clue and investigated the clue."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "细节",
+            "。",
+            "她",
+            "想",
+            "细节",
+            "，",
+            "也",
+            "调查",
+            "细节",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the detail. She thought about the detail and investigated the detail."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "分析",
+            "结论",
+            "。",
+            "她",
+            "想",
+            "结论",
+            "，",
+            "也",
+            "调查",
+            "结论",
+            "。"
+          ],
+          "translation": "Shen Qing analysed the conclusion. She thought about the conclusion and investigated the conclusion."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "两种解释",
+      "titleEn": "Two Explanations",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "动机",
+            "。",
+            "她",
+            "想",
+            "动机",
+            "，",
+            "也",
+            "证明",
+            "动机",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the motive. She thought about the motive and tested the motive."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "立场",
+            "。",
+            "她",
+            "想",
+            "立场",
+            "，",
+            "也",
+            "证明",
+            "立场",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the position. She thought about the position and tested the position."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "逻辑",
+            "。",
+            "她",
+            "想",
+            "逻辑",
+            "，",
+            "也",
+            "证明",
+            "逻辑",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the logic. She thought about the logic and tested the logic."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "矛盾",
+            "。",
+            "她",
+            "想",
+            "矛盾",
+            "，",
+            "也",
+            "证明",
+            "矛盾",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the contradiction. She thought about the contradiction and tested the contradiction."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "漏洞",
+            "。",
+            "她",
+            "想",
+            "漏洞",
+            "，",
+            "也",
+            "证明",
+            "漏洞",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the flaw. She thought about the flaw and tested the flaw."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "真相",
+            "。",
+            "她",
+            "想",
+            "真相",
+            "，",
+            "也",
+            "证明",
+            "真相",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the truth. She thought about the truth and tested the truth."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "记忆",
+            "。",
+            "她",
+            "想",
+            "记忆",
+            "，",
+            "也",
+            "证明",
+            "记忆",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the memory. She thought about the memory and tested the memory."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "怀疑",
+            "身份",
+            "。",
+            "她",
+            "想",
+            "身份",
+            "，",
+            "也",
+            "证明",
+            "身份",
+            "。"
+          ],
+          "translation": "Shen Qing questioned the identity. She thought about the identity and tested the identity."
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "公开讨论",
+      "titleEn": "Public Discussion",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "权力",
+            "。",
+            "她",
+            "想",
+            "权力",
+            "，",
+            "也",
+            "讨论",
+            "权力",
+            "。"
+          ],
+          "translation": "Shen Qing explained the power. She thought about the power and debated the power."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "责任",
+            "。",
+            "她",
+            "想",
+            "责任",
+            "，",
+            "也",
+            "讨论",
+            "责任",
+            "。"
+          ],
+          "translation": "Shen Qing explained the responsibility. She thought about the responsibility and debated the responsibility."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "公平",
+            "。",
+            "她",
+            "想",
+            "公平",
+            "，",
+            "也",
+            "讨论",
+            "公平",
+            "。"
+          ],
+          "translation": "Shen Qing explained the fairness. She thought about the fairness and debated the fairness."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "效率",
+            "。",
+            "她",
+            "想",
+            "效率",
+            "，",
+            "也",
+            "讨论",
+            "效率",
+            "。"
+          ],
+          "translation": "Shen Qing explained the efficiency. She thought about the efficiency and debated the efficiency."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "信任",
+            "。",
+            "她",
+            "想",
+            "信任",
+            "，",
+            "也",
+            "讨论",
+            "信任",
+            "。"
+          ],
+          "translation": "Shen Qing explained the trust. She thought about the trust and debated the trust."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "冲突",
+            "。",
+            "她",
+            "想",
+            "冲突",
+            "，",
+            "也",
+            "讨论",
+            "冲突",
+            "。"
+          ],
+          "translation": "Shen Qing explained the conflict. She thought about the conflict and debated the conflict."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "传统",
+            "。",
+            "她",
+            "想",
+            "传统",
+            "，",
+            "也",
+            "讨论",
+            "传统",
+            "。"
+          ],
+          "translation": "Shen Qing explained the tradition. She thought about the tradition and debated the tradition."
+        },
+        {
+          "tokens": [
+            {
+              "text": "沈青",
+              "pinyin": "Shěn Qīng",
+              "definition": "Shen Qing (a given name)"
+            },
+            "解释",
+            "价值",
+            "。",
+            "她",
+            "想",
+            "价值",
+            "，",
+            "也",
+            "讨论",
+            "价值",
+            "。"
+          ],
+          "translation": "Shen Qing explained the value. She thought about the value and debated the value."
+        }
+      ]
+    }
+  ]
+}

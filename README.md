@@ -52,7 +52,9 @@ at `/app`, which is what `netlify.toml` publishes.
 web app config. `VITE_ALLOWED_EMAIL` is optional — set it to restrict sign-in to a
 single Google account, or leave it blank to allow any account.
 
-`pnpm build:words-db` builds the bundled dictionary from `packages/build-tools/hsk*.json`. It must be
+`pnpm build:words-db` builds the bundled HSK 1–9 dictionary from
+`packages/build-tools/hsk*.json`. HSK 7–9 is the official combined advanced
+band. The database must be
 run at least once before `pnpm dev`, because `apps/app/public/words.db` is not committed
 to the repository.
 
@@ -106,5 +108,6 @@ requires an internet connection.
 | `pnpm build:app` / `pnpm build:site` | Build one of them |
 | `pnpm preview` | Serve the assembled output exactly as Netlify will |
 | `pnpm build:words-db` | Regenerate `apps/app/public/words.db` from `packages/build-tools/hsk*.json` |
+| `pnpm import:hsk` | Refresh the committed HSK 3.0 vocabulary bands from their attributed upstream sources |
 | `pnpm build:readers` | Regenerate the graded reader assets from `content/readers/` |
 | `pnpm entitlement <persona>` | Set your own or a test account's plan — see DEPLOY.md |
