@@ -44,7 +44,14 @@ VITE_ALLOWED_EMAIL=you@gmail.com
 pnpm build:words-db
 ```
 
-This writes `client/public/words.db` (731 HSK 1–4 words). Commit the file; it's served as a static CDN asset.
+This writes `client/public/words.db` (731 HSK 1–4 words), served as a static CDN asset.
+
+**The file is not committed.** It is gitignored, and Netlify regenerates it on every
+deploy — `netlify.toml`'s build command runs `build:words-db` before the client build.
+Run it once locally so `pnpm dev` has something to load. (It used to be committed,
+which meant every branch that touched the schema produced an unmergeable binary:
+`build-words-db.ts` assigns a fresh `randomUUID()` per row, so no two builds of the
+file are ever byte-identical.)
 
 ### 4. Payments (optional — off by default)
 
@@ -61,21 +68,26 @@ Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
    in the console that the published rules contain `allow write: if false` under
    `entitlements`.
 
-1. Pick a provider. See the monetization spec and design notes in `openspec/`
-   for the trade-offs — the recommendation is a merchant of record (Polar
-   or Paddle) so EU VAT is handled for you, with Stripe as the reference
-   implementation you can exercise in test mode today.
-2. Set the **server-side** variables from the root `.env.example` in Netlify's
+1. **Use Stripe.** Test mode needs no application, no business details and no
+   approval, so you can run a full purchase today. The longer-term
+   recommendation is still a merchant of record (Polar or Paddle) so EU VAT
+   registration and remittance are handled for you — see the design notes in
+   `openspec/` — but that is an account migration, not a code change: swapping
+   providers means implementing four methods behind `PaymentProvider`.
+2. Create the Firebase service account with the **Cloud Datastore User** role
+   only. It is the sole credential able to write entitlements, so scope it
+   tightly and rotate it independently of everything else.
+3. Set the **server-side** variables from the root `.env.example` in Netlify's
    environment (never with a `VITE_` prefix — that would publish them):
-   `PAYMENT_PROVIDER`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`, and the
-   provider's secret key, webhook secret and price IDs.
-3. Create the Firebase service account with the **Cloud Datastore User** role
-   only. It is the sole credential able to write entitlements.
-4. Point the provider's webhook at `https://<your-site>/.netlify/functions/webhook`
+   `PAYMENT_PROVIDER=stripe`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`,
+   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRO_YEARLY`.
+   The MVP offers the subscription only, so the four `STRIPE_PRICE_HSK_*`
+   variables can stay unset — see `OFFERED_SKUS` in `client/src/lib/catalog.ts`.
+4. Point the Stripe webhook at `https://<your-site>/.netlify/functions/webhook`
    and subscribe to the events listed in the root `.env.example`.
 5. Set `VITE_PAYMENTS_ENABLED=true` and redeploy. **Do this last.** It is a
    build-time client flag while `PAYMENT_PROVIDER` is a runtime server one, so
-   setting it before step 2 leaves content locked with a checkout that returns
+   setting it before step 3 leaves content locked with a checkout that returns
    503 — users can see the paywall but cannot pay. Nothing detects that
    automatically on purpose: a client that opened its gates whenever it could not
    reach the provider would be bypassable by blocking one request.
@@ -91,6 +103,76 @@ data to migrate back.
 
 Note that content gating is a purchase prompt, not a lock — `words.db` is a public
 static asset and remains downloadable by anyone.
+
+### 5. Your own account, and test personas
+
+`pnpm entitlement` writes `users/{uid}/entitlements/current` directly with the
+Firebase Admin SDK — the same document and the same credential the payment webhook
+uses. It needs `FIREBASE_SERVICE_ACCOUNT` set, or a `service-account.json` in the
+repo root (gitignored).
+
+Give yourself permanent access:
+
+```bash
+pnpm entitlement owner            # resolves the VITE_ALLOWED_EMAIL account
+pnpm entitlement owner <uid>      # or name a uid explicitly
+```
+
+`owner` writes `planSource: 'grant'` with no `currentPeriodEnd`. `isPro()` treats a
+grant with no expiry as perpetual — correct for your account, and unreachable by a
+customer because security rules deny every client write to that path.
+
+Switch personas to see what other users see. The app streams the document with
+`onSnapshot`, so the UI changes within a second — no reload, no second Google
+account:
+
+```bash
+pnpm entitlement free       # demo allowance + paywalls
+pnpm entitlement pro        # paying subscriber, a year out
+pnpm entitlement expiring   # lapses in 3 days
+pnpm entitlement expired    # access stops, studied words are kept
+pnpm entitlement past_due   # payment failed, still inside the period
+pnpm entitlement packs      # owns HSK 1 and 2 outright, not Pro
+pnpm entitlement show       # print the current document, change nothing
+```
+
+There is deliberately **no client-side admin flag**. A `VITE_ADMIN_*` check would
+be a second, weaker path to the same decision — forgeable from the browser, and
+directly contradicting the rule that entitlements are server-authoritative. The
+CLI is the only way in, and it is as convenient.
+
+### 6. End-to-end test with a Stripe test account
+
+1. Stripe dashboard → toggle **Test mode** (top right). Everything below happens
+   in test mode; no real money moves and no business details are needed.
+2. **Product** → add a product, €25, recurring yearly. Copy the **price ID**
+   (`price_...`) into `STRIPE_PRICE_PRO_YEARLY`.
+3. **Developers → API keys** → copy the test secret key (`sk_test_...`) into
+   `STRIPE_SECRET_KEY`.
+4. **Developers → Webhooks** → add endpoint
+   `https://<your-site>/.netlify/functions/webhook`, subscribe to
+   `checkout.session.completed`, `customer.subscription.created`,
+   `customer.subscription.updated`, `customer.subscription.deleted`. Copy the
+   signing secret (`whsec_...`) into `STRIPE_WEBHOOK_SECRET`.
+5. Redeploy with `VITE_PAYMENTS_ENABLED=true`.
+6. `pnpm entitlement free` to drop yourself to the free tier.
+7. In the app: HSK 2 should show as locked, `/study?hsk=2` should show a paywall
+   rather than an empty session, and the first half of HSK 1 should still work.
+8. Pricing page → **Get Pro** → pay with card `4242 4242 4242 4242`, any future
+   expiry, any CVC, any postcode.
+9. You land back in the app and it flips to Pro **without a reload** — that is the
+   webhook writing the entitlement and `onSnapshot` delivering it. If it does not
+   flip, check Stripe → Webhooks → the endpoint's recent deliveries; a 400 there
+   means `STRIPE_WEBHOOK_SECRET` is wrong, a 503 means `PAYMENT_PROVIDER` is unset
+   on Netlify.
+10. `pnpm entitlement owner` to put your account back to permanent access.
+
+To test locally instead of against a deploy, `stripe listen --forward-to
+localhost:8888/.netlify/functions/webhook` (via `netlify dev`) prints its own
+`whsec_` to use for `STRIPE_WEBHOOK_SECRET`.
+
+Going live later is: swap the test keys for live ones, re-point the webhook, and
+complete Stripe's account activation. No code changes.
 
 ---
 

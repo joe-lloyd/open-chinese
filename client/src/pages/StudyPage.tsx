@@ -408,180 +408,180 @@ export default function StudyPage() {
           grading, but without this Tab still reaches the buttons behind the
           backdrop and Enter activates them. */}
       <div className="min-h-screen flex flex-col" inert={menuOpen}>
-      {/* Overlaid, not stacked: as a flex child this banner would steal height
-          from the centred card column and shift the character while it shows. */}
-      {writeError && (
-        <div className="fixed top-0 inset-x-0 z-40 bg-incorrect/10 backdrop-blur-sm border-b border-incorrect/30 px-4 py-2 text-xs text-incorrect flex items-center justify-between">
-          <span>⚠ {writeError}</span>
-          <button onClick={() => setWriteError(null)} className="ml-4 underline">dismiss</button>
-        </div>
-      )}
-      {/* Progress — fixed */}
-      <div className="flex-shrink-0 px-4 sm:px-8 pt-4 sm:pt-5 pb-2 flex items-center gap-4">
-        <div className="flex-1 h-1 bg-border rounded-full overflow-hidden">
-          <div className="h-full bg-accent transition-all duration-500" style={{ width: `${progress * 100}%` }} />
-        </div>
-        <span className="text-xs text-text-muted tabular-nums whitespace-nowrap">
-          {timeRemaining != null
-            ? `${remMins}:${String(remSecs).padStart(2, '0')} left · ${index} done`
-            : `${index}/${queue.length} · ${mins}:${String(secs).padStart(2, '0')}`
-          }
-        </span>
-        <button
-          ref={menuButtonRef}
-          onClick={() => setMenuOpen(true)}
-          aria-label="Session menu"
-          className="w-8 h-8 -mr-1 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-        </button>
-      </div>
-
-      {/*
-        Every region below reserves a fixed height, so the column's total height
-        is a constant and vertical centring is deterministic: the character sits
-        on the same pixels for every card and in every phase. Content is centred
-        within its own box, so size differences grow symmetrically rather than
-        displacing whatever is beneath.
-      */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
-
-        <div className="h-6 flex items-center justify-center">
-          {card.hskLevel && (
-            <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-0.5 rounded-full">
-              HSK {card.hskLevel}
-            </span>
-          )}
-        </div>
-
-        {/* --hanzi-avail subtracts this row's px-6 and, from md up, the app sidebar. */}
-        <div className="h-36 sm:h-48 flex items-center justify-center [--hanzi-box:9rem] sm:[--hanzi-box:12rem] [--hanzi-avail:calc(100vw-3rem)] md:[--hanzi-avail:calc(100vw-6.5rem)]">
-          <p
-            className="font-light text-text-primary select-none leading-none text-center whitespace-nowrap"
-            style={{ fontSize: hanziFontSize(card.simplified) }}
+        {/* Overlaid, not stacked: as a flex child this banner would steal height
+            from the centred card column and shift the character while it shows. */}
+        {writeError && (
+          <div className="fixed top-0 inset-x-0 z-40 bg-incorrect/10 backdrop-blur-sm border-b border-incorrect/30 px-4 py-2 text-xs text-incorrect flex items-center justify-between">
+            <span>⚠ {writeError}</span>
+            <button onClick={() => setWriteError(null)} className="ml-4 underline">dismiss</button>
+          </div>
+        )}
+        {/* Progress — fixed */}
+        <div className="flex-shrink-0 px-4 sm:px-8 pt-4 sm:pt-5 pb-2 flex items-center gap-4">
+          <div className="flex-1 h-1 bg-border rounded-full overflow-hidden">
+            <div className="h-full bg-accent transition-all duration-500" style={{ width: `${progress * 100}%` }} />
+          </div>
+          <span className="text-xs text-text-muted tabular-nums whitespace-nowrap">
+            {timeRemaining != null
+              ? `${remMins}:${String(remSecs).padStart(2, '0')} left · ${index} done`
+              : `${index}/${queue.length} · ${mins}:${String(secs).padStart(2, '0')}`
+            }
+          </span>
+          <button
+            ref={menuButtonRef}
+            onClick={() => setMenuOpen(true)}
+            aria-label="Session menu"
+            className="w-8 h-8 -mr-1 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors"
           >
-            {card.simplified}
-          </p>
-        </div>
-
-        <div className="h-7 sm:h-8 flex items-center justify-center">
-          {card.traditional && card.traditional !== card.simplified && (
-            <p className="text-xl text-text-muted">{card.traditional}</p>
-          )}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
         </div>
 
         {/*
-          Pinyin + pronunciation practice. The height is unconditional, so
-          mounting the assessor at pron-revealed causes no layout shift.
-          The assessor is genuinely unmounted during pron-hidden — that phase is
-          a recall test, and a verdict there would leak the answer.
+          Every region below reserves a fixed height, so the column's total height
+          is a constant and vertical centring is deterministic: the character sits
+          on the same pixels for every card and in every phase. Content is centred
+          within its own box, so size differences grow symmetrically rather than
+          displacing whatever is beneath.
         */}
-        <div className="h-40 flex flex-col items-center justify-start gap-1">
-          <div className={`text-center ${revealClass(pronVisible)}`}>
-            <p className="text-3xl font-medium text-accent">{card.pinyin}</p>
-            <button
-              onClick={() => speak(card.simplified)}
-              className="text-xs text-text-muted hover:text-accent transition-colors mt-0.5"
-            >
-              ▶ play (↑ / R)
-            </button>
-          </div>
-          {/* Advisory only — the verdict never reaches advance(), srs.ts or firestore.ts. */}
-          {pronVisible && (
-            <PronunciationAssessor target={card.simplified} targetPinyin={card.pinyin} />
-          )}
-        </div>
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
 
-        {/* The region's height is reserved; the box inside it is content-sized and
-            centred, so a one-line definition doesn't leave a tall empty card. */}
-        <div className={`w-full max-w-lg h-52 sm:h-56 flex items-center ${revealClass(meaningVisible)}`}>
-          <div className="w-full max-h-full bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center overflow-y-auto">
-            <p className="text-lg text-text-primary leading-relaxed">{card.definition}</p>
-            {(card.sentenceZh || card.notes) && (
-              <div className="pt-3 border-t border-border text-left space-y-1">
-                <p className="text-[10px] font-semibold text-text-muted uppercase tracking-widest">Example</p>
-                {card.sentenceZh ? (
-                  <ExampleSentence
-                    key={card.simplified}
-                    zh={card.sentenceZh}
-                    en={card.sentenceEn}
-                    pinyin={card.sentencePinyin}
-                    pinned={showSentencePinyin}
-                    onTogglePinned={() => setShowSentencePinyin((s) => !s)}
-                  />
-                ) : (
-                  <p className="text-sm text-text-muted italic">{card.notes}</p>
-                )}
-              </div>
+          <div className="h-6 flex items-center justify-center">
+            {card.hskLevel && (
+              <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-0.5 rounded-full">
+                HSK {card.hskLevel}
+              </span>
             )}
           </div>
-        </div>
-      </div>
 
-      {/* Button area — fixed height so no phase's extra controls resize it */}
-      <div className="flex-shrink-0 px-6 pb-6 sm:pb-8">
-        <div className="w-full max-w-md mx-auto h-36 flex flex-col justify-start gap-3">
-          {phase === 'pron-hidden' && <>
-            <p className="text-center text-text-muted text-sm">Do you know the pronunciation?</p>
-            <div className="grid grid-cols-2 gap-3">
-              <ActionBtn label="I don't know" sub="←" variant="fail" onClick={failAndReveal} />
-              <ActionBtn label="Reveal" sub="→ / Space" variant="accent" onClick={revealPron} />
-            </div>
-          </>}
-          {phase === 'pron-revealed' && <>
-            <p className="text-center text-text-muted text-sm">Did you know the pronunciation?</p>
-            <div className="grid grid-cols-2 gap-3">
-              <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={failAndReveal} />
-              <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradePron(true)} />
-            </div>
-          </>}
-          {phase === 'meaning-hidden' && <>
-            <p className="text-center text-text-muted text-sm">Do you know the meaning?</p>
-            <div className="grid grid-cols-2 gap-3">
-              <ActionBtn label="I don't know" sub="←" variant="fail" onClick={failAndReveal} />
-              <ActionBtn label="Reveal" sub="→ / Space" variant="accent" onClick={revealMeaning} />
-            </div>
-          </>}
-          {phase === 'meaning-revealed' && revealedByFail && <>
-            <p className="text-center text-text-muted text-sm">Marked as not known</p>
-            <ActionBtn label="Next card" sub="→ / Space / ←" variant="neutral" onClick={() => advance(false, false)} />
-          </>}
-          {phase === 'meaning-revealed' && !revealedByFail && <>
-            <p className="text-center text-text-muted text-sm">Did you know the meaning?</p>
-            <div className="grid grid-cols-2 gap-3">
-              <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={() => gradeMeaning(false)} />
-              <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradeMeaning(true)} />
-            </div>
-          </>}
-        </div>
-      </div>
+          {/* --hanzi-avail subtracts this row's px-6 and, from md up, the app sidebar. */}
+          <div className="h-36 sm:h-48 flex items-center justify-center [--hanzi-box:9rem] sm:[--hanzi-box:12rem] [--hanzi-avail:calc(100vw-3rem)] md:[--hanzi-avail:calc(100vw-6.5rem)]">
+            <p
+              className="font-light text-text-primary select-none leading-none text-center whitespace-nowrap"
+              style={{ fontSize: hanziFontSize(card.simplified) }}
+            >
+              {card.simplified}
+            </p>
+          </div>
 
-      {showHelp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowHelp(false)}>
-          <div className="bg-surface rounded-2xl p-6 max-w-sm w-full border border-border mx-4 space-y-3" onClick={(e) => e.stopPropagation()}>
-            <h3 className="font-bold text-text-primary">Keyboard shortcuts</h3>
-            {[
-              ['→ / Space', 'Reveal or I knew it'],
-              ['←', "I didn't know (skip to answer)"],
-              ['↑ / R', 'Replay word audio'],
-              ['↓', 'Play example sentence (when revealed)'],
-              ['P', 'Show example sentence pinyin (when revealed)'],
-              ['?', 'Toggle help'],
-            ].map(([k, v]) => (
-              <div key={k} className="flex justify-between items-center text-sm gap-4">
-                <kbd className="bg-surface-raised px-2 py-0.5 rounded font-mono text-text-muted whitespace-nowrap">{k}</kbd>
-                <span className="text-text-muted">{v}</span>
-              </div>
-            ))}
+          <div className="h-7 sm:h-8 flex items-center justify-center">
+            {card.traditional && card.traditional !== card.simplified && (
+              <p className="text-xl text-text-muted">{card.traditional}</p>
+            )}
+          </div>
+
+          {/*
+            Pinyin + pronunciation practice. The height is unconditional, so
+            mounting the assessor at pron-revealed causes no layout shift.
+            The assessor is genuinely unmounted during pron-hidden — that phase is
+            a recall test, and a verdict there would leak the answer.
+          */}
+          <div className="h-40 flex flex-col items-center justify-start gap-1">
+            <div className={`text-center ${revealClass(pronVisible)}`}>
+              <p className="text-3xl font-medium text-accent">{card.pinyin}</p>
+              <button
+                onClick={() => speak(card.simplified)}
+                className="text-xs text-text-muted hover:text-accent transition-colors mt-0.5"
+              >
+                ▶ play (↑ / R)
+              </button>
+            </div>
+            {/* Advisory only — the verdict never reaches advance(), srs.ts or firestore.ts. */}
+            {pronVisible && (
+              <PronunciationAssessor target={card.simplified} targetPinyin={card.pinyin} />
+            )}
+          </div>
+
+          {/* The region's height is reserved; the box inside it is content-sized and
+              centred, so a one-line definition doesn't leave a tall empty card. */}
+          <div className={`w-full max-w-lg h-52 sm:h-56 flex items-center ${revealClass(meaningVisible)}`}>
+            <div className="w-full max-h-full bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center overflow-y-auto">
+              <p className="text-lg text-text-primary leading-relaxed">{card.definition}</p>
+              {(card.sentenceZh || card.notes) && (
+                <div className="pt-3 border-t border-border text-left space-y-1">
+                  <p className="text-[10px] font-semibold text-text-muted uppercase tracking-widest">Example</p>
+                  {card.sentenceZh ? (
+                    <ExampleSentence
+                      key={card.simplified}
+                      zh={card.sentenceZh}
+                      en={card.sentenceEn}
+                      pinyin={card.sentencePinyin}
+                      pinned={showSentencePinyin}
+                      onTogglePinned={() => setShowSentencePinyin((s) => !s)}
+                    />
+                  ) : (
+                    <p className="text-sm text-text-muted italic">{card.notes}</p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      )}
 
-      <button onClick={() => setShowHelp(true)} className="fixed bottom-16 right-4 md:bottom-4 text-xs text-text-muted hover:text-text-primary transition-colors">
-        ? help
-      </button>
+        {/* Button area — fixed height so no phase's extra controls resize it */}
+        <div className="flex-shrink-0 px-6 pb-6 sm:pb-8">
+          <div className="w-full max-w-md mx-auto h-36 flex flex-col justify-start gap-3">
+            {phase === 'pron-hidden' && <>
+              <p className="text-center text-text-muted text-sm">Do you know the pronunciation?</p>
+              <div className="grid grid-cols-2 gap-3">
+                <ActionBtn label="I don't know" sub="←" variant="fail" onClick={failAndReveal} />
+                <ActionBtn label="Reveal" sub="→ / Space" variant="accent" onClick={revealPron} />
+              </div>
+            </>}
+            {phase === 'pron-revealed' && <>
+              <p className="text-center text-text-muted text-sm">Did you know the pronunciation?</p>
+              <div className="grid grid-cols-2 gap-3">
+                <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={failAndReveal} />
+                <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradePron(true)} />
+              </div>
+            </>}
+            {phase === 'meaning-hidden' && <>
+              <p className="text-center text-text-muted text-sm">Do you know the meaning?</p>
+              <div className="grid grid-cols-2 gap-3">
+                <ActionBtn label="I don't know" sub="←" variant="fail" onClick={failAndReveal} />
+                <ActionBtn label="Reveal" sub="→ / Space" variant="accent" onClick={revealMeaning} />
+              </div>
+            </>}
+            {phase === 'meaning-revealed' && revealedByFail && <>
+              <p className="text-center text-text-muted text-sm">Marked as not known</p>
+              <ActionBtn label="Next card" sub="→ / Space / ←" variant="neutral" onClick={() => advance(false, false)} />
+            </>}
+            {phase === 'meaning-revealed' && !revealedByFail && <>
+              <p className="text-center text-text-muted text-sm">Did you know the meaning?</p>
+              <div className="grid grid-cols-2 gap-3">
+                <ActionBtn label="I didn't know" sub="←" variant="fail" onClick={() => gradeMeaning(false)} />
+                <ActionBtn label="I knew it" sub="→" variant="pass" onClick={() => gradeMeaning(true)} />
+              </div>
+            </>}
+          </div>
+        </div>
+
+        {showHelp && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowHelp(false)}>
+            <div className="bg-surface rounded-2xl p-6 max-w-sm w-full border border-border mx-4 space-y-3" onClick={(e) => e.stopPropagation()}>
+              <h3 className="font-bold text-text-primary">Keyboard shortcuts</h3>
+              {[
+                ['→ / Space', 'Reveal or I knew it'],
+                ['←', "I didn't know (skip to answer)"],
+                ['↑ / R', 'Replay word audio'],
+                ['↓', 'Play example sentence (when revealed)'],
+                ['P', 'Show example sentence pinyin (when revealed)'],
+                ['?', 'Toggle help'],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between items-center text-sm gap-4">
+                  <kbd className="bg-surface-raised px-2 py-0.5 rounded font-mono text-text-muted whitespace-nowrap">{k}</kbd>
+                  <span className="text-text-muted">{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <button onClick={() => setShowHelp(true)} className="fixed bottom-16 right-4 md:bottom-4 text-xs text-text-muted hover:text-text-primary transition-colors">
+          ? help
+        </button>
       </div>
 
       <StudySessionDrawer open={menuOpen} onClose={() => setMenuOpen(false)} onEndSession={endSession} />

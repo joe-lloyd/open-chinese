@@ -66,6 +66,18 @@ export const CATALOG: Record<CatalogSku, CatalogEntry> = {
 
 export const SUBSCRIPTION_SKU: CatalogSku = 'pro-yearly'
 
+/**
+ * What the pricing page actually offers.
+ *
+ * MVP is the subscription alone. The pack machinery stays fully wired —
+ * `canAccess` honours packs, and `pnpm entitlement packs` grants them — but
+ * surfacing packs would mean creating and maintaining five provider prices
+ * instead of one, and at €6 × 4 = €24 against a €25 year they read as a decoy
+ * rather than a real choice. Add pack SKUs here once they are priced to stand
+ * on their own; nothing else needs to change.
+ */
+export const OFFERED_SKUS: CatalogSku[] = [SUBSCRIPTION_SKU]
+
 export function isCatalogSku(sku: string): sku is CatalogSku {
   return sku in CATALOG
 }

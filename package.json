@@ -8,7 +8,8 @@
     "build:words-db": "pnpm --filter open-chinese-scripts build:words-db",
     "build:readers": "pnpm --filter open-chinese-scripts build:readers",
     "typecheck:functions": "tsc -p tsconfig.functions.json",
-    "check:functions-bundle": "node scripts/check-functions-bundle.mjs"
+    "check:functions-bundle": "node scripts/check-functions-bundle.mjs",
+    "entitlement": "node --env-file-if-exists=client/.env scripts/entitlement.mjs"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
