@@ -2,7 +2,10 @@ import { NavLink } from 'react-router-dom'
 import { useTheme } from 'next-themes'
 import type { User } from 'firebase/auth'
 import { signOut } from '../lib/auth'
+import { PAYMENTS_ENABLED } from '../lib/entitlements'
 
+// Pricing only appears once payments are switched on, so the default build has
+// exactly the navigation it had before.
 const NAV = [
   { to: '/', icon: DashboardIcon, label: 'Dashboard', exact: true },
   { to: '/study', icon: StudyIcon, label: 'Study' },
@@ -11,6 +14,7 @@ const NAV = [
   { to: '/queue', icon: QueueIcon, label: 'Queue' },
   { to: '/dictionary', icon: DictIcon, label: 'Dictionary' },
   { to: '/import', icon: ImportIcon, label: 'Import' },
+  ...(PAYMENTS_ENABLED ? [{ to: '/pricing', icon: ProIcon, label: 'Pro' }] : []),
   { to: '/settings', icon: SettingsIcon, label: 'Settings' },
 ]
 
@@ -154,6 +158,13 @@ function ImportIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  )
+}
+function ProIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>
   )
 }

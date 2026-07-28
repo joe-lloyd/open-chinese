@@ -1,5 +1,12 @@
-import { getAllUserWords, getNewCardsSeen, getProfile } from './firestore'
+import { getAllUserWords, getEntitlements, getNewCardsSeen, getProfile } from './firestore'
 import { loadDB } from './worddb'
+import {
+  buildFreeWordSets,
+  canAccess,
+  freeWordPredicate,
+  FREE_ENTITLEMENTS,
+  PAYMENTS_ENABLED,
+} from './entitlements'
 
 export interface StudyCard {
   simplified: string
@@ -40,10 +47,12 @@ export async function buildQueue(
 ): Promise<StudyCard[]> {
   const { hskLevel, deckName, mode = 'due' } = options
 
-  const [worddb, allUserWords, profile] = await Promise.all([
+  const [worddb, allUserWords, profile, entitlements] = await Promise.all([
     loadDB(),
     getAllUserWords(uid),
     getProfile(uid),
+    // No point paying for a read the gate will ignore.
+    PAYMENTS_ENABLED ? getEntitlements(uid) : Promise.resolve(FREE_ENTITLEMENTS),
   ])
 
   const now = new Date()
@@ -69,6 +78,20 @@ export async function buildQueue(
   // this, a CSV row imported into "My List" and never studied would surface as a new
   // card carrying "HSK 3" and be written back under that deck on first review.
   const existingDeck = new Map(allUserWords.map((w) => [w.simplified, w.deckName]))
+
+  // Gating is applied here, not only on the HSK page, so navigating straight to
+  // `/study?hsk=4` cannot serve content the browse view showed as locked.
+  //
+  // Only the unstudied pool is checked: every word in `allUserWords` already has
+  // SRS state, and `canAccess` never revokes a word the user has studied — a
+  // lapsed subscription stops new material, it does not delete progress.
+  const isFreeWord = freeWordPredicate(buildFreeWordSets((l) => worddb.getWordsByLevel(l)))
+  const isUnlocked = (w: { simplified: string; hsk_level: number }) =>
+    canAccess(
+      { kind: 'word', simplified: w.simplified, hskLevel: w.hsk_level },
+      entitlements,
+      { isFreeWord, studied: studiedSimplifieds }
+    ).allowed
 
   let levelSimplifieds: Set<string> | null = null
   if (hskLevel) {
@@ -143,7 +166,7 @@ export async function buildQueue(
   if (mode === 'new') {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     return sourceWords
-      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified) && isUnlocked(w))
       .slice(0, sessionSize)
       .map(toNewCard)
   }
@@ -208,7 +231,7 @@ export async function buildQueue(
   if (newCardSlots > 0) {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     const newCards = sourceWords
-      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified) && isUnlocked(w))
       .slice(0, newCardSlots)
       .map(toNewCard)
     reviewCards.push(...newCards)

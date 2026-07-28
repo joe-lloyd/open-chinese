@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { getAllUserWords } from '../lib/firestore'
 import { loadDB } from '../lib/worddb'
 import { getCurrentUid } from '../lib/auth'
+import { useEntitlements } from '../hooks/useEntitlements'
+import LockBadge, { LockIcon } from '../components/LockBadge'
 
 const HSK_LEVELS = [1, 2, 3, 4] as const
 const HSK_LABELS: Record<number, string> = {
@@ -24,6 +26,7 @@ export default function HskPage() {
   const [levels, setLevels] = useState<LevelData[]>([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
+  const { check, freeCountFor, loading: entitlementsLoading } = useEntitlements()
 
   useEffect(() => {
     async function load() {
@@ -64,7 +67,10 @@ export default function HskPage() {
     load()
   }, [])
 
-  if (loading) return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
+  // Waiting for the entitlement snapshot too, so a paying user is never shown
+  // "Unlock HSK 4" for the moment before it arrives.
+  if (loading || entitlementsLoading)
+    return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
 
   return (
     <div className="p-4 sm:p-8 max-w-3xl mx-auto space-y-6">
@@ -72,17 +78,25 @@ export default function HskPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {levels.map((l) => {
           const pct = l.total > 0 ? Math.round((l.studied / l.total) * 100) : 0
+          // Gating is computed at render, not in the effect, so the cards settle
+          // as soon as the entitlement snapshot arrives.
+          const locked = !check({ kind: 'hskLevel', level: l.level }).allowed
+          const freeCount = locked ? freeCountFor(l.level) : 0
           return (
             <div key={l.level} className="bg-surface-raised border border-border rounded-2xl p-5 space-y-4">
-              <div className="flex items-start justify-between">
+              <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="text-3xl font-bold text-text-primary">HSK {l.level}</p>
                   <p className="text-sm text-text-muted">{HSK_LABELS[l.level]}</p>
                 </div>
-                {l.due > 0 && (
-                  <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-1 rounded-full">
-                    {l.due} due
-                  </span>
+                {locked ? (
+                  <LockBadge label={freeCount > 0 ? `${freeCount} free` : 'Locked'} />
+                ) : (
+                  l.due > 0 && (
+                    <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-1 rounded-full">
+                      {l.due} due
+                    </span>
+                  )
                 )}
               </div>
 
@@ -106,12 +120,36 @@ export default function HskPage() {
                 </div>
               </div>
 
-              <button
-                onClick={() => navigate(`/study?hsk=${l.level}`)}
-                className="w-full py-2.5 bg-accent text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
-              >
-                Study HSK {l.level}
-              </button>
+              {!locked ? (
+                <button
+                  onClick={() => navigate(`/study?hsk=${l.level}`)}
+                  className="w-full py-2.5 bg-accent text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
+                >
+                  Study HSK {l.level}
+                </button>
+              ) : freeCount > 0 ? (
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => navigate(`/study?hsk=${l.level}`)}
+                    className="flex-1 py-2.5 border border-border text-text-primary rounded-xl text-sm font-medium hover:bg-surface transition-colors"
+                  >
+                    Study free {freeCount}
+                  </button>
+                  <button
+                    onClick={() => navigate('/pricing')}
+                    className="flex-1 py-2.5 bg-accent text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
+                  >
+                    Unlock all
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => navigate('/pricing')}
+                  className="w-full py-2.5 bg-accent text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5"
+                >
+                  <LockIcon /> Unlock HSK {l.level}
+                </button>
+              )}
             </div>
           )
         })}

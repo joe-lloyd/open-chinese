@@ -46,6 +46,52 @@ pnpm build:words-db
 
 This writes `client/public/words.db` (731 HSK 1–4 words). Commit the file; it's served as a static CDN asset.
 
+### 4. Payments (optional — off by default)
+
+Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
+`VITE_PAYMENTS_ENABLED` stays false, and every content gate is open. To turn them on:
+
+0. **Redeploy `firestore.rules` first** (Firestore → Rules → paste the file → Publish).
+   The tightened rules are the *only* thing making entitlements server-authoritative.
+   Rules are deployed by hand — there is no CI publishing them — so an existing
+   project is still running whatever was pasted last time. Enable gating while the
+   old permissive rules are live and any signed-in user can write
+   `users/{uid}/entitlements/current` from the browser console and grant
+   themselves Pro permanently, for free. Do this step before step 5, and confirm
+   in the console that the published rules contain `allow write: if false` under
+   `entitlements`.
+
+1. Pick a provider. See the monetization spec and design notes in `openspec/`
+   for the trade-offs — the recommendation is a merchant of record (Polar
+   or Paddle) so EU VAT is handled for you, with Stripe as the reference
+   implementation you can exercise in test mode today.
+2. Set the **server-side** variables from the root `.env.example` in Netlify's
+   environment (never with a `VITE_` prefix — that would publish them):
+   `PAYMENT_PROVIDER`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`, and the
+   provider's secret key, webhook secret and price IDs.
+3. Create the Firebase service account with the **Cloud Datastore User** role
+   only. It is the sole credential able to write entitlements.
+4. Point the provider's webhook at `https://<your-site>/.netlify/functions/webhook`
+   and subscribe to the events listed in the root `.env.example`.
+5. Set `VITE_PAYMENTS_ENABLED=true` and redeploy. **Do this last.** It is a
+   build-time client flag while `PAYMENT_PROVIDER` is a runtime server one, so
+   setting it before step 2 leaves content locked with a checkout that returns
+   503 — users can see the paywall but cannot pay. Nothing detects that
+   automatically on purpose: a client that opened its gates whenever it could not
+   reach the provider would be bypassable by blocking one request.
+
+Before enabling, run `pnpm check:functions-bundle`. It bundles the Netlify
+Functions the way Netlify does and exercises them, which typechecking does not
+cover — `firebase-admin` cannot be safely inlined (google-gax uses `__dirname`
+and loads `.proto` files at runtime), so `netlify.toml` externalises it. Keep
+that list and the one in `scripts/check-functions-bundle.mjs` in sync.
+
+Rollback is unsetting `VITE_PAYMENTS_ENABLED`: every gate reopens and there is no
+data to migrate back.
+
+Note that content gating is a purchase prompt, not a lock — `words.db` is a public
+static asset and remains downloadable by anyone.
+
 ---
 
 ## Local development (no auth)

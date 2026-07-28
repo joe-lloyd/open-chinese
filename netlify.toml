@@ -2,6 +2,14 @@
   command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
   publish = "client/dist"
 
+[functions]
+  directory = "netlify/functions"
+  # firebase-admin must not be bundled. It pulls in google-gax/grpc, which uses
+  # __dirname and loads .proto files from disk at runtime; inlining it produces a
+  # function that throws "__dirname is not defined in ES module scope" on the
+  # first Firestore call. Shipping it as a real node_module is the fix.
+  external_node_modules = ["firebase-admin"]
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

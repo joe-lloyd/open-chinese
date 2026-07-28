@@ -16,28 +16,35 @@ import ReadersPage from "./pages/ReadersPage";
 import ReaderPage from "./pages/ReaderPage";
 import ChapterPage from "./pages/ChapterPage";
 import LoginPage from "./pages/LoginPage";
+import PricingPage from "./pages/PricingPage";
+import BillingReturnPage from "./pages/BillingReturnPage";
+import { EntitlementsProvider } from "./hooks/EntitlementsProvider";
 
 function AppShell({ user }: { user: User }) {
   return (
-    <div className="flex h-screen w-screen bg-surface text-text-primary overflow-hidden">
-      <Sidebar user={user} />
-      <main className="flex-1 min-h-0 overflow-auto pb-14 md:pb-0">
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/study" element={<StudyPage />} />
-          <Route path="/queue" element={<QueuePage />} />
-          <Route path="/dictionary" element={<DictionaryPage />} />
-          <Route path="/import" element={<ImportPage />} />
-          <Route path="/hsk" element={<HskPage />} />
-          <Route path="/readers" element={<ReadersPage />} />
-          <Route path="/readers/:readerId" element={<ReaderPage />} />
-          <Route path="/readers/:readerId/:chapterId" element={<ChapterPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
-      <BottomNav />
-    </div>
+    <EntitlementsProvider uid={user.uid}>
+      <div className="flex h-screen w-screen bg-surface text-text-primary overflow-hidden">
+        <Sidebar user={user} />
+        <main className="flex-1 min-h-0 overflow-auto pb-14 md:pb-0">
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/study" element={<StudyPage />} />
+            <Route path="/queue" element={<QueuePage />} />
+            <Route path="/dictionary" element={<DictionaryPage />} />
+            <Route path="/import" element={<ImportPage />} />
+            <Route path="/hsk" element={<HskPage />} />
+            <Route path="/readers" element={<ReadersPage />} />
+            <Route path="/readers/:readerId" element={<ReaderPage />} />
+            <Route path="/readers/:readerId/:chapterId" element={<ChapterPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/billing/return" element={<BillingReturnPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <BottomNav />
+      </div>
+    </EntitlementsProvider>
   );
 }
 

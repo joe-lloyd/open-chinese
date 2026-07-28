@@ -1,24 +1,60 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Root profile document
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    // Reader progress, stated explicitly rather than left to the recursive match
-    // below. The monetization work removes that wildcard: Firestore ORs matching
-    // rules together rather than letting the most specific one win, so a recursive
-    // `allow write` would re-grant client writes to the server-authoritative
-    // entitlement documents no matter how tightly those are scoped. This block is
-    // what keeps reader progress writable once the wildcard goes away — without it
-    // every write here fails at runtime with nothing to catch it at build time.
-    match /users/{userId}/readerProgress/{readerId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
     }
 
-    // All subcollections: words, dailyStats, readerProgress
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    match /users/{userId} {
+      // Root profile document: email, name, picture, dailyNewLimit, deck prefs,
+      // and the graded-readers `lastRead` position.
+      allow read, write: if isOwner(userId);
+
+      // ── Server-authoritative. Never writable by any client. ──
+      //
+      // `allow write: if false` denies the web SDK, the mobile SDKs and the REST
+      // API alike — including a caller holding a valid stolen ID token. The
+      // payment webhook writes these documents through the Firebase Admin SDK,
+      // which bypasses security rules entirely, so there is no privileged client
+      // path to leak and no condition here to weaken.
+      match /entitlements/{docId} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
+      match /billing/{docId} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
+
+      // ── User-owned collections, enumerated deliberately. ──
+      //
+      // Do NOT replace these with `match /{document=**}`. Firestore ORs matching
+      // rules together rather than letting the most specific one win, so a
+      // recursive allow here would re-grant write access to entitlements and
+      // billing above no matter how specific those matches are.
+      //
+      // The cost is that a new user-owned collection needs a line added below.
+      // That fails closed — the feature breaks visibly — which is the right way
+      // round for the file that guards the paywall.
+      match /words/{simplified} {
+        allow read, write: if isOwner(userId);
+      }
+      match /dailyStats/{date} {
+        allow read, write: if isOwner(userId);
+      }
+      // Graded-readers chapter completion and reading position. Enumerated for
+      // the reason above: it previously relied on the recursive wildcard, and
+      // without this block every reader-progress write fails at runtime with
+      // nothing to catch it at build time.
+      match /readerProgress/{readerId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Payment webhook idempotency ledger. Admin SDK only, no client access.
+    match /webhookEvents/{eventId} {
+      allow read, write: if false;
     }
   }
 }

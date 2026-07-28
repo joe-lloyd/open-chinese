@@ -50,3 +50,6 @@ firestore-debug.log
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scratch output from scripts/check-functions-bundle.mjs
+tmp/

@@ -6,6 +6,7 @@ import {
   updateDoc,
   getDocs,
   deleteDoc,
+  onSnapshot,
   writeBatch,
   serverTimestamp,
   Timestamp,
@@ -19,6 +20,8 @@ import {
 import { db } from './firebase'
 import type { ReviewState } from './srs'
 import type { StudyMode } from './session'
+import { entitlementsFromDoc, FREE_ENTITLEMENTS } from './entitlements'
+import type { Entitlements } from './entitlements'
 
 /**
  * Per-word learning analytics. Already stored on every word document; mapped
@@ -359,6 +362,53 @@ export async function getProfile(uid: string): Promise<UserProfile | null> {
   const snap = await getDoc(doc(db, 'users', uid))
   if (!snap.exists()) return null
   return snap.data() as UserProfile
+}
+
+// ── Entitlements (read-only from the client; written by the payment webhook) ──
+
+/**
+ * Live entitlement stream. Read-only by construction: security rules deny every
+ * client write to this path, so there is deliberately no setter here.
+ *
+ * A missing document is the free tier, so a permission or network error resolves
+ * to free rather than leaving the caller stuck loading.
+ */
+export function subscribeEntitlements(
+  uid: string,
+  callback: (entitlements: Entitlements) => void
+): () => void {
+  return onSnapshot(
+    doc(db, 'users', uid, 'entitlements', 'current'),
+    (snap) => callback(entitlementsFromDoc(snap.data())),
+    (err) => {
+      console.error('[entitlements]', err)
+      callback(FREE_ENTITLEMENTS)
+    }
+  )
+}
+
+/** One-shot read, for callers outside the React tree such as `buildQueue`. */
+export async function getEntitlements(uid: string): Promise<Entitlements> {
+  try {
+    const snap = await getDoc(doc(db, 'users', uid, 'entitlements', 'current'))
+    return entitlementsFromDoc(snap.data())
+  } catch (e) {
+    console.error('[entitlements]', e)
+    return FREE_ENTITLEMENTS
+  }
+}
+
+export interface BillingCustomer {
+  provider: string
+  customerId: string
+}
+
+export async function getBillingCustomer(uid: string): Promise<BillingCustomer | null> {
+  const snap = await getDoc(doc(db, 'users', uid, 'billing', 'customer'))
+  if (!snap.exists()) return null
+  const data = snap.data() as Record<string, unknown>
+  if (typeof data.provider !== 'string' || typeof data.customerId !== 'string') return null
+  return { provider: data.provider, customerId: data.customerId }
 }
 
 export async function saveNotes(uid: string, simplified: string, notes: string): Promise<void> {
