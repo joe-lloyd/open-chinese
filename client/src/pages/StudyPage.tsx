@@ -7,8 +7,35 @@ import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
 import PronunciationAssessor from '../components/PronunciationAssessor'
+import ExampleSentence from '../components/ExampleSentence'
+import StudySessionDrawer from '../components/StudySessionDrawer'
 
 type Phase = 'pron-hidden' | 'pron-revealed' | 'meaning-hidden' | 'meaning-revealed'
+
+/**
+ * Fade in, hide instantly. CSS transitions read the after-change style, so a
+ * hidden state that carries `transition-none` drops out in the same frame the
+ * next card renders — no answer is ever painted over the card that follows it.
+ */
+function revealClass(visible: boolean): string {
+  return visible
+    ? 'opacity-100 transition-opacity duration-150'
+    : 'opacity-0 transition-none pointer-events-none'
+}
+
+/**
+ * Chosen from the character count so a four-character word still renders on one
+ * line. The box around it is a fixed height, so words of different lengths share
+ * an optical centre and the character never moves between cards.
+ */
+function hanziFontSize(simplified: string): string {
+  switch ([...simplified].length) {
+    case 1: return 'clamp(6.5rem, 24vw, 11rem)'
+    case 2: return 'clamp(4.5rem, 18vw, 9rem)'
+    case 3: return 'clamp(3.5rem, 13vw, 7rem)'
+    default: return 'clamp(2.5rem, 9.5vw, 5.5rem)'
+  }
+}
 
 interface SessionStats {
   total: number
@@ -44,6 +71,8 @@ export default function StudyPage() {
   const [phase, setPhase] = useState<Phase>('pron-hidden')
   const [knewPron, setKnewPron] = useState<boolean | null>(null)
   const [revealedByFail, setRevealedByFail] = useState(false)
+  const [showSentencePinyin, setShowSentencePinyin] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [done, setDone] = useState(false)
   const [writeError, setWriteError] = useState<string | null>(null)
@@ -168,6 +197,7 @@ export default function StudyPage() {
         setPhase('pron-hidden')
         setKnewPron(null)
         setRevealedByFail(false)
+        setShowSentencePinyin(false)
       }
     },
     [card, index, queue.length]
@@ -214,13 +244,31 @@ export default function StudyPage() {
       setPhase('pron-hidden')
       setKnewPron(null)
       setRevealedByFail(false)
+      setShowSentencePinyin(false)
     }
   }, [card, index, queue])
 
+  const endSession = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = null
+    setMenuOpen(false)
+    setDone(true)
+  }, [])
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      // Nothing behind the drawer is gradable while it is open.
+      if (menuOpen) {
+        if (e.key === 'Escape') { e.preventDefault(); setMenuOpen(false) }
+        return
+      }
+
       if (e.key === '?') { setShowHelp((s) => !s); return }
       if (e.key === 'r' || e.key === 'R') { if (card) speak(card.simplified); return }
+      if (e.key === 'p' || e.key === 'P') {
+        if (card?.sentencePinyin && phase === 'meaning-revealed') setShowSentencePinyin((s) => !s)
+        return
+      }
       if (e.key === 'ArrowUp') { e.preventDefault(); if (card) speak(card.simplified); return }
       if (e.key === 'ArrowDown') {
         e.preventDefault()
@@ -258,7 +306,7 @@ export default function StudyPage() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [phase, revealPron, gradePron, revealMeaning, gradeMeaning, card, revealedByFail, advance, failAndReveal])
+  }, [phase, revealPron, gradePron, revealMeaning, gradeMeaning, card, revealedByFail, advance, failAndReveal, menuOpen])
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center text-text-muted">Loading cards…</div>
@@ -312,8 +360,10 @@ export default function StudyPage() {
           <button
             onClick={() => {
               setIndex(0); setDone(false); setPhase('pron-hidden'); setKnewPron(null); setRevealedByFail(false)
+              setShowSentencePinyin(false)
               setStats({ total: 0, knewPron: 0, knewMeaning: 0, knewBoth: 0 })
               startRef.current = Date.now(); setElapsed(0)
+              if (timerRef.current) clearInterval(timerRef.current)
               timerRef.current = setInterval(() => setElapsed(Math.floor((Date.now() - startRef.current) / 1000)), 1000)
             }}
             className="w-full py-3 bg-accent text-white rounded-xl hover:opacity-90 transition-opacity font-medium"
@@ -357,41 +407,57 @@ export default function StudyPage() {
             : `${index}/${queue.length} · ${mins}:${String(secs).padStart(2, '0')}`
           }
         </span>
+        <button
+          onClick={() => setMenuOpen(true)}
+          aria-label="Session menu"
+          className="w-8 h-8 -mr-1 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-raised transition-colors"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
       </div>
 
-      {/* Card area — always same structure, opacity controls visibility */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-4 gap-0">
+      {/*
+        Every region below reserves a fixed height, so the column's total height
+        is a constant and vertical centring is deterministic: the character sits
+        on the same pixels for every card and in every phase. Content is centred
+        within its own box, so size differences grow symmetrically rather than
+        displacing whatever is beneath.
+      */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
 
-        {/* Character block — never moves */}
-        <div className="flex flex-col items-center gap-2 mb-6">
-          {card.hskLevel ? (
+        <div className="h-6 flex items-center justify-center">
+          {card.hskLevel && (
             <span className="text-xs font-medium bg-accent/10 text-accent px-2.5 py-0.5 rounded-full">
               HSK {card.hskLevel}
             </span>
-          ) : (
-            <span className="text-xs px-2.5 py-0.5 opacity-0 select-none">·</span>
           )}
+        </div>
+
+        <div className="h-36 sm:h-48 flex items-center justify-center">
           <p
-            className="font-light text-text-primary select-none leading-none text-center"
-            style={{ fontSize: 'clamp(7rem, 18vw, 13rem)' }}
+            className="font-light text-text-primary select-none leading-none text-center whitespace-nowrap"
+            style={{ fontSize: hanziFontSize(card.simplified) }}
           >
             {card.simplified}
           </p>
-          {/* Always reserve traditional space — invisible if absent */}
-          <p className={`text-xl ${card.traditional && card.traditional !== card.simplified ? 'text-text-muted' : 'opacity-0 select-none'}`}>
-            {card.traditional && card.traditional !== card.simplified ? card.traditional : card.simplified}
-          </p>
+        </div>
+
+        <div className="h-7 sm:h-8 flex items-center justify-center">
+          {card.traditional && card.traditional !== card.simplified && (
+            <p className="text-xl text-text-muted">{card.traditional}</p>
+          )}
         </div>
 
         {/*
-          Pinyin + pronunciation practice. The h-14 pinyin block was extended to
-          h-40 to reserve room for the assessor; the height is unconditional, so
+          Pinyin + pronunciation practice. The height is unconditional, so
           mounting the assessor at pron-revealed causes no layout shift.
           The assessor is genuinely unmounted during pron-hidden — that phase is
           a recall test, and a verdict there would leak the answer.
         */}
-        <div className="h-40 flex flex-col items-center justify-start gap-1 mb-4">
-          <div className={`text-center transition-opacity duration-150 ${pronVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="h-40 flex flex-col items-center justify-start gap-1">
+          <div className={`text-center ${revealClass(pronVisible)}`}>
             <p className="text-3xl font-medium text-accent">{card.pinyin}</p>
             <button
               onClick={() => speak(card.simplified)}
@@ -406,18 +472,21 @@ export default function StudyPage() {
           )}
         </div>
 
-        {/* Definition + sentence — always reserves space, fades in */}
-        <div className={`w-full max-w-lg mb-6 transition-opacity duration-150 ${meaningVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center">
+        <div className={`w-full max-w-lg h-52 sm:h-56 ${revealClass(meaningVisible)}`}>
+          <div className="h-full bg-surface-raised rounded-2xl px-6 py-4 border border-border space-y-3 text-center overflow-y-auto">
             <p className="text-lg text-text-primary leading-relaxed">{card.definition}</p>
             {(card.sentenceZh || card.notes) && (
               <div className="pt-3 border-t border-border text-left space-y-1">
                 <p className="text-[10px] font-semibold text-text-muted uppercase tracking-widest">Example</p>
                 {card.sentenceZh ? (
-                  <>
-                    <p className="text-base text-text-primary">{card.sentenceZh}</p>
-                    <p className="text-sm text-text-muted italic">{card.sentenceEn}</p>
-                  </>
+                  <ExampleSentence
+                    key={card.simplified}
+                    zh={card.sentenceZh}
+                    en={card.sentenceEn}
+                    pinyin={card.sentencePinyin}
+                    pinned={showSentencePinyin}
+                    onTogglePinned={() => setShowSentencePinyin((s) => !s)}
+                  />
                 ) : (
                   <p className="text-sm text-text-muted italic">{card.notes}</p>
                 )}
@@ -427,9 +496,9 @@ export default function StudyPage() {
         </div>
       </div>
 
-      {/* Button area — fixed height, content swaps without layout shift */}
+      {/* Button area — fixed height so no phase's extra controls resize it */}
       <div className="flex-shrink-0 px-6 pb-6 sm:pb-8">
-        <div className="w-full max-w-md mx-auto min-h-28 flex flex-col justify-start gap-3">
+        <div className="w-full max-w-md mx-auto h-36 flex flex-col justify-start gap-3">
           {phase === 'pron-hidden' && <>
             <p className="text-center text-text-muted text-sm">Do you know the pronunciation?</p>
             <div className="grid grid-cols-2 gap-3">
@@ -480,6 +549,7 @@ export default function StudyPage() {
               ['←', "I didn't know (skip to answer)"],
               ['↑ / R', 'Replay word audio'],
               ['↓', 'Play example sentence (when revealed)'],
+              ['P', 'Show example sentence pinyin (when revealed)'],
               ['?', 'Toggle help'],
             ].map(([k, v]) => (
               <div key={k} className="flex justify-between items-center text-sm gap-4">
@@ -494,6 +564,8 @@ export default function StudyPage() {
       <button onClick={() => setShowHelp(true)} className="fixed bottom-16 right-4 md:bottom-4 text-xs text-text-muted hover:text-text-primary transition-colors">
         ? help
       </button>
+
+      <StudySessionDrawer open={menuOpen} onClose={() => setMenuOpen(false)} onEndSession={endSession} />
     </div>
   )
 }

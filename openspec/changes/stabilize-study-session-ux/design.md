@@ -41,9 +41,9 @@ Every region in the card column gets an unconditional height, so the column's to
 | Region | Mobile | ≥ `sm` |
 | --- | --- | --- |
 | HSK badge | `h-6` | `h-6` |
-| Hanzi | `h-36` | `h-52` |
+| Hanzi | `h-36` | `h-48` |
 | Traditional | `h-7` | `h-8` |
-| Pinyin + assessor | `h-36` | `h-40` |
+| Pinyin + assessor | `h-40` | `h-40` |
 | Definition + sentence | `h-52` | `h-56` |
 | Grading buttons | `h-36` | `h-36` |
 
@@ -57,7 +57,7 @@ A fixed-height box alone does not stop a four-character word wrapping. The font 
 
 | Chars | `font-size` |
 | --- | --- |
-| 1 | `clamp(6rem, 24vw, 11rem)` |
+| 1 | `clamp(6.5rem, 24vw, 11rem)` |
 | 2 | `clamp(4.5rem, 18vw, 9rem)` |
 | 3 | `clamp(3.5rem, 13vw, 7rem)` |
 | ≥ 4 | `clamp(2.5rem, 9.5vw, 5.5rem)` |
@@ -127,7 +127,7 @@ Volume is exposed in the drawer (where you need it mid-session) and on the Setti
 
 ## Risks / Trade-offs
 
-- **Fixed heights make the card column taller than a short viewport (e.g. 667 px) once the button area and `BottomNav` are counted.** → The heights above are tuned so the mobile column plus chrome fits a 740 px viewport; below that the page scrolls, and because every height is a constant the scroll offset is identical on every card, so the hanzi still does not move relative to the page. Verified at 390×844 and 1440×900.
+- **Fixed heights make the card column taller than a short viewport (e.g. 667 px) once the button area and `BottomNav` are counted.** → The heights above are tuned so the column is a *constant* 820 px, which fits 390×844 and 1440×900 without scrolling; on a 667 px-tall phone the grading buttons sit below the fold and the study area scrolls. That is still an improvement on the current layout, which ranges from 667 px to 964 px depending on the card. Measured in headless Chrome across eight card/phase variants at 390×844, 390×667 and 1440×900: the hanzi's centre spread is 0.0 px on all three, against 60 px / 56 px / 88 px today.
 - **A very long definition scrolls inside its panel rather than being fully visible.** → Accepted, and preferable to the current behaviour where it moves the character. The panel is sized to fit every definition currently in the corpus without scrolling.
 - **`pinyin-pro` gets some readings wrong (erhua, rare proper nouns, 一/不 tone sandhi).** → The authored `sentencePinyin` override in the source JSON exists precisely for these, and generation happens at build time so a wrong reading is fixable without a client change.
 - **New build-time dependency on `pinyin-pro`.** → Dev-only, in the `scripts` workspace, never shipped to the browser. If it were ever unavailable the column falls back to `null` and the UI simply offers no pinyin reveal.

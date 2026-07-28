@@ -11,6 +11,7 @@ export interface Word {
   notes: string | null
   sentence_zh: string | null
   sentence_en: string | null
+  sentence_pinyin: string | null
 }
 
 let sqlJs: SqlJsStatic | null = null
