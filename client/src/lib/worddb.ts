@@ -1,10 +1,14 @@
 import type { SqlJsStatic, Database } from 'sql.js'
+import { normalizePinyin } from './pinyin'
+
+export { normalizePinyin }
 
 export interface Word {
   id: string
   simplified: string
   traditional: string | null
   pinyin: string
+  pinyin_normalized: string
   definition: string
   hsk_level: number
   deck_name: string
@@ -13,6 +17,12 @@ export interface Word {
   sentence_en: string | null
   sentence_pinyin: string | null
 }
+
+const SEARCH_LIMIT = 50
+/** Paired with `ESCAPE '\'` so a literal `%` or `_` in the query isn't a wildcard. */
+const LIKE_ESCAPE = /[\\%_]/g
+/** SQLite's default SQLITE_MAX_VARIABLE_NUMBER is 999; stay well inside it. */
+const IN_CHUNK = 500
 
 let sqlJs: SqlJsStatic | null = null
 let dbInstance: Database | null = null
@@ -25,8 +35,16 @@ function toObjects<T>(result: ReturnType<Database['exec']>): T[] {
   )
 }
 
+function hasColumn(db: Database, table: string, column: string): boolean {
+  return db
+    .exec(`PRAGMA table_info(${table})`)
+    .flatMap((r) => r.values)
+    .some((row) => row[1] === column)
+}
+
 export async function loadDB(): Promise<{
   getWord: (simplified: string) => Word | null
+  getWords: (simplifieds: string[]) => Word[]
   getWordsByLevel: (level: number) => Word[]
   getAllWords: () => Word[]
   searchWords: (query: string) => Word[]
@@ -42,12 +60,29 @@ export async function loadDB(): Promise<{
   }
 
   const db = dbInstance
+  // A words.db built before this column existed still loads; search degrades to
+  // matching the tone-marked pinyin instead of throwing.
+  const hasNormalizedPinyin = hasColumn(db, 'words', 'pinyin_normalized')
 
   return {
     getWord(simplified: string): Word | null {
       const result = db.exec('SELECT * FROM words WHERE simplified = ?', [simplified])
       const rows = toObjects<Word>(result)
       return rows[0] ?? null
+    },
+
+    getWords(simplifieds: string[]): Word[] {
+      const out: Word[] = []
+      for (let i = 0; i < simplifieds.length; i += IN_CHUNK) {
+        const chunk = simplifieds.slice(i, i + IN_CHUNK)
+        const placeholders = chunk.map(() => '?').join(',')
+        const result = db.exec(
+          `SELECT * FROM words WHERE simplified IN (${placeholders})`,
+          chunk
+        )
+        out.push(...toObjects<Word>(result))
+      }
+      return out
     },
 
     getWordsByLevel(level: number): Word[] {
@@ -64,13 +99,59 @@ export async function loadDB(): Promise<{
     },
 
     searchWords(query: string): Word[] {
-      const q = `%${query}%`
+      const q = query.trim()
+      if (!q) return []
+
+      const pinyinColumn = hasNormalizedPinyin ? 'pinyin_normalized' : 'pinyin'
+      const pq = hasNormalizedPinyin ? normalizePinyin(q) : q.toLowerCase()
+      // A pure-hanzi query normalizes to '', which would make the pinyin
+      // predicates match every row.
+      const usePinyin = pq.length > 0
+
+      // Equality params stay raw; only the LIKE patterns are escaped, so a query
+      // of `%` or `_` matches those characters literally instead of everything.
+      const qLike = q.replace(LIKE_ESCAPE, '\\$&')
+      const pqLike = pq.replace(LIKE_ESCAPE, '\\$&')
+      const E = "ESCAPE '\\'"
+
+      const params: Record<string, string> = {
+        ':q': q,
+        ':prefix': `${qLike}%`,
+        ':like': `%${qLike}%`,
+      }
+      if (usePinyin) {
+        params[':pq'] = pq
+        params[':pqPrefix'] = `${pqLike}%`
+        params[':pqLike'] = `%${pqLike}%`
+      }
+
+      const rank = [
+        'CASE',
+        'WHEN simplified = :q OR traditional = :q THEN 0',
+        `WHEN simplified LIKE :prefix ${E} OR traditional LIKE :prefix ${E} THEN 1`,
+        ...(usePinyin
+          ? [
+              `WHEN ${pinyinColumn} = :pq THEN 2`,
+              `WHEN ${pinyinColumn} LIKE :pqPrefix ${E} THEN 3`,
+            ]
+          : []),
+        `WHEN definition LIKE :prefix ${E} THEN 4`,
+        'ELSE 5 END',
+      ].join(' ')
+
+      const where = [
+        `simplified LIKE :like ${E}`,
+        `traditional LIKE :like ${E}`,
+        `definition LIKE :like ${E}`,
+        ...(usePinyin ? [`${pinyinColumn} LIKE :pqLike ${E}`] : []),
+      ].join(' OR ')
+
       const result = db.exec(
         `SELECT * FROM words
-         WHERE simplified LIKE ? OR traditional LIKE ? OR pinyin LIKE ? OR definition LIKE ?
-         ORDER BY hsk_level ASC
-         LIMIT 50`,
-        [q, q, q, q]
+         WHERE ${where}
+         ORDER BY ${rank} ASC, hsk_level ASC, simplified ASC
+         LIMIT ${SEARCH_LIMIT}`,
+        params
       )
       return toObjects<Word>(result)
     },
