@@ -18,6 +18,7 @@ export interface StudyCard {
   notes?: string
   sentenceZh: string | null
   sentenceEn: string | null
+  sentencePinyin: string | null
   status: string
   isNew: boolean
   intervalMeaning: number
@@ -55,7 +56,28 @@ export async function buildQueue(
   ])
 
   const now = new Date()
-  const knownSimplifieds = new Set(allUserWords.map((w) => w.simplified))
+
+  // A document existing is not the same as the word having been studied: finishing a
+  // reader chapter (and saving a note) writes an Unstudied, zero-interval document.
+  // Keying the new-card pool off review history keeps those words introducible.
+  //
+  // This set is a strict subset of "documents that exist", so the pool only ever
+  // grows — a reviewed word can never fall back into it. That relies on a reviewed
+  // word never holding intervalMeaning 0 while status reads Unstudied, which holds
+  // only because calculateNewInterval in srs.ts floors EVERY response, Again
+  // included, at MIN_INTERVAL = 1. If MIN_INTERVAL ever reaches 0, a lapsed card
+  // re-enters this pool and gets its easeFactor and consecutiveFails reset.
+  const studiedSimplifieds = new Set(
+    allUserWords
+      .filter((w) => w.status !== 'Unstudied' || w.intervalMeaning > 0)
+      .map((w) => w.simplified)
+  )
+
+  // Deck of record for a word the user already has a document for. The unstudied pool
+  // is sourced from the static dictionary, whose deck_name is always `HSK n`; without
+  // this, a CSV row imported into "My List" and never studied would surface as a new
+  // card carrying "HSK 3" and be written back under that deck on first review.
+  const existingDeck = new Map(allUserWords.map((w) => [w.simplified, w.deckName]))
 
   // Gating is applied here, not only on the HSK page, so navigating straight to
   // `/study?hsk=4` cannot serve content the browse view showed as locked.
@@ -68,7 +90,7 @@ export async function buildQueue(
     canAccess(
       { kind: 'word', simplified: w.simplified, hskLevel: w.hsk_level },
       entitlements,
-      { isFreeWord, studied: knownSimplifieds }
+      { isFreeWord, studied: studiedSimplifieds }
     ).allowed
 
   let levelSimplifieds: Set<string> | null = null
@@ -98,6 +120,7 @@ export async function buildQueue(
       notes: w.notes,
       sentenceZh: wordData?.sentence_zh ?? null,
       sentenceEn: wordData?.sentence_en ?? null,
+      sentencePinyin: wordData?.sentence_pinyin ?? null,
       status: w.status,
       isNew,
       intervalMeaning: w.intervalMeaning,
@@ -115,10 +138,11 @@ export async function buildQueue(
     pinyin: w.pinyin,
     definition: w.definition,
     hskLevel: w.hsk_level,
-    deckName: w.deck_name,
+    deckName: existingDeck.get(w.simplified) || w.deck_name,
     notes: undefined,
     sentenceZh: w.sentence_zh,
     sentenceEn: w.sentence_en,
+    sentencePinyin: w.sentence_pinyin,
     status: 'Unstudied',
     isNew: true,
     ...DEFAULT_SRS,
@@ -142,7 +166,7 @@ export async function buildQueue(
   if (mode === 'new') {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     return sourceWords
-      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified) && isUnlocked(w))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified) && isUnlocked(w))
       .slice(0, sessionSize)
       .map(toNewCard)
   }
@@ -207,7 +231,7 @@ export async function buildQueue(
   if (newCardSlots > 0) {
     const sourceWords = hskLevel ? worddb.getWordsByLevel(hskLevel) : worddb.getAllWords()
     const newCards = sourceWords
-      .filter((w) => matchesDeckRaw(w) && !knownSimplifieds.has(w.simplified) && isUnlocked(w))
+      .filter((w) => matchesDeckRaw(w) && !studiedSimplifieds.has(w.simplified) && isUnlocked(w))
       .slice(0, newCardSlots)
       .map(toNewCard)
     reviewCards.push(...newCards)

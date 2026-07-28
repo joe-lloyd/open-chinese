@@ -33,6 +33,9 @@ yarn-error.log*
 # sqlite databases (words.db is built — don't commit)
 *.db
 
+# reader runtime assets (built from content/readers — don't commit)
+client/public/data/readers/
+
 # firebase cli
 firebase-debug.log
 firestore-debug.log

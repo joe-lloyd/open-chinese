@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install && pnpm build:words-db && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
+  command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
   publish = "client/dist"
 
 [functions]
@@ -22,5 +22,13 @@
 
 [[headers]]
   for = "/sql-wasm.wasm"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Reader assets are fetched with ?v=$COMMIT_REF, so the URL changes whenever the
+# content does. Without this they fall back to must-revalidate and the cache-buster
+# buys nothing but a conditional request per chapter navigation.
+[[headers]]
+  for = "/data/readers/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"

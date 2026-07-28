@@ -12,6 +12,9 @@ import DictionaryPage from "./pages/DictionaryPage";
 import ImportPage from "./pages/ImportPage";
 import SettingsPage from "./pages/SettingsPage";
 import HskPage from "./pages/HskPage";
+import ReadersPage from "./pages/ReadersPage";
+import ReaderPage from "./pages/ReaderPage";
+import ChapterPage from "./pages/ChapterPage";
 import LoginPage from "./pages/LoginPage";
 import PricingPage from "./pages/PricingPage";
 import BillingReturnPage from "./pages/BillingReturnPage";
@@ -30,6 +33,9 @@ function AppShell({ user }: { user: User }) {
             <Route path="/dictionary" element={<DictionaryPage />} />
             <Route path="/import" element={<ImportPage />} />
             <Route path="/hsk" element={<HskPage />} />
+            <Route path="/readers" element={<ReadersPage />} />
+            <Route path="/readers/:readerId" element={<ReaderPage />} />
+            <Route path="/readers/:readerId/:chapterId" element={<ChapterPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/billing/return" element={<BillingReturnPage />} />
             <Route path="/settings" element={<SettingsPage />} />

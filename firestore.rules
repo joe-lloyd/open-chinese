@@ -7,7 +7,8 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      // Root profile document: email, name, picture, dailyNewLimit, deck prefs.
+      // Root profile document: email, name, picture, dailyNewLimit, deck prefs,
+      // and the graded-readers `lastRead` position.
       allow read, write: if isOwner(userId);
 
       // ── Server-authoritative. Never writable by any client. ──
@@ -40,6 +41,13 @@ service cloud.firestore {
         allow read, write: if isOwner(userId);
       }
       match /dailyStats/{date} {
+        allow read, write: if isOwner(userId);
+      }
+      // Graded-readers chapter completion and reading position. Enumerated for
+      // the reason above: it previously relied on the recursive wildcard, and
+      // without this block every reader-progress write fails at runtime with
+      // nothing to catch it at build time.
+      match /readerProgress/{readerId} {
         allow read, write: if isOwner(userId);
       }
     }
