@@ -18,17 +18,47 @@ import { db } from './firebase'
 import type { ReviewState } from './srs'
 import type { StudyMode } from './session'
 
+/**
+ * Per-word learning analytics. Already stored on every word document; mapped
+ * here so consumers (the dashboard's accuracy split) never need a second read.
+ */
+export interface WordAnalytics {
+  totalReviews: number
+  correctMeaningCount: number
+  incorrectMeaningCount: number
+  correctPronCount: number
+  incorrectPronCount: number
+  hskLevel: number | null
+  firstSeenAt: Date | null
+  lastReviewedAt: Date | null
+}
+
 export interface WordState extends ReviewState {
   simplified: string
   status: string
   deckName: string
   notes?: string
+  analytics: WordAnalytics
   customWordData?: {
     simplified: string
     traditional: string | null
     pinyin: string
     definition: string
   }
+}
+
+/**
+ * The learner's most recent reading position, written by the graded-readers
+ * feature. Optional and defensively parsed — see `normalizeLastRead`.
+ */
+export interface LastReadPosition {
+  readerId: string
+  chapterId: string
+  readerTitle?: string
+  chapterTitle?: string
+  /** 0..1; a value of 1 or more means the chapter is finished. */
+  progress?: number
+  updatedAt?: Date
 }
 
 export interface UserProfile {
@@ -38,6 +68,8 @@ export interface UserProfile {
   dailyNewLimit: number
   deckPriority?: Record<string, number>
   deckModes?: Record<string, StudyMode>
+  /** Unvalidated as stored; run it through `normalizeLastRead` before use. */
+  lastRead?: unknown
 }
 
 const DEFAULT_REVIEW_STATE: ReviewState = {
@@ -54,6 +86,73 @@ function tsToDate(val: unknown): Date {
   if (val instanceof Timestamp) return val.toDate()
   if (val instanceof Date) return val
   return new Date(0)
+}
+
+/**
+ * Like `tsToDate` but distinguishes "never" from the epoch. `nextReviewDate`
+ * wants the epoch fallback (it means "due now"); `firstSeenAt` does not.
+ */
+function tsToDateOrNull(val: unknown): Date | null {
+  if (val instanceof Timestamp) return val.toDate()
+  if (val instanceof Date) return val
+  return null
+}
+
+function num(val: unknown): number {
+  return typeof val === 'number' ? val : 0
+}
+
+function dataToAnalytics(data: Record<string, unknown>): WordAnalytics {
+  return {
+    totalReviews: num(data.totalReviews),
+    correctMeaningCount: num(data.correctMeaningCount),
+    incorrectMeaningCount: num(data.incorrectMeaningCount),
+    correctPronCount: num(data.correctPronCount),
+    incorrectPronCount: num(data.incorrectPronCount),
+    hskLevel: typeof data.hskLevel === 'number' ? data.hskLevel : null,
+    firstSeenAt: tsToDateOrNull(data.firstSeenAt),
+    lastReviewedAt: tsToDateOrNull(data.lastReviewedAt),
+  }
+}
+
+function dataToWordState(simplified: string, data: Record<string, unknown>): WordState {
+  return {
+    simplified,
+    ...dataToState(data),
+    status: (data.status as string) ?? 'Unstudied',
+    deckName: (data.deckName as string) ?? '',
+    notes: data.notes as string | undefined,
+    analytics: dataToAnalytics(data),
+    customWordData: data.customWordData as WordState['customWordData'],
+  }
+}
+
+/**
+ * Validates a `users/{uid}.lastRead` value. Anything that is not an object
+ * carrying non-empty `readerId` and `chapterId` — including the field being
+ * absent entirely, which is the case until the readers feature ships — is
+ * treated as "no reading position". A chapter already read to the end is too.
+ */
+export function normalizeLastRead(value: unknown): LastReadPosition | null {
+  if (value == null || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  const readerId = typeof raw.readerId === 'string' ? raw.readerId.trim() : ''
+  const chapterId = typeof raw.chapterId === 'string' ? raw.chapterId.trim() : ''
+  if (!readerId || !chapterId) return null
+
+  const progress = typeof raw.progress === 'number' && Number.isFinite(raw.progress)
+    ? raw.progress
+    : undefined
+  if (progress != null && progress >= 1) return null
+
+  return {
+    readerId,
+    chapterId,
+    readerTitle: typeof raw.readerTitle === 'string' ? raw.readerTitle : undefined,
+    chapterTitle: typeof raw.chapterTitle === 'string' ? raw.chapterTitle : undefined,
+    progress,
+    updatedAt: tsToDateOrNull(raw.updatedAt) ?? undefined,
+  }
 }
 
 function dataToState(data: Record<string, unknown>): ReviewState {
@@ -75,15 +174,7 @@ export function getDefaultState(): ReviewState {
 export async function getUserWord(uid: string, simplified: string): Promise<WordState | null> {
   const snap = await getDoc(doc(db, 'users', uid, 'words', simplified))
   if (!snap.exists()) return null
-  const data = snap.data() as Record<string, unknown>
-  return {
-    simplified,
-    ...dataToState(data),
-    status: (data.status as string) ?? 'Unstudied',
-    deckName: (data.deckName as string) ?? '',
-    notes: data.notes as string | undefined,
-    customWordData: data.customWordData as WordState['customWordData'],
-  }
+  return dataToWordState(simplified, snap.data() as Record<string, unknown>)
 }
 
 export async function setUserWord(
@@ -129,17 +220,7 @@ export async function setUserWord(
 
 export async function getAllUserWords(uid: string): Promise<WordState[]> {
   const snap = await getDocs(collection(db, 'users', uid, 'words'))
-  return snap.docs.map((d) => {
-    const data = d.data() as Record<string, unknown>
-    return {
-      simplified: d.id,
-      ...dataToState(data),
-      status: (data.status as string) ?? 'Unstudied',
-      deckName: (data.deckName as string) ?? '',
-      notes: data.notes as string | undefined,
-      customWordData: data.customWordData as WordState['customWordData'],
-    }
-  })
+  return snap.docs.map((d) => dataToWordState(d.id, d.data() as Record<string, unknown>))
 }
 
 export async function upsertDailyStats(
@@ -172,6 +253,8 @@ export interface DailyStat {
   totalReviewed: number
   correctCount: number
   incorrectCount: number
+  /** New cards seen that day; drives the dashboard's learning-velocity series. */
+  newCardsSeen: number
   /**
    * False for documents written before `correctCount` existed. Such a day has
    * totalReviewed > 0 but no correct/incorrect split, so it must be omitted from
@@ -192,13 +275,14 @@ export async function getDailyStats(uid: string, days: number): Promise<DailySta
   const snap = await getDocs(q)
   return snap.docs.map((d) => {
     const data = d.data() as Record<string, unknown>
-    const totalReviewed = (data.totalReviewed as number) ?? 0
+    const totalReviewed = num(data.totalReviewed)
     return {
       date: d.id,
       count: totalReviewed,
       totalReviewed,
-      correctCount: (data.correctCount as number) ?? 0,
-      incorrectCount: (data.incorrectCount as number) ?? 0,
+      correctCount: num(data.correctCount),
+      incorrectCount: num(data.incorrectCount),
+      newCardsSeen: num(data.newCardsSeen),
       hasCorrectCount: typeof data.correctCount === 'number',
     }
   })
@@ -268,15 +352,7 @@ export async function getDeckSummaries(uid: string): Promise<
 export async function getDeckWords(uid: string, deckName: string): Promise<WordState[]> {
   const q = query(collection(db, 'users', uid, 'words'), where('deckName', '==', deckName))
   const snap = await getDocs(q)
-  return snap.docs.map((d) => {
-    const data = d.data() as Record<string, unknown>
-    return {
-      simplified: d.id,
-      ...dataToState(data),
-      status: (data.status as string) ?? 'Unstudied',
-      deckName: (data.deckName as string) ?? '',
-    }
-  })
+  return snap.docs.map((d) => dataToWordState(d.id, d.data() as Record<string, unknown>))
 }
 
 export async function markWordsKnown(uid: string, simplifieds: string[]): Promise<void> {

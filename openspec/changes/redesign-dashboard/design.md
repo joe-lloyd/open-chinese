@@ -66,7 +66,7 @@ export function recommend(ctx: RecommendationContext): Recommendation[]
 
 Each rule is an entry in a `RULES` array: `(ctx) => Recommendation | null`. `recommend` maps over them, drops nulls, sorts by `priority` descending, de-duplicates by destination, and slices to three. There is a terminal fallback rule that always fires, so the panel is never empty.
 
-The module imports nothing — no React, no Firestore, no router, no `Date.now()`. `now` is on the context. That makes it a pure function of its input, which is the only thing needed for a test file to be dropped in later without any harness beyond a runner.
+The module has no runtime imports — no React, no Firestore, no router, no `Date.now()`. Its single `import type { LastReadPosition }` is erased at build, so the shape is shared with the Firestore layer without coupling to it. `now` is on the context. That makes it a pure function of its input, which is the only thing needed for a test file to be dropped in later without any harness beyond a runner.
 
 *Alternative considered:* a weighted-scoring model where every rule always returns a score. Rejected as over-engineering for eight rules; a rule that does not apply returning `null` is far more readable, and the priority constants are visible in one place.
 
@@ -128,18 +128,22 @@ The `md`-and-below rail behaviour (`md:grid-cols-2 xl:grid-cols-1`) is the piece
 
 ### D7 — One chart system, colors chosen by the data's job
 
-Colors were selected by job and **validated with the dataviz palette validator against this app's actual chart surface** (`--color-surface-raised`: `#f8f9fa` light, `#1f2937` dark), not eyeballed.
+Colors were selected by job and **validated with the dataviz palette validator against this app's actual chart surface** (`--color-surface-raised`: `#f8f9fa` light, `#1f2937` dark), not eyeballed. The hues are the **indigo family already used by `--color-accent`**, snapped step-by-step until every check passed, rather than the reference palette's blue — a chart palette that is a near-miss of the product's own accent looks like a mistake.
 
 - **Lifecycle status is ordinal, not categorical.** `Unstudied → Weak → Strong → Memorized → Mastered` is a progression; reordering it would change its meaning. It therefore takes a **one-hue ramp with monotone lightness** so the progression is visible in the color itself, replacing today's arbitrary gray/red/amber/blue/green. This also stops "Weak" wearing the danger red that "Leech" should own.
-  - light: `#86b6ef #5598e7 #2a78d6 #1c5cab #104281` — validator: all ordinal checks PASS (light-end 2.00:1 vs surface).
-  - dark: `#256abf #3987e5 #6da7ec #9ec5f4 #cde2fb` — anchor flips; all checks PASS (light-end 2.72:1). The first attempt at the dark ramp (`#184f95`…) **FAILED** the 2:1 light-end floor at 1.81:1 against this app's lighter `#1f2937` surface and was re-stepped — which is exactly why the surface must be passed to the validator rather than assumed.
-- **Skill split is categorical, two series** (pronunciation vs meaning): slots 1 and 2 — `#2a78d6`/`#eb6834` light, `#3987e5`/`#d95926` dark. Validator with `--pairs all`: all checks PASS in both modes (worst CVD ΔE 24.7 light / 26.8 dark).
-- **Single-series charts take slot 1 and no legend** — retention line, forecast bars, velocity bars, heatmap intensity. The title names the series; a one-swatch legend box would restate it.
-- **Leech is status, not a series** — `#d03b3b` (critical), always with a label, never color alone. Overdue-today in the forecast wears `#fab219` (warning) with a label, per the fixed status scale.
+  - light: `#818cf8 #6366f1 #4f46e5 #3730a3 #1e1b4b` — all ordinal checks PASS (light-end 2.83:1 vs surface).
+  - dark: `#4f46e5 #6366f1 #818cf8 #a5b4fc #c7d2fe` — anchor flips; all checks PASS (light-end 2.33:1).
+  - Two intermediate candidates were **rejected by the validator**, not by taste: starting the light ramp at `#a5b4fc` FAILED the 2:1 light-end floor (1.89:1 against this app's `#f8f9fa`), and the run `…#4f46e5 #4338ca…` FAILED the adjacent-ΔL gate at 0.054. This is exactly why the app's own surfaces must be passed to the validator rather than assumed.
+- **Skill split is categorical, two series** (pronunciation vs meaning): slots 1 and 2 — `#6366f1`/`#eb6834` light, `#6366f1`/`#d95926` dark. Validator with `--pairs all`: all checks PASS in both modes (worst CVD ΔE 29.9 light / 30.3 dark). Dark slot 1 stays at `#6366f1` because `#818cf8` measured L 0.68, just outside the dark lightness band.
+- **Single-series charts take slot 1 and no legend** — retention line, forecast bars, velocity bars. The title names the series; a one-swatch legend box would restate it. The heatmap is sequential magnitude and reuses the lifecycle ramp's steps.
+- **Status reuses the app's own tokens, not a fourth red/green/amber.** `--color-incorrect`, `--color-correct` and `--color-unrecognized` already exist and are already what the rest of the UI means by bad/good/attention. Importing the reference status hexes would have put two near-identical reds on screen. Measured against the chart surfaces they clear 3:1 in every case except light-mode amber (3.02:1) — and the overdue column that uses it always carries its "Today" label, so color never carries the meaning alone.
+  - The dark amber `#fbbf24` sits outside the *categorical* lightness band (L 0.837). That check does not apply: it is a status color, gated on contrast (8.00:1) and on the icon/label pairing, not on the categorical six.
 
 These land in `client/src/index.css` as `--chart-*` custom properties defined once under `:root` and overridden under `.dark`, mirroring how the existing design tokens work, and are surfaced to TS via `client/src/lib/chartTheme.ts` so Recharts `fill`/`stroke` props reference roles rather than hex.
 
-Mark specs applied uniformly: 2px lines with no per-point dots, ≤24px bar thickness with 4px rounded data-ends, hairline recessive gridlines, area fills at ~10% opacity, tooltips on every chart, and a consistent `No data yet` empty state at a fixed height so cards do not jump.
+Mark specs applied uniformly: 2px lines with no per-point dots, ≤24px bar thickness with 4px rounded data-ends, hairline recessive gridlines (horizontal only), tooltips on every chart, and a shared fixed-height empty state so cards do not resize when a series is empty.
+
+**Related bug found while wiring this up:** `text-correct`, `text-incorrect` and `text-unrecognized` are used throughout the app (`LeechPanel`, `DueSummary`, `StudyPage`) but were never mapped in `client/tailwind.config.ts`, so they have always emitted nothing. Three lines added to the config; this is why some existing UI will visibly gain color in this PR.
 
 ### D8 — Small shared presentation primitives, not a component framework
 

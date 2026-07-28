@@ -36,11 +36,11 @@ export default function LeechPanel({ leeches, onUpdate }: Props) {
   return (
     <div className="space-y-2">
       {leeches.map((leech) => (
-        <div key={leech.simplified} className="flex items-center gap-4 bg-incorrect/5 border border-incorrect/20 rounded-xl px-4 py-3">
+        <div key={leech.simplified} className="flex flex-wrap items-center gap-x-4 gap-y-2 bg-incorrect/5 border border-incorrect/20 rounded-xl px-4 py-3">
           <span className="text-2xl text-text-primary">{leech.simplified}</span>
           <span className="text-sm text-text-muted">{leech.pinyin}</span>
-          <span className="text-sm text-text-muted flex-1 truncate">{leech.definition}</span>
-          <div className="flex gap-2 shrink-0">
+          <span className="text-sm text-text-muted flex-1 min-w-[8rem] truncate">{leech.definition}</span>
+          <div className="flex gap-2 shrink-0 ml-auto">
             <button onClick={() => reset(leech.simplified)} className="text-xs px-2 py-1 border border-correct/50 text-correct rounded-lg hover:bg-correct/10">Reset</button>
             <button onClick={() => suspend(leech.simplified)} className="text-xs px-2 py-1 border border-border text-text-muted rounded-lg hover:bg-surface">Suspend</button>
             <button onClick={() => remove(leech.simplified)} className="text-xs px-2 py-1 border border-incorrect/50 text-incorrect rounded-lg hover:bg-incorrect/10">Delete</button>
