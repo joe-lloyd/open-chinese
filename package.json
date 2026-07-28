@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -n site,app -c magenta,cyan \"pnpm dev:site\" \"pnpm dev:app\"",
+    "dev": "concurrently -n site,app -c magenta,cyan --kill-others \"pnpm dev:site\" \"pnpm dev:app\"",
     "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
     "build:words-db": "pnpm --filter @open-chinese/build-tools build:words-db",
     "build:readers": "pnpm --filter @open-chinese/build-tools build:readers",

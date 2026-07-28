@@ -80,9 +80,9 @@ export default function App() {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {/* Served under /app so the marketing site owns the root. BASE_URL is
-          '/app/' in production and '/' in dev; React Router wants it without
-          the trailing slash. */}
+      {/* Served under /app so the marketing site owns the root. Vite applies
+          `base` in dev too, so BASE_URL is '/app/' in both; React Router wants
+          it without the trailing slash. */}
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <Routes>
           <Route

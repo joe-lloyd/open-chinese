@@ -15,9 +15,17 @@ pnpm install
 cp apps/app/.env.example apps/app/.env   # then fill in the VITE_FIREBASE_* values
 pnpm build:words-db                  # generates apps/app/public/words.db (gitignored)
 pnpm build:readers                   # generates the graded reader assets (gitignored)
-pnpm dev                             # the app, on localhost:5173
-pnpm dev:site                        # the marketing site, on localhost:4321
+pnpm dev                             # everything, on http://localhost:4321
 ```
+
+**Open `http://localhost:4321` and nothing else.** `pnpm dev` starts both dev
+servers, and the site's dev server proxies `/app` to the app's, so one origin
+serves the whole product exactly as the deployed site does — browse the marketing
+pages, click "Start free", sign in, study, and click back, without changing port.
+Hot reload works through the proxy for both.
+
+The app's own server on `:5173` is an implementation detail. Use `pnpm dev:app`
+or `pnpm dev:site` if you deliberately want just one.
 
 ## Repository layout
 
@@ -92,8 +100,8 @@ requires an internet connection.
 
 | Command | Description |
 |---|---|
-| `pnpm dev` | Start the app's dev server on localhost:5173 |
-| `pnpm dev:site` | Start the marketing site's dev server on localhost:4321 |
+| `pnpm dev` | Start everything. Open **http://localhost:4321** — site at `/`, app at `/app` |
+| `pnpm dev:app` / `pnpm dev:site` | Start just one, if you have a reason to |
 | `pnpm build` | Build both apps and assemble the deployable `apps/site/dist` |
 | `pnpm build:app` / `pnpm build:site` | Build one of them |
 | `pnpm preview` | Serve the assembled output exactly as Netlify will |

@@ -26,4 +26,28 @@ export default defineConfig({
 
   // The site ships no client JavaScript, so there is nothing to prefetch into.
   prefetch: false,
+
+  vite: {
+    server: {
+      /*
+       * In production the marketing site and the app are one origin: the app
+       * build is copied into this site's output at /app. Two dev servers would
+       * break that — clicking "Start free" on :4321 would 404, because the app
+       * is a separate process on :5173.
+       *
+       * Proxying /app makes :4321 the whole product locally, exactly as it is
+       * once deployed. Open one URL and click through the entire flow.
+       *
+       * `ws: true` forwards the app's HMR socket, so editing app source still
+       * hot-reloads through the proxy.
+       */
+      proxy: {
+        '/app': {
+          target: 'http://localhost:5173',
+          changeOrigin: true,
+          ws: true,
+        },
+      },
+    },
+  },
 })
