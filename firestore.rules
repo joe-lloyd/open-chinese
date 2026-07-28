@@ -5,7 +5,18 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
-    // All subcollections: words, dailyStats
+    // Reader progress, stated explicitly rather than left to the recursive match
+    // below. The monetization work removes that wildcard: Firestore ORs matching
+    // rules together rather than letting the most specific one win, so a recursive
+    // `allow write` would re-grant client writes to the server-authoritative
+    // entitlement documents no matter how tightly those are scoped. This block is
+    // what keeps reader progress writable once the wildcard goes away — without it
+    // every write here fails at runtime with nothing to catch it at build time.
+    match /users/{userId}/readerProgress/{readerId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // All subcollections: words, dailyStats, readerProgress
     match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }

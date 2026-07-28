@@ -10,10 +10,11 @@ import {
   serverTimestamp,
   Timestamp,
   increment,
+  arrayUnion,
+  documentId,
   query,
   where,
   orderBy,
-  documentId,
 } from 'firebase/firestore'
 import { db } from './firebase'
 import type { ReviewState } from './srs'
@@ -77,8 +78,32 @@ export interface UserProfile {
   dailyNewLimit: number
   deckPriority?: Record<string, number>
   deckModes?: Record<string, StudyMode>
-  /** Unvalidated as stored; run it through `normalizeLastRead` before use. */
+  /**
+   * Written by the graded-readers feature, read by the dashboard's
+   * continue-reading entry point. Typed `unknown` because the stored value is
+   * whatever was last persisted — run it through `normalizeLastRead` before use.
+   */
   lastRead?: unknown
+}
+
+/**
+ * Where the user stopped reading. A display cache on the profile document so a
+ * "continue reading" entry point costs one read; `readerProgress` stays
+ * authoritative for what has actually been completed.
+ */
+export interface LastRead {
+  readerId: string
+  chapterId: string
+  readerTitle: string
+  chapterTitle: string
+  at: Date | null
+}
+
+export interface ReaderProgress {
+  readerId: string
+  completedChapters: string[]
+  lastChapterId: string | null
+  lastReadAt: Date | null
 }
 
 /** Firestore caps `in` filters at 30 values and batched writes at 500 operations. */
@@ -370,7 +395,17 @@ export async function getDeckSummaries(uid: string): Promise<
   for (const w of words) {
     const entry = decks.get(w.deckName) ?? { wordCount: 0, dueCount: 0 }
     entry.wordCount++
-    if (w.nextReviewDate <= now && w.status !== 'Mastered' && w.status !== 'Leech') {
+    // Mirrors the due filter in buildQueue. Without the Unstudied guard, documents
+    // written with an epoch nextReviewDate and no review yet — reader-encountered
+    // words, CSV rows imported as Unstudied — are counted as due here but never
+    // returned by the queue, so the deck advertises a backlog that cannot be studied.
+    if (
+      w.nextReviewDate <= now &&
+      w.status !== 'Mastered' &&
+      w.status !== 'Leech' &&
+      w.status !== 'Unstudied' &&
+      w.intervalMeaning > 0
+    ) {
       entry.dueCount++
     }
     decks.set(w.deckName, entry)
@@ -503,6 +538,154 @@ export async function saveDeckPriority(uid: string, order: string[]): Promise<vo
 
 export async function saveDeckMode(uid: string, deckName: string, mode: StudyMode): Promise<void> {
   await setDoc(doc(db, 'users', uid), { deckModes: { [deckName]: mode } }, { merge: true })
+}
+
+// ── Graded readers ────────────────────────────────────────────────────────────
+
+function dataToReaderProgress(readerId: string, data: Record<string, unknown>): ReaderProgress {
+  return {
+    readerId,
+    completedChapters: (data.completedChapters as string[]) ?? [],
+    lastChapterId: (data.lastChapterId as string) ?? null,
+    lastReadAt: data.lastReadAt instanceof Timestamp ? data.lastReadAt.toDate() : null,
+  }
+}
+
+export async function getAllReaderProgress(uid: string): Promise<ReaderProgress[]> {
+  const snap = await getDocs(collection(db, 'users', uid, 'readerProgress'))
+  return snap.docs.map((d) => dataToReaderProgress(d.id, d.data() as Record<string, unknown>))
+}
+
+export async function getReaderProgress(uid: string, readerId: string): Promise<ReaderProgress | null> {
+  const snap = await getDoc(doc(db, 'users', uid, 'readerProgress', readerId))
+  if (!snap.exists()) return null
+  return dataToReaderProgress(readerId, snap.data() as Record<string, unknown>)
+}
+
+/** Firestore caps an `in` filter at 30 values. */
+const IN_CHUNK = 30
+
+/**
+ * Which of these words the user has already met. Bounded by the words asked about
+ * rather than scanning the whole `words` collection — a chapter asks about ~30
+ * words, and a reader with thousands of studied words should not pay for all of
+ * them to render one chapter.
+ */
+export async function getEncounteredWords(uid: string, simplifieds: string[]): Promise<Set<string>> {
+  const unique = [...new Set(simplifieds)]
+  if (unique.length === 0) return new Set()
+
+  const chunks: string[][] = []
+  for (let i = 0; i < unique.length; i += IN_CHUNK) chunks.push(unique.slice(i, i + IN_CHUNK))
+
+  const snaps = await Promise.all(
+    chunks.map((chunk) =>
+      getDocs(query(collection(db, 'users', uid, 'words'), where(documentId(), 'in', chunk)))
+    )
+  )
+  return new Set(snaps.flatMap((snap) => snap.docs.map((d) => d.id)))
+}
+
+export async function recordChapterOpened(
+  uid: string,
+  entry: { readerId: string; chapterId: string; readerTitle: string; chapterTitle: string }
+): Promise<void> {
+  await Promise.all([
+    setDoc(
+      doc(db, 'users', uid, 'readerProgress', entry.readerId),
+      { readerId: entry.readerId, lastChapterId: entry.chapterId, lastReadAt: serverTimestamp() },
+      { merge: true }
+    ),
+    setDoc(
+      doc(db, 'users', uid),
+      { lastRead: { ...entry, at: serverTimestamp() } },
+      { merge: true }
+    ),
+  ])
+}
+
+export async function getLastRead(uid: string): Promise<LastRead | null> {
+  const snap = await getDoc(doc(db, 'users', uid))
+  const raw = snap.data()?.lastRead as Record<string, unknown> | undefined
+  if (!raw?.readerId || !raw?.chapterId) return null
+  return {
+    readerId: raw.readerId as string,
+    chapterId: raw.chapterId as string,
+    readerTitle: (raw.readerTitle as string) ?? '',
+    chapterTitle: (raw.chapterTitle as string) ?? '',
+    at: raw.at instanceof Timestamp ? raw.at.toDate() : null,
+  }
+}
+
+export interface EncounteredWord {
+  simplified: string
+  deckName: string
+  hskLevel: number | null
+  customWordData?: WordState['customWordData']
+}
+
+/**
+ * Finishes a chapter: records every word the user had not met and marks the chapter
+ * complete, in one atomic batch.
+ *
+ * Both halves commit together on purpose. Writing the words and then marking the
+ * chapter would, if the second write failed, leave the words in the dictionary with
+ * the chapter still unfinished — and a retry would then filter every word out as
+ * already-existing and report "no new words", which is both wrong and unrecoverable.
+ *
+ * Words are re-checked immediately before the batch so a word studied since the
+ * chapter was opened never has its SRS state overwritten. `completedChapters` uses
+ * arrayUnion, so re-finishing a chapter cannot duplicate it.
+ *
+ * Returns the words actually written.
+ */
+export async function completeChapter(
+  uid: string,
+  readerId: string,
+  chapterId: string,
+  words: EncounteredWord[]
+): Promise<string[]> {
+  const existing = await getEncounteredWords(
+    uid,
+    words.map((w) => w.simplified)
+  )
+  const toWrite = words.filter((w) => !existing.has(w.simplified))
+
+  const batch = writeBatch(db)
+  const encounteredIn = `${readerId}/${chapterId}`
+
+  for (const word of toWrite) {
+    batch.set(doc(db, 'users', uid, 'words', word.simplified), {
+      intervalMeaning: 0,
+      intervalPinyin: 0,
+      intervalAudio: 0,
+      easeFactor: 2.5,
+      consecutiveFails: 0,
+      nextReviewDate: Timestamp.fromDate(new Date(0)),
+      lastSubskill: null,
+      status: 'Unstudied',
+      deckName: word.deckName,
+      encounteredAt: serverTimestamp(),
+      encounteredIn,
+      ...(word.hskLevel != null ? { hskLevel: word.hskLevel } : {}),
+      ...(word.customWordData ? { customWordData: word.customWordData } : {}),
+    })
+  }
+
+  batch.set(
+    doc(db, 'users', uid, 'readerProgress', readerId),
+    {
+      readerId,
+      completedChapters: arrayUnion(chapterId),
+      lastChapterId: chapterId,
+      lastReadAt: serverTimestamp(),
+    },
+    { merge: true }
+  )
+
+  await batch.commit()
+
+  return toWrite.map((w) => w.simplified)
 }
 
 export async function importWordsToFirestore(
