@@ -11,6 +11,7 @@ export interface StudyCard {
   notes?: string
   sentenceZh: string | null
   sentenceEn: string | null
+  sentencePinyin: string | null
   status: string
   isNew: boolean
   intervalMeaning: number
@@ -83,6 +84,7 @@ export async function buildQueue(
       notes: w.notes,
       sentenceZh: wordData?.sentence_zh ?? null,
       sentenceEn: wordData?.sentence_en ?? null,
+      sentencePinyin: wordData?.sentence_pinyin ?? null,
       status: w.status,
       isNew,
       intervalMeaning: w.intervalMeaning,
@@ -104,6 +106,7 @@ export async function buildQueue(
     notes: undefined,
     sentenceZh: w.sentence_zh,
     sentenceEn: w.sentence_en,
+    sentencePinyin: w.sentence_pinyin,
     status: 'Unstudied',
     isNew: true,
     ...DEFAULT_SRS,
