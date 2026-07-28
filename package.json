@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter @open-chinese/app dev",
+    "dev": "concurrently -n site,app -c magenta,cyan \"pnpm dev:site\" \"pnpm dev:app\"",
     "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
     "build:words-db": "pnpm --filter @open-chinese/build-tools build:words-db",
     "build:readers": "pnpm --filter @open-chinese/build-tools build:readers",
@@ -13,7 +13,8 @@
     "dev:site": "pnpm --filter @open-chinese/site dev",
     "build:app": "pnpm --filter @open-chinese/app build",
     "build:site": "pnpm --filter @open-chinese/site build",
-    "preview": "node scripts/assemble-dist.mjs && pnpm --filter @open-chinese/site preview"
+    "preview": "node scripts/assemble-dist.mjs && pnpm --filter @open-chinese/site preview",
+    "dev:app": "pnpm --filter @open-chinese/app dev"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

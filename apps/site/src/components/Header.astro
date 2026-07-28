@@ -40,12 +40,23 @@ const here = (href: string) => path.replace(/\/$/, '') === href
           </li>
         ))
       }
+      <!-- Two ways in, on purpose: returning users look for "Sign in", new ones
+           respond to the offer. Both land on /app, which shows the login page
+           when signed out and the dashboard when not. -->
+      <li class="hidden sm:block">
+        <a
+          href={SITE.appPath}
+          class="rounded-lg px-3 py-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
+        >
+          Sign in
+        </a>
+      </li>
       <li>
         <a
           href={SITE.appPath}
           class="ml-1 rounded-lg bg-accent-solid px-3 py-1.5 text-sm font-medium text-on-accent transition-opacity hover:opacity-90 sm:px-4"
         >
-          Sign in
+          Start free
         </a>
       </li>
     </ul>
