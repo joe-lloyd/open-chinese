@@ -1,0 +1,42 @@
+/* Shared with the app — one definition, no drift.
+   `auto-dark` follows the OS setting; this site ships no theme switcher, and no
+   JavaScript at all, so there is nothing to toggle a class.
+   Must stay above the @tailwind directives: CSS requires @import to precede
+   every other statement, and PostCSS warns rather than reordering it. */
+@import '@open-chinese/tokens/tokens.css';
+@import '@open-chinese/tokens/auto-dark.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+  }
+
+  /* Visible focus for keyboard users on every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}

@@ -2,9 +2,28 @@
 
 ## Overview
 
-OpenChinese deploys as a static SPA on Netlify backed by Firebase Auth + Firestore. No server required in production.
+OpenChinese deploys as two static builds on one Netlify site, backed by Firebase
+Auth + Firestore. No server required in production.
+
+| Path | What | Built from |
+|---|---|---|
+| `/` | Marketing site — Astro, static, indexed | `apps/site` |
+| `/app` | The study app — React SPA, `noindex` | `apps/app` |
+| `/.netlify/functions/*` | Payment endpoints | `netlify/functions` |
+
+One domain rather than an `app.` subdomain, so backlinks, ad landing pages and
+brand searches all accumulate against the same origin. `scripts/assemble-dist.mjs`
+nests the app build inside the site build at `/app`; `apps/site/dist` is what
+Netlify publishes.
 
 The Hono API server is kept for local development only.
+
+### Changing the domain
+
+Everything public — canonical URLs, `sitemap.xml`, `robots.txt`, OG and Twitter
+cards, JSON-LD — derives from `domain` in `apps/site/site.config.ts`. Buying a
+real domain is: edit that one value, point DNS at Netlify, add the domain to
+Firebase Auth → Settings → Authorized domains, and redeploy.
 
 ---
 
@@ -21,9 +40,11 @@ The Hono API server is kept for local development only.
 ### 2. Netlify setup
 
 1. Connect your repo to Netlify
-2. Build command: `pnpm --filter client build`
-3. Publish directory: `client/dist`
-4. Environment variables (Site settings → Environment variables):
+2. Build command and publish directory come from `netlify.toml` — leave both
+   blank in the UI so there is one source of truth. For reference, the build
+   builds the content assets, then both apps, then nests the app's output inside
+   the site's at `/app`; the published directory is `apps/site/dist`.
+3. Environment variables (Site settings → Environment variables):
 
 ```
 VITE_FIREBASE_API_KEY=
@@ -44,7 +65,7 @@ VITE_ALLOWED_EMAIL=you@gmail.com
 pnpm build:words-db
 ```
 
-This writes `client/public/words.db` (731 HSK 1–4 words), served as a static CDN asset.
+This writes `apps/app/public/words.db` (731 HSK 1–4 words), served as a static CDN asset.
 
 **The file is not committed.** It is gitignored, and Netlify regenerates it on every
 deploy — `netlify.toml`'s build command runs `build:words-db` before the client build.
@@ -82,7 +103,7 @@ Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
    `PAYMENT_PROVIDER=stripe`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`,
    `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRO_YEARLY`.
    The MVP offers the subscription only, so the four `STRIPE_PRICE_HSK_*`
-   variables can stay unset — see `OFFERED_SKUS` in `client/src/lib/catalog.ts`.
+   variables can stay unset — see `OFFERED_SKUS` in `apps/app/src/lib/catalog.ts`.
 4. Point the Stripe webhook at `https://<your-site>/.netlify/functions/webhook`
    and subscribe to the events listed in the root `.env.example`.
 5. Set `VITE_PAYMENTS_ENABLED=true` and redeploy. **Do this last.** It is a
@@ -221,7 +242,7 @@ cd /opt/open-chinese
 
 pnpm install
 pnpm db:push
-pnpm --filter client build   # outputs to client/dist/
+pnpm build:app   # outputs to apps/app/dist/
 ```
 
 ### 3. Configure environment
@@ -262,7 +283,7 @@ server {
     server_name yourdomain.com;
 
     # Serve the built Vite SPA
-    root /opt/open-chinese/client/dist;
+    root /opt/open-chinese/apps/site/dist;
     index index.html;
 
     # SPA fallback — all non-asset paths serve index.html
@@ -322,7 +343,7 @@ cd /opt/open-chinese
 git pull
 pnpm install
 pnpm db:push           # applies any schema migrations
-pnpm --filter client build
+pnpm build:app
 pm2 restart open-chinese-api
 ```
 

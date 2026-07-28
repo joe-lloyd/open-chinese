@@ -1,0 +1,32 @@
+/*
+ * Follow the OS colour scheme, for consumers with no theme switcher.
+ *
+ * Import alongside `tokens.css`. NOT part of tokens.css itself: the app ships a
+ * manual light/dark toggle, and a media query there would fight it — choosing
+ * light on a dark-mode machine would be overridden by the OS.
+ *
+ * The `:not()` guard makes this safe to import even where a switcher exists:
+ * once something has written an explicit theme class onto the root, the OS
+ * preference stops applying.
+ *
+ * Values are referenced from tokens.css, never repeated, so this file cannot
+ * drift from the palette it is meant to mirror.
+ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.dark) {
+    --surface-rgb: var(--dark-surface-rgb);
+    --surface-raised-rgb: var(--dark-surface-raised-rgb);
+    --text-primary-rgb: var(--dark-text-primary-rgb);
+    --text-muted-rgb: var(--dark-text-muted-rgb);
+    --accent-rgb: var(--dark-accent-rgb);
+    --border-rgb: var(--dark-border-rgb);
+    --correct-rgb: var(--dark-correct-rgb);
+    --incorrect-rgb: var(--dark-incorrect-rgb);
+    --unrecognized-rgb: var(--dark-unrecognized-rgb);
+    --accent-solid-rgb: var(--dark-accent-solid-rgb);
+    --on-accent-rgb: var(--dark-on-accent-rgb);
+
+    color-scheme: dark;
+  }
+}

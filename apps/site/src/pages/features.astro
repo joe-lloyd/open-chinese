@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro'
+import Cta from '../components/Cta.astro'
+import { FEATURES } from '../data/content'
+---
+
+<Base
+  title="Features"
+  description="Two-skill spaced repetition, HSK 1–4 vocabulary, graded readers with per-word lookup, a personal dictionary, pronunciation checks and progress tracking — everything OpenChinese does."
+  path="/features"
+>
+  <section class="mx-auto max-w-3xl px-5 pb-10 pt-16 sm:pt-20">
+    <h1 class="text-balance text-4xl font-bold sm:text-5xl">Everything it does</h1>
+    <p class="mt-4 text-pretty text-lg text-text-muted">
+      A study tool for the middle of the journey — past the first phrasebook, well short of
+      reading a newspaper.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 pb-8">
+    <ul class="divide-y divide-border border-y border-border">
+      {
+        FEATURES.map((f) => (
+          <li class="flex gap-5 py-8">
+            <span
+              aria-hidden="true"
+              class="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-lg text-accent"
+            >
+              {f.icon}
+            </span>
+            <div>
+              <h2 class="text-lg font-semibold">{f.title}</h2>
+              <p class="mt-2 text-pretty leading-relaxed text-text-muted">{f.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-10">
+    <h2 class="text-xl font-semibold">What it deliberately does not do</h2>
+    <ul class="mt-4 space-y-3 text-pretty leading-relaxed text-text-muted">
+      <li>
+        <strong class="font-medium text-text-primary">Grade your tones.</strong> The pronunciation
+        check reports the word the browser recognised. That catches a wrong syllable, not a
+        second tone read as a third.
+      </li>
+      <li>
+        <strong class="font-medium text-text-primary">Teach grammar.</strong> There are no
+        drills or explanations. It is vocabulary, reading and recall.
+      </li>
+      <li>
+        <strong class="font-medium text-text-primary">Gamify.</strong> No streaks-as-guilt, no
+        leaderboards, no notifications begging you back.
+      </li>
+    </ul>
+  </section>
+
+  <Cta />
+</Base>

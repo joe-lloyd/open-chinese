@@ -1,6 +1,13 @@
 [build]
-  command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
-  publish = "client/dist"
+  command = "pnpm install && pnpm build:words-db && pnpm build:readers && VITE_BUILD_ID=$COMMIT_REF pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs"
+  publish = "apps/site/dist"
+
+[build.environment]
+  # Pin both, because neither default is stable across Netlify's build images and
+  # a mismatch here fails in CI only. The lockfile is v9 format, which needs
+  # pnpm 9+; `packageManager` in package.json pins the exact version via corepack,
+  # and NODE_VERSION keeps the runtime aligned with .nvmrc.
+  NODE_VERSION = "22"
 
 [functions]
   directory = "netlify/functions"
@@ -10,18 +17,27 @@
   # first Firestore call. Shipping it as a real node_module is the fix.
   external_node_modules = ["firebase-admin"]
 
+# SPA fallback, scoped to /app. It must NOT be `/*` any more: a catch-all would
+# swallow the marketing pages and serve the app shell for every 404, which would
+# also stop Netlify serving Astro's 404.html.
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/app/*"
+  to = "/app/index.html"
   status = 200
 
+# Fingerprinted by Vite, so the filename changes whenever the content does.
 [[headers]]
-  for = "/words.db"
+  for = "/app/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/sql-wasm.wasm"
+  for = "/app/words.db"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/app/sql-wasm.wasm"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -29,6 +45,29 @@
 # content does. Without this they fall back to must-revalidate and the cache-buster
 # buys nothing but a conditional request per chapter navigation.
 [[headers]]
-  for = "/data/readers/*"
+  for = "/app/data/readers/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Hashed assets Astro emits. Currently matches nothing: the site's CSS is
+# inlined (`inlineStylesheets: 'always'`) and it ships no JavaScript, so no
+# /_astro/ directory is produced. Kept because it becomes correct the moment a
+# stylesheet grows past the inline threshold or a component ships JS, and a
+# fingerprinted asset served without it costs a revalidation round trip.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Baseline security headers. No Content-Security-Policy is set: the app loads
+# Firebase and a payment provider's hosted checkout, so a policy tight enough to
+# be worth having needs to be written against that real origin list and verified
+# against a live sign-in and checkout. Shipping a guessed one would break auth in
+# production and nowhere else. Tracked as follow-up rather than half-done here.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Frame-Options = "DENY"

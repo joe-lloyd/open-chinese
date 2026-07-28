@@ -1,0 +1,101 @@
+/*
+ * Shared UI colour tokens for the app and the marketing site.
+ *
+ * Each colour is defined once as an unwrapped `R G B` triplet, then wrapped into
+ * a ready-to-use `--color-*` value.
+ *
+ * The triplets are what the Tailwind preset consumes, as
+ * `rgb(var(--x-rgb) / <alpha-value>)`. Tailwind cannot split a bare `var()` into
+ * channels, so declaring a colour directly as `var(--color-x)` makes every
+ * opacity modifier (`bg-accent/10`, `border-incorrect/50`) compile to nothing.
+ *
+ * The wrapped `--color-*` vars stay for the places that consume a colour outside
+ * Tailwind — Recharts props, inline `style` objects, `accent-[var(…)]`. They
+ * re-resolve per subtree, so a theme switch only needs to override the triplets.
+ *
+ * Both palettes are declared here and the dark one is *referenced* rather than
+ * repeated, so a consumer can never hold a stale copy of a colour. The site did
+ * exactly that before this arrangement and had already drifted: a wrong amber
+ * and a missing accent pair.
+ *
+ * Chart-specific roles are NOT here. They are validated against the app's chart
+ * surfaces and have no meaning on the marketing site, so they stay in the app.
+ *
+ * `.dark` is the theme hook. Consumers with no theme switcher should also import
+ * `auto-dark.css`, which applies the same palette from the OS setting.
+ */
+
+:root {
+  /* ── The dark palette. Values live here; nothing else redeclares them. ── */
+  --dark-surface-rgb: 17 24 39;
+  --dark-surface-raised-rgb: 31 41 55;
+  --dark-text-primary-rgb: 249 250 251;
+  --dark-text-muted-rgb: 156 163 175;
+  --dark-accent-rgb: 129 140 248;
+  --dark-border-rgb: 55 65 81;
+  --dark-correct-rgb: 74 222 128;
+  --dark-incorrect-rgb: 248 113 113;
+  --dark-unrecognized-rgb: 251 191 36;
+  /* Dark inverts the filled pair: the light accent becomes the fill and the
+     text on it goes dark. Keeping the light-mode indigo as the fill would leave
+     white text failing at 4.47:1. */
+  --dark-accent-solid-rgb: 129 140 248;
+  --dark-on-accent-rgb: 17 24 39;
+
+  /* ── Light, the default. ── */
+  --surface-rgb: 255 255 255;
+  --surface-raised-rgb: 248 249 250;
+  --text-primary-rgb: 17 24 39;
+  --text-muted-rgb: 107 114 128;
+  --accent-rgb: 99 102 241;
+  --border-rgb: 229 231 235;
+  --correct-rgb: 22 163 74;
+  --incorrect-rgb: 220 38 38;
+  --unrecognized-rgb: 217 119 6;
+
+  /*
+   * Filled accent surfaces (buttons, badges) and the text that sits on them.
+   *
+   * `--accent-rgb` is tuned for accent-coloured TEXT on the page surface, which
+   * pulls it in opposite directions per theme: light in dark mode, saturated in
+   * light mode. Neither value carries white text safely — white on the light
+   * accent (#6366f1) measures 4.47:1 and on the dark accent (#818cf8) only
+   * 2.98:1, both under the 4.5:1 WCAG AA threshold for normal-size text.
+   *
+   * So a filled accent surface gets its own pair. Measured:
+   *   light  #ffffff on #4f46e5 -> 6.3:1
+   *   dark   #111827 on #818cf8 -> 5.9:1
+   */
+  --accent-solid-rgb: 79 70 229;
+  --on-accent-rgb: 255 255 255;
+
+  --color-surface: rgb(var(--surface-rgb));
+  --color-surface-raised: rgb(var(--surface-raised-rgb));
+  --color-text-primary: rgb(var(--text-primary-rgb));
+  --color-text-muted: rgb(var(--text-muted-rgb));
+  --color-accent: rgb(var(--accent-rgb));
+  --color-border: rgb(var(--border-rgb));
+  --color-correct: rgb(var(--correct-rgb));
+  --color-incorrect: rgb(var(--incorrect-rgb));
+  --color-unrecognized: rgb(var(--unrecognized-rgb));
+
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: light;
+}
+
+.dark {
+  --surface-rgb: var(--dark-surface-rgb);
+  --surface-raised-rgb: var(--dark-surface-raised-rgb);
+  --text-primary-rgb: var(--dark-text-primary-rgb);
+  --text-muted-rgb: var(--dark-text-muted-rgb);
+  --accent-rgb: var(--dark-accent-rgb);
+  --border-rgb: var(--dark-border-rgb);
+  --correct-rgb: var(--dark-correct-rgb);
+  --incorrect-rgb: var(--dark-incorrect-rgb);
+  --unrecognized-rgb: var(--dark-unrecognized-rgb);
+  --accent-solid-rgb: var(--dark-accent-solid-rgb);
+  --on-accent-rgb: var(--dark-on-accent-rgb);
+
+  color-scheme: dark;
+}

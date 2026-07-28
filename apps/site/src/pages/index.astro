@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro'
+import Cta from '../components/Cta.astro'
+import { SITE } from '../../site.config'
+import { FEATURES, STEPS } from '../data/content'
+---
+
+<Base
+  title="Home"
+  description={SITE.description}
+  path="/"
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:pb-20 sm:pt-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-balance text-4xl font-bold leading-tight sm:text-6xl">
+        Learn Mandarin that <span class="text-accent">sticks</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-text-muted sm:text-xl">
+        Spaced repetition for HSK vocabulary, graded readers that reuse the words you are
+        learning, and a dictionary of everything you have met. Study what is due, read
+        something real, watch it hold.
+      </p>
+
+      <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={SITE.appPath}
+          class="w-full rounded-xl bg-accent-solid px-6 py-3 font-medium text-on-accent transition-opacity hover:opacity-90 sm:w-auto"
+        >
+          Start free
+        </a>
+        <a
+          href="/features"
+          class="w-full rounded-xl border border-border px-6 py-3 font-medium transition-colors hover:bg-surface-raised sm:w-auto"
+        >
+          See what it does
+        </a>
+      </div>
+
+      <p class="mt-4 text-sm text-text-muted">
+        Free through half of HSK 1 · €{SITE.priceEur}/year for everything
+      </p>
+    </div>
+
+    <!-- Product glimpse. Pure markup rather than a screenshot: it stays sharp at
+         any density, needs no image request, and cannot go stale when the UI
+         changes. aria-hidden because it is decoration, not information. -->
+    <div
+      aria-hidden="true"
+      class="mx-auto mt-14 max-w-md rounded-3xl border border-border bg-surface-raised p-8 text-center shadow-sm sm:mt-20"
+    >
+      <p class="text-xs font-semibold uppercase tracking-widest text-text-muted">HSK 1 · due now</p>
+      <p class="mt-6 text-7xl font-semibold leading-none sm:text-8xl">朋友</p>
+      <p class="mt-5 text-lg text-text-muted">péngyou</p>
+      <p class="mt-1 text-text-primary">friend</p>
+      <div class="mt-7 grid grid-cols-2 gap-3">
+        <span class="rounded-xl border border-incorrect/50 py-2.5 text-sm text-incorrect">
+          Didn't know
+        </span>
+        <span class="rounded-xl border border-correct/50 py-2.5 text-sm text-correct">
+          Knew it
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="border-t border-border bg-surface-raised/40">
+    <div class="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+      <h2 class="text-balance text-center text-3xl font-bold">Built for the part that is hard</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-pretty text-center text-text-muted">
+        Not the first hundred words. The thousand after them, and remembering the ones you
+        learned last month.
+      </p>
+
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          FEATURES.map((f) => (
+            <li class="rounded-2xl border border-border bg-surface p-6">
+              <span
+                aria-hidden="true"
+                class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-lg text-accent"
+              >
+                {f.icon}
+              </span>
+              <h3 class="mt-4 font-semibold">{f.title}</h3>
+              <p class="mt-2 text-pretty text-sm leading-relaxed text-text-muted">{f.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+    <h2 class="text-balance text-center text-3xl font-bold">How it works</h2>
+    <ol class="mt-12 grid gap-8 sm:grid-cols-3">
+      {
+        STEPS.map((s, i) => (
+          <li>
+            <span
+              aria-hidden="true"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-accent font-semibold text-accent"
+            >
+              {i + 1}
+            </span>
+            <h3 class="mt-4 font-semibold">{s.title}</h3>
+            <p class="mt-2 text-pretty text-sm leading-relaxed text-text-muted">{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <Cta />
+</Base>

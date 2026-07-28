@@ -1,0 +1,28 @@
+---
+import { SITE } from '../../site.config'
+
+interface Props {
+  heading?: string
+  body?: string
+}
+
+const {
+  heading = 'Start with the free half of HSK 1',
+  body = 'No card, no trial clock. If the review loop suits you, it will be obvious within a week.',
+} = Astro.props
+---
+
+<section class="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+  <div
+    class="rounded-3xl border border-border bg-surface-raised px-6 py-12 text-center sm:px-12"
+  >
+    <h2 class="text-balance text-2xl font-bold sm:text-3xl">{heading}</h2>
+    <p class="mx-auto mt-3 max-w-xl text-pretty text-text-muted">{body}</p>
+    <a
+      href={SITE.appPath}
+      class="mt-7 inline-block rounded-xl bg-accent-solid px-6 py-3 font-medium text-on-accent transition-opacity hover:opacity-90"
+    >
+      Get started free
+    </a>
+  </div>
+</section>

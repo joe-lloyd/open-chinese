@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro'
+import { SITE } from '../../site.config'
+
+const free = [
+  'First half of HSK 1',
+  'Spaced repetition scheduler',
+  'Personal dictionary',
+  'Pronunciation check',
+  'Progress dashboard',
+]
+
+const pro = [
+  'Everything in Free',
+  'All of HSK 1, 2, 3 and 4',
+  'Every graded reader',
+  'New readers as they land',
+  'CSV import from Hack Chinese',
+]
+
+// Priced product markup, so search results can show the price directly.
+const schema = [
+  {
+    '@type': 'Product',
+    name: `${SITE.name} Pro`,
+    description: `Full access to ${SITE.name}: all HSK levels and every graded reader.`,
+    offers: {
+      '@type': 'Offer',
+      price: String(SITE.priceEur),
+      priceCurrency: SITE.currency,
+      availability: 'https://schema.org/InStock',
+      url: `${SITE.domain}/pricing`,
+    },
+  },
+]
+---
+
+<Base
+  title="Pricing"
+  description={`One price, €${SITE.priceEur} a year, for all of HSK 1–4 and every graded reader. Half of HSK 1 is free with no card and no time limit.`}
+  path="/pricing"
+  schema={schema}
+>
+  <section class="mx-auto max-w-3xl px-5 pb-10 pt-16 text-center sm:pt-20">
+    <h1 class="text-balance text-4xl font-bold sm:text-5xl">One price. No tiers to decode.</h1>
+    <p class="mx-auto mt-4 max-w-xl text-pretty text-lg text-text-muted">
+      Try it free for as long as you like. Pay once a year when you want the rest.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 pb-12">
+    <div class="grid gap-6 md:grid-cols-2">
+      <!-- Free -->
+      <div class="flex flex-col rounded-2xl border border-border bg-surface p-7">
+        <h2 class="text-lg font-semibold">Free</h2>
+        <p class="mt-3 text-4xl font-bold">€0</p>
+        <p class="mt-1 text-sm text-text-muted">No card, no time limit</p>
+        <ul class="mt-6 flex-1 space-y-2.5 text-sm">
+          {
+            free.map((item) => (
+              <li class="flex gap-2.5">
+                <span aria-hidden="true" class="text-accent">✓</span>
+                <span class="text-text-muted">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href={SITE.appPath}
+          class="mt-7 rounded-xl border border-border py-3 text-center font-medium transition-colors hover:bg-surface-raised"
+        >
+          Start free
+        </a>
+      </div>
+
+      <!-- Pro -->
+      <div class="flex flex-col rounded-2xl border-2 border-accent bg-surface-raised p-7">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Pro</h2>
+          <!-- Filled rather than a 10% tint: accent-on-tint measures 4.22:1 at
+               12px in dark mode, under the 4.5:1 AA threshold. -->
+          <span
+            class="rounded-full bg-accent-solid px-2.5 py-1 text-xs font-medium text-on-accent"
+          >
+            Everything
+          </span>
+        </div>
+        <p class="mt-3 text-4xl font-bold">
+          €{SITE.priceEur}<span class="text-base font-normal text-text-muted"> / year</span>
+        </p>
+        <p class="mt-1 text-sm text-text-muted">About €2 a month</p>
+        <ul class="mt-6 flex-1 space-y-2.5 text-sm">
+          {
+            pro.map((item) => (
+              <li class="flex gap-2.5">
+                <span aria-hidden="true" class="text-accent">✓</span>
+                <span class="text-text-muted">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href={SITE.appPath}
+          class="mt-7 rounded-xl bg-accent-solid py-3 text-center font-medium text-on-accent transition-opacity hover:opacity-90"
+        >
+          Get Pro
+        </a>
+      </div>
+    </div>
+
+    <p class="mx-auto mt-8 max-w-2xl text-pretty text-center text-sm text-text-muted">
+      Payment is handled on our provider's own checkout page — card details never reach
+      OpenChinese. Stop paying and nothing is deleted: everything you have already studied
+      stays available.
+    </p>
+  </section>
+</Base>

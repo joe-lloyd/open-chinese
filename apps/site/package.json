@@ -1,0 +1,22 @@
+{
+  "name": "@open-chinese/site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "build:og": "node scripts/build-og-image.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@open-chinese/tokens": "workspace:*",
+    "astro": "^5.16.2",
+    "tailwindcss": "^3.4.18"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}

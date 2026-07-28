@@ -2,14 +2,23 @@
   "name": "open-chinese",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "dev": "pnpm --filter client dev",
-    "build": "pnpm --filter client build",
-    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db",
-    "build:readers": "pnpm --filter open-chinese-scripts build:readers",
+    "dev": "concurrently -n site,app -c magenta,cyan --kill-others \"pnpm dev:site\" \"pnpm dev:app\"",
+    "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
+    "build:words-db": "pnpm --filter @open-chinese/build-tools build:words-db",
+    "build:readers": "pnpm --filter @open-chinese/build-tools build:readers",
     "typecheck:functions": "tsc -p tsconfig.functions.json",
     "check:functions-bundle": "node scripts/check-functions-bundle.mjs",
-    "entitlement": "node --env-file-if-exists=client/.env scripts/entitlement.mjs"
+    "entitlement": "node --env-file-if-exists=apps/app/.env scripts/entitlement.mjs",
+    "dev:site": "pnpm --filter @open-chinese/site dev",
+    "build:app": "pnpm --filter @open-chinese/app build",
+    "build:site": "pnpm --filter @open-chinese/site build",
+    "preview": "node scripts/assemble-dist.mjs && pnpm --filter @open-chinese/site preview",
+    "dev:app": "pnpm --filter @open-chinese/app dev"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

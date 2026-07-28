@@ -1,0 +1,49 @@
+/**
+ * Everything that changes when the domain or the brand changes.
+ *
+ * Canonical URLs, the sitemap, robots.txt, OG/Twitter tags and the JSON-LD
+ * structured data all derive from here, so pointing the site at a real domain
+ * is editing `domain` and redeploying — nothing else.
+ */
+
+export const SITE = {
+  name: 'OpenChinese',
+
+  /**
+   * Absolute origin, no trailing slash. Swap this when the production domain is
+   * bought; `astro.config.mjs` reads it for `site`, which is what makes the
+   * sitemap and canonical URLs absolute.
+   */
+  domain: 'https://open-chinese.joe-lloyd.com',
+
+  /**
+   * Where the app itself lives. Path-based, so it stays on the same origin.
+   *
+   * Trailing slash on purpose: the app's dev server serves at `/app/` and does
+   * not redirect the bare path, so every marketing CTA would 404 in `pnpm dev`
+   * without it. In production it also saves a redirect hop.
+   */
+  appPath: '/app/',
+
+  tagline: 'Learn Mandarin that sticks',
+
+  /**
+   * The one-sentence description used for the home page meta description, the
+   * OG card and the JSON-LD. Kept under 160 characters so search results do not
+   * truncate it.
+   */
+  description:
+    'Spaced-repetition Mandarin practice with HSK vocabulary, graded readers and pronunciation checks. Study what is due, read real stories, track what sticks.',
+
+  locale: 'en',
+  ogLocale: 'en_US',
+
+  /** Yearly price, in euro. Display copy only — the provider holds the real one. */
+  priceEur: 25,
+  currency: 'EUR',
+} as const
+
+/** Absolute URL for a site-relative path. */
+export function absoluteUrl(path = '/'): string {
+  return new URL(path, SITE.domain).href
+}

@@ -10,7 +10,7 @@
  */
 
 import { getCustomerId, verifyRequestUser } from './_lib/firebase'
-import { getProvider, json, siteUrl } from './_lib/providers'
+import { appUrl, getProvider, json } from './_lib/providers'
 
 export default async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') return json(405, { error: 'method_not_allowed' })
@@ -27,7 +27,9 @@ export default async function handler(req: Request): Promise<Response> {
 
     const { url } = await provider.createPortalSession({
       customerId,
-      returnUrl: `${siteUrl()}/pricing`,
+      // App route, not the marketing pricing page — this returns a signed-in
+      // user from the billing portal to where they were.
+      returnUrl: `${appUrl()}/pricing`,
     })
     return json(200, { url })
   } catch (e) {

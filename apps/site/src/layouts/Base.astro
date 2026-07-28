@@ -1,0 +1,106 @@
+---
+/**
+ * Every page's shell: metadata, structured data, header, footer.
+ *
+ * Anything that affects how a page appears in search results or a shared link
+ * is set here, so a new page cannot forget a canonical URL or a description.
+ */
+import { SITE, absoluteUrl } from '../../site.config'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description: string
+  /** Site-relative path, used for the canonical URL. */
+  path: string
+  /** Extra JSON-LD to merge into the graph, e.g. FAQPage on the FAQ. */
+  schema?: Record<string, unknown>[]
+}
+
+const { title, description, path, schema = [] } = Astro.props
+
+const canonical = absoluteUrl(path)
+// Title tag reads "Page — Brand", except on the home page where the brand leads.
+const fullTitle = path === '/' ? `${SITE.name} — ${SITE.tagline}` : `${title} — ${SITE.name}`
+const ogImage = absoluteUrl('/og.png')
+
+const graph = [
+  {
+    '@type': 'WebSite',
+    '@id': `${SITE.domain}/#website`,
+    url: SITE.domain,
+    name: SITE.name,
+    description: SITE.description,
+    inLanguage: SITE.locale,
+  },
+  {
+    '@type': 'SoftwareApplication',
+    '@id': `${SITE.domain}/#app`,
+    name: SITE.name,
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Web',
+    description: SITE.description,
+    url: SITE.domain,
+    offers: {
+      '@type': 'Offer',
+      price: String(SITE.priceEur),
+      priceCurrency: SITE.currency,
+      category: 'subscription',
+    },
+  },
+  ...schema,
+]
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#6366f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={SITE.ogLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}
+    />
+  </head>
+
+  <body class="min-h-screen flex flex-col antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:rounded-lg focus:bg-accent-solid focus:px-4 focus:py-2 focus:text-on-accent"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
