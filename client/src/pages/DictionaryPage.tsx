@@ -1,158 +1,368 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { loadDB } from '../lib/worddb'
 import type { Word } from '../lib/worddb'
-import { getUserWord, saveNotes } from '../lib/firestore'
+import {
+  ensureUserWords,
+  getAllUserWords,
+  getDefaultState,
+  markWordsKnown,
+  saveNotes,
+  unmarkWordsKnown,
+} from '../lib/firestore'
+import type { WordSeed, WordState } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
-import CharacterBreakdown from '../components/CharacterBreakdown'
+import {
+  NO_FILTERS,
+  filterEntries,
+  hasActiveFilters,
+  sortEntries,
+  toEntry,
+} from '../lib/dictionary'
+import type { DictFilters, SortKey } from '../lib/dictionary'
+import PersonalWordList, { PAGE_SIZE } from '../components/PersonalWordList'
+import StatusBadge from '../components/StatusBadge'
+import WordDetail from '../components/WordDetail'
+import WordFilterBar from '../components/WordFilterBar'
 import HskBadge from '../components/HskBadge'
 
-interface WordWithStatus extends Word {
-  status: string
-  notes: string | null
-}
+type View = 'mine' | 'search'
 
 export default function DictionaryPage() {
+  const [view, setView] = useState<View>('mine')
+  const [loading, setLoading] = useState(true)
+  const [userWords, setUserWords] = useState<WordState[]>([])
+  const [meta, setMeta] = useState<Map<string, Word>>(new Map())
+
+  const [filters, setFilters] = useState<DictFilters>(NO_FILTERS)
+  const [sort, setSort] = useState<SortKey>('recent')
+  const [page, setPage] = useState(0)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [selectedKey, setSelectedKey] = useState<string | null>(null)
+
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Word[]>([])
-  const [selected, setSelected] = useState<WordWithStatus | null>(null)
-  const [noteText, setNoteText] = useState('')
-  const [noteSaved, setNoteSaved] = useState(false)
-  const [loadingStatus, setLoadingStatus] = useState(false)
+
   const dbRef = useRef<Awaited<ReturnType<typeof loadDB>> | null>(null)
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    loadDB().then((db) => { dbRef.current = db })
+    async function load() {
+      const uid = getCurrentUid()
+      const db = await loadDB()
+      dbRef.current = db
+      if (!uid) { setLoading(false); return }
+      const words = await getAllUserWords(uid)
+      setUserWords(words)
+      setMeta(new Map(db.getWords(words.map((w) => w.simplified)).map((w) => [w.simplified, w])))
+      setLoading(false)
+    }
+    load()
   }, [])
 
   useEffect(() => {
     if (debounce.current) clearTimeout(debounce.current)
     if (!query.trim()) { setResults([]); return }
     debounce.current = setTimeout(() => {
-      if (!dbRef.current) return
-      setResults(dbRef.current.searchWords(query))
+      const found = dbRef.current?.searchWords(query) ?? []
+      setResults(found)
+      // Keep the corpus data for anything the user opens from search results.
+      setMeta((prev) => {
+        const next = new Map(prev)
+        for (const w of found) next.set(w.simplified, w)
+        return next
+      })
     }, 250)
   }, [query])
 
-  async function selectWord(w: Word) {
-    setLoadingStatus(true)
-    setNoteSaved(false)
-    const uid = getCurrentUid()
-    let status = 'Unstudied'
-    let notes: string | null = null
-    if (uid) {
-      const userWord = await getUserWord(uid, w.simplified)
-      status = userWord?.status ?? 'Unstudied'
-      notes = userWord?.notes ?? null
-    }
-    setSelected({ ...w, status, notes })
-    setNoteText(notes ?? '')
-    setLoadingStatus(false)
+  const userMap = useMemo(() => new Map(userWords.map((w) => [w.simplified, w])), [userWords])
+
+  const allEntries = useMemo(
+    () => userWords.map((w) => toEntry(w.simplified, meta.get(w.simplified), w)),
+    [userWords, meta]
+  )
+
+  const visibleEntries = useMemo(
+    () => sortEntries(filterEntries(allEntries, filters), sort),
+    [allEntries, filters, sort]
+  )
+
+  const searchEntries = useMemo(
+    () => results.map((w) => toEntry(w.simplified, w, userMap.get(w.simplified))),
+    [results, userMap]
+  )
+
+  const hskLevels = useMemo(
+    () => [...new Set(allEntries.map((e) => e.hskLevel).filter((l): l is number => l != null))].sort((a, b) => a - b),
+    [allEntries]
+  )
+  const decks = useMemo(
+    () => [...new Set(allEntries.map((e) => e.deckName).filter(Boolean))].sort(),
+    [allEntries]
+  )
+
+  const detail = selectedKey
+    ? toEntry(selectedKey, meta.get(selectedKey), userMap.get(selectedKey))
+    : null
+
+  // A mutation can shrink the result set under an active filter, stranding the
+  // current page past the end.
+  const safePage = Math.min(page, Math.max(0, Math.ceil(visibleEntries.length / PAGE_SIZE) - 1))
+
+  function changeFilters(f: DictFilters) { setFilters(f); setPage(0) }
+  function changeSort(s: SortKey) { setSort(s); setPage(0) }
+
+  /** Applies a Firestore mutation to local state so the list updates without a refetch. */
+  function patchLocal(simplifieds: string[], patch: Partial<WordState>) {
+    setUserWords((prev) => {
+      const map = new Map(prev.map((w) => [w.simplified, w]))
+      for (const s of simplifieds) {
+        const existing = map.get(s)
+        map.set(s, { ...(existing ?? blankState(s, meta.get(s))), ...patch })
+      }
+      return [...map.values()]
+    })
   }
 
-  async function saveNote() {
-    if (!selected) return
+  function seedFor(simplified: string): WordSeed {
+    const word = meta.get(simplified)
+    const user = userMap.get(simplified)
+    return {
+      simplified,
+      deckName: user?.deckName || word?.deck_name || '',
+      hskLevel: word?.hsk_level ?? user?.hskLevel ?? null,
+    }
+  }
+
+  async function markKnown(simplifieds: string[]) {
+    const uid = getCurrentUid()
+    if (!uid || simplifieds.length === 0) return
+    await markWordsKnown(uid, simplifieds.map(seedFor))
+    patchLocal(simplifieds, {
+      status: 'Mastered',
+      intervalMeaning: 365,
+      intervalPinyin: 365,
+      intervalAudio: 365,
+      nextReviewDate: new Date(Date.now() + 365 * 86400000),
+    })
+    setSelected(new Set())
+  }
+
+  async function unmark(simplifieds: string[]) {
+    const uid = getCurrentUid()
+    if (!uid || simplifieds.length === 0) return
+    const mastered = simplifieds.filter((s) => userMap.get(s)?.status === 'Mastered')
+    if (mastered.length === 0) return
+    await unmarkWordsKnown(uid, mastered)
+    patchLocal(mastered, {
+      status: 'Weak',
+      intervalMeaning: 1,
+      intervalPinyin: 1,
+      intervalAudio: 1,
+      nextReviewDate: new Date(),
+    })
+    setSelected(new Set())
+  }
+
+  async function addToDictionary(simplified: string) {
     const uid = getCurrentUid()
     if (!uid) return
-    await saveNotes(uid, selected.simplified, noteText)
-    setSelected({ ...selected, notes: noteText })
-    setNoteSaved(true)
-    setTimeout(() => setNoteSaved(false), 2000)
+    await ensureUserWords(uid, [seedFor(simplified)])
+    patchLocal([simplified], { firstSeenAt: new Date() })
+  }
+
+  async function saveNote(simplified: string, notes: string) {
+    const uid = getCurrentUid()
+    if (!uid) return
+    await saveNotes(uid, simplified, notes)
+    patchLocal([simplified], { notes })
+  }
+
+  function toggleSelect(simplified: string) {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(simplified)) next.delete(simplified)
+      else next.add(simplified)
+      return next
+    })
+  }
+
+  function toggleSelectPage(simplifieds: string[], select: boolean) {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      for (const s of simplifieds) {
+        if (select) next.add(s)
+        else next.delete(s)
+      }
+      return next
+    })
   }
 
   return (
     <div className="flex flex-col md:flex-row md:h-screen">
-      <div className={`${selected ? 'hidden md:flex' : 'flex'} flex-col w-full md:w-80 border-b md:border-b-0 md:border-r border-border`}>
-        <div className="p-4 border-b border-border">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search characters, pinyin, or definition…"
-            className="w-full bg-surface-raised border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
-          />
+      <div
+        className={`${selectedKey ? 'hidden md:flex' : 'flex'} flex-col flex-1 min-w-0 md:min-h-0 border-b md:border-b-0 md:border-r border-border`}
+      >
+        <div className="px-4 pt-4 pb-3 flex gap-1 bg-surface-raised/50 border-b border-border">
+          <ViewTab label="My words" active={view === 'mine'} onClick={() => setView('mine')} />
+          <ViewTab label="Search" active={view === 'search'} onClick={() => setView('search')} />
         </div>
-        <div className="overflow-y-auto max-h-72 md:max-h-none md:flex-1">
-          {results.map((w) => (
-            <button
-              key={w.simplified}
-              onClick={() => selectWord(w)}
-              className={`w-full text-left px-4 py-3 border-b border-border hover:bg-surface-raised transition-colors ${
-                selected?.simplified === w.simplified ? 'bg-accent/10' : ''
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xl text-text-primary">{w.simplified}</span>
-                <HskBadge level={w.hsk_level} />
-              </div>
-              <p className="text-sm text-text-muted mt-0.5">{w.pinyin}</p>
-            </button>
-          ))}
-          {query && results.length === 0 && (
-            <p className="p-4 text-sm text-text-muted">No results</p>
-          )}
-        </div>
+
+        {view === 'mine' ? (
+          loading ? (
+            <p className="p-4 text-sm text-text-muted">Loading your words…</p>
+          ) : allEntries.length === 0 ? (
+            <EmptyState
+              icon="📖"
+              title="No words yet"
+              body="Study a session or import a word list — every word you meet lands here."
+            />
+          ) : (
+            <>
+              <WordFilterBar
+                filters={filters}
+                onFiltersChange={changeFilters}
+                sort={sort}
+                onSortChange={changeSort}
+                hskLevels={hskLevels}
+                decks={decks}
+                count={visibleEntries.length}
+                onClear={() => changeFilters(NO_FILTERS)}
+              />
+              {visibleEntries.length === 0 ? (
+                <EmptyState
+                  icon="🔍"
+                  title="Nothing matches"
+                  body="No words match the current filters."
+                  action={hasActiveFilters(filters) ? { label: 'Clear filters', onClick: () => changeFilters(NO_FILTERS) } : undefined}
+                />
+              ) : (
+                <PersonalWordList
+                  entries={visibleEntries}
+                  page={safePage}
+                  onPageChange={setPage}
+                  selected={selected}
+                  onToggleSelect={toggleSelect}
+                  onToggleSelectPage={toggleSelectPage}
+                  selectedKey={selectedKey}
+                  onSelect={(e) => setSelectedKey(e.simplified)}
+                  onMarkKnown={markKnown}
+                  onUnmark={unmark}
+                  onClearSelection={() => setSelected(new Set())}
+                />
+              )}
+            </>
+          )
+        ) : (
+          <>
+            <div className="p-4 border-b border-border">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search hanzi, pinyin (pengyou), or definition…"
+                className="w-full bg-surface-raised border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
+              />
+            </div>
+            <div className="flex-1 overflow-y-auto divide-y divide-border">
+              {searchEntries.map((e) => (
+                <button
+                  key={e.simplified}
+                  onClick={() => setSelectedKey(e.simplified)}
+                  className={`w-full text-left px-4 py-3 hover:bg-surface-raised transition-colors ${
+                    selectedKey === e.simplified ? 'bg-accent/10' : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl text-text-primary">{e.simplified}</span>
+                    <span className="text-sm text-text-muted">{e.pinyin}</span>
+                    <span className="ml-auto flex items-center gap-2">
+                      <HskBadge level={e.hskLevel} />
+                      {e.inDictionary ? (
+                        <StatusBadge status={e.status} />
+                      ) : (
+                        <span className="text-xs text-text-muted">Not in your dictionary</span>
+                      )}
+                    </span>
+                  </div>
+                  <p className="text-sm text-text-muted mt-0.5 truncate">{e.definition}</p>
+                </button>
+              ))}
+              {query.trim() && searchEntries.length === 0 && (
+                <p className="p-4 text-sm text-text-muted">No results</p>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
-      <div className={`${selected ? 'flex' : 'hidden md:flex'} flex-1 overflow-y-auto p-6 md:p-8 flex-col`}>
-        {selected ? (
-          <div className="space-y-6 max-w-lg">
-            <button
-              onClick={() => setSelected(null)}
-              className="md:hidden text-sm text-text-muted flex items-center gap-1 mb-2 hover:text-text-primary transition-colors"
-            >
-              ← Back to search
-            </button>
-            <div className="flex items-start justify-between">
-              <div>
-                <h1 className="text-5xl font-light text-text-primary">{selected.simplified}</h1>
-                {selected.traditional && selected.traditional !== selected.simplified && (
-                  <p className="text-2xl text-text-muted mt-1">{selected.traditional}</p>
-                )}
-              </div>
-              <HskBadge level={selected.hsk_level} size="lg" />
-            </div>
-            <p className="text-xl text-accent">{selected.pinyin}</p>
-            <p className="text-text-primary">{selected.definition}</p>
-            <p className="text-sm text-text-muted">
-              Status: <span className="text-text-primary">{loadingStatus ? '…' : selected.status}</span>
-            </p>
-
-            <section>
-              <h2 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
-                Character Breakdown
-              </h2>
-              <CharacterBreakdown text={selected.simplified} />
-            </section>
-
-            <section>
-              <h2 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                Your Notes
-              </h2>
-              <textarea
-                value={noteText}
-                onChange={(e) => { setNoteText(e.target.value); setNoteSaved(false) }}
-                placeholder="Add personal notes, mnemonics, examples…"
-                className="w-full bg-surface-raised border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent min-h-24 resize-none"
-              />
-              <div className="flex items-center gap-3 mt-2">
-                <button
-                  onClick={saveNote}
-                  className="px-4 py-1.5 bg-accent text-white rounded-lg text-sm hover:opacity-90 transition-opacity"
-                >
-                  Save
-                </button>
-                {noteSaved && <span className="text-correct text-sm">Saved!</span>}
-              </div>
-            </section>
-          </div>
+      <div
+        className={`${selectedKey ? 'flex' : 'hidden'} md:flex w-full md:w-96 lg:w-[28rem] shrink-0 overflow-y-auto p-6 md:p-8 flex-col`}
+      >
+        {detail ? (
+          <WordDetail
+            key={detail.simplified}
+            entry={detail}
+            onBack={() => setSelectedKey(null)}
+            onSaveNotes={(notes) => saveNote(detail.simplified, notes)}
+            onMarkKnown={() => markKnown([detail.simplified])}
+            onUnmark={() => unmark([detail.simplified])}
+            onAdd={() => addToDictionary(detail.simplified)}
+          />
         ) : (
           <div className="text-text-muted text-center mt-24">
             <p className="text-4xl mb-3">📖</p>
-            <p>Search for a word to see its details</p>
+            <p className="text-sm">Select a word to see its details</p>
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+function blankState(simplified: string, word?: Word): WordState {
+  return {
+    simplified,
+    ...getDefaultState(),
+    status: 'Unstudied',
+    deckName: word?.deck_name ?? '',
+    hskLevel: word?.hsk_level ?? null,
+  }
+}
+
+function ViewTab({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+        active ? 'bg-accent text-white' : 'text-text-muted hover:text-text-primary'
+      }`}
+    >
+      {label}
+    </button>
+  )
+}
+
+function EmptyState({
+  icon,
+  title,
+  body,
+  action,
+}: {
+  icon: string
+  title: string
+  body: string
+  action?: { label: string; onClick: () => void }
+}) {
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 gap-2">
+      <p className="text-4xl">{icon}</p>
+      <p className="text-text-primary font-medium">{title}</p>
+      <p className="text-sm text-text-muted max-w-xs">{body}</p>
+      {action && (
+        <button onClick={action.onClick} className="text-sm text-accent hover:underline mt-1">
+          {action.label}
+        </button>
+      )}
     </div>
   )
 }

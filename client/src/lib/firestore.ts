@@ -13,6 +13,7 @@ import {
   query,
   where,
   orderBy,
+  documentId,
 } from 'firebase/firestore'
 import { db } from './firebase'
 import type { ReviewState } from './srs'
@@ -23,12 +24,26 @@ export interface WordState extends ReviewState {
   status: string
   deckName: string
   notes?: string
+  /** Absent on documents that have never been reviewed. */
+  totalReviews?: number
+  correctMeaningCount?: number
+  firstSeenAt?: Date
+  lastReviewedAt?: Date
+  /** Cached from SQLite at first review; absent on documents written before it existed. */
+  hskLevel?: number | null
   customWordData?: {
     simplified: string
     traditional: string | null
     pinyin: string
     definition: string
   }
+}
+
+/** Identifies a word to add to `users/{uid}/words`, with the metadata the personal dictionary filters on. */
+export interface WordSeed {
+  simplified: string
+  deckName?: string
+  hskLevel?: number | null
 }
 
 export interface UserProfile {
@@ -39,6 +54,10 @@ export interface UserProfile {
   deckPriority?: Record<string, number>
   deckModes?: Record<string, StudyMode>
 }
+
+/** Firestore caps `in` filters at 30 values and batched writes at 500 operations. */
+const IN_QUERY_LIMIT = 30
+const BATCH_LIMIT = 500
 
 const DEFAULT_REVIEW_STATE: ReviewState = {
   intervalMeaning: 0,
@@ -51,9 +70,14 @@ const DEFAULT_REVIEW_STATE: ReviewState = {
 }
 
 function tsToDate(val: unknown): Date {
+  return tsToDateOrUndefined(val) ?? new Date(0)
+}
+
+/** Distinguishes "never happened" from the epoch — the personal dictionary renders them differently. */
+function tsToDateOrUndefined(val: unknown): Date | undefined {
   if (val instanceof Timestamp) return val.toDate()
   if (val instanceof Date) return val
-  return new Date(0)
+  return undefined
 }
 
 function dataToState(data: Record<string, unknown>): ReviewState {
@@ -72,18 +96,26 @@ export function getDefaultState(): ReviewState {
   return { ...DEFAULT_REVIEW_STATE, nextReviewDate: new Date(0) }
 }
 
-export async function getUserWord(uid: string, simplified: string): Promise<WordState | null> {
-  const snap = await getDoc(doc(db, 'users', uid, 'words', simplified))
-  if (!snap.exists()) return null
-  const data = snap.data() as Record<string, unknown>
+function docToWordState(simplified: string, data: Record<string, unknown>): WordState {
   return {
     simplified,
     ...dataToState(data),
     status: (data.status as string) ?? 'Unstudied',
     deckName: (data.deckName as string) ?? '',
     notes: data.notes as string | undefined,
+    totalReviews: data.totalReviews as number | undefined,
+    correctMeaningCount: data.correctMeaningCount as number | undefined,
+    firstSeenAt: tsToDateOrUndefined(data.firstSeenAt),
+    lastReviewedAt: tsToDateOrUndefined(data.lastReviewedAt),
+    hskLevel: data.hskLevel as number | null | undefined,
     customWordData: data.customWordData as WordState['customWordData'],
   }
+}
+
+export async function getUserWord(uid: string, simplified: string): Promise<WordState | null> {
+  const snap = await getDoc(doc(db, 'users', uid, 'words', simplified))
+  if (!snap.exists()) return null
+  return docToWordState(simplified, snap.data() as Record<string, unknown>)
 }
 
 export async function setUserWord(
@@ -129,17 +161,7 @@ export async function setUserWord(
 
 export async function getAllUserWords(uid: string): Promise<WordState[]> {
   const snap = await getDocs(collection(db, 'users', uid, 'words'))
-  return snap.docs.map((d) => {
-    const data = d.data() as Record<string, unknown>
-    return {
-      simplified: d.id,
-      ...dataToState(data),
-      status: (data.status as string) ?? 'Unstudied',
-      deckName: (data.deckName as string) ?? '',
-      notes: data.notes as string | undefined,
-      customWordData: data.customWordData as WordState['customWordData'],
-    }
-  })
+  return snap.docs.map((d) => docToWordState(d.id, d.data() as Record<string, unknown>))
 }
 
 export async function upsertDailyStats(
@@ -268,28 +290,102 @@ export async function getDeckSummaries(uid: string): Promise<
 export async function getDeckWords(uid: string, deckName: string): Promise<WordState[]> {
   const q = query(collection(db, 'users', uid, 'words'), where('deckName', '==', deckName))
   const snap = await getDocs(q)
-  return snap.docs.map((d) => {
-    const data = d.data() as Record<string, unknown>
-    return {
-      simplified: d.id,
-      ...dataToState(data),
-      status: (data.status as string) ?? 'Unstudied',
-      deckName: (data.deckName as string) ?? '',
-    }
-  })
+  return snap.docs.map((d) => docToWordState(d.id, d.data() as Record<string, unknown>))
 }
 
-export async function markWordsKnown(uid: string, simplifieds: string[]): Promise<void> {
+/**
+ * Marks words `Mastered`, skipping the normal review progression.
+ *
+ * Accepts bare simplifieds for callers acting on words that already have a
+ * document, or seeds when the document may not exist yet — a word marked known
+ * straight from search needs `deckName` and `hskLevel` or it drops out of the
+ * personal dictionary's deck and level filters.
+ */
+export async function markWordsKnown(uid: string, words: (string | WordSeed)[]): Promise<void> {
   const farFuture = Timestamp.fromDate(new Date(Date.now() + 365 * 86400000))
   const batch = writeBatch(db)
-  for (const s of simplifieds) {
+  for (const w of words) {
+    const seed: WordSeed = typeof w === 'string' ? { simplified: w } : w
     batch.set(
-      doc(db, 'users', uid, 'words', s),
-      { intervalMeaning: 365, intervalPinyin: 365, intervalAudio: 365, status: 'Mastered', nextReviewDate: farFuture },
+      doc(db, 'users', uid, 'words', seed.simplified),
+      {
+        intervalMeaning: 365,
+        intervalPinyin: 365,
+        intervalAudio: 365,
+        status: 'Mastered',
+        nextReviewDate: farFuture,
+        ...(seed.deckName !== undefined ? { deckName: seed.deckName } : {}),
+        ...(seed.hskLevel != null ? { hskLevel: seed.hskLevel } : {}),
+      },
       { merge: true }
     )
   }
   await batch.commit()
+}
+
+/**
+ * Reverses `markWordsKnown`. The intervals it overwrote are gone, so rather than
+ * inventing a history this puts the word back at the front of the queue the same
+ * way `resetLeech` does — due now, `Weak`, ease untouched.
+ */
+export async function unmarkWordsKnown(uid: string, simplifieds: string[]): Promise<void> {
+  const now = Timestamp.fromDate(new Date())
+  const batch = writeBatch(db)
+  for (const s of simplifieds) {
+    batch.set(
+      doc(db, 'users', uid, 'words', s),
+      { intervalMeaning: 1, intervalPinyin: 1, intervalAudio: 1, status: 'Weak', nextReviewDate: now },
+      { merge: true }
+    )
+  }
+  await batch.commit()
+}
+
+/**
+ * Adds encountered words to the personal dictionary at default SRS state,
+ * leaving any document that already exists untouched — a blind merge would
+ * reset a Mastered word to Unstudied. Returns the simplifieds it created.
+ *
+ * This is the shared write path for every surface that causes a word to be
+ * "encountered": adding from dictionary search today, and reading a graded
+ * reader later.
+ */
+export async function ensureUserWords(uid: string, seeds: WordSeed[]): Promise<string[]> {
+  const unique = new Map(seeds.map((s) => [s.simplified, s]))
+  const ids = [...unique.keys()]
+  if (ids.length === 0) return []
+
+  const existing = new Set<string>()
+  for (let i = 0; i < ids.length; i += IN_QUERY_LIMIT) {
+    const chunk = ids.slice(i, i + IN_QUERY_LIMIT)
+    const snap = await getDocs(
+      query(collection(db, 'users', uid, 'words'), where(documentId(), 'in', chunk))
+    )
+    for (const d of snap.docs) existing.add(d.id)
+  }
+
+  const missing = ids.filter((id) => !existing.has(id))
+  for (let i = 0; i < missing.length; i += BATCH_LIMIT) {
+    const batch = writeBatch(db)
+    for (const id of missing.slice(i, i + BATCH_LIMIT)) {
+      const seed = unique.get(id)!
+      batch.set(doc(db, 'users', uid, 'words', id), {
+        intervalMeaning: 0,
+        intervalPinyin: 0,
+        intervalAudio: 0,
+        easeFactor: 2.5,
+        consecutiveFails: 0,
+        nextReviewDate: Timestamp.fromDate(new Date(0)),
+        lastSubskill: null,
+        status: 'Unstudied',
+        deckName: seed.deckName ?? '',
+        firstSeenAt: serverTimestamp(),
+        ...(seed.hskLevel != null ? { hskLevel: seed.hskLevel } : {}),
+      })
+    }
+    await batch.commit()
+  }
+  return missing
 }
 
 export async function saveDeckPriority(uid: string, order: string[]): Promise<void> {
@@ -311,10 +407,9 @@ export async function importWordsToFirestore(
   }>,
   onProgress?: (batch: number, total: number) => void
 ): Promise<{ imported: number }> {
-  const CHUNK = 500
   let imported = 0
-  for (let i = 0; i < entries.length; i += CHUNK) {
-    const chunk = entries.slice(i, i + CHUNK)
+  for (let i = 0; i < entries.length; i += BATCH_LIMIT) {
+    const chunk = entries.slice(i, i + BATCH_LIMIT)
     const batch = writeBatch(db)
     for (const entry of chunk) {
       const ref = doc(db, 'users', uid, 'words', entry.simplified)
@@ -337,7 +432,7 @@ export async function importWordsToFirestore(
       imported++
     }
     await batch.commit()
-    onProgress?.(Math.floor(i / CHUNK) + 1, Math.ceil(entries.length / CHUNK))
+    onProgress?.(Math.floor(i / BATCH_LIMIT) + 1, Math.ceil(entries.length / BATCH_LIMIT))
   }
   return { imported }
 }
