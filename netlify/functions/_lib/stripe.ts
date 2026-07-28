@@ -11,7 +11,7 @@
  */
 
 import Stripe from 'stripe'
-import { SERVER_CATALOG } from './types'
+import { isCatalogSku, SERVER_CATALOG } from './types'
 import type {
   CheckoutInput,
   EntitlementUpdate,
@@ -125,7 +125,12 @@ export const stripeProvider: PaymentProvider = {
     try {
       // Verifies the HMAC over the raw bytes and rejects stale timestamps.
       const event = stripe().webhooks.constructEvent(rawBody, signature, secret)
-      return { id: event.id, type: event.type, payload: event.data.object }
+      return {
+        id: event.id,
+        type: event.type,
+        createdAt: new Date(event.created * 1000),
+        payload: event.data.object,
+      }
     } catch (e) {
       console.error('[stripe] webhook signature rejected', e)
       return null
@@ -145,7 +150,11 @@ export const stripeProvider: PaymentProvider = {
         if (session.mode !== 'payment') return null
         const uid = session.metadata?.uid
         const sku = session.metadata?.sku
-        if (!uid || !sku) return null
+        // Metadata is only ever set by `checkout.ts`, which validates the SKU
+        // before it gets here — but a session created by hand in the provider
+        // dashboard carries whatever metadata was typed into it, and that must
+        // not end up in `packs` as a permanent junk entitlement.
+        if (!uid || !isCatalogSku(sku)) return null
         return {
           uid,
           provider: 'stripe',

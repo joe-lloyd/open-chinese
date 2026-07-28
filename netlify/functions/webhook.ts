@@ -6,7 +6,7 @@
  * then write. Nothing touches Firestore before the signature is proven good.
  */
 
-import { applyEntitlementUpdate, claimEvent, releaseEvent } from './_lib/firebase'
+import { applyEntitlementUpdate, claimEvent, completeEvent, releaseEvent } from './_lib/firebase'
 import { getProvider, json } from './_lib/providers'
 
 export default async function handler(req: Request): Promise<Response> {
@@ -28,12 +28,14 @@ export default async function handler(req: Request): Promise<Response> {
 
   // Providers retry and none guarantee once-only delivery, so a repeat is
   // normal traffic rather than an error.
-  if (!(await claimEvent(event.id))) {
+  if ((await claimEvent(event.id)) === 'duplicate') {
     return json(200, { ok: true, duplicate: true })
   }
 
   try {
-    await applyEntitlementUpdate(update)
+    // `createdAt` is the ordering guard: a subscription event generated before a
+    // cancellation can still be delivered after it.
+    await applyEntitlementUpdate(update, event.createdAt)
   } catch (e) {
     console.error('[webhook] entitlement write failed', event.id, e)
     // Drop the claim so the provider's retry is not swallowed as a duplicate,
@@ -41,6 +43,11 @@ export default async function handler(req: Request): Promise<Response> {
     await releaseEvent(event.id)
     return json(500, { error: 'write_failed' })
   }
+
+  // Only now is a retry a duplicate. A crash between the write above and this
+  // line leaves a `processing` claim, which goes stale and is retried — at worst
+  // the same update is applied twice, which it is designed to tolerate.
+  await completeEvent(event.id)
 
   return json(200, { ok: true })
 }

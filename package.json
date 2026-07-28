@@ -6,7 +6,8 @@
     "dev": "pnpm --filter client dev",
     "build": "pnpm --filter client build",
     "build:words-db": "pnpm --filter open-chinese-scripts build:words-db",
-    "typecheck:functions": "tsc -p tsconfig.functions.json"
+    "typecheck:functions": "tsc -p tsconfig.functions.json",
+    "check:functions-bundle": "node scripts/check-functions-bundle.mjs"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@types/node": "^24.13.2",
     "concurrently": "9.1.2",
+    "esbuild": "^0.25.12",
     "typescript": "~6.0.2"
   }
 }

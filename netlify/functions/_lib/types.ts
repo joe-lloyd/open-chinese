@@ -43,6 +43,11 @@ export interface WebhookEvent {
   /** Provider event id, used as the idempotency key. */
   id: string
   type: string
+  /**
+   * When the provider generated the event. Used to reject out-of-order
+   * deliveries, which no provider rules out. Null disables that guard.
+   */
+  createdAt: Date | null
   /** The verified, parsed payload. Only the owning adapter interprets this. */
   payload: unknown
 }

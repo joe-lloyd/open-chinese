@@ -77,11 +77,20 @@ match /users/{userId} {
     allow read: if isOwner(userId);
     allow write: if false;
   }
-  match /{document=**} {
+
+  // Every user-owned collection is matched explicitly. There is deliberately no
+  // `match /{document=**}` here — see point 1 below for why adding one would
+  // silently re-grant write access to entitlements.
+  match /words/{simplified} {
+    allow read, write: if isOwner(userId);
+  }
+  match /dailyStats/{date} {
     allow read, write: if isOwner(userId);
   }
 }
 ```
+
+`firestore.rules` at the repo root is the authoritative version — deploy that file, never a block reassembled from this document.
 
 Two things make this safe, and both are non-obvious:
 
@@ -155,7 +164,7 @@ Why Polar over Stripe: the owner is pricing in euro and is a solo developer. Sel
 
 Why Polar over Paddle: 4% + €0.40 versus 5% + €0.50, self-serve onboarding instead of an approval queue, and an API modelled closely enough on Stripe's that the adapter is nearly a rename. Paddle remains the right answer if the owner values a decade of operating history over a point of margin — the interface makes that a swap, not a rewrite.
 
-**Reference implementation: Stripe.** Deliberately not the recommendation, for two reasons. Stripe test mode works immediately with no application, so the owner can exercise the entire funnel end to end before committing to any merchant relationship; and Stripe's Checkout-Session-plus-signed-webhook shape is the pattern Polar and Paddle both imitate, so the reference is the most transferable one to write against. A `crypto.ts` stub implements the same interface with the Coinbase Commerce request shapes and `TODO` markers where the account-specific pieces go.
+**Reference implementation: Stripe.** Deliberately not the recommendation, for two reasons. Stripe test mode works immediately with no application, so the owner can exercise the entire funnel end to end before committing to any merchant relationship; and Stripe's Checkout-Session-plus-signed-webhook shape is the pattern Polar and Paddle both imitate, so the reference is the most transferable one to write against. A `crypto.ts` adapter implements the same interface against Coinbase Commerce. It is complete rather than a placeholder — real `fetch` calls to `api.commerce.coinbase.com` and a real HMAC-SHA256 signature check — but it is unreachable unless `PAYMENT_PROVIDER=coinbase-commerce` and its credentials are set, so it ships inert rather than unfinished.
 
 ### D6. `PaymentProvider` interface
 
@@ -170,7 +179,7 @@ export interface PaymentProvider {
     cancelUrl: string
   }): Promise<{ url: string }>
   createPortalSession(input: { customerId: string; returnUrl: string }): Promise<{ url: string }>
-  verifyWebhook(rawBody: string, headers: Record<string, string>): WebhookEvent | null
+  verifyWebhook(rawBody: string, headers: Headers): WebhookEvent | null
   toEntitlementUpdate(event: WebhookEvent): EntitlementUpdate | null
 }
 ```
@@ -239,6 +248,8 @@ That branch is unmerged, so this change adds the seam and nothing else:
 
 - **All word content remains publicly downloadable.** `client/public/words.db` is a static file on a CDN with no auth in front of it. Anyone can `curl https://<site>/words.db` and open it in SQLite. Gating HSK levels in the UI does not change that by one bit. Someone who wants the words has them already.
 - Locked HSK levels and locked words are hidden and filtered client-side. Editing local state, or calling `buildQueue` from the console, bypasses it. The paywall is a purchase prompt, not a lock.
+- **CSV import is a bypass through supported UI, requiring no devtools at all.** `users/{uid}/words` is client-writable by design, and `importWordsToFirestore` applies no gating. So a free user can pull the wordlist out of the public `words.db`, build a CSV, and import it — those words then land in `knownSimplifieds`, the never-revoke-studied rule sees them as already studied, and they are studied normally forever. This is worth calling out separately from the bullet above because it is a *supported flow*, not a hack. It is not being closed: gating import would break the legitimate reason it exists — bringing in your own vocabulary — and it would only inconvenience someone who has already downloaded the public database. If the demo tier ever needs to be tighter, the honest fix is serving paid content from an authenticated endpoint, not policing import.
+- The dictionary and search are ungated on purpose. `/dictionary` reads `words.db` directly and shows pinyin, definitions and character breakdown for every level regardless of entitlement. Gating lookups while the whole database is a public download would be theatre. "Locked" in this app means "cannot add to your SRS queue", not "cannot read".
 - Reader content, when that branch lands, will have the same property if it ships as static assets.
 
 **What real enforcement would take** (deliberately out of scope, and it should not be attempted before there is revenue to justify it): split `words.db` into a free shard and paid shards; serve paid shards from an authenticated function or a short-lived signed URL issued only after a server-side entitlement check; ship reader text the same way. That is a meaningful architecture change — it makes content delivery depend on Firestore availability and adds per-request cost — and it is only worth doing once piracy is demonstrably costing money.
@@ -257,7 +268,7 @@ This posture is defensible for a €25/year study app: the honest buyer pays bec
 - **`allow write: if false` also blocks the Firebase console's client-side editor.** → Console edits go through the Admin path and still work; noted so it does not read as a bug.
 - **Paywalling content that is already free is a reputational risk.** → Existing users keep everything they have already studied; gating applies to *starting* new locked material. Words a free user already has SRS state for stay accessible regardless of tier — enforced in `canAccess` via the caller passing existing-word context, so nobody loses progress they built up.
 - **Provider spread on €25/yr is ~€1.40 with an MoR versus ~€0.70 with Stripe direct.** → Deliberate; see D5. The delta is smaller than the compliance cost it removes.
-- **Crypto adds real operational surface** — volatility during the confirmation window, underpayment, chargeback-free but also refund-hostile. → The crypto adapter ships as a stub behind the same interface and is off by default. Turning it on is a decision the owner makes with eyes open, not a side effect of merging this.
+- **Crypto adds real operational surface** — volatility during the confirmation window, underpayment, chargeback-free but also refund-hostile. → The crypto adapter ships complete behind the same interface but disabled by default, reachable only once `PAYMENT_PROVIDER` names it. Turning it on is a decision the owner makes with eyes open, not a side effect of merging this.
 - **Four branches in flight touching the same files.** → Edits to `App.tsx` (a provider wrapper and two routes), `Sidebar.tsx` (one nav entry), `HskPage.tsx` (lock rendering) and `session.ts` (one filter) are kept as small and as localised as they can be; every touched file is listed in the PR description.
 
 ## Migration Plan

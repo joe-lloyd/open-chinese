@@ -7,6 +7,8 @@ import { setUserWord, upsertDailyStats, markWordsKnown } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import { speak } from '../lib/tts'
 import PronunciationAssessor from '../components/PronunciationAssessor'
+import Paywall from '../components/Paywall'
+import { useEntitlements } from '../hooks/useEntitlements'
 
 type Phase = 'pron-hidden' | 'pron-revealed' | 'meaning-hidden' | 'meaning-revealed'
 
@@ -39,6 +41,7 @@ export default function StudyPage() {
   const minutes = searchParams.get('minutes') ? Number(searchParams.get('minutes')) : null
   const maxSeconds = minutes ? minutes * 60 : null
 
+  const { check, loading: entitlementsLoading } = useEntitlements()
   const [queue, setQueue] = useState<StudyCard[]>([])
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState<Phase>('pron-hidden')
@@ -260,8 +263,23 @@ export default function StudyPage() {
     return () => window.removeEventListener('keydown', handler)
   }, [phase, revealPron, gradePron, revealMeaning, gradeMeaning, card, revealedByFail, advance, failAndReveal])
 
-  if (loading) return (
+  if (loading || entitlementsLoading) return (
     <div className="min-h-screen flex items-center justify-center text-text-muted">Loading cards…</div>
+  )
+
+  // An empty queue for a locked level is the deep-link case gating exists for:
+  // `/study?hsk=4` as a free user. Falling through to the session picker would
+  // show an empty session with no explanation and no way to buy — a dead end at
+  // the exact moment someone would convert.
+  const levelAccess = hskLevel ? check({ kind: 'hskLevel', level: hskLevel }) : null
+  if (queue.length === 0 && levelAccess && !levelAccess.allowed) return (
+    <div className="p-4 sm:p-8 max-w-lg mx-auto">
+      <Paywall
+        result={levelAccess}
+        title={`Nothing left to study in HSK ${hskLevel}`}
+        description="You've worked through everything available to you at this level. Unlock the rest to keep going."
+      />
+    </div>
   )
 
   if (queue.length === 0) return (

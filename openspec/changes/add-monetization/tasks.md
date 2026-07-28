@@ -53,3 +53,4 @@
 - [x] 8.1 `pnpm --filter client build` passes with zero TypeScript errors
 - [x] 8.2 `pnpm --filter client lint` shows no new findings
 - [x] 8.3 Re-read the diff: confirm no secret is referenced from client code, no `VITE_` variable holds a secret, and the rules file has no path that re-grants write to `entitlements/**`
+- [x] 8.4 Add `pnpm check:functions-bundle` — bundles the functions the way Netlify does, loads them, and exercises the no-provider and bad-signature paths. Typechecking alone misses bundling failures, and `firebase-admin` is not safely bundleable (google-gax uses `__dirname`), so it is externalised in `netlify.toml`

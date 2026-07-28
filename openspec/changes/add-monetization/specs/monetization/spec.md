@@ -132,7 +132,9 @@ A word for which the user already holds SRS state SHALL remain accessible regard
 - **THEN** that word SHALL NOT be introduced as a new card
 
 ### Requirement: Gating is applied at HSK browsing and at queue construction
-Locked content SHALL be gated both where it is browsed and where it is served. The HSK level page SHALL indicate locked levels and offer an unlock action in place of the study action. The study queue builder SHALL exclude locked words in every study mode before the session size limit is applied, so that navigating directly to a study URL for a locked level does not yield locked content.
+Locked content SHALL be gated both where it is browsed and where a study queue is assembled. The HSK level page SHALL indicate locked levels and offer an unlock action in place of the study action. The study queue builder SHALL exclude locked words in every study mode before the session size limit is applied, so that navigating directly to a study URL for a locked level does not yield locked content. Where a locked level yields an empty queue, the system SHALL present the unlock option rather than an empty session.
+
+Dictionary lookup and search SHALL NOT be gated. Word definitions, pinyin and character breakdowns remain readable at every level regardless of entitlement; "locked" means the word cannot be added to the user's study queue, not that it cannot be read.
 
 #### Scenario: Locked level on the HSK page
 - **GIVEN** a free user
@@ -147,6 +149,17 @@ Locked content SHALL be gated both where it is browsed and where it is served. T
 #### Scenario: Every study mode respects gating
 - **WHEN** a queue is built in `due`, `new`, `cram`, `refreshWeak` or `hardOnly` mode
 - **THEN** locked words SHALL be excluded in each mode
+
+#### Scenario: Locked level yields an empty queue
+- **GIVEN** a free user who has exhausted the free allowance for a level
+- **WHEN** they open the study route for that level
+- **THEN** the system SHALL present the unlock option for that level
+- **AND** SHALL NOT present an empty study session with no explanation
+
+#### Scenario: Dictionary is readable regardless of entitlement
+- **GIVEN** a free user
+- **WHEN** they look up a word from a locked level in the dictionary
+- **THEN** the definition, pinyin and character breakdown SHALL be shown
 
 ### Requirement: Graded readers gating contract
 Graded readers SHALL be gated through the same access function. Each reader SHALL declare a `packSku` corresponding to a catalogue entry of kind `pack`. A reader SHALL be accessible when the user has active Pro, or when the reader's `packSku` is present in the user's `packs`.

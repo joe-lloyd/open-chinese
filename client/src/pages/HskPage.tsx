@@ -26,7 +26,7 @@ export default function HskPage() {
   const [levels, setLevels] = useState<LevelData[]>([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const { check, freeCountFor } = useEntitlements()
+  const { check, freeCountFor, loading: entitlementsLoading } = useEntitlements()
 
   useEffect(() => {
     async function load() {
@@ -67,7 +67,10 @@ export default function HskPage() {
     load()
   }, [])
 
-  if (loading) return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
+  // Waiting for the entitlement snapshot too, so a paying user is never shown
+  // "Unlock HSK 4" for the moment before it arrives.
+  if (loading || entitlementsLoading)
+    return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
 
   return (
     <div className="p-4 sm:p-8 max-w-3xl mx-auto space-y-6">

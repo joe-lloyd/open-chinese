@@ -70,6 +70,16 @@ export const coinbaseCommerceProvider: PaymentProvider = {
     throw new Error('Coinbase Commerce has no billing portal')
   },
 
+  /**
+   * Unlike Stripe's scheme, the Coinbase Commerce signature covers only the body
+   * — there is no timestamp in the signed material, so a captured payload stays
+   * replayable forever. Replay protection therefore rests *entirely* on the
+   * `webhookEvents` ledger being permanent.
+   *
+   * If a TTL policy is ever added to `webhookEvents`, a freshness check on
+   * `created_at` must be added here first, or expiring a ledger entry re-opens
+   * the replay window for that event.
+   */
   verifyWebhook(rawBody: string, headers: Headers): WebhookEvent | null {
     const signature = headers.get('x-cc-webhook-signature')
     const secret = process.env.COINBASE_COMMERCE_WEBHOOK_SECRET
@@ -85,10 +95,18 @@ export const coinbaseCommerceProvider: PaymentProvider = {
     }
 
     try {
-      const parsed = JSON.parse(rawBody) as { event?: { id?: string; type?: string; data?: unknown } }
-      const { id, type, data } = parsed.event ?? {}
+      const parsed = JSON.parse(rawBody) as {
+        event?: { id?: string; type?: string; created_at?: string; data?: unknown }
+      }
+      const { id, type, created_at, data } = parsed.event ?? {}
       if (!id || !type) return null
-      return { id, type, payload: data }
+      const createdAt = created_at ? new Date(created_at) : null
+      return {
+        id,
+        type,
+        createdAt: createdAt && !Number.isNaN(createdAt.getTime()) ? createdAt : null,
+        payload: data,
+      }
     } catch {
       return null
     }
