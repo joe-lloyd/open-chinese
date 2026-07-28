@@ -2,16 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Each colour is defined once as an unwrapped `R G B` triplet, then wrapped into
+ * a ready-to-use `--color-*` value.
+ *
+ * The triplets are what tailwind.config.ts consumes, as
+ * `rgb(var(--x-rgb) / <alpha-value>)`. Tailwind cannot split a bare `var()` into
+ * channels, so declaring a colour directly as `var(--color-x)` makes every
+ * opacity modifier (`bg-accent/10`, `border-incorrect/50`) compile to nothing.
+ *
+ * The wrapped `--color-*` vars stay for the places that consume a colour outside
+ * Tailwind — Recharts props, inline `style` objects, `accent-[var(…)]`. They
+ * re-resolve per subtree, so `.dark` only needs to override the triplets.
+ */
 :root {
-  --color-surface: #ffffff;
-  --color-surface-raised: #f8f9fa;
-  --color-text-primary: #111827;
-  --color-text-muted: #6b7280;
-  --color-accent: #6366f1;
-  --color-border: #e5e7eb;
-  --color-correct: #16a34a;
-  --color-incorrect: #dc2626;
-  --color-unrecognized: #d97706;
+  --surface-rgb: 255 255 255;
+  --surface-raised-rgb: 248 249 250;
+  --text-primary-rgb: 17 24 39;
+  --text-muted-rgb: 107 114 128;
+  --accent-rgb: 99 102 241;
+  --border-rgb: 229 231 235;
+  --correct-rgb: 22 163 74;
+  --incorrect-rgb: 220 38 38;
+  --unrecognized-rgb: 217 119 6;
+
+  --color-surface: rgb(var(--surface-rgb));
+  --color-surface-raised: rgb(var(--surface-raised-rgb));
+  --color-text-primary: rgb(var(--text-primary-rgb));
+  --color-text-muted: rgb(var(--text-muted-rgb));
+  --color-accent: rgb(var(--accent-rgb));
+  --color-border: rgb(var(--border-rgb));
+  --color-correct: rgb(var(--correct-rgb));
+  --color-incorrect: rgb(var(--incorrect-rgb));
+  --color-unrecognized: rgb(var(--unrecognized-rgb));
+
+  /*
+   * Chart roles. Validated with the dataviz palette validator against the
+   * chart surface (--color-surface-raised), not eyeballed. Series colours are
+   * indigo — the same family as --color-accent — so charts read as part of the
+   * product rather than a bolted-on palette.
+   *
+   * --chart-life-* is an ORDINAL ramp: Unstudied -> Weak -> Strong -> Memorized
+   * -> Mastered is a progression, so the colour carries the order. One hue,
+   * monotone lightness, light end clears 2:1 against the surface.
+   */
+  --chart-life-1: #818cf8;
+  --chart-life-2: #6366f1;
+  --chart-life-3: #4f46e5;
+  --chart-life-4: #3730a3;
+  --chart-life-5: #1e1b4b;
+
+  --chart-series-1: #6366f1;
+  --chart-series-2: #eb6834;
+
+  --chart-grid: #e5e7eb;
+  /* The heatmap's zero cell. Stepped off --chart-grid so the legend's "Less"
+     swatch reads as the bottom of the ramp rather than as an empty gap
+     (1.33:1 against the chart surface, up from 1.17:1). */
+  --chart-empty: #d6dae1;
 
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,15 +67,29 @@
 }
 
 .dark {
-  --color-surface: #111827;
-  --color-surface-raised: #1f2937;
-  --color-text-primary: #f9fafb;
-  --color-text-muted: #9ca3af;
-  --color-accent: #818cf8;
-  --color-border: #374151;
-  --color-correct: #4ade80;
-  --color-incorrect: #f87171;
-  --color-unrecognized: #fbbf24;
+  --surface-rgb: 17 24 39;
+  --surface-raised-rgb: 31 41 55;
+  --text-primary-rgb: 249 250 251;
+  --text-muted-rgb: 156 163 175;
+  --accent-rgb: 129 140 248;
+  --border-rgb: 55 65 81;
+  --correct-rgb: 74 222 128;
+  --incorrect-rgb: 248 113 113;
+  --unrecognized-rgb: 251 191 36;
+
+  /* Dark is selected, not flipped: the ordinal anchor reverses so "least" sits
+     nearest the dark surface, and each step was re-validated against it. */
+  --chart-life-1: #4f46e5;
+  --chart-life-2: #6366f1;
+  --chart-life-3: #818cf8;
+  --chart-life-4: #a5b4fc;
+  --chart-life-5: #c7d2fe;
+
+  --chart-series-1: #6366f1;
+  --chart-series-2: #d95926;
+
+  --chart-grid: #374151;
+  --chart-empty: #445267;
 
   color-scheme: dark;
 }

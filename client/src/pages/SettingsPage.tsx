@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react'
-import { saveSettings, type TTSSettings } from '../lib/tts'
+import { saveSettings, getSettings, DEFAULT_TTS_SETTINGS, type TTSSettings } from '../lib/tts'
 import { speak } from '../lib/tts'
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState<TTSSettings>({ rate: 0.8, pitch: 1.0 })
+  const [settings, setSettings] = useState<TTSSettings>(DEFAULT_TTS_SETTINGS)
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('tts-settings')
-      if (stored) setSettings(JSON.parse(stored))
-    } catch {}
+    setSettings(getSettings())
   }, [])
 
   function update(patch: Partial<TTSSettings>) {
@@ -53,6 +50,22 @@ export default function SettingsPage() {
             step="0.1"
             value={settings.pitch}
             onChange={(e) => update({ pitch: parseFloat(e.target.value) })}
+            className="w-full accent-[var(--color-accent)]"
+          />
+        </label>
+
+        <label className="block space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-text-muted">Volume</span>
+            <span className="text-text-primary font-mono">{Math.round(settings.volume * 100)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={settings.volume}
+            onChange={(e) => update({ volume: parseFloat(e.target.value) })}
             className="w-full accent-[var(--color-accent)]"
           />
         </label>
