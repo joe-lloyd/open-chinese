@@ -53,3 +53,7 @@ next-env.d.ts
 
 # scratch output from scripts/check-functions-bundle.mjs
 tmp/
+
+# Firebase Admin key used by scripts/entitlement.mjs. This credential can write
+# entitlements — never commit it.
+service-account.json

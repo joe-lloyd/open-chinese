@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CATALOG, SUBSCRIPTION_SKU, packSkus } from '../lib/catalog'
+import { CATALOG, OFFERED_SKUS, SUBSCRIPTION_SKU } from '../lib/catalog'
 import { PAYMENTS_ENABLED } from '../lib/entitlements'
 import { openBillingPortal, startCheckout } from '../lib/checkout'
 import { useEntitlements } from '../hooks/useEntitlements'
@@ -18,6 +18,7 @@ export default function PricingPage() {
   const [error, setError] = useState<string | null>(null)
 
   const pro = CATALOG[SUBSCRIPTION_SKU]
+  const offeredPacks = OFFERED_SKUS.filter((sku) => CATALOG[sku].kind === 'pack')
   const freeHsk1 = freeCountFor(1)
 
   async function run(key: string, action: () => Promise<void>) {
@@ -63,7 +64,9 @@ export default function PricingPage() {
         </p>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div
+        className={`grid grid-cols-1 gap-4 ${offeredPacks.length > 0 ? 'lg:grid-cols-3' : 'max-w-md mx-auto w-full'}`}
+      >
         {/* Subscription */}
         <div className="lg:col-span-1 bg-surface-raised border-2 border-accent rounded-2xl p-6 space-y-5 flex flex-col">
           <div className="space-y-1">
@@ -111,7 +114,8 @@ export default function PricingPage() {
           )}
         </div>
 
-        {/* One-off packs */}
+        {/* One-off packs. Empty in the MVP — see OFFERED_SKUS in catalog.ts. */}
+        {offeredPacks.length > 0 && (
         <div className="lg:col-span-2 space-y-3">
           <div className="flex items-baseline justify-between">
             <h2 className="text-sm font-semibold text-text-primary">Or buy a level outright</h2>
@@ -119,7 +123,7 @@ export default function PricingPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {packSkus().map((sku) => {
+            {offeredPacks.map((sku) => {
               const entry = CATALOG[sku]
               const owned = isPro || entitlements.packs.includes(sku)
               return (
@@ -161,6 +165,7 @@ export default function PricingPage() {
             })}
           </div>
         </div>
+        )}
       </div>
 
       <p className="text-xs text-text-muted text-center">
