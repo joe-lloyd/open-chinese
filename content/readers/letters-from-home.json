@@ -1,0 +1,709 @@
+{
+  "id": "letters-from-home",
+  "title": "家里的来信",
+  "titleEn": "Letters from Home",
+  "description": "Chen Yu follows a trail of messages, records and family memories to finish an important assignment.",
+  "hskLevel": 3,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "八个消息",
+      "titleEn": "Eight Messages",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "邮件",
+            "。",
+            "她",
+            "收到",
+            "邮件",
+            "，",
+            "也",
+            "打开",
+            "邮件",
+            "。"
+          ],
+          "translation": "Chen Yu thought about email. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "礼物",
+            "。",
+            "她",
+            "收到",
+            "礼物",
+            "，",
+            "也",
+            "打开",
+            "礼物",
+            "。"
+          ],
+          "translation": "Chen Yu thought about gift. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "照片",
+            "。",
+            "她",
+            "收到",
+            "照片",
+            "，",
+            "也",
+            "打开",
+            "照片",
+            "。"
+          ],
+          "translation": "Chen Yu thought about photo. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "信",
+            "。",
+            "她",
+            "收到",
+            "信",
+            "，",
+            "也",
+            "打开",
+            "信",
+            "。"
+          ],
+          "translation": "Chen Yu thought about letter. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "文件",
+            "。",
+            "她",
+            "收到",
+            "文件",
+            "，",
+            "也",
+            "打开",
+            "文件",
+            "。"
+          ],
+          "translation": "Chen Yu thought about file. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "报告",
+            "。",
+            "她",
+            "收到",
+            "报告",
+            "，",
+            "也",
+            "打开",
+            "报告",
+            "。"
+          ],
+          "translation": "Chen Yu thought about report. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "消息",
+            "。",
+            "她",
+            "收到",
+            "消息",
+            "，",
+            "也",
+            "打开",
+            "消息",
+            "。"
+          ],
+          "translation": "Chen Yu thought about message. She received it and opened it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "表格",
+            "。",
+            "她",
+            "收到",
+            "表格",
+            "，",
+            "也",
+            "打开",
+            "表格",
+            "。"
+          ],
+          "translation": "Chen Yu thought about form. She received it and opened it."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "开始调查",
+      "titleEn": "The Investigation Begins",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "声音",
+            "。",
+            "她",
+            "调查",
+            "声音",
+            "，",
+            "也",
+            "记录",
+            "声音",
+            "。"
+          ],
+          "translation": "Chen Yu thought about sound. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "时间",
+            "。",
+            "她",
+            "调查",
+            "时间",
+            "，",
+            "也",
+            "记录",
+            "时间",
+            "。"
+          ],
+          "translation": "Chen Yu thought about time. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "地点",
+            "。",
+            "她",
+            "调查",
+            "地点",
+            "，",
+            "也",
+            "记录",
+            "地点",
+            "。"
+          ],
+          "translation": "Chen Yu thought about place. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "名字",
+            "。",
+            "她",
+            "调查",
+            "名字",
+            "，",
+            "也",
+            "记录",
+            "名字",
+            "。"
+          ],
+          "translation": "Chen Yu thought about name. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "方向",
+            "。",
+            "她",
+            "调查",
+            "方向",
+            "，",
+            "也",
+            "记录",
+            "方向",
+            "。"
+          ],
+          "translation": "Chen Yu thought about direction. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "情况",
+            "。",
+            "她",
+            "调查",
+            "情况",
+            "，",
+            "也",
+            "记录",
+            "情况",
+            "。"
+          ],
+          "translation": "Chen Yu thought about situation. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "过程",
+            "。",
+            "她",
+            "调查",
+            "过程",
+            "，",
+            "也",
+            "记录",
+            "过程",
+            "。"
+          ],
+          "translation": "Chen Yu thought about process. She investigated it and recorded it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "关系",
+            "。",
+            "她",
+            "调查",
+            "关系",
+            "，",
+            "也",
+            "记录",
+            "关系",
+            "。"
+          ],
+          "translation": "Chen Yu thought about connection. She investigated it and recorded it."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "大家的看法",
+      "titleEn": "Everyone’s View",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "意见",
+            "。",
+            "她",
+            "比较",
+            "意见",
+            "，",
+            "也",
+            "讨论",
+            "意见",
+            "。"
+          ],
+          "translation": "Chen Yu thought about opinion. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "方法",
+            "。",
+            "她",
+            "比较",
+            "方法",
+            "，",
+            "也",
+            "讨论",
+            "方法",
+            "。"
+          ],
+          "translation": "Chen Yu thought about method. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "变化",
+            "。",
+            "她",
+            "比较",
+            "变化",
+            "，",
+            "也",
+            "讨论",
+            "变化",
+            "。"
+          ],
+          "translation": "Chen Yu thought about change. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "经验",
+            "。",
+            "她",
+            "比较",
+            "经验",
+            "，",
+            "也",
+            "讨论",
+            "经验",
+            "。"
+          ],
+          "translation": "Chen Yu thought about experience. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "重点",
+            "。",
+            "她",
+            "比较",
+            "重点",
+            "，",
+            "也",
+            "讨论",
+            "重点",
+            "。"
+          ],
+          "translation": "Chen Yu thought about key point. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "事实",
+            "。",
+            "她",
+            "比较",
+            "事实",
+            "，",
+            "也",
+            "讨论",
+            "事实",
+            "。"
+          ],
+          "translation": "Chen Yu thought about fact. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "价值",
+            "。",
+            "她",
+            "比较",
+            "价值",
+            "，",
+            "也",
+            "讨论",
+            "价值",
+            "。"
+          ],
+          "translation": "Chen Yu thought about value. She compared it and discussed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "文化",
+            "。",
+            "她",
+            "比较",
+            "文化",
+            "，",
+            "也",
+            "讨论",
+            "文化",
+            "。"
+          ],
+          "translation": "Chen Yu thought about culture. She compared it and discussed it."
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "交作业",
+      "titleEn": "Turning It In",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "任务",
+            "。",
+            "她",
+            "决定",
+            "任务",
+            "，",
+            "也",
+            "完成",
+            "任务",
+            "。"
+          ],
+          "translation": "Chen Yu thought about task. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "工作",
+            "。",
+            "她",
+            "决定",
+            "工作",
+            "，",
+            "也",
+            "完成",
+            "工作",
+            "。"
+          ],
+          "translation": "Chen Yu thought about work. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "检查",
+            "。",
+            "她",
+            "决定",
+            "检查",
+            "，",
+            "也",
+            "完成",
+            "检查",
+            "。"
+          ],
+          "translation": "Chen Yu thought about check. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "介绍",
+            "。",
+            "她",
+            "决定",
+            "介绍",
+            "，",
+            "也",
+            "完成",
+            "介绍",
+            "。"
+          ],
+          "translation": "Chen Yu thought about introduction. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "会议",
+            "。",
+            "她",
+            "决定",
+            "会议",
+            "，",
+            "也",
+            "完成",
+            "会议",
+            "。"
+          ],
+          "translation": "Chen Yu thought about meeting. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "活动",
+            "。",
+            "她",
+            "决定",
+            "活动",
+            "，",
+            "也",
+            "完成",
+            "活动",
+            "。"
+          ],
+          "translation": "Chen Yu thought about activity. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "计划",
+            "。",
+            "她",
+            "决定",
+            "计划",
+            "，",
+            "也",
+            "完成",
+            "计划",
+            "。"
+          ],
+          "translation": "Chen Yu thought about plan. She decided on it and completed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈雨",
+              "pinyin": "Chén Yǔ",
+              "definition": "Chen Yu (a given name)"
+            },
+            "想到",
+            "目标",
+            "。",
+            "她",
+            "决定",
+            "目标",
+            "，",
+            "也",
+            "完成",
+            "目标",
+            "。"
+          ],
+          "translation": "Chen Yu thought about goal. She decided on it and completed it."
+        }
+      ]
+    }
+  ]
+}

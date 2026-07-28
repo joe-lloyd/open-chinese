@@ -46,7 +46,7 @@ export default function ReadersPage() {
         <div>
           <h1 className="text-2xl font-bold text-text-primary">Graded Readers</h1>
           <p className="text-sm text-text-muted mt-0.5">
-            Short stories that repeat the words they teach.
+            {rows.length} stories across HSK 1–9 that repeat the words they teach.
           </p>
         </div>
         <p className="text-sm text-text-muted">

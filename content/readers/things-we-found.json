@@ -1,0 +1,730 @@
+{
+  "id": "things-we-found",
+  "title": "我们找到的东西",
+  "titleEn": "Things We Found",
+  "description": "Lin An turns a week of errands into a small adventure, one useful discovery at a time.",
+  "hskLevel": 1,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "房间里的东西",
+      "titleEn": "Things in the Room",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "书",
+            "。",
+            "她",
+            "找到",
+            "书",
+            "，",
+            "也",
+            "放",
+            "书",
+            "。"
+          ],
+          "translation": "Lin An looked at the book. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "手机",
+            "。",
+            "她",
+            "找到",
+            "手机",
+            "，",
+            "也",
+            "放",
+            "手机",
+            "。"
+          ],
+          "translation": "Lin An looked at the phone. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "钱",
+            "。",
+            "她",
+            "找到",
+            "钱",
+            "，",
+            "也",
+            "放",
+            "钱",
+            "。"
+          ],
+          "translation": "Lin An looked at the money. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "水",
+            "。",
+            "她",
+            "找到",
+            "水",
+            "，",
+            "也",
+            "放",
+            "水",
+            "。"
+          ],
+          "translation": "Lin An looked at the water. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "米饭",
+            "。",
+            "她",
+            "找到",
+            "米饭",
+            "，",
+            "也",
+            "放",
+            "米饭",
+            "。"
+          ],
+          "translation": "Lin An looked at the rice. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "杯子",
+            "。",
+            "她",
+            "找到",
+            "杯子",
+            "，",
+            "也",
+            "放",
+            "杯子",
+            "。"
+          ],
+          "translation": "Lin An looked at the cup. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "电脑",
+            "。",
+            "她",
+            "找到",
+            "电脑",
+            "，",
+            "也",
+            "放",
+            "电脑",
+            "。"
+          ],
+          "translation": "Lin An looked at the computer. She found it and put it away."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "衣服",
+            "。",
+            "她",
+            "找到",
+            "衣服",
+            "，",
+            "也",
+            "放",
+            "衣服",
+            "。"
+          ],
+          "translation": "Lin An looked at the clothes. She found it and put it away."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "早上的市场",
+      "titleEn": "The Morning Market",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "包子",
+            "。",
+            "她",
+            "买",
+            "包子",
+            "，",
+            "也",
+            "喜欢",
+            "包子",
+            "。"
+          ],
+          "translation": "Lin An looked at the steamed bun. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "鸡蛋",
+            "。",
+            "她",
+            "买",
+            "鸡蛋",
+            "，",
+            "也",
+            "喜欢",
+            "鸡蛋",
+            "。"
+          ],
+          "translation": "Lin An looked at the egg. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "牛奶",
+            "。",
+            "她",
+            "买",
+            "牛奶",
+            "，",
+            "也",
+            "喜欢",
+            "牛奶",
+            "。"
+          ],
+          "translation": "Lin An looked at the milk. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "面包",
+            "。",
+            "她",
+            "买",
+            "面包",
+            "，",
+            "也",
+            "喜欢",
+            "面包",
+            "。"
+          ],
+          "translation": "Lin An looked at the bread. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "水果",
+            "。",
+            "她",
+            "买",
+            "水果",
+            "，",
+            "也",
+            "喜欢",
+            "水果",
+            "。"
+          ],
+          "translation": "Lin An looked at the fruit. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "茶",
+            "。",
+            "她",
+            "买",
+            "茶",
+            "，",
+            "也",
+            "喜欢",
+            "茶",
+            "。"
+          ],
+          "translation": "Lin An looked at the tea. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "菜",
+            "。",
+            "她",
+            "买",
+            "菜",
+            "，",
+            "也",
+            "喜欢",
+            "菜",
+            "。"
+          ],
+          "translation": "Lin An looked at the vegetables. She bought it and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "票",
+            "。",
+            "她",
+            "买",
+            "票",
+            "，",
+            "也",
+            "喜欢",
+            "票",
+            "。"
+          ],
+          "translation": "Lin An looked at the ticket. She bought it and liked it."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "路上的人",
+      "titleEn": "People on the Way",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "老师",
+            "。",
+            "她",
+            "看见",
+            "老师",
+            "，",
+            "也",
+            "认识",
+            "老师",
+            "。"
+          ],
+          "translation": "Lin An looked at the teacher. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "同学",
+            "。",
+            "她",
+            "看见",
+            "同学",
+            "，",
+            "也",
+            "认识",
+            "同学",
+            "。"
+          ],
+          "translation": "Lin An looked at the classmate. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "医生",
+            "。",
+            "她",
+            "看见",
+            "医生",
+            "，",
+            "也",
+            "认识",
+            "医生",
+            "。"
+          ],
+          "translation": "Lin An looked at the doctor. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "朋友",
+            "。",
+            "她",
+            "看见",
+            "朋友",
+            "，",
+            "也",
+            "认识",
+            "朋友",
+            "。"
+          ],
+          "translation": "Lin An looked at the friend. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "孩子",
+            "。",
+            "她",
+            "看见",
+            "孩子",
+            "，",
+            "也",
+            "认识",
+            "孩子",
+            "。"
+          ],
+          "translation": "Lin An looked at the child. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "妈妈",
+            "。",
+            "她",
+            "看见",
+            "妈妈",
+            "，",
+            "也",
+            "认识",
+            "妈妈",
+            "。"
+          ],
+          "translation": "Lin An looked at the mother. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "爸爸",
+            "。",
+            "她",
+            "看见",
+            "爸爸",
+            "，",
+            "也",
+            "认识",
+            "爸爸",
+            "。"
+          ],
+          "translation": "Lin An looked at the father. She saw them and met them."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "姐姐",
+            "。",
+            "她",
+            "看见",
+            "姐姐",
+            "，",
+            "也",
+            "认识",
+            "姐姐",
+            "。"
+          ],
+          "translation": "Lin An looked at the older sister. She saw them and met them."
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "城市的一天",
+      "titleEn": "A Day in the City",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "学校",
+            "。",
+            "她",
+            "去",
+            "学校",
+            "，",
+            "也",
+            "喜欢",
+            "学校",
+            "。"
+          ],
+          "translation": "Lin An looked at the school. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "商店",
+            "。",
+            "她",
+            "去",
+            "商店",
+            "，",
+            "也",
+            "喜欢",
+            "商店",
+            "。"
+          ],
+          "translation": "Lin An looked at the shop. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "医院",
+            "。",
+            "她",
+            "去",
+            "医院",
+            "，",
+            "也",
+            "喜欢",
+            "医院",
+            "。"
+          ],
+          "translation": "Lin An looked at the hospital. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "饭店",
+            "。",
+            "她",
+            "去",
+            "饭店",
+            "，",
+            "也",
+            "喜欢",
+            "饭店",
+            "。"
+          ],
+          "translation": "Lin An looked at the restaurant. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "机场",
+            "。",
+            "她",
+            "去",
+            "机场",
+            "，",
+            "也",
+            "喜欢",
+            "机场",
+            "。"
+          ],
+          "translation": "Lin An looked at the airport. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "车站",
+            "。",
+            "她",
+            "去",
+            "车站",
+            "，",
+            "也",
+            "喜欢",
+            "车站",
+            "。"
+          ],
+          "translation": "Lin An looked at the station. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "图书馆",
+            "。",
+            "她",
+            "去",
+            "图书馆",
+            "，",
+            "也",
+            "喜欢",
+            "图书馆",
+            "。"
+          ],
+          "translation": "Lin An looked at the library. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "家",
+            "。",
+            "她",
+            "去",
+            "家",
+            "，",
+            "也",
+            "喜欢",
+            "家",
+            "。"
+          ],
+          "translation": "Lin An looked at the home. She went there and liked it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "北京",
+            "。",
+            "她",
+            "去",
+            "北京",
+            "，",
+            "也",
+            "喜欢",
+            "北京",
+            "。"
+          ],
+          "translation": "Lin An looked at the Beijing. She went there and liked it."
+        }
+      ]
+    }
+  ]
+}

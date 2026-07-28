@@ -2,7 +2,7 @@
 
 Authored source for the graded readers. One JSON file per reader, filename `<id>.json`
 matching the reader's `id` field. `pnpm build:readers` validates these and emits the
-runtime assets into `client/public/data/readers/` (gitignored — these sources are the
+runtime assets into `apps/app/public/data/readers/` (gitignored — these sources are the
 only committed source of truth).
 
 ## Format
@@ -36,10 +36,10 @@ Write one token per word, with punctuation as its own token.
 
 A token is either:
 
-- **a bare string** — looked up in `scripts/hsk{1..4}.json`, which supplies its pinyin and
+- **a bare string** — looked up in `packages/build-tools/hsk{1..7}.json`, which supplies its pinyin and
   definition. Never retype those; deriving them keeps readers consistent with the
   dictionary and flashcards, and keeps tone marks correct.
-- **an object** with `text`, `pinyin` and `definition` — for anything outside HSK 1–4,
+- **an object** with `text`, `pinyin` and `definition` — for proper nouns or anything outside HSK 1–9,
   typically proper nouns. `pinyin` and `definition` must both be non-empty: this is the
   one path the HSK data cannot cross-check, so it is where the gloss gate matters most.
   Inline tokens skip the level-fit check only when the HSK data does not know the word.
@@ -66,13 +66,21 @@ inventory — roughly 15 words used 3–5 times each — rather than writing fre
 Chapter 1 of a reader introduces everything it contains; later chapters may reuse earlier
 vocabulary as often as they like with no repetition requirement.
 
-Thresholds live in one constant block at the top of `scripts/build-readers.ts`.
+Thresholds live in one constant block at the top of
+`packages/build-tools/build-readers.ts`.
+
+HSK 3.0 groups advanced vocabulary into a single HSK 7–9 band. In reader
+metadata that band is stored as `hskLevel: 7` and displayed as “HSK 7–9”.
 
 ## Workflow
 
 Write a draft, run `pnpm build:readers`, and let the failures drive the revision — the
 error output names the reader, chapter and the exact words that fall short, with their
 occurrence counts. Iterate until it is clean.
+
+The larger bundled library is defined in `scripts/generate-reader-library.mjs`.
+Run `pnpm generate:readers` after editing those story plans, then run
+`pnpm build:readers` to apply the same quality gates as a hand-authored reader.
 
 This is also the intended contract for a future generator: a script that emits files in
 this format is subject to exactly the same gates, so a human reviewer only has to judge

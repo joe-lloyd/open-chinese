@@ -1,6 +1,6 @@
 {
   "name": "open-chinese",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "packageManager": "pnpm@10.26.0",
   "engines": {
@@ -11,6 +11,8 @@
     "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
     "build:words-db": "pnpm --filter @open-chinese/build-tools build:words-db",
     "build:readers": "pnpm --filter @open-chinese/build-tools build:readers",
+    "generate:readers": "node scripts/generate-reader-library.mjs",
+    "import:hsk": "node scripts/import-hsk30.mjs",
     "typecheck:functions": "tsc -p tsconfig.functions.json",
     "check:functions-bundle": "node scripts/check-functions-bundle.mjs",
     "entitlement": "node --env-file-if-exists=apps/app/.env scripts/entitlement.mjs",

@@ -117,7 +117,7 @@ function toSentencePinyin(sentence: string, neutral: Map<string, (string | null)
   return asciified.replace(/\s+([.,?!:;)"'…])/g, '$1').replace(/(["'(])\s+/g, '$1').trim()
 }
 
-const words: HskWord[] = [1, 2, 3, 4].flatMap((lvl) =>
+const words: HskWord[] = [1, 2, 3, 4, 5, 6, 7].flatMap((lvl) =>
   JSON.parse(readFileSync(resolve(__dirname, `hsk${lvl}.json`), 'utf-8')) as HskWord[]
 )
 
@@ -167,7 +167,7 @@ const insertMany = db.transaction(() => {
       normalizePinyin(w.pinyin),
       w.definition,
       w.hskLevel,
-      `HSK ${w.hskLevel}`,
+      w.hskLevel === 7 ? 'HSK 7–9' : `HSK ${w.hskLevel}`,
       w.sentenceZh ?? null,
       w.sentenceEn ?? null,
       sentencePinyin

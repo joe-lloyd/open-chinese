@@ -14,6 +14,13 @@ export interface Feature {
   icon: string
 }
 
+export const CONTENT_STATS = [
+  { value: '10,969', label: 'vocabulary entries' },
+  { value: 'HSK 1–9', label: 'complete learning path' },
+  { value: '9', label: 'graded readers' },
+  { value: '33', label: 'reader chapters' },
+] as const
+
 export const FEATURES: Feature[] = [
   {
     title: 'Spaced repetition that tracks two skills',
@@ -21,13 +28,13 @@ export const FEATURES: Feature[] = [
     icon: '◷',
   },
   {
-    title: 'HSK 1–4 vocabulary, ready to study',
-    body: 'The full HSK 1–4 word list with pinyin, definitions and example sentences, organised by level. Start a session for a single level or let the scheduler decide what is due.',
+    title: 'HSK 1–9 vocabulary, ready to study',
+    body: 'More than 10,900 HSK 3.0 entries with pinyin, traditional forms and English definitions, organised from HSK 1 through the combined HSK 7–9 advanced band. Start a session for one band or let the scheduler decide what is due.',
     icon: '级',
   },
   {
     title: 'Graded readers that reinforce as you go',
-    body: 'Short chapters written around the words you are learning, each introducing 10–20 new ones and repeating them enough to stick. Tap any word for its meaning, toggle pinyin when you are stuck, and finish a chapter to move its new words into your dictionary.',
+    body: 'Nine stories and 33 short chapters written around the words you are learning. Each chapter introduces 10–20 new words and repeats them enough to stick. Tap any word for its meaning, toggle pinyin when you are stuck, and finish a chapter to move its new words into your dictionary.',
     icon: '書',
   },
   {
@@ -75,7 +82,7 @@ export interface Faq {
 export const FAQS: Faq[] = [
   {
     q: 'Is there a free version?',
-    a: 'Yes. The first half of HSK 1 is free with no card and no time limit, which is enough to tell whether the review loop suits you. Pro unlocks the rest of HSK 1 through 4 and every graded reader.',
+    a: 'Yes. The first half of HSK 1 is free with no card and no time limit, which is enough to tell whether the review loop suits you. Pro unlocks every HSK 1–9 vocabulary band and all graded readers.',
   },
   {
     q: 'What does it cost?',

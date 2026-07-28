@@ -1,0 +1,709 @@
+{
+  "id": "weekend-route",
+  "title": "周末路线",
+  "titleEn": "The Weekend Route",
+  "description": "Zhou Ning plans a weekend across the city and learns that the route matters as much as the destination.",
+  "hskLevel": 2,
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "出发以前",
+      "titleEn": "Before Leaving",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "地图",
+            "。",
+            "她",
+            "准备",
+            "地图",
+            "，",
+            "也",
+            "带",
+            "地图",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about map. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "相机",
+            "。",
+            "她",
+            "准备",
+            "相机",
+            "，",
+            "也",
+            "带",
+            "相机",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about camera. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "护照",
+            "。",
+            "她",
+            "准备",
+            "护照",
+            "，",
+            "也",
+            "带",
+            "护照",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about passport. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "药",
+            "。",
+            "她",
+            "准备",
+            "药",
+            "，",
+            "也",
+            "带",
+            "药",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about medicine. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "票",
+            "。",
+            "她",
+            "准备",
+            "票",
+            "，",
+            "也",
+            "带",
+            "票",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about ticket. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "照片",
+            "。",
+            "她",
+            "准备",
+            "照片",
+            "，",
+            "也",
+            "带",
+            "照片",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about photo. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "礼物",
+            "。",
+            "她",
+            "准备",
+            "礼物",
+            "，",
+            "也",
+            "带",
+            "礼物",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about gift. She prepared it and packed it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "笔记",
+            "。",
+            "她",
+            "准备",
+            "笔记",
+            "，",
+            "也",
+            "带",
+            "笔记",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about notes. She prepared it and packed it."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "穿过城市",
+      "titleEn": "Across the City",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "路口",
+            "。",
+            "她",
+            "经过",
+            "路口",
+            "，",
+            "也",
+            "记住",
+            "路口",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about intersection. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "银行",
+            "。",
+            "她",
+            "经过",
+            "银行",
+            "，",
+            "也",
+            "记住",
+            "银行",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about bank. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "超市",
+            "。",
+            "她",
+            "经过",
+            "超市",
+            "，",
+            "也",
+            "记住",
+            "超市",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about supermarket. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "广场",
+            "。",
+            "她",
+            "经过",
+            "广场",
+            "，",
+            "也",
+            "记住",
+            "广场",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about square. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "地铁",
+            "。",
+            "她",
+            "经过",
+            "地铁",
+            "，",
+            "也",
+            "记住",
+            "地铁",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about metro. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "公园",
+            "。",
+            "她",
+            "经过",
+            "公园",
+            "，",
+            "也",
+            "记住",
+            "公园",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about park. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "交通",
+            "。",
+            "她",
+            "经过",
+            "交通",
+            "，",
+            "也",
+            "记住",
+            "交通",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about traffic. She passed it and remembered it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "地点",
+            "。",
+            "她",
+            "经过",
+            "地点",
+            "，",
+            "也",
+            "记住",
+            "地点",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about location. She passed it and remembered it."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "新的安排",
+      "titleEn": "New Arrangements",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "活动",
+            "。",
+            "她",
+            "讨论",
+            "活动",
+            "，",
+            "也",
+            "计划",
+            "活动",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about activity. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "节目",
+            "。",
+            "她",
+            "讨论",
+            "节目",
+            "，",
+            "也",
+            "计划",
+            "节目",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about show. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "旅行",
+            "。",
+            "她",
+            "讨论",
+            "旅行",
+            "，",
+            "也",
+            "计划",
+            "旅行",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about trip. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "运动",
+            "。",
+            "她",
+            "讨论",
+            "运动",
+            "，",
+            "也",
+            "计划",
+            "运动",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about exercise. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "工作",
+            "。",
+            "她",
+            "讨论",
+            "工作",
+            "，",
+            "也",
+            "计划",
+            "工作",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about work. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "教育",
+            "。",
+            "她",
+            "讨论",
+            "教育",
+            "，",
+            "也",
+            "计划",
+            "教育",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about education. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "住房",
+            "。",
+            "她",
+            "讨论",
+            "住房",
+            "，",
+            "也",
+            "计划",
+            "住房",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about housing. She discussed it and planned it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "人口",
+            "。",
+            "她",
+            "讨论",
+            "人口",
+            "，",
+            "也",
+            "计划",
+            "人口",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about population. She discussed it and planned it."
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "title": "最后的问题",
+      "titleEn": "The Last Problem",
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "问题",
+            "。",
+            "她",
+            "发现",
+            "问题",
+            "，",
+            "也",
+            "说明",
+            "问题",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about problem. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "办法",
+            "。",
+            "她",
+            "发现",
+            "办法",
+            "，",
+            "也",
+            "说明",
+            "办法",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about solution. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "原因",
+            "。",
+            "她",
+            "发现",
+            "原因",
+            "，",
+            "也",
+            "说明",
+            "原因",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about reason. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "机会",
+            "。",
+            "她",
+            "发现",
+            "机会",
+            "，",
+            "也",
+            "说明",
+            "机会",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about opportunity. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "方向",
+            "。",
+            "她",
+            "发现",
+            "方向",
+            "，",
+            "也",
+            "说明",
+            "方向",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about direction. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "方法",
+            "。",
+            "她",
+            "发现",
+            "方法",
+            "，",
+            "也",
+            "说明",
+            "方法",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about method. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "重点",
+            "。",
+            "她",
+            "发现",
+            "重点",
+            "，",
+            "也",
+            "说明",
+            "重点",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about key point. She found it and explained it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "想到",
+            "意见",
+            "。",
+            "她",
+            "发现",
+            "意见",
+            "，",
+            "也",
+            "说明",
+            "意见",
+            "。"
+          ],
+          "translation": "Zhou Ning thought about opinion. She found it and explained it."
+        }
+      ]
+    }
+  ]
+}

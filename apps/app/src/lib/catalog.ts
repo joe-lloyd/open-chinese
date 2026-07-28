@@ -11,7 +11,15 @@
  * at checkout time.
  */
 
-export type CatalogSku = 'pro-yearly' | 'hsk-1' | 'hsk-2' | 'hsk-3' | 'hsk-4'
+export type CatalogSku =
+  | 'pro-yearly'
+  | 'hsk-1'
+  | 'hsk-2'
+  | 'hsk-3'
+  | 'hsk-4'
+  | 'hsk-5'
+  | 'hsk-6'
+  | 'hsk-7'
 
 export interface CatalogEntry {
   kind: 'subscription' | 'pack'
@@ -37,30 +45,51 @@ export const CATALOG: Record<CatalogSku, CatalogEntry> = {
   'hsk-1': {
     kind: 'pack',
     label: 'HSK 1 Complete',
-    description: 'All 156 HSK 1 words.',
+    description: 'All 506 HSK 1 words.',
     priceEur: 6,
     grants: { hskLevel: 1 },
   },
   'hsk-2': {
     kind: 'pack',
     label: 'HSK 2 Complete',
-    description: 'All 151 HSK 2 words.',
+    description: 'All 750 HSK 2 words.',
     priceEur: 6,
     grants: { hskLevel: 2 },
   },
   'hsk-3': {
     kind: 'pack',
     label: 'HSK 3 Complete',
-    description: 'All 228 HSK 3 words.',
+    description: 'All 953 HSK 3 words.',
     priceEur: 6,
     grants: { hskLevel: 3 },
   },
   'hsk-4': {
     kind: 'pack',
     label: 'HSK 4 Complete',
-    description: 'All 205 HSK 4 words.',
+    description: 'All 972 HSK 4 words.',
     priceEur: 6,
     grants: { hskLevel: 4 },
+  },
+  'hsk-5': {
+    kind: 'pack',
+    label: 'HSK 5 Complete',
+    description: 'All 1,059 HSK 5 words.',
+    priceEur: 6,
+    grants: { hskLevel: 5 },
+  },
+  'hsk-6': {
+    kind: 'pack',
+    label: 'HSK 6 Complete',
+    description: 'All 1,123 HSK 6 words.',
+    priceEur: 6,
+    grants: { hskLevel: 6 },
+  },
+  'hsk-7': {
+    kind: 'pack',
+    label: 'HSK 7–9 Complete',
+    description: 'All 5,606 words in the combined HSK 7–9 advanced band.',
+    priceEur: 12,
+    grants: { hskLevel: 7 },
   },
 }
 
@@ -71,8 +100,8 @@ export const SUBSCRIPTION_SKU: CatalogSku = 'pro-yearly'
  *
  * MVP is the subscription alone. The pack machinery stays fully wired —
  * `canAccess` honours packs, and `pnpm entitlement packs` grants them — but
- * surfacing packs would mean creating and maintaining five provider prices
- * instead of one, and at €6 × 4 = €24 against a €25 year they read as a decoy
+ * surfacing packs would mean creating and maintaining several provider prices
+ * instead of one, and the full set would compete awkwardly with the yearly plan
  * rather than a real choice. Add pack SKUs here once they are priced to stand
  * on their own; nothing else needs to change.
  */
@@ -116,7 +145,7 @@ export interface FreeTierConfig {
   hskLevels: Partial<Record<number, FreeLevelAllowance>>
 }
 
-/** Default demo: the first half of HSK 1 (78 of 156 words). */
+/** Default demo: the first half of HSK 1. */
 export const FREE_TIER: FreeTierConfig = {
   hskLevels: {
     1: { fraction: 0.5 },
