@@ -62,9 +62,14 @@ The user profile document `users/{uid}` SHALL carry a `lastRead` field holding `
 - **WHEN** a user who has never opened a chapter is loaded
 - **THEN** `lastRead` SHALL be absent and consumers SHALL treat that as "no reading in progress"
 
-### Requirement: Security rules cover reader subcollections
-The existing per-user isolation rule SHALL cover `users/{uid}/readerProgress/**` without granting cross-user access.
+### Requirement: Security rules name the reader progress subcollection explicitly
+`firestore.rules` SHALL grant the owning user read and write access to `users/{uid}/readerProgress/{readerId}` through a match block that names the collection, rather than relying on a recursive `users/{uid}/{document=**}` match. Recursive matches cannot be relied on here: Firestore evaluates matching rules as a union rather than letting the most specific win, so a recursive `allow write` cannot coexist with any server-authoritative collection under `users/{uid}`, and removing it must not silently revoke reader progress.
 
 #### Scenario: User cannot read another user's reader progress
 - **WHEN** an authenticated user attempts to read `users/{otherUid}/readerProgress/{readerId}`
 - **THEN** the Firestore security rules SHALL deny the request
+
+#### Scenario: Reader progress stays writable without a recursive match
+- **GIVEN** the recursive `users/{uid}/{document=**}` match has been removed
+- **WHEN** the owning user writes `users/{uid}/readerProgress/{readerId}`
+- **THEN** the write SHALL be permitted by the explicit match block
