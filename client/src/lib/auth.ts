@@ -24,3 +24,8 @@ export function onAuthChanged(callback: (user: User | null) => void): () => void
 export function getCurrentUid(): string | null {
   return auth.currentUser?.uid ?? null
 }
+
+/** Short-lived Firebase ID token, the only thing the payment functions trust. */
+export async function getIdToken(): Promise<string | null> {
+  return (await auth.currentUser?.getIdToken()) ?? null
+}

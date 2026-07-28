@@ -33,7 +33,7 @@ A missing document SHALL be treated as the free tier, identical to `{ plan: 'fre
 - **AND** SHALL NOT create an entitlement document from the client
 
 ### Requirement: Pro access expires by period end, not by flag alone
-A user SHALL be treated as Pro only when `plan` is `pro` AND `status` is `active` or `past_due` AND `currentPeriodEnd` is in the future. A subscription whose renewal is never confirmed SHALL therefore lapse to the free tier automatically rather than granting access indefinitely.
+A user SHALL be treated as Pro only when `plan` is `pro` AND `status` is `active` or `past_due` AND either `currentPeriodEnd` is in the future, or `planSource` is `grant` and `currentPeriodEnd` is null. A subscription whose renewal is never confirmed SHALL therefore lapse to the free tier automatically rather than granting access indefinitely; only a manually issued grant SHALL be perpetual.
 
 #### Scenario: Active subscription within period
 - **GIVEN** `plan: 'pro'`, `status: 'active'`, `currentPeriodEnd` one month in the future
@@ -50,6 +50,11 @@ A user SHALL be treated as Pro only when `plan` is `pro` AND `status` is `active
 - **GIVEN** `status: 'canceled'` with `currentPeriodEnd` in the future
 - **WHEN** entitlements are resolved
 - **THEN** the user SHALL NOT be treated as Pro
+
+#### Scenario: Manually issued grant never expires
+- **GIVEN** `plan: 'pro'`, `planSource: 'grant'`, `status: 'active'`, `currentPeriodEnd: null`
+- **WHEN** entitlements are resolved
+- **THEN** the user SHALL be treated as Pro
 
 ### Requirement: Subscription and one-off pack purchases are supported simultaneously
 The system SHALL support both a recurring subscription that unlocks all content and one-off pack purchases that unlock a single catalogue entry permanently. Both SHALL be represented in the same entitlement document and resolved by the same access function, so that either or both commercial models can be offered without code changes.

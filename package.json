@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "pnpm --filter client dev",
     "build": "pnpm --filter client build",
-    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db"
+    "build:words-db": "pnpm --filter open-chinese-scripts build:words-db",
+    "typecheck:functions": "tsc -p tsconfig.functions.json"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -13,7 +14,13 @@
       "esbuild"
     ]
   },
+  "dependencies": {
+    "firebase-admin": "^13.6.0",
+    "stripe": "^22.3.2"
+  },
   "devDependencies": {
-    "concurrently": "9.1.2"
+    "@types/node": "^24.13.2",
+    "concurrently": "9.1.2",
+    "typescript": "~6.0.2"
   }
 }

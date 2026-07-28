@@ -2,6 +2,10 @@
   command = "pnpm install && pnpm build:words-db && VITE_BUILD_ID=$COMMIT_REF pnpm --filter client build"
   publish = "client/dist"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

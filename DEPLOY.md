@@ -46,6 +46,31 @@ pnpm build:words-db
 
 This writes `client/public/words.db` (731 HSK 1–4 words). Commit the file; it's served as a static CDN asset.
 
+### 4. Payments (optional — off by default)
+
+Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
+`VITE_PAYMENTS_ENABLED` stays false, and every content gate is open. To turn them on:
+
+1. Pick a provider. See `openspec/specs/monetization/spec.md` and the design
+   notes for the trade-offs — the recommendation is a merchant of record (Polar
+   or Paddle) so EU VAT is handled for you, with Stripe as the reference
+   implementation you can exercise in test mode today.
+2. Set the **server-side** variables from the root `.env.example` in Netlify's
+   environment (never with a `VITE_` prefix — that would publish them):
+   `PAYMENT_PROVIDER`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`, and the
+   provider's secret key, webhook secret and price IDs.
+3. Create the Firebase service account with the **Cloud Datastore User** role
+   only. It is the sole credential able to write entitlements.
+4. Point the provider's webhook at `https://<your-site>/.netlify/functions/webhook`
+   and subscribe to the events listed in the root `.env.example`.
+5. Set `VITE_PAYMENTS_ENABLED=true` and redeploy.
+
+Rollback is unsetting `VITE_PAYMENTS_ENABLED`: every gate reopens and there is no
+data to migrate back.
+
+Note that content gating is a purchase prompt, not a lock — `words.db` is a public
+static asset and remains downloadable by anyone.
+
 ---
 
 ## Local development (no auth)

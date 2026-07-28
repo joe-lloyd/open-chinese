@@ -1,13 +1,52 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Root profile document
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
     }
-    // All subcollections: words, dailyStats
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+    match /users/{userId} {
+      // Root profile document: email, name, picture, dailyNewLimit, deck prefs.
+      allow read, write: if isOwner(userId);
+
+      // ── Server-authoritative. Never writable by any client. ──
+      //
+      // `allow write: if false` denies the web SDK, the mobile SDKs and the REST
+      // API alike — including a caller holding a valid stolen ID token. The
+      // payment webhook writes these documents through the Firebase Admin SDK,
+      // which bypasses security rules entirely, so there is no privileged client
+      // path to leak and no condition here to weaken.
+      match /entitlements/{docId} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
+      match /billing/{docId} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
+
+      // ── User-owned collections, enumerated deliberately. ──
+      //
+      // Do NOT replace these with `match /{document=**}`. Firestore ORs matching
+      // rules together rather than letting the most specific one win, so a
+      // recursive allow here would re-grant write access to entitlements and
+      // billing above no matter how specific those matches are.
+      //
+      // The cost is that a new user-owned collection needs a line added below.
+      // That fails closed — the feature breaks visibly — which is the right way
+      // round for the file that guards the paywall.
+      match /words/{simplified} {
+        allow read, write: if isOwner(userId);
+      }
+      match /dailyStats/{date} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Payment webhook idempotency ledger. Admin SDK only, no client access.
+    match /webhookEvents/{eventId} {
+      allow read, write: if false;
     }
   }
 }
