@@ -12,17 +12,40 @@ Open-source Mandarin vocabulary app. Hack Chinese alternative with multi-dimensi
 
 ```bash
 pnpm install
-cp client/.env.example client/.env   # then fill in the VITE_FIREBASE_* values
-pnpm build:words-db                  # generates client/public/words.db (gitignored)
-pnpm dev                             # starts Vite on localhost:5173
+cp apps/app/.env.example apps/app/.env   # then fill in the VITE_FIREBASE_* values
+pnpm build:words-db                  # generates apps/app/public/words.db (gitignored)
+pnpm build:readers                   # generates the graded reader assets (gitignored)
+pnpm dev                             # the app, on localhost:5173
+pnpm dev:site                        # the marketing site, on localhost:4321
 ```
 
-`client/.env` must carry the six `VITE_FIREBASE_*` keys from your Firebase project's
+## Repository layout
+
+A pnpm workspace with two deployable apps and the packages they share.
+
+```
+apps/
+  app/            the study app — React + Vite SPA, served at /app
+  site/           the marketing site — Astro, static, served at /
+packages/
+  tokens/         design tokens shared by both, so they cannot drift
+  build-tools/    builds words.db and the reader assets from source data
+content/readers/  authored reader sources (input to build-tools)
+netlify/functions/ payment endpoints — checkout, webhook, billing portal
+scripts/          repo operations: entitlement CLI, bundle check, dist assembly
+openspec/         specs and change history
+```
+
+Both apps deploy from one Netlify site and one domain: `pnpm build` builds each
+of them and `scripts/assemble-dist.mjs` nests the app's output inside the site's
+at `/app`, which is what `netlify.toml` publishes.
+
+`apps/app/.env` must carry the six `VITE_FIREBASE_*` keys from your Firebase project's
 web app config. `VITE_ALLOWED_EMAIL` is optional — set it to restrict sign-in to a
 single Google account, or leave it blank to allow any account.
 
-`pnpm build:words-db` builds the bundled dictionary from `scripts/hsk.json`. It must be
-run at least once before `pnpm dev`, because `client/public/words.db` is not committed
+`pnpm build:words-db` builds the bundled dictionary from `packages/build-tools/hsk*.json`. It must be
+run at least once before `pnpm dev`, because `apps/app/public/words.db` is not committed
 to the repository.
 
 ## Import from Hack Chinese
@@ -69,6 +92,11 @@ requires an internet connection.
 
 | Command | Description |
 |---|---|
-| `pnpm dev` | Start the Vite dev server on localhost:5173 |
-| `pnpm build` | Build the client for production |
-| `pnpm build:words-db` | Regenerate `client/public/words.db` from `scripts/hsk.json` |
+| `pnpm dev` | Start the app's dev server on localhost:5173 |
+| `pnpm dev:site` | Start the marketing site's dev server on localhost:4321 |
+| `pnpm build` | Build both apps and assemble the deployable `apps/site/dist` |
+| `pnpm build:app` / `pnpm build:site` | Build one of them |
+| `pnpm preview` | Serve the assembled output exactly as Netlify will |
+| `pnpm build:words-db` | Regenerate `apps/app/public/words.db` from `packages/build-tools/hsk*.json` |
+| `pnpm build:readers` | Regenerate the graded reader assets from `content/readers/` |
+| `pnpm entitlement <persona>` | Set your own or a test account's plan — see DEPLOY.md |

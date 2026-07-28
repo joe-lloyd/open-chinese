@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      The app is behind auth and renders nothing without JavaScript, so there is
+      nothing here worth indexing. robots.txt disallows /app as well; this tag
+      covers the case where a crawler reaches the page by a direct link, which
+      robots.txt alone does not prevent from being indexed.
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>OpenChinese</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+---
+import { SITE } from '../../site.config'
+const year = new Date().getFullYear()
+---
+
+<footer class="border-t border-border">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-text-muted sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>© {year} {SITE.name}</p>
+    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+      <li><a class="hover:text-text-primary" href="/features">Features</a></li>
+      <li><a class="hover:text-text-primary" href="/pricing">Pricing</a></li>
+      <li><a class="hover:text-text-primary" href="/faq">FAQ</a></li>
+      <li><a class="hover:text-text-primary" href={SITE.appPath}>Sign in</a></li>
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro'
+import Cta from '../components/Cta.astro'
+import { FAQS } from '../data/content'
+
+// FAQPage markup makes these eligible for the expandable Q&A treatment in search
+// results. It has to mirror the visible text exactly — Google treats a mismatch
+// as cloaking — so both render from the same array.
+const schema = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  },
+]
+---
+
+<Base
+  title="FAQ"
+  description="What OpenChinese costs, whether it checks tones, importing existing vocabulary, using it on a phone, and what happens to your words if you stop paying."
+  path="/faq"
+  schema={schema}
+>
+  <section class="mx-auto max-w-3xl px-5 pb-10 pt-16 sm:pt-20">
+    <h1 class="text-balance text-4xl font-bold sm:text-5xl">Questions</h1>
+    <p class="mt-4 text-pretty text-lg text-text-muted">
+      Including the ones with answers you might not want to hear.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 pb-8">
+    <dl class="divide-y divide-border border-y border-border">
+      {
+        FAQS.map(({ q, a }) => (
+          <div class="py-7">
+            <dt class="font-semibold">{q}</dt>
+            <dd class="mt-2 text-pretty leading-relaxed text-text-muted">{a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <Cta heading="Still deciding?" body="Half of HSK 1 is free. That is enough to know." />
+</Base>

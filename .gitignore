@@ -2,6 +2,13 @@
 
 # dependencies
 node_modules/
+
+# build output — every app's, at any depth. apps/app/.gitignore covers its own
+# from the Vite template; apps/site had nothing, and `apps/site/dist` also
+# receives the assembled app build, so it must never be committed.
+dist/
+# Astro's generated types
+.astro/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -34,7 +41,7 @@ yarn-error.log*
 *.db
 
 # reader runtime assets (built from content/readers — don't commit)
-client/public/data/readers/
+apps/app/public/data/readers/
 
 # firebase cli
 firebase-debug.log
