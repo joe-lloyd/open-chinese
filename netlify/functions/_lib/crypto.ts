@@ -3,9 +3,8 @@
  *
  * Ships as a working shape behind the same interface but is OFF unless
  * `PAYMENT_PROVIDER=coinbase-commerce` and the credentials are set. No merchant
- * of record offers crypto (see design.md D5), so the normal deployment is a card
- * provider for subscriptions plus this one for crypto — which is what the
- * provider registry allows.
+ * of record offers crypto (see design.md D5). The provider registry selects this
+ * adapter instead of Stripe; it does not run two providers at once.
  *
  * Two things to know before turning it on: crypto has no recurring billing, so
  * `pro-yearly` bought this way is a prepaid, non-renewing year; and crypto
@@ -38,6 +37,9 @@ export const coinbaseCommerceProvider: PaymentProvider = {
   id: 'coinbase-commerce',
 
   async createCheckoutSession(input: CheckoutInput): Promise<{ url: string }> {
+    if (input.sku === 'pro-monthly') {
+      throw new Error('Coinbase Commerce cannot sell recurring monthly subscriptions')
+    }
     const res = await fetch(`${API}/charges`, {
       method: 'POST',
       headers: {

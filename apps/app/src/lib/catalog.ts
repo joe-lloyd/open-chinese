@@ -1,17 +1,19 @@
 /**
  * What is for sale, and what is free.
  *
- * Both commercial models are live at once: `pro-yearly` unlocks everything for a
- * year, and each `pack` unlocks one HSK level outright. Which of them the pricing
- * page offers is a rendering decision, not a gating one — `canAccess` treats them
- * identically.
+ * Both commercial models are live at once: monthly and yearly Pro unlock
+ * everything, and each `pack` unlocks one HSK level outright. Which entries the
+ * pricing page offers is a rendering decision, not a gating one.
  *
  * Prices here are display copy only. The authoritative price is whatever the
  * payment provider has configured for the SKU; nothing in the client is trusted
  * at checkout time.
  */
 
+import { PRO_PRICING } from '@open-chinese/pricing'
+
 export type CatalogSku =
+  | 'pro-monthly'
   | 'pro-yearly'
   | 'hsk-1'
   | 'hsk-2'
@@ -30,18 +32,34 @@ export interface CatalogEntry {
   /** Display price in euro. */
   priceEur: number
   /** Billing cadence for subscriptions; absent for one-off packs. */
-  interval?: 'year'
+  interval?: 'month' | 'year'
+  /** Number of billing intervals per recurring charge. */
+  intervalCount?: number
+  /** Publicly preferred recurring offer. */
+  recommended?: boolean
   /** `'all'` unlocks everything; otherwise the HSK level this pack covers. */
   grants: 'all' | { hskLevel: number }
 }
 
 export const CATALOG: Record<CatalogSku, CatalogEntry> = {
+  'pro-monthly': {
+    kind: 'subscription',
+    label: 'Pro monthly',
+    description: 'Every HSK level and every reader, billed monthly.',
+    priceEur: PRO_PRICING.monthly.amountEur,
+    interval: PRO_PRICING.monthly.interval,
+    intervalCount: PRO_PRICING.monthly.intervalCount,
+    recommended: PRO_PRICING.monthly.recommended,
+    grants: 'all',
+  },
   'pro-yearly': {
     kind: 'subscription',
-    label: 'Pro',
-    description: 'Every HSK level and every reader, for a year.',
-    priceEur: 25,
-    interval: 'year',
+    label: 'Pro yearly',
+    description: 'Every HSK level and every reader, billed yearly.',
+    priceEur: PRO_PRICING.yearly.amountEur,
+    interval: PRO_PRICING.yearly.interval,
+    intervalCount: PRO_PRICING.yearly.intervalCount,
+    recommended: PRO_PRICING.yearly.recommended,
     grants: 'all',
   },
   'hsk-1': {
@@ -109,19 +127,25 @@ export const CATALOG: Record<CatalogSku, CatalogEntry> = {
   },
 }
 
-export const SUBSCRIPTION_SKU: CatalogSku = 'pro-yearly'
+export const SUBSCRIPTION_SKUS = [
+  PRO_PRICING.yearly.sku,
+  PRO_PRICING.monthly.sku,
+] as const satisfies readonly CatalogSku[]
+
+/** Default/recommended Pro offer used by generic access denials. */
+export const SUBSCRIPTION_SKU: CatalogSku = PRO_PRICING.yearly.sku
 
 /**
  * What the pricing page actually offers.
  *
- * MVP is the subscription alone. The pack machinery stays fully wired —
+ * The two Pro intervals are the launch offers. The pack machinery stays fully wired —
  * `canAccess` honours packs, and `pnpm entitlement packs` grants them — but
  * surfacing packs would mean creating and maintaining several provider prices
- * instead of one, and the full set would compete awkwardly with the yearly plan
+ * and the full set would compete awkwardly with the Pro choice
  * rather than a real choice. Add pack SKUs here once they are priced to stand
  * on their own; nothing else needs to change.
  */
-export const OFFERED_SKUS: CatalogSku[] = [SUBSCRIPTION_SKU]
+export const OFFERED_SKUS: CatalogSku[] = [...SUBSCRIPTION_SKUS]
 
 export function isCatalogSku(sku: string): sku is CatalogSku {
   return sku in CATALOG

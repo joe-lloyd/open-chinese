@@ -6,7 +6,7 @@
   "scripts": {
     "build:words-db": "tsx build-words-db.ts",
     "build:readers": "tsx build-readers.ts",
-    "test:covers": "tsx --tsconfig ../../apps/app/tsconfig.app.json --test reader-cover.test.ts ../../apps/app/src/components/ReaderCover.test.tsx"
+    "test:covers": "tsx --tsconfig ../../apps/app/tsconfig.app.json --test reader-cover.test.ts ../../apps/app/src/components/ReaderCover.contract.tsx"
   },
   "dependencies": {
     "@types/better-sqlite3": "7.6.13",

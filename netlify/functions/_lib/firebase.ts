@@ -57,10 +57,19 @@ export async function verifyRequestUser(headers: Headers): Promise<VerifiedUser 
  */
 const STALE_CLAIM_MS = 5 * 60 * 1000
 
-export type ClaimResult = 'claimed' | 'duplicate'
+export type ClaimResult = 'claimed' | 'duplicate' | 'in_progress'
 
 function toMillis(value: unknown): number | null {
   return value instanceof Timestamp ? value.toMillis() : null
+}
+
+/** Exported pure ordering rule for contract tests; equal timestamps are safe to reapply. */
+export function isStaleSubscriptionEvent(
+  previousEventMillis: number | null,
+  incomingEvent: Date | null
+): boolean {
+  const incoming = incomingEvent?.getTime() ?? null
+  return incoming !== null && previousEventMillis !== null && incoming < previousEventMillis
 }
 
 /**
@@ -87,7 +96,9 @@ export async function claimEvent(eventId: string): Promise<ClaimResult> {
     if (!data || data.status === 'done') return 'duplicate'
     const claimedAt = toMillis(data.claimedAt)
     // A fresh claim means a concurrent delivery is genuinely still in flight.
-    if (claimedAt !== null && Date.now() - claimedAt < STALE_CLAIM_MS) return 'duplicate'
+    // It is not a completed duplicate: answer non-2xx so the provider keeps
+    // retrying if the first function dies before marking the event done.
+    if (claimedAt !== null && Date.now() - claimedAt < STALE_CLAIM_MS) return 'in_progress'
     await ref.set({ status: 'processing', claimedAt: FieldValue.serverTimestamp() }, { merge: true })
     return 'claimed'
   }
@@ -139,7 +150,7 @@ export async function applyEntitlementUpdate(
     // the dedupe ledger cannot catch this — only comparing timestamps can.
     const previous = toMillis(existing?.lastEventAt)
     const incoming = eventAt?.getTime() ?? null
-    const stale = incoming !== null && previous !== null && incoming < previous
+    const stale = isStaleSubscriptionEvent(previous, eventAt)
 
     if (stale) {
       console.warn('[webhook] dropped out-of-order entitlement update for', update.uid)

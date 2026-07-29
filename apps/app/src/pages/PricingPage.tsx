@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { CATALOG, OFFERED_SKUS, SUBSCRIPTION_SKU } from '../lib/catalog'
+import {
+  annualSavingsPercent,
+  formatEuro,
+  yearlyMonthlyEquivalentEur,
+} from '@open-chinese/pricing'
+import { CATALOG, OFFERED_SKUS } from '../lib/catalog'
 import { PAYMENTS_ENABLED } from '../lib/entitlements'
 import { openBillingPortal, startCheckout } from '../lib/checkout'
 import { useEntitlements } from '../hooks/useEntitlements'
@@ -9,7 +14,7 @@ const PRO_FEATURES = [
   'HSK 1–9, with more than 10,900 words',
   'Every graded reader as they land',
   'Unlimited new cards per day',
-  'Cancel any time — no auto-renew surprises',
+  'Cancel any time from your billing portal',
 ]
 
 export default function PricingPage() {
@@ -17,7 +22,7 @@ export default function PricingPage() {
   const [pending, setPending] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const pro = CATALOG[SUBSCRIPTION_SKU]
+  const proPlans = OFFERED_SKUS.filter((sku) => CATALOG[sku].kind === 'subscription')
   const offeredPacks = OFFERED_SKUS.filter((sku) => CATALOG[sku].kind === 'pack')
   const freeHsk1 = freeCountFor(1)
 
@@ -59,60 +64,93 @@ export default function PricingPage() {
       </header>
 
       {error && (
-        <p className="text-sm text-text-primary bg-surface-raised border border-border rounded-xl px-4 py-3">
-          {error}
-        </p>
+        <div
+          role="alert"
+          className="text-sm text-text-primary bg-surface-raised border border-border rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3"
+        >
+          <p className="flex-1">{error} You can retry below or return to learning.</p>
+          <a
+            href="/app"
+            className="text-accent font-medium hover:underline whitespace-nowrap"
+          >
+            Back to learning
+          </a>
+        </div>
       )}
 
-      <div
-        className={`grid grid-cols-1 gap-4 ${offeredPacks.length > 0 ? 'lg:grid-cols-3' : 'max-w-md mx-auto w-full'}`}
-      >
-        {/* Subscription */}
-        <div className="lg:col-span-1 bg-surface-raised border-2 border-accent rounded-2xl p-6 space-y-5 flex flex-col">
-          <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wide text-accent">Best value</p>
-            <p className="text-2xl font-bold text-text-primary">{pro.label}</p>
-            <p className="text-3xl font-bold text-text-primary">
-              €{pro.priceEur}
-              <span className="text-sm font-normal text-text-muted"> / year</span>
-            </p>
-          </div>
-
-          <ul className="space-y-2 flex-1">
-            {PRO_FEATURES.map((f) => (
-              <li key={f} className="flex gap-2 text-sm text-text-muted">
-                <CheckIcon />
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
-
-          {isPro ? (
-            <div className="space-y-2">
-              {entitlements.currentPeriodEnd && (
-                <p className="text-xs text-text-muted text-center">
-                  {entitlements.status === 'canceled' ? 'Access ends' : 'Renews'}{' '}
-                  {entitlements.currentPeriodEnd.toLocaleDateString()}
-                </p>
-              )}
-              <button
-                onClick={() => run('portal', openBillingPortal)}
-                disabled={pending !== null}
-                className="w-full py-2.5 border border-border text-text-primary rounded-xl text-sm font-medium hover:bg-surface transition-colors disabled:opacity-50"
-              >
-                {pending === 'portal' ? 'Opening…' : 'Manage subscription'}
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => run(SUBSCRIPTION_SKU, () => startCheckout(SUBSCRIPTION_SKU))}
-              disabled={pending !== null || loading}
-              className="w-full py-2.5 bg-accent-solid text-on-accent rounded-xl text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {proPlans.map((sku) => {
+          const plan = CATALOG[sku]
+          const recommended = plan.recommended === true
+          const intervalLabel = plan.interval === 'month' ? 'month' : 'year'
+          return (
+            <div
+              key={sku}
+              className={`relative bg-surface-raised rounded-2xl p-6 space-y-5 flex flex-col ${
+                recommended ? 'border-2 border-accent' : 'border border-border'
+              }`}
             >
-              {pending === SUBSCRIPTION_SKU ? 'Redirecting…' : 'Get Pro'}
-            </button>
-          )}
-        </div>
+              <div className="space-y-1">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-2xl font-bold text-text-primary">{plan.label}</p>
+                  {recommended && (
+                    <span className="rounded-full bg-accent-solid px-2.5 py-1 text-xs font-medium text-on-accent">
+                      Recommended
+                    </span>
+                  )}
+                </div>
+                <p className="text-3xl font-bold text-text-primary">
+                  {formatEuro(plan.priceEur)}
+                  <span className="text-sm font-normal text-text-muted"> / {intervalLabel}</span>
+                </p>
+                <p className="min-h-5 text-xs text-text-muted">
+                  {recommended
+                    ? `${formatEuro(yearlyMonthlyEquivalentEur())}/month equivalent · save ${annualSavingsPercent()}%`
+                    : 'Flexible monthly billing'}
+                </p>
+              </div>
+
+              <ul className="space-y-2 flex-1">
+                {PRO_FEATURES.map((feature) => (
+                  <li key={feature} className="flex gap-2 text-sm text-text-muted">
+                    <CheckIcon />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {isPro ? (
+                <div className="space-y-2">
+                  {entitlements.currentPeriodEnd && (
+                    <p className="text-xs text-text-muted text-center">
+                      {entitlements.status === 'canceled' ? 'Access ends' : 'Renews'}{' '}
+                      {entitlements.currentPeriodEnd.toLocaleDateString()}
+                    </p>
+                  )}
+                  <button
+                    onClick={() => run('portal', openBillingPortal)}
+                    disabled={pending !== null}
+                    className="w-full py-2.5 border border-border text-text-primary rounded-xl text-sm font-medium hover:bg-surface transition-colors disabled:opacity-50"
+                  >
+                    {pending === 'portal' ? 'Opening…' : 'Manage subscription'}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => run(sku, () => startCheckout(sku))}
+                  disabled={pending !== null || loading}
+                  className={`w-full py-2.5 rounded-xl text-sm font-medium transition-opacity disabled:opacity-50 ${
+                    recommended
+                      ? 'bg-accent-solid text-on-accent hover:opacity-90'
+                      : 'border border-border text-text-primary hover:bg-surface'
+                  }`}
+                >
+                  {pending === sku ? 'Redirecting…' : `Choose ${intervalLabel}ly`}
+                </button>
+              )}
+            </div>
+          )
+        })}
 
         {/* One-off packs. Empty in the MVP — see OFFERED_SKUS in catalog.ts. */}
         {offeredPacks.length > 0 && (

@@ -3,6 +3,8 @@ import test from 'node:test'
 import { renderToStaticMarkup } from 'react-dom/server'
 import ReaderCover from './ReaderCover'
 
+// Node-rendered contract tests; intentionally excluded from Vitest discovery.
+
 test('fallback is deterministic and retains semantic HTML titles', () => {
   const html = renderToStaticMarkup(
     <ReaderCover readerId="quiet-birthday" hskLevel={2}>

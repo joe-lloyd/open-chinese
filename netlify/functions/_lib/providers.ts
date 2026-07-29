@@ -1,7 +1,7 @@
 /**
  * Provider registry. The active provider is a server-side environment variable,
- * so switching from the Stripe reference implementation to Polar, Paddle or a
- * crypto processor is a config change plus one adapter file.
+ * so switching from Stripe to another processor is a config change plus one
+ * adapter file.
  *
  * Unset means payments are not configured — every endpoint answers 503 rather
  * than half-working.

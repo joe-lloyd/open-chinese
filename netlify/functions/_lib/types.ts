@@ -7,7 +7,18 @@
  * registering the adapter — nothing else changes.
  */
 
-export type CatalogSku = 'pro-yearly' | 'hsk-1' | 'hsk-2' | 'hsk-3' | 'hsk-4'
+export type CatalogSku =
+  | 'pro-monthly'
+  | 'pro-yearly'
+  | 'hsk-1'
+  | 'hsk-2'
+  | 'hsk-3'
+  | 'hsk-4'
+  | 'hsk-5'
+  | 'hsk-6'
+  | 'hsk-7'
+  | 'hsk-8'
+  | 'hsk-9'
 
 /**
  * Server-side mirror of the client catalogue, deliberately duplicated: the
@@ -18,16 +29,26 @@ export type CatalogSku = 'pro-yearly' | 'hsk-1' | 'hsk-2' | 'hsk-3' | 'hsk-4'
  *
  * Keep the SKU list in sync with `client/src/lib/catalog.ts`.
  */
-export const SERVER_CATALOG: Record<CatalogSku, { recurring: boolean }> = {
-  'pro-yearly': { recurring: true },
-  'hsk-1': { recurring: false },
-  'hsk-2': { recurring: false },
-  'hsk-3': { recurring: false },
-  'hsk-4': { recurring: false },
+export const SERVER_CATALOG: Record<CatalogSku, { recurring: boolean; purchasable: boolean }> = {
+  'pro-monthly': { recurring: true, purchasable: true },
+  'pro-yearly': { recurring: true, purchasable: true },
+  'hsk-1': { recurring: false, purchasable: false },
+  'hsk-2': { recurring: false, purchasable: false },
+  'hsk-3': { recurring: false, purchasable: false },
+  'hsk-4': { recurring: false, purchasable: false },
+  'hsk-5': { recurring: false, purchasable: false },
+  'hsk-6': { recurring: false, purchasable: false },
+  'hsk-7': { recurring: false, purchasable: false },
+  'hsk-8': { recurring: false, purchasable: false },
+  'hsk-9': { recurring: false, purchasable: false },
 }
 
 export function isCatalogSku(value: unknown): value is CatalogSku {
   return typeof value === 'string' && value in SERVER_CATALOG
+}
+
+export function isPurchasableSku(value: unknown): value is CatalogSku {
+  return isCatalogSku(value) && SERVER_CATALOG[value].purchasable
 }
 
 export interface CheckoutInput {

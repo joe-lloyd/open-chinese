@@ -9,7 +9,13 @@
  * is a purchase prompt, not a lock. See design.md D10.
  */
 
-import { CATALOG, FREE_TIER, SUBSCRIPTION_SKU, skuForHskLevel } from './catalog'
+import {
+  FREE_TIER,
+  OFFERED_SKUS,
+  SUBSCRIPTION_SKU,
+  SUBSCRIPTION_SKUS,
+  skuForHskLevel,
+} from './catalog'
 
 export type Plan = 'free' | 'pro'
 export type PlanSource = 'subscription' | 'grant'
@@ -159,7 +165,11 @@ export function canAccess(
 /** Every SKU that would unlock the resource, cheapest first. Drives the paywall. */
 export function unlockOptions(result: AccessResult): string[] {
   if (result.allowed) return []
-  return result.sku === SUBSCRIPTION_SKU ? [SUBSCRIPTION_SKU] : [result.sku, SUBSCRIPTION_SKU]
+  const candidates = result.sku === SUBSCRIPTION_SKU
+    ? [...SUBSCRIPTION_SKUS]
+    : [result.sku, ...SUBSCRIPTION_SKUS]
+  const offered = new Set<string>(OFFERED_SKUS)
+  return candidates.filter((sku) => offered.has(sku))
 }
 
 /**
@@ -202,6 +212,6 @@ export function freeWordPredicate(
 }
 
 export function planLabel(ent: Entitlements | null): string {
-  if (isPro(ent)) return CATALOG[SUBSCRIPTION_SKU].label
+  if (isPro(ent)) return 'Pro'
   return 'Free'
 }

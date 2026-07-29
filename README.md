@@ -106,6 +106,8 @@ requires an internet connection.
 | `pnpm dev` | Start everything. Open **http://localhost:4321** — site at `/`, app at `/app` |
 | `pnpm dev:app` / `pnpm dev:site` | Start just one, if you have a reason to |
 | `pnpm build` | Build both apps and assemble the deployable `apps/site/dist` |
+| `pnpm test:payments` | Run payment configuration, Stripe adapter, and endpoint contract tests |
+| `pnpm check:payments-config` | Validate active payment settings without a provider network call |
 | `pnpm build:app` / `pnpm build:site` | Build one of them |
 | `pnpm preview` | Serve the assembled output exactly as Netlify will |
 | `pnpm build:words-db` | Regenerate `apps/app/public/words.db` from `packages/build-tools/hsk*.json` |
