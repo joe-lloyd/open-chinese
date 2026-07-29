@@ -1,4 +1,10 @@
 ---
+import {
+  annualSavingsEur,
+  annualSavingsPercent,
+  formatEuro,
+  yearlyMonthlyEquivalentEur,
+} from '@open-chinese/pricing'
 import Base from '../layouts/Base.astro'
 import { SITE } from '../../site.config'
 
@@ -13,47 +19,58 @@ const free = [
 const pro = [
   'Everything in Free',
   'All 10,969 HSK 1–9 vocabulary entries',
-  'All 9 graded readers and 33 chapters',
+  'All graded readers and chapters',
   'New readers as they land',
   'CSV import from Hack Chinese',
 ]
 
-// Priced product markup, so search results can show the price directly.
+const { monthly, yearly, currency } = SITE.proPricing
+const savingEur = annualSavingsEur(SITE.proPricing)
+const savingPercent = annualSavingsPercent(SITE.proPricing)
+const yearlyEquivalent = yearlyMonthlyEquivalentEur(SITE.proPricing)
+
+// Priced product markup, so search results can show both billing choices.
 const schema = [
   {
     '@type': 'Product',
     name: `${SITE.name} Pro`,
     description: `Full access to ${SITE.name}: all HSK levels and every graded reader.`,
-    offers: {
+    offers: [monthly, yearly].map((plan) => ({
       '@type': 'Offer',
-      price: String(SITE.priceEur),
-      priceCurrency: SITE.currency,
+      price: String(plan.amountEur),
+      priceCurrency: currency,
       availability: 'https://schema.org/InStock',
       url: `${SITE.domain}/pricing`,
-    },
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: String(plan.amountEur),
+        priceCurrency: currency,
+        billingDuration: plan.interval === 'month' ? 'P1M' : 'P1Y',
+      },
+    })),
   },
 ]
 ---
 
 <Base
   title="Pricing"
-  description={`One price, €${SITE.priceEur} a year, for all 10,969 HSK 1–9 vocabulary entries and 33 graded-reader chapters. Half of HSK 1 is free with no card and no time limit.`}
+  description={`Choose ${formatEuro(monthly.amountEur)} monthly or the recommended ${formatEuro(yearly.amountEur)} yearly Pro plan. Half of HSK 1 stays free with no card or time limit.`}
   path="/pricing"
   schema={schema}
 >
   <section class="mx-auto max-w-3xl px-5 pb-10 pt-16 text-center sm:pt-20">
-    <h1 class="text-balance text-4xl font-bold sm:text-5xl">One price. No tiers to decode.</h1>
+    <h1 class="text-balance text-4xl font-bold sm:text-5xl">Start free. Upgrade when it sticks.</h1>
     <p class="mx-auto mt-4 max-w-xl text-pretty text-lg text-text-muted">
-      Try it free for as long as you like. Pay once a year when you want the rest.
+      Both Pro plans unlock the same complete learning path. Choose flexibility or save with
+      a year.
     </p>
   </section>
 
-  <section class="mx-auto max-w-4xl px-5 pb-12">
-    <div class="grid gap-6 md:grid-cols-2">
-      <!-- Free -->
+  <section class="mx-auto max-w-6xl px-5 pb-12">
+    <div class="grid gap-6 lg:grid-cols-3">
       <div class="flex flex-col rounded-2xl border border-border bg-surface p-7">
         <h2 class="text-lg font-semibold">Free</h2>
-        <p class="mt-3 text-4xl font-bold">€0</p>
+        <p class="mt-3 text-4xl font-bold">{formatEuro(0)}</p>
         <p class="mt-1 text-sm text-text-muted">No card, no time limit</p>
         <ul class="mt-6 flex-1 space-y-2.5 text-sm">
           {
@@ -73,22 +90,45 @@ const schema = [
         </a>
       </div>
 
-      <!-- Pro -->
+      <div class="flex flex-col rounded-2xl border border-border bg-surface p-7">
+        <h2 class="text-lg font-semibold">Pro monthly</h2>
+        <p class="mt-3 text-4xl font-bold">
+          {formatEuro(monthly.amountEur)}
+          <span class="text-base font-normal text-text-muted"> / month</span>
+        </p>
+        <p class="mt-1 text-sm text-text-muted">Full access with monthly flexibility</p>
+        <ul class="mt-6 flex-1 space-y-2.5 text-sm">
+          {
+            pro.map((item) => (
+              <li class="flex gap-2.5">
+                <span aria-hidden="true" class="text-accent">✓</span>
+                <span class="text-text-muted">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href={SITE.appPath}
+          class="mt-7 rounded-xl border border-border py-3 text-center font-medium transition-colors hover:bg-surface-raised"
+        >
+          Choose monthly
+        </a>
+      </div>
+
       <div class="flex flex-col rounded-2xl border-2 border-accent bg-surface-raised p-7">
-        <div class="flex items-center justify-between">
-          <h2 class="text-lg font-semibold">Pro</h2>
-          <!-- Filled rather than a 10% tint: accent-on-tint measures 4.22:1 at
-               12px in dark mode, under the 4.5:1 AA threshold. -->
-          <span
-            class="rounded-full bg-accent-solid px-2.5 py-1 text-xs font-medium text-on-accent"
-          >
-            Everything
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="text-lg font-semibold">Pro yearly</h2>
+          <span class="rounded-full bg-accent-solid px-2.5 py-1 text-xs font-medium text-on-accent">
+            Recommended
           </span>
         </div>
         <p class="mt-3 text-4xl font-bold">
-          €{SITE.priceEur}<span class="text-base font-normal text-text-muted"> / year</span>
+          {formatEuro(yearly.amountEur)}
+          <span class="text-base font-normal text-text-muted"> / year</span>
         </p>
-        <p class="mt-1 text-sm text-text-muted">About €2 a month</p>
+        <p class="mt-1 text-sm text-text-muted">
+          {formatEuro(yearlyEquivalent)}/month equivalent · save {formatEuro(savingEur)} ({savingPercent}%)
+        </p>
         <ul class="mt-6 flex-1 space-y-2.5 text-sm">
           {
             pro.map((item) => (
@@ -103,15 +143,15 @@ const schema = [
           href={SITE.appPath}
           class="mt-7 rounded-xl bg-accent-solid py-3 text-center font-medium text-on-accent transition-opacity hover:opacity-90"
         >
-          Get Pro
+          Choose yearly
         </a>
       </div>
     </div>
 
     <p class="mx-auto mt-8 max-w-2xl text-pretty text-center text-sm text-text-muted">
-      Payment is handled on our provider's own checkout page — card details never reach
-      OpenChinese. Stop paying and nothing is deleted: everything you have already studied
-      stays available.
+      VAT-inclusive display prices. Subscriptions renew until cancelled and can be managed
+      from the app. Payment is handled on our provider's hosted checkout page, so card
+      details never reach OpenChinese.
     </p>
   </section>
 </Base>

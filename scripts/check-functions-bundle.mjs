@@ -13,7 +13,7 @@
 
 import { build } from 'esbuild'
 import { mkdtemp, rm } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const ENTRIES = ['checkout', 'webhook', 'portal']
@@ -33,7 +33,10 @@ function check(label, actual, expected) {
 
 try {
   await build({
-    entryPoints: ENTRIES.map((n) => `netlify/functions/${n}.ts`),
+    entryPoints: [
+      ...ENTRIES.map((n) => resolve(`netlify/functions/${n}.ts`)),
+      resolve('netlify/functions/_lib/stripe.ts'),
+    ],
     bundle: true,
     platform: 'node',
     target: 'node20',
@@ -67,6 +70,39 @@ try {
 
   check('webhook rejects a forged signature', (await handlers.webhook(req('POST', '{"id":"evt_1"}'))).status, 400)
   check('checkout rejects a missing token', (await handlers.checkout(req('POST', '{"sku":"pro-yearly"}'))).status, 401)
+  check(
+    'monthly checkout reaches authentication after SKU validation',
+    (await handlers.checkout(req('POST', '{"sku":"pro-monthly"}'))).status,
+    401,
+  )
+
+  const stripeModule = await import(pathToFileURL(join(outdir, '_lib', 'stripe.js')).href)
+  check(
+    'monthly SKU maps to its own Stripe Price variable',
+    stripeModule.stripePriceEnvVarFor('pro-monthly'),
+    'STRIPE_PRICE_PRO_MONTHLY',
+  )
+  check(
+    'yearly SKU maps to its own Stripe Price variable',
+    stripeModule.stripePriceEnvVarFor('pro-yearly'),
+    'STRIPE_PRICE_PRO_YEARLY',
+  )
+  const event = (sku) => ({
+    id: `evt_${sku}`,
+    type: 'customer.subscription.updated',
+    createdAt: new Date(),
+    payload: {
+      status: 'active',
+      customer: 'cus_test',
+      current_period_end: 2_000_000_000,
+      metadata: { uid: 'user_test', sku },
+    },
+  })
+  const monthly = stripeModule.stripeProvider.toEntitlementUpdate(event('pro-monthly'))
+  const yearly = stripeModule.stripeProvider.toEntitlementUpdate(event('pro-yearly'))
+  check('monthly subscription grants Pro', monthly?.plan, 'pro')
+  check('yearly subscription grants Pro', yearly?.plan, 'pro')
+  check('both intervals share entitlement status', monthly?.status, yearly?.status)
 } finally {
   await rm(outdir, { recursive: true, force: true })
 }

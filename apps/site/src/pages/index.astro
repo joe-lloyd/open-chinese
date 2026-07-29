@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro'
 import Cta from '../components/Cta.astro'
 import { SITE } from '../../site.config'
 import { CONTENT_STATS, FEATURES, STEPS } from '../data/content'
+import { formatEuro } from '@open-chinese/pricing'
 ---
 
 <Base
@@ -38,7 +39,7 @@ import { CONTENT_STATS, FEATURES, STEPS } from '../data/content'
       </div>
 
       <p class="mt-4 text-sm text-text-muted">
-        Free through half of HSK 1 · €{SITE.priceEur}/year for everything
+        Free through half of HSK 1 · Pro from {formatEuro(SITE.proPricing.monthly.amountEur)}/month
       </p>
 
       <ul class="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">

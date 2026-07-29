@@ -38,6 +38,9 @@ export const coinbaseCommerceProvider: PaymentProvider = {
   id: 'coinbase-commerce',
 
   async createCheckoutSession(input: CheckoutInput): Promise<{ url: string }> {
+    if (input.sku === 'pro-monthly') {
+      throw new Error('Coinbase Commerce cannot sell recurring monthly subscriptions')
+    }
     const res = await fetch(`${API}/charges`, {
       method: 'POST',
       headers: {

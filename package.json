@@ -15,6 +15,8 @@
     "import:hsk": "node scripts/import-hsk30.mjs",
     "typecheck:functions": "tsc -p tsconfig.functions.json",
     "check:functions-bundle": "node scripts/check-functions-bundle.mjs",
+    "check:pricing": "node scripts/check-pricing.mjs",
+    "pricing:model": "node scripts/pricing-model.mjs",
     "entitlement": "node --env-file-if-exists=apps/app/.env scripts/entitlement.mjs",
     "dev:site": "pnpm --filter @open-chinese/site dev",
     "build:app": "pnpm --filter @open-chinese/app build",
@@ -29,6 +31,7 @@
     ]
   },
   "dependencies": {
+    "@open-chinese/pricing": "workspace:*",
     "firebase-admin": "^13.6.0",
     "stripe": "^22.3.2"
   },

@@ -101,8 +101,9 @@ Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
 3. Set the **server-side** variables from the root `.env.example` in Netlify's
    environment (never with a `VITE_` prefix — that would publish them):
    `PAYMENT_PROVIDER=stripe`, `FIREBASE_SERVICE_ACCOUNT`, `PUBLIC_SITE_URL`,
-   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRO_YEARLY`.
-   The MVP offers the subscription only, so the four `STRIPE_PRICE_HSK_*`
+   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRO_MONTHLY`,
+   `STRIPE_PRICE_PRO_YEARLY`.
+   The launch offer uses both recurring Pro prices. The four `STRIPE_PRICE_HSK_*`
    variables can stay unset — see `OFFERED_SKUS` in `apps/app/src/lib/catalog.ts`.
 4. Point the Stripe webhook at `https://<your-site>/.netlify/functions/webhook`
    and subscribe to the events listed in the root `.env.example`.
@@ -118,6 +119,20 @@ Functions the way Netlify does and exercises them, which typechecking does not
 cover — `firebase-admin` cannot be safely inlined (google-gax uses `__dirname`
 and loads `.proto` files at runtime), so `netlify.toml` externalises it. Keep
 that list and the one in `scripts/check-functions-bundle.mjs` in sync.
+
+Also run `pnpm check:pricing`. The public offer is configured in
+`packages/pricing/src/index.js`; the Stripe Price objects are authoritative at
+Checkout. Compare both test-mode Price objects against that file and confirm:
+
+| Environment variable | Amount | Currency | Recurring interval |
+|---|---:|---|---|
+| `STRIPE_PRICE_PRO_MONTHLY` | €4.99 | EUR | monthly |
+| `STRIPE_PRICE_PRO_YEARLY` | €39.00 | EUR | yearly |
+
+Do not enable `VITE_PAYMENTS_ENABLED` if any value differs. Decide and configure
+Stripe Tax/VAT handling before live sales; the public pages describe these display
+prices as VAT-inclusive. See `docs/pricing/launch-pricing-2026-07-29.md` for the
+planning assumptions and the limits of that analysis.
 
 Rollback is unsetting `VITE_PAYMENTS_ENABLED`: every gate reopens and there is no
 data to migrate back.
@@ -166,8 +181,10 @@ CLI is the only way in, and it is as convenient.
 
 1. Stripe dashboard → toggle **Test mode** (top right). Everything below happens
    in test mode; no real money moves and no business details are needed.
-2. **Product** → add a product, €25, recurring yearly. Copy the **price ID**
-   (`price_...`) into `STRIPE_PRICE_PRO_YEARLY`.
+2. **Product** → add one Pro product with two recurring prices: **€4.99 monthly**
+   and **€39 yearly**. Copy each `price_...` ID into
+   `STRIPE_PRICE_PRO_MONTHLY` and `STRIPE_PRICE_PRO_YEARLY`. Confirm both are EUR,
+   recurring, and use the intended tax behavior.
 3. **Developers → API keys** → copy the test secret key (`sk_test_...`) into
    `STRIPE_SECRET_KEY`.
 4. **Developers → Webhooks** → add endpoint
@@ -179,9 +196,10 @@ CLI is the only way in, and it is as convenient.
 6. `pnpm entitlement free` to drop yourself to the free tier.
 7. In the app: HSK 2 should show as locked, `/study?hsk=2` should show a paywall
    rather than an empty session, and the first half of HSK 1 should still work.
-8. Pricing page → **Get Pro** → pay with card `4242 4242 4242 4242`, any future
-   expiry, any CVC, any postcode.
-9. You land back in the app and it flips to Pro **without a reload** — that is the
+8. Pricing page → test **monthly** and **yearly** in separate checkout sessions
+   with card `4242 4242 4242 4242`, any future expiry, any CVC, any postcode.
+   Confirm Checkout shows the same amount and interval as the pricing page.
+9. For either interval, you land back in the app and it flips to Pro **without a reload** — that is the
    webhook writing the entitlement and `onSnapshot` delivering it. If it does not
    flip, check Stripe → Webhooks → the endpoint's recent deliveries; a 400 there
    means `STRIPE_WEBHOOK_SECRET` is wrong, a 503 means `PAYMENT_PROVIDER` is unset

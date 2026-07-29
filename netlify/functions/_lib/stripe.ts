@@ -1,11 +1,9 @@
 /**
  * Stripe adapter — the reference implementation of `PaymentProvider`.
  *
- * Deliberately not the launch recommendation (see design.md D5: Polar is
- * recommended for its merchant-of-record VAT handling). Stripe is the reference
- * because its test mode needs no application, so the whole funnel can be
- * exercised before committing to a merchant relationship, and because Polar and
- * Paddle both imitate this Checkout-Session-plus-signed-webhook shape.
+ * Stripe is the launch provider. Its hosted Checkout keeps payment details out
+ * of OpenChinese, supports the monthly and yearly Price mapping below, and can
+ * be exercised end to end in test mode before live payments are enabled.
  *
  * Everything Stripe-specific stops at this file.
  */
@@ -32,8 +30,12 @@ function stripe(): Stripe {
 }
 
 /** SKU `hsk-1` maps to `STRIPE_PRICE_HSK_1`. Price ids never live in the repo. */
+export function stripePriceEnvVarFor(sku: string): string {
+  return `STRIPE_PRICE_${sku.toUpperCase().replace(/-/g, '_')}`
+}
+
 function priceIdFor(sku: string): string {
-  const envVar = `STRIPE_PRICE_${sku.toUpperCase().replace(/-/g, '_')}`
+  const envVar = stripePriceEnvVarFor(sku)
   const priceId = process.env[envVar]
   if (!priceId) throw new Error(`${envVar} is not set`)
   return priceId
