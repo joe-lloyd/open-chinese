@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+/.pnpm-store/
 
 # build output — every app's, at any depth. apps/app/.gitignore covers its own
 # from the Vite template; apps/site had nothing, and `apps/site/dist` also
