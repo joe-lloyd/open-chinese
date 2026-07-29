@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "generationMode": "built-in image generation",
+  "sharedStyle": "Contemporary editorial children's-book illustration; opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting; original style with no named-artist imitation.",
+  "sharedComposition": "2:3 portrait book-cover artwork with a clear focal subject and calm, low-detail zones near the upper and lower quarters for separate HTML overlays.",
+  "sharedExclusions": "No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, borders, or watermark. No anime, photorealism, historical costume, pagodas, generic ornamental motifs, or invented story elements.",
+  "covers": [
+    {
+      "readerId": "cat-at-school",
+      "hskLevel": 1,
+      "focalSubject": "A small orange-and-white cat listening intently",
+      "setting": "A contemporary primary-school corridor and entrance at dusk",
+      "definingObject": "A schoolboy's smartphone playing a familiar song",
+      "narrativeTension": "The song may finally connect the lost cat with the girl arriving outside",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate a small orange-and-white cat at a modern school classroom doorway at dusk, listening toward a smartphone held by a schoolboy while a girl arrives through the entrance after recognizing the same song. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, cat central, warm corridor light against cool blue dusk, calm low-detail upper and lower zones. One cat, one schoolboy with one smartphone, one arriving girl, ordinary modern clothing. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, historical costume, pagodas, generic ornament, extra animals, or invented events."
+    },
+    {
+      "readerId": "borrowed-bicycle",
+      "hskLevel": 2,
+      "focalSubject": "Two school friends repairing a bicycle together",
+      "setting": "A small closed bicycle shopfront on a snowy night",
+      "definingObject": "The borrowed bicycle's damaged front wheel and hand tools",
+      "narrativeTension": "They must finish the honest repair before the next day's school race",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate two school friends kneeling together to repair the broken front wheel of a borrowed bicycle at midnight, outside a closed bicycle shop as light snow falls; simple hand tools lie between them and urgency comes from tomorrow's race. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition with the wheel as a strong circle, pool of warm work light against indigo snow, calm low-detail upper and lower zones. No title, Hanzi, Latin letters, numbers, logos, shop signs, speech bubbles, border, watermark, anime, photorealism, historical costume, extra bicycles, race scene, or invented events."
+    },
+    {
+      "readerId": "empty-seat",
+      "hskLevel": 3,
+      "focalSubject": "A quiet student's empty classroom chair",
+      "setting": "A contemporary science classroom during team project work",
+      "definingObject": "An unfinished science-contest model beside the empty seat",
+      "narrativeTension": "The team recognizes the missing student's ideas and the harm that kept him away",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate a contemporary science classroom where a conspicuously empty chair faces an unfinished student-built science model; Fang Yu and several classmates pause around the table, troubled rather than mocking, leaving the open doorway as a hopeful path for Wu Ke's return. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, empty chair and model central, cool classroom daylight with one warm doorway, calm low-detail upper and lower zones. No title, Hanzi, Latin letters, numbers, logos, blackboard writing, speech bubbles, border, watermark, anime, photorealism, historical costume, contest trophies, or invented events."
+    },
+    {
+      "readerId": "balcony-garden",
+      "hskLevel": 4,
+      "focalSubject": "Two neighbours reconsidering a leaking balcony garden",
+      "setting": "Stacked balconies of an older contemporary apartment building after rain",
+      "definingObject": "A cracked pipe and a simple rainwater collection vessel among plants",
+      "narrativeTension": "The garden is damaging the wall, but the leak is a shared building problem they can redesign together",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate Bai Lu and her downstairs neighbour on adjoining balconies of an older contemporary apartment building after rain, examining both dripping flower pots and a cracked shared pipe; a simple rainwater collection vessel suggests their eventual cooperative solution. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 vertical composition using the stacked balconies, lush jade plants, wet muted-blue walls, vermilion flowers, calm low-detail upper and lower zones. No title, Hanzi, Latin letters, numbers, logos, signs, speech bubbles, border, watermark, anime, photorealism, historical architecture, pagodas, or invented events."
+    },
+    {
+      "readerId": "city-investigation",
+      "hskLevel": 5,
+      "focalSubject": "Reporter Luo Wei comparing official plans with residents' evidence",
+      "setting": "An old neighbourhood market beside a primary school and proposed road",
+      "definingObject": "A city map overlaid with photographs, traffic records, and interview notes",
+      "narrativeTension": "Clean redevelopment data has erased the people and places the new road would cut through",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate reporter Luo Wei standing at the edge of a living old-neighbourhood market, comparing a large abstract city map with site photographs and traffic records while residents, a market lane, and a primary-school gate occupy the route the proposed road would cross. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, reporter and map central, market depth behind, warm human activity contrasted with cool planning geometry, calm low-detail upper and lower zones. All paper surfaces must be blank shapes without readable marks. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, demolition machinery, or invented events."
+    },
+    {
+      "readerId": "borrowed-name",
+      "hskLevel": 6,
+      "focalSubject": "Editor Han Qiu confronting two versions of the same story",
+      "setting": "A publisher's desk linked visually to a quiet hospital room",
+      "definingObject": "A polished manuscript beside a patient's handwritten diary",
+      "narrativeTension": "The prize-bound manuscript has taken its story and byline from a living patient",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate editor Han Qiu at a desk comparing a polished bound manuscript with a patient's worn handwritten diary, with a quiet hospital bed and its living owner visible through a doorway or reflected partition; her hand pauses before approving publication. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, the two manuscripts form the central tension, warm desk light and muted hospital blue, calm low-detail upper and lower zones. Pages must show only abstract strokes, never readable writing. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, death imagery, prizes, or invented events."
+    },
+    {
+      "readerId": "echoes-in-the-archive",
+      "hskLevel": 7,
+      "focalSubject": "Archivist Gu Yan listening carefully to an unnumbered recording",
+      "setting": "A city archive with boxes, maps, old letters, and a listening station",
+      "definingObject": "An unlabelled audio reel or cassette beside a map of displaced homes",
+      "narrativeTension": "A forgotten witness challenges the heroic city-founder exhibition without proving every motive",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate archivist Gu Yan alone in a city archive, listening through headphones to an unlabelled old recording while a map, letters, and newspaper clippings spread across the table; the materials suggest families removed from land and an exhibition display waits dimly beyond. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive character, cinematic lighting. 2:3 portrait composition, recording device and Gu Yan central, deep shelves framing an amber pool of light, restrained solemn mood, calm low-detail upper and lower zones. All documents and labels are blank or abstract with no readable marks. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, heroic statue, forced-evacuation spectacle, or invented certainty."
+    },
+    {
+      "readerId": "borrowed-voice",
+      "hskLevel": 8,
+      "focalSubject": "Documentary editor Han Qiu listening back to an elderly worker",
+      "setting": "A contemporary documentary editing room with factory-relocation footage",
+      "definingObject": "Headphones and an editing timeline contrasted with the worker's original recorded voice",
+      "narrativeTension": "A dramatic translation turns the worker's uncertainty into an accusation he did not make",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate documentary editor Han Qiu in a dark contemporary editing room, wearing headphones as she compares footage of an elderly factory worker with two visibly different but entirely abstract subtitle blocks on the monitor; her hand is poised to correct the timeline. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, editor and glowing monitor central, worker's cautious face visible in footage, deep ink and muted blue with one vermilion control-light accent, calm low-detail upper and lower zones. Screens contain no readable glyphs or words, only abstract bars and waveform shapes. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, angry protest scene, or invented events."
+    },
+    {
+      "readerId": "contract-after-the-flood",
+      "hskLevel": 9,
+      "focalSubject": "Mayor Su Ping choosing to disclose an emergency contract",
+      "setting": "A flood-damaged riverside town's public meeting with temporary housing beyond",
+      "definingObject": "An opened confidential contract placed before residents and an independent reviewer",
+      "narrativeTension": "The secret deal delivered shelter before winter but also granted unjustified long-term control",
+      "prompt": "Use case: illustration-story. Asset type: text-free portrait graded-reader cover. Illustrate Mayor Su Ping at a public meeting in a flood-damaged riverside town, placing an opened emergency contract on the table before residents and an independent reviewer; through the windows, completed temporary housing and receding floodwater show that the illegal deal also provided real shelter. Contemporary editorial children's-book illustration, opaque gouache shapes, subtle cut-paper edges, restrained paper grain, simplified expressive characters, cinematic lighting. 2:3 portrait composition, mayor and opened contract central, community arranged in an accountable circle, cold wet blue outside and warm public-room light, calm low-detail upper and lower zones. Contract pages must be blank shapes without readable marks. No title, Hanzi, Latin letters, numbers, logos, signage, speech bubbles, border, watermark, anime, photorealism, disaster spectacle, villain caricature, or invented events."
+    }
+  ]
+}

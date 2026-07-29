@@ -18,6 +18,12 @@ only committed source of truth).
   "goal": "Xiao Ming wants to make a new friend.",
   "conflict": "He is too nervous to start a conversation.",
   "resolution": "A shared book gives them something to talk about.",
+  "cover": {
+    "image": "reader-covers/my-day",
+    "alt": "Two students reach for the same book in a quiet classroom.",
+    "focalPosition": "50% 44%",
+    "accent": "#B84A3A"
+  },
   "chapters": [
     {
       "id": "ch1",
@@ -34,6 +40,13 @@ only committed source of truth).
   ]
 }
 ```
+
+`cover` is optional. When present, its extensionless `image` base must have committed
+`-480.webp` (480×720) and `-960.webp` (960×1440) variants in
+`apps/app/public/reader-covers/`. `alt` describes the artwork without repeating the
+visible title, `focalPosition` contains two percentages, and `accent` is a six-digit
+hex colour. Readers without art use the deterministic UI fallback. See
+`content/reader-covers/README.md` for the generation and review workflow.
 
 A paragraph is an **array of tokens**, not a string. Chinese has no word boundaries, so
 segmentation is decided here, at authoring time, rather than guessed in the browser.

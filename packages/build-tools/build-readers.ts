@@ -1,10 +1,13 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { resolve, dirname, basename } from 'path'
 import { fileURLToPath } from 'url'
+import { validateReaderCover } from './reader-cover'
+import type { ReaderCover } from './reader-cover'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const sourceDir = resolve(__dirname, '../../content/readers')
 const outDir = resolve(__dirname, '../../apps/app/public/data/readers')
+const publicDir = resolve(__dirname, '../../apps/app/public')
 
 // Content quality gates. These reward complete scenes and deliberate vocabulary
 // practice without forcing prose into repetitive drill sentences.
@@ -53,6 +56,7 @@ interface SourceReader {
   goal: string
   conflict: string
   resolution: string
+  cover?: ReaderCover
   chapters: SourceChapter[]
 }
 
@@ -86,6 +90,7 @@ interface Reader {
   titleEn: string
   description: string
   hskLevel: number
+  cover?: ReaderCover
   chapters: ReaderChapter[]
 }
 
@@ -98,6 +103,7 @@ interface ManifestEntry {
   hskLevel: number
   chapterCount: number
   vocabCount: number
+  cover?: ReaderCover
 }
 
 // ── HSK word data (same source as words.db) ───────────────────────────────────
@@ -141,6 +147,7 @@ function buildReader(source: SourceReader): Reader {
   if (source.chapters.length < MIN_CHAPTERS) {
     errors.push(`${source.id}: has ${source.chapters.length} chapters, expected at least ${MIN_CHAPTERS}`)
   }
+  const cover = validateReaderCover(source.id, source.cover, publicDir, errors)
 
   // Chapter ids address both the route and the entries in `completedChapters`, so a
   // duplicate silently conflates two chapters' progress and makes the second
@@ -313,6 +320,7 @@ function buildReader(source: SourceReader): Reader {
     titleEn: source.titleEn,
     description: source.description,
     hskLevel: source.hskLevel,
+    ...(cover ? { cover } : {}),
     chapters,
   }
 }
@@ -362,6 +370,7 @@ const manifest: ManifestEntry[] = readers.map((r) => ({
   hskLevel: r.hskLevel,
   chapterCount: r.chapters.length,
   vocabCount: new Set(r.chapters.flatMap((c) => c.vocab)).size,
+  ...(r.cover ? { cover: r.cover } : {}),
 }))
 
 writeFileSync(resolve(outDir, 'index.json'), JSON.stringify({ readers: manifest }))

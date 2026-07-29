@@ -71,3 +71,50 @@ body {
   display: flex;
   min-height: 100vh;
 }
+
+.reader-cover {
+  --reader-cover-accent: var(--color-accent-solid);
+}
+
+.reader-cover__fallback {
+  background:
+    radial-gradient(circle at 28% 24%, rgb(255 255 255 / 0.3), transparent 27%),
+    linear-gradient(
+      var(--reader-cover-angle),
+      color-mix(in srgb, var(--reader-cover-accent) 72%, #111827),
+      color-mix(in srgb, var(--reader-cover-accent) 58%, #f5efe2)
+    );
+}
+
+.reader-cover__fallback::after {
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 999px;
+  content: '';
+  inset: 12% -38% auto 16%;
+  height: 42%;
+  position: absolute;
+  transform: rotate(-18deg);
+}
+
+.reader-cover__fallback-number {
+  color: rgb(255 255 255 / 0.16);
+  font-size: clamp(8rem, 25vw, 13rem);
+  font-weight: 800;
+  line-height: 1;
+  position: absolute;
+  right: -0.08em;
+  top: 12%;
+}
+
+.reader-cover__content {
+  background: linear-gradient(transparent, rgb(9 15 29 / 0.9) 38%);
+  color: white;
+  padding-top: 5rem;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.45);
+}
+
+@media (prefers-reduced-data: reduce) {
+  .reader-cover__image {
+    display: none;
+  }
+}

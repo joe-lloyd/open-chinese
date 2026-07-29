@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "build:og": "node scripts/build-og-image.mjs"
+    "build:og": "node scripts/build-og-image.mjs",
+    "build:reader-covers": "node scripts/build-reader-covers.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
