@@ -6,10 +6,17 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const sourceDir = resolve(__dirname, '../../content/readers')
 const outDir = resolve(__dirname, '../../apps/app/public/data/readers')
 
-// Content quality gates. Loosening any of these is a deliberate, reviewable edit.
-const MIN_NEW_WORDS = 10
-const MAX_NEW_WORDS = 20
-const MIN_REPETITIONS = 3
+// Content quality gates. These reward complete scenes and deliberate vocabulary
+// practice without forcing prose into repetitive drill sentences.
+const MIN_CHAPTERS = 3
+const MIN_PARAGRAPHS = 2
+const MIN_WORD_TOKENS = 30
+const MAX_WORD_TOKENS = 220
+const MIN_FOCUS_WORDS = 3
+const MAX_FOCUS_WORDS = 8
+const MIN_FOCUS_REPETITIONS = 1
+const MAX_STRETCH_WORDS = 8
+const MAX_STRETCH_RATIO = 0.2
 
 const PUNCTUATION = new Set('。，、；：？！…—～·《》〈〉「」『』【】（）“”‘’.,!?;:()[]"\'- \n'.split(''))
 
@@ -32,15 +39,20 @@ interface SourceChapter {
   id: string
   title: string
   titleEn: string
+  focusWords: string[]
   paragraphs: SourceParagraph[]
 }
 
 interface SourceReader {
   id: string
+  order: number
   title: string
   titleEn: string
   description: string
   hskLevel: number
+  goal: string
+  conflict: string
+  resolution: string
   chapters: SourceChapter[]
 }
 
@@ -60,12 +72,16 @@ interface ReaderChapter {
   title: string
   titleEn: string
   paragraphs: ReaderParagraph[]
+  focusWords: string[]
+  /** A small number of contextual words introduced from a later HSK stage. */
+  stretchWords: string[]
   /** Distinct word tokens in this chapter, in order of first appearance. */
   vocab: string[]
 }
 
 interface Reader {
   id: string
+  order: number
   title: string
   titleEn: string
   description: string
@@ -75,6 +91,7 @@ interface Reader {
 
 interface ManifestEntry {
   id: string
+  order: number
   title: string
   titleEn: string
   description: string
@@ -93,7 +110,7 @@ interface HskWord {
 }
 
 const hsk = new Map<string, HskWord>()
-for (const level of [1, 2, 3, 4, 5, 6, 7]) {
+for (const level of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
   const words = JSON.parse(
     readFileSync(resolve(__dirname, `hsk${level}.json`), 'utf-8')
   ) as HskWord[]
@@ -105,6 +122,7 @@ for (const level of [1, 2, 3, 4, 5, 6, 7]) {
 // ── Build ─────────────────────────────────────────────────────────────────────
 
 const errors: string[] = []
+const paragraphOwners = new Map<string, string>()
 
 function isPunctuation(text: string): boolean {
   return [...text].every((c) => PUNCTUATION.has(c))
@@ -112,7 +130,17 @@ function isPunctuation(text: string): boolean {
 
 function buildReader(source: SourceReader): Reader {
   const where = (chapterId: string) => `${source.id}/${chapterId}`
-  const seenInReader = new Set<string>()
+
+  if (!Number.isInteger(source.order) || source.order < 1) {
+    errors.push(`${source.id}: story order must be a positive integer`)
+  }
+  if (![source.title, source.titleEn, source.description, source.goal, source.conflict, source.resolution]
+    .every((value) => value?.trim())) {
+    errors.push(`${source.id}: story metadata must include title, description, goal, conflict and resolution`)
+  }
+  if (source.chapters.length < MIN_CHAPTERS) {
+    errors.push(`${source.id}: has ${source.chapters.length} chapters, expected at least ${MIN_CHAPTERS}`)
+  }
 
   // Chapter ids address both the route and the entries in `completedChapters`, so a
   // duplicate silently conflates two chapters' progress and makes the second
@@ -129,8 +157,30 @@ function buildReader(source: SourceReader): Reader {
   const chapters = source.chapters.map((chapter) => {
     const occurrences = new Map<string, number>()
     const vocab: string[] = []
+    let wordTokenCount = 0
+    let stretchTokenCount = 0
+    const stretchWords: string[] = []
+    const seenStretchWords = new Set<string>()
+
+    if (!chapter.title?.trim() || !chapter.titleEn?.trim()) {
+      errors.push(`${where(chapter.id)}: chapter titles must be non-empty`)
+    }
+    if (chapter.paragraphs.length < MIN_PARAGRAPHS) {
+      errors.push(
+        `${where(chapter.id)}: has ${chapter.paragraphs.length} paragraphs, expected at least ${MIN_PARAGRAPHS}`
+      )
+    }
+    if (
+      chapter.focusWords.length < MIN_FOCUS_WORDS ||
+      chapter.focusWords.length > MAX_FOCUS_WORDS
+    ) {
+      errors.push(
+        `${where(chapter.id)}: has ${chapter.focusWords.length} focus words, expected ${MIN_FOCUS_WORDS}–${MAX_FOCUS_WORDS}`
+      )
+    }
 
     const record = (text: string) => {
+      wordTokenCount += 1
       const next = (occurrences.get(text) ?? 0) + 1
       occurrences.set(text, next)
       if (next === 1) vocab.push(text)
@@ -188,33 +238,61 @@ function buildReader(source: SourceReader): Reader {
           return { kind: 'word', text: token, pinyin: '', definition: '' }
         }
         if (word.hskLevel > source.hskLevel) {
-          errors.push(
-            `${where(chapter.id)}: token "${token}" is HSK ${word.hskLevel}, above the reader's level ${source.hskLevel}`
-          )
+          stretchTokenCount += 1
+          if (!seenStretchWords.has(token)) {
+            seenStretchWords.add(token)
+            stretchWords.push(token)
+          }
         }
         record(token)
         return { kind: 'word', text: token, pinyin: word.pinyin, definition: word.definition }
       })
 
+      const fingerprint = tokens.map((token) => token.text).join('')
+      const previousOwner = paragraphOwners.get(fingerprint)
+      if (previousOwner) {
+        errors.push(`${where(chapter.id)} paragraph ${pIndex + 1}: duplicates ${previousOwner}`)
+      } else {
+        paragraphOwners.set(fingerprint, `${where(chapter.id)} paragraph ${pIndex + 1}`)
+      }
+
       return { tokens, translation: paragraph.translation }
     })
 
-    const introduces = vocab.filter((w) => !seenInReader.has(w))
-    for (const w of vocab) seenInReader.add(w)
-
-    if (introduces.length < MIN_NEW_WORDS || introduces.length > MAX_NEW_WORDS) {
+    if (wordTokenCount < MIN_WORD_TOKENS || wordTokenCount > MAX_WORD_TOKENS) {
       errors.push(
-        `${where(chapter.id)}: introduces ${introduces.length} new words, expected ${MIN_NEW_WORDS}–${MAX_NEW_WORDS}`
+        `${where(chapter.id)}: has ${wordTokenCount} word tokens, expected ${MIN_WORD_TOKENS}–${MAX_WORD_TOKENS}`
+      )
+    }
+    if (stretchWords.length > MAX_STRETCH_WORDS) {
+      errors.push(
+        `${where(chapter.id)}: introduces ${stretchWords.length} stretch words, maximum ${MAX_STRETCH_WORDS} — ${stretchWords.join(', ')}`
+      )
+    }
+    if (stretchTokenCount / wordTokenCount > MAX_STRETCH_RATIO) {
+      errors.push(
+        `${where(chapter.id)}: ${Math.round((stretchTokenCount / wordTokenCount) * 100)}% of word tokens are above HSK ${source.hskLevel}, maximum ${MAX_STRETCH_RATIO * 100}%`
       )
     }
 
-    const thin = introduces
-      .filter((w) => (occurrences.get(w) ?? 0) < MIN_REPETITIONS)
+    const thin = chapter.focusWords
+      .filter((w) => (occurrences.get(w) ?? 0) < MIN_FOCUS_REPETITIONS)
       .map((w) => `${w} (${occurrences.get(w)}×)`)
     if (thin.length > 0) {
       errors.push(
-        `${where(chapter.id)}: new words repeated fewer than ${MIN_REPETITIONS} times — ${thin.join(', ')}`
+        `${where(chapter.id)}: focus words are missing from the chapter — ${thin.join(', ')}`
       )
+    }
+
+    for (const focusWord of chapter.focusWords) {
+      const word = hsk.get(focusWord)
+      if (!word) {
+        errors.push(`${where(chapter.id)}: focus word "${focusWord}" is not in the HSK data`)
+      } else if (word.hskLevel > source.hskLevel) {
+        errors.push(
+          `${where(chapter.id)}: focus word "${focusWord}" is HSK ${word.hskLevel}, above reader level ${source.hskLevel}`
+        )
+      }
     }
 
     return {
@@ -222,12 +300,15 @@ function buildReader(source: SourceReader): Reader {
       title: chapter.title,
       titleEn: chapter.titleEn,
       paragraphs,
+      focusWords: chapter.focusWords,
+      stretchWords,
       vocab,
     }
   })
 
   return {
     id: source.id,
+    order: source.order,
     title: source.title,
     titleEn: source.titleEn,
     description: source.description,
@@ -248,6 +329,18 @@ const readers = sourceFiles.map((file) => {
   return buildReader(source)
 })
 
+for (let level = 1; level <= 9; level += 1) {
+  const levelReaders = readers.filter((reader) => reader.hskLevel === level)
+  const orders = levelReaders.map((reader) => reader.order)
+  if (new Set(orders).size !== orders.length) {
+    errors.push(`HSK ${level}: story orders must be unique`)
+  }
+  const expectedOrders = levelReaders.map((_, index) => index + 1)
+  if ([...orders].sort((a, b) => a - b).some((order, index) => order !== expectedOrders[index])) {
+    errors.push(`HSK ${level}: story orders must be consecutive from 1`)
+  }
+}
+
 // A bad token repeats once per occurrence; the author only needs to be told once.
 const distinctErrors = [...new Set(errors)]
 if (distinctErrors.length > 0) {
@@ -262,6 +355,7 @@ mkdirSync(outDir, { recursive: true })
 
 const manifest: ManifestEntry[] = readers.map((r) => ({
   id: r.id,
+  order: r.order,
   title: r.title,
   titleEn: r.titleEn,
   description: r.description,

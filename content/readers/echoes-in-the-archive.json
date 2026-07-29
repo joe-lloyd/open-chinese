@@ -2,13 +2,21 @@
   "id": "echoes-in-the-archive",
   "title": "档案里的回声",
   "titleEn": "Echoes in the Archive",
-  "description": "An advanced investigation connects a disputed archive to the environmental cost of an old coastal project.",
+  "description": "An archivist finds a testimony that challenges the heroic legend of a city founder.",
   "hskLevel": 7,
+  "goal": "Gu Yan wants to prepare an honest exhibition about the city’s founder.",
+  "conflict": "A forgotten witness describes a forced evacuation omitted from official history.",
+  "resolution": "The exhibition presents achievement and harm together.",
   "chapters": [
     {
       "id": "ch1",
-      "title": "封存的材料",
-      "titleEn": "Sealed Material",
+      "title": "没有编号的录音",
+      "titleEn": "The Unnumbered Recording",
+      "focusWords": [
+        "档案",
+        "编号",
+        "传闻"
+      ],
       "paragraphs": [
         {
           "tokens": [
@@ -17,693 +25,233 @@
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "想到",
+            "为",
+            "城市",
+            "建立",
+            "百",
+            "年",
+            "展览",
+            "整理",
             "档案",
             "。",
             "她",
-            "鉴别",
+            "在",
+            "一",
+            "批",
+            "没有",
+            "编号",
+            "的",
+            "材料",
+            "中",
+            "发现",
+            "一",
+            "段",
+            "老人",
+            "录音",
+            "。"
+          ],
+          "translation": "Gu Yan is preparing a centenary exhibition from the city archive. Among unnumbered materials, she finds an elderly person’s recording."
+        },
+        {
+          "tokens": [
+            "录音",
+            "提到",
+            "一",
+            "个",
+            "长期",
+            "被",
+            "当作",
+            "传闻",
+            "的",
+            "事件",
+            "：",
+            "城市",
+            "建设",
+            "初期",
+            "，",
+            "一些",
+            "家庭",
+            "被迫",
+            "离开",
+            "土地",
+            "。",
+            "这",
+            "个",
+            "传闻",
+            "从未",
+            "进入",
+            "正式",
             "档案",
-            "，",
-            "也",
-            "核实",
-            "档案",
             "。"
           ],
-          "translation": "Gu Yan thought about archive. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "文献",
-            "。",
-            "她",
-            "鉴别",
-            "文献",
-            "，",
-            "也",
-            "核实",
-            "文献",
-            "。"
-          ],
-          "translation": "Gu Yan thought about literature. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "契约",
-            "。",
-            "她",
-            "鉴别",
-            "契约",
-            "，",
-            "也",
-            "核实",
-            "契约",
-            "。"
-          ],
-          "translation": "Gu Yan thought about contract. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "印章",
-            "。",
-            "她",
-            "鉴别",
-            "印章",
-            "，",
-            "也",
-            "核实",
-            "印章",
-            "。"
-          ],
-          "translation": "Gu Yan thought about seal. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "图纸",
-            "。",
-            "她",
-            "鉴别",
-            "图纸",
-            "，",
-            "也",
-            "核实",
-            "图纸",
-            "。"
-          ],
-          "translation": "Gu Yan thought about blueprint. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "编号",
-            "。",
-            "她",
-            "鉴别",
-            "编号",
-            "，",
-            "也",
-            "核实",
-            "编号",
-            "。"
-          ],
-          "translation": "Gu Yan thought about reference number. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "纤维",
-            "。",
-            "她",
-            "鉴别",
-            "纤维",
-            "，",
-            "也",
-            "核实",
-            "纤维",
-            "。"
-          ],
-          "translation": "Gu Yan thought about fibre. She authenticated it and verified it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "来源",
-            "。",
-            "她",
-            "鉴别",
-            "来源",
-            "，",
-            "也",
-            "核实",
-            "来源",
-            "。"
-          ],
-          "translation": "Gu Yan thought about source. She authenticated it and verified it."
+          "translation": "It describes an event long dismissed as rumour: families were forced from their land early in the city’s development. The rumour never entered the official archive."
         }
       ]
     },
     {
       "id": "ch2",
-      "title": "论证的裂缝",
-      "titleEn": "Cracks in the Argument",
+      "title": "英雄的另一面",
+      "titleEn": "The Other Side of a Hero",
+      "focusWords": [
+        "证人",
+        "查明",
+        "推断"
+      ],
       "paragraphs": [
         {
           "tokens": [
+            "录音",
+            "中",
+            "的",
+            "证人",
+            "已经",
+            "去世",
+            "。",
             {
               "text": "顾言",
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "想到",
-            "假设",
-            "。",
-            "她",
-            "推断",
-            "假设",
+            "只能",
+            "通过",
+            "地图",
+            "、",
+            "信件",
+            "和",
+            "当年",
+            "报刊",
+            "查明",
+            "他",
+            "的",
+            "身份",
             "，",
-            "也",
-            "质疑",
-            "假设",
+            "再",
+            "推断",
+            "事件",
+            "过程",
             "。"
           ],
-          "translation": "Gu Yan thought about assumption. She inferred it and challenged it."
+          "translation": "The witness is dead. Gu Yan must use maps, letters, and newspapers to establish his identity and infer what occurred."
         },
         {
           "tokens": [
+            "更",
+            "多",
+            "证人",
+            "材料",
+            "证明",
+            "搬迁",
+            "确实",
+            "发生",
+            "，",
+            "但",
+            "无法",
+            "证明",
+            "城市",
+            "创立",
+            "者",
+            "亲自",
+            "下令",
+            "。",
             {
               "text": "顾言",
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "想到",
+            "拒绝",
+            "从",
+            "不",
+            "完整",
             "证据",
-            "。",
-            "她",
             "推断",
-            "证据",
-            "，",
-            "也",
-            "质疑",
-            "证据",
-            "。"
-          ],
-          "translation": "Gu Yan thought about evidence. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "结论",
-            "。",
-            "她",
-            "推断",
-            "结论",
-            "，",
-            "也",
-            "质疑",
-            "结论",
-            "。"
-          ],
-          "translation": "Gu Yan thought about conclusion. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "矛盾",
-            "。",
-            "她",
-            "推断",
-            "矛盾",
-            "，",
-            "也",
-            "质疑",
-            "矛盾",
-            "。"
-          ],
-          "translation": "Gu Yan thought about contradiction. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "漏洞",
-            "。",
-            "她",
-            "推断",
-            "漏洞",
-            "，",
-            "也",
-            "质疑",
-            "漏洞",
-            "。"
-          ],
-          "translation": "Gu Yan thought about flaw. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "动机",
-            "。",
-            "她",
-            "推断",
-            "动机",
-            "，",
-            "也",
-            "质疑",
+            "他",
+            "的",
             "动机",
             "。"
           ],
-          "translation": "Gu Yan thought about motive. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "立场",
-            "。",
-            "她",
-            "推断",
-            "立场",
-            "，",
-            "也",
-            "质疑",
-            "立场",
-            "。"
-          ],
-          "translation": "Gu Yan thought about position. She inferred it and challenged it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "逻辑",
-            "。",
-            "她",
-            "推断",
-            "逻辑",
-            "，",
-            "也",
-            "质疑",
-            "逻辑",
-            "。"
-          ],
-          "translation": "Gu Yan thought about logic. She inferred it and challenged it."
+          "translation": "Further testimony confirms the removals, but not that the founder personally ordered them. Gu Yan refuses to infer motive from incomplete evidence."
         }
       ]
     },
     {
       "id": "ch3",
-      "title": "谁的记忆",
-      "titleEn": "Whose Memory",
+      "title": "纪念谁",
+      "titleEn": "Whom Do We Remember?",
+      "focusWords": [
+        "反思",
+        "创伤",
+        "传奇"
+      ],
       "paragraphs": [
         {
           "tokens": [
+            "部分",
+            "官员",
+            "担心",
+            "展览",
+            "破坏",
+            "英雄",
+            "形象",
+            "。",
             {
               "text": "顾言",
               "pinyin": "Gù Yán",
               "definition": "Gu Yan (a given name)"
             },
-            "想到",
-            "记忆",
-            "。",
-            "她",
-            "阐述",
-            "记忆",
+            "回答",
             "，",
-            "也",
+            "纪念",
+            "成就",
+            "不",
+            "应",
+            "要求",
+            "受害",
+            "家庭",
+            "再次",
+            "隐藏",
+            "创伤",
+            "。"
+          ],
+          "translation": "Some officials fear the exhibition will damage a heroic image. Gu Yan argues that honouring achievement should not require harmed families to hide their trauma again."
+        },
+        {
+          "tokens": [
+            "最终",
+            "展览",
+            "同时",
+            "呈现",
+            "建设",
+            "成果",
+            "、",
+            "证人",
+            "录音",
+            "和",
+            "尚未",
+            "确定",
+            "的",
+            "问题",
+            "。",
+            "城市",
+            "没有",
+            "放弃",
+            "传奇",
+            "，",
+            "而是",
+            "开始",
             "反思",
-            "记忆",
-            "。"
-          ],
-          "translation": "Gu Yan thought about memory. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "身份",
-            "。",
-            "她",
-            "阐述",
-            "身份",
+            "传奇",
             "，",
-            "也",
-            "反思",
-            "身份",
+            "承担",
+            "历史",
+            "的",
+            "全部",
+            "重量",
             "。"
           ],
-          "translation": "Gu Yan thought about identity. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "伦理",
-            "。",
-            "她",
-            "阐述",
-            "伦理",
-            "，",
-            "也",
-            "反思",
-            "伦理",
-            "。"
-          ],
-          "translation": "Gu Yan thought about ethics. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "权力",
-            "。",
-            "她",
-            "阐述",
-            "权力",
-            "，",
-            "也",
-            "反思",
-            "权力",
-            "。"
-          ],
-          "translation": "Gu Yan thought about power. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "责任",
-            "。",
-            "她",
-            "阐述",
-            "责任",
-            "，",
-            "也",
-            "反思",
-            "责任",
-            "。"
-          ],
-          "translation": "Gu Yan thought about responsibility. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "偏见",
-            "。",
-            "她",
-            "阐述",
-            "偏见",
-            "，",
-            "也",
-            "反思",
-            "偏见",
-            "。"
-          ],
-          "translation": "Gu Yan thought about bias. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "真相",
-            "。",
-            "她",
-            "阐述",
-            "真相",
-            "，",
-            "也",
-            "反思",
-            "真相",
-            "。"
-          ],
-          "translation": "Gu Yan thought about truth. She set it out and reflected on it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "传统",
-            "。",
-            "她",
-            "阐述",
-            "传统",
-            "，",
-            "也",
-            "反思",
-            "传统",
-            "。"
-          ],
-          "translation": "Gu Yan thought about tradition. She set it out and reflected on it."
-        }
-      ]
-    },
-    {
-      "id": "ch4",
-      "title": "海岸的代价",
-      "titleEn": "The Cost to the Coast",
-      "paragraphs": [
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "生态",
-            "。",
-            "她",
-            "调查",
-            "生态",
-            "，",
-            "也",
-            "研究",
-            "生态",
-            "。"
-          ],
-          "translation": "Gu Yan thought about ecology. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "生物",
-            "。",
-            "她",
-            "调查",
-            "生物",
-            "，",
-            "也",
-            "研究",
-            "生物",
-            "。"
-          ],
-          "translation": "Gu Yan thought about wildlife. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "能源",
-            "。",
-            "她",
-            "调查",
-            "能源",
-            "，",
-            "也",
-            "研究",
-            "能源",
-            "。"
-          ],
-          "translation": "Gu Yan thought about energy. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "海岸",
-            "。",
-            "她",
-            "调查",
-            "海岸",
-            "，",
-            "也",
-            "研究",
-            "海岸",
-            "。"
-          ],
-          "translation": "Gu Yan thought about coast. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "岩石",
-            "。",
-            "她",
-            "调查",
-            "岩石",
-            "，",
-            "也",
-            "研究",
-            "岩石",
-            "。"
-          ],
-          "translation": "Gu Yan thought about rock. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "湿度",
-            "。",
-            "她",
-            "调查",
-            "湿度",
-            "，",
-            "也",
-            "研究",
-            "湿度",
-            "。"
-          ],
-          "translation": "Gu Yan thought about humidity. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "样本",
-            "。",
-            "她",
-            "调查",
-            "样本",
-            "，",
-            "也",
-            "研究",
-            "样本",
-            "。"
-          ],
-          "translation": "Gu Yan thought about sample. She investigated it and studied it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "顾言",
-              "pinyin": "Gù Yán",
-              "definition": "Gu Yan (a given name)"
-            },
-            "想到",
-            "结果",
-            "。",
-            "她",
-            "调查",
-            "结果",
-            "，",
-            "也",
-            "研究",
-            "结果",
-            "。"
-          ],
-          "translation": "Gu Yan thought about result. She investigated it and studied it."
+          "translation": "The exhibition presents achievements, testimony, and unresolved questions together. The city does not abandon its legend; it reflects on it and accepts the full weight of its history."
         }
       ]
     }
-  ]
+  ],
+  "order": 1
 }

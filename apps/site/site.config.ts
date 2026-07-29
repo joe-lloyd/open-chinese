@@ -33,7 +33,7 @@ export const SITE = {
    * truncate it.
    */
   description:
-    'HSK 1–9 Mandarin practice with spaced repetition, 33 graded-reader chapters and pronunciation checks. Study what is due and read what you learn.',
+    'HSK 1–9 Mandarin practice with spaced repetition, 135 story chapters and pronunciation checks. Study what is due and read what you learn.',
 
   locale: 'en',
   ogLocale: 'en_US',

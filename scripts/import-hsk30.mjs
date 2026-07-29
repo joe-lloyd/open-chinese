@@ -11,7 +11,8 @@ const COMPLETE_HSK_BASE =
   `https://raw.githubusercontent.com/drkameleon/complete-hsk-vocabulary/${COMPLETE_HSK_COMMIT}`
 const HSK30_BASE = `https://raw.githubusercontent.com/ivankra/hsk30/${HSK30_COMMIT}`
 
-const LEVELS = [1, 2, 3, 4, 5, 6, 7]
+const SOURCE_LEVELS = [1, 2, 3, 4, 5, 6, 7]
+const OUTPUT_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const EXPECTED_COUNTS = new Map([
   [1, 506],
   [2, 750],
@@ -22,6 +23,11 @@ const EXPECTED_COUNTS = new Map([
   [7, 5606],
 ])
 const EXPECTED_TOTAL = 10969
+const ADVANCED_LEVEL_COUNTS = new Map([
+  [7, 1869],
+  [8, 1869],
+  [9, 1868],
+])
 const DEFINITION_OVERRIDES = new Map([
   ['纪录', 'record; chronicle; to record (Taiwan usage)'],
   ['纯朴', 'simple and honest; unsophisticated'],
@@ -88,7 +94,7 @@ function officialEntries(csv) {
 
   for (const row of parseCsv(csv)) {
     const level = row.Level === '7-9' ? 7 : Number(row.Level)
-    if (!LEVELS.includes(level)) continue
+    if (!SOURCE_LEVELS.includes(level)) continue
 
     if (row.Variants) {
       for (const variant of JSON.parse(row.Variants)) {
@@ -174,9 +180,15 @@ async function fetchText(url) {
 
 async function existingWords() {
   const words = new Map()
-  for (const level of LEVELS) {
+  for (const level of OUTPUT_LEVELS) {
     const path = resolve(outputDir, `hsk${level}.json`)
-    const entries = JSON.parse(await readFile(path, 'utf8'))
+    let entries
+    try {
+      entries = JSON.parse(await readFile(path, 'utf8'))
+    } catch (error) {
+      if (error?.code === 'ENOENT') continue
+      throw error
+    }
     for (const entry of entries) words.set(entry.simplified, entry)
   }
   return words
@@ -185,17 +197,18 @@ async function existingWords() {
 const [officialCsv, legacy, ...sourceLists] = await Promise.all([
   fetchText(`${HSK30_BASE}/hsk30.csv`),
   existingWords(),
-  ...LEVELS.map((level) =>
+  ...SOURCE_LEVELS.map((level) =>
     fetchText(`${COMPLETE_HSK_BASE}/wordlists/exclusive/new/${level}.json`).then(JSON.parse)
   ),
 ])
 
 const official = officialEntries(officialCsv)
 const seen = new Set()
-const byLevel = new Map(LEVELS.map((level) => [level, []]))
+const byLevel = new Map(OUTPUT_LEVELS.map((level) => [level, []]))
+const advancedEntries = []
 
 for (const [sourceIndex, sourceWords] of sourceLists.entries()) {
-  const sourceLevel = LEVELS[sourceIndex]
+  const sourceLevel = SOURCE_LEVELS[sourceIndex]
   const expected = EXPECTED_COUNTS.get(sourceLevel)
   if (sourceWords.length !== expected) {
     throw new Error(
@@ -246,7 +259,8 @@ for (const [sourceIndex, sourceWords] of sourceLists.entries()) {
       if (previous.sentencePinyin) entry.sentencePinyin = previous.sentencePinyin
     }
 
-    byLevel.get(level).push(entry)
+    if (level === 7) advancedEntries.push(entry)
+    else byLevel.get(level).push(entry)
   }
 }
 
@@ -254,7 +268,78 @@ if (seen.size !== EXPECTED_TOTAL) {
   throw new Error(`HSK total changed: expected ${EXPECTED_TOTAL}, received ${seen.size}`)
 }
 
-for (const level of LEVELS) {
+/**
+ * GF0025-2021 and the HSK exam publish advanced vocabulary as one HSK 7–9
+ * band, not three official word lists. OpenChinese divides that band into a
+ * deterministic learning progression so learners can study it in manageable
+ * stages without misrepresenting the split as official.
+ *
+ * Earlier-stage words favour shorter forms made from characters already seen
+ * in HSK 1–6. Longer forms, rare advanced-band characters, idioms, and
+ * literary/technical senses move later. The source data stays unchanged; only
+ * its presentation level is derived here.
+ */
+function splitAdvancedBand(entries) {
+  const earlierCharacterLevel = new Map()
+  for (const level of [1, 2, 3, 4, 5, 6]) {
+    for (const entry of byLevel.get(level)) {
+      for (const character of entry.simplified) {
+        if (!earlierCharacterLevel.has(character)) earlierCharacterLevel.set(character, level)
+      }
+    }
+  }
+
+  const advancedCharacterFrequency = new Map()
+  for (const entry of entries) {
+    for (const character of new Set(entry.simplified)) {
+      advancedCharacterFrequency.set(
+        character,
+        (advancedCharacterFrequency.get(character) ?? 0) + 1
+      )
+    }
+  }
+
+  const difficulty = (entry) => {
+    const characters = [...entry.simplified]
+    let score = Math.max(0, characters.length - 2) * 5
+    for (const character of new Set(characters)) {
+      const earlier = earlierCharacterLevel.get(character)
+      if (earlier) score += earlier * 0.35
+      else {
+        const frequency = advancedCharacterFrequency.get(character) ?? 1
+        score += 9 + 12 / Math.sqrt(frequency)
+      }
+    }
+    if (characters.length === 4) score += 3
+    if (/\b(?:archaic|literary|dialect|technical|idiom)\b/i.test(entry.definition)) score += 8
+    return score
+  }
+
+  const ranked = [...entries].sort(
+    (left, right) =>
+      difficulty(left) - difficulty(right) ||
+      left.simplified.localeCompare(right.simplified, 'zh-CN')
+  )
+
+  let offset = 0
+  for (const level of [7, 8, 9]) {
+    const count = ADVANCED_LEVEL_COUNTS.get(level)
+    const tier = ranked.slice(offset, offset + count)
+    for (const entry of tier) {
+      entry.hskLevel = level
+      byLevel.get(level).push(entry)
+    }
+    offset += count
+  }
+
+  if (offset !== entries.length) {
+    throw new Error(`Advanced split assigned ${offset} of ${entries.length} words`)
+  }
+}
+
+splitAdvancedBand(advancedEntries)
+
+for (const level of OUTPUT_LEVELS) {
   const entries = byLevel.get(level).sort((left, right) =>
     left.simplified.localeCompare(right.simplified, 'zh-CN')
   )
@@ -263,7 +348,7 @@ for (const level of LEVELS) {
     `${JSON.stringify(entries, null, 2)}\n`,
     'utf8'
   )
-  console.log(`HSK ${level === 7 ? '7–9' : level}: ${entries.length} words`)
+  console.log(`HSK ${level}: ${entries.length} words`)
 }
 
 console.log(`Imported ${seen.size} unique HSK 3.0 vocabulary entries.`)

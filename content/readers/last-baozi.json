@@ -1,0 +1,274 @@
+{
+  "id": "last-baozi",
+  "title": "最后一个包子",
+  "titleEn": "The Last Baozi",
+  "description": "Lin An must choose what to do with the only lunch he has left.",
+  "hskLevel": 1,
+  "goal": "Lin An wants to save his last baozi for lunch.",
+  "conflict": "A new classmate is hungry and has no food.",
+  "resolution": "They share the baozi and begin a friendship.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "两个包子",
+      "titleEn": "Two Baozi",
+      "focusWords": [
+        "包子",
+        "书包",
+        "早上"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "早上",
+            "，",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "买",
+            "两",
+            "个",
+            "包子",
+            "。",
+            "他",
+            "吃",
+            "一",
+            "个",
+            "包子",
+            "，",
+            "放",
+            "一",
+            "个",
+            "包子",
+            "在",
+            "书包",
+            "里",
+            "。"
+          ],
+          "translation": "In the morning, Lin An buys two baozi. He eats one and puts the other in his schoolbag."
+        },
+        {
+          "tokens": [
+            "中午",
+            "快",
+            "到",
+            "了",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "想",
+            "吃",
+            "书包",
+            "里",
+            "的",
+            "包子",
+            "。",
+            "他",
+            "看",
+            "了",
+            "看",
+            "时间",
+            "，",
+            "又",
+            "看",
+            "了",
+            "看",
+            "包子",
+            "。"
+          ],
+          "translation": "Noon is near. Lin An wants to eat the baozi in his schoolbag. He looks at the time, then at the baozi."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "新同学",
+      "titleEn": "The New Classmate",
+      "focusWords": [
+        "同学",
+        "没事儿",
+        "旁边"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "新",
+            "同学",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "坐",
+            "在",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "旁边",
+            "。",
+            "大家",
+            "都",
+            "吃饭",
+            "，",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "没有",
+            "米饭",
+            "，",
+            "也",
+            "没有",
+            "面包",
+            "。"
+          ],
+          "translation": "The new student, Fang Yu, sits beside Lin An. Everyone is eating, but Fang Yu has no rice and no bread."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "问",
+            "：",
+            "“",
+            "你",
+            "饿",
+            "吗",
+            "？",
+            "”",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "点头",
+            "。",
+            "他",
+            "很",
+            "饿",
+            "，",
+            "可",
+            "他",
+            "说",
+            "：",
+            "“",
+            "我",
+            "没事儿",
+            "。",
+            "”"
+          ],
+          "translation": "Lin An asks, “Are you hungry?” Fang Yu nods. He is very hungry, but says, “I’m fine.”"
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "一人一半",
+      "titleEn": "Half Each",
+      "focusWords": [
+        "一半",
+        "朋友",
+        "包子"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "把",
+            "一半",
+            "包子",
+            "给",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "不",
+            "要",
+            "，",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "说",
+            "：",
+            "“",
+            "一",
+            "人",
+            "一半",
+            "，",
+            "我们",
+            "一起",
+            "吃",
+            "。",
+            "”"
+          ],
+          "translation": "Lin An gives Fang Yu half the baozi. Fang Yu refuses, but Lin An says, “Half each. We’ll eat together.”"
+        },
+        {
+          "tokens": [
+            "他们",
+            "一",
+            "人",
+            "吃",
+            "一半",
+            "，",
+            "也",
+            "一起",
+            "喝",
+            "水",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "笑",
+            "了",
+            "，",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "也",
+            "笑",
+            "了",
+            "。",
+            "今天",
+            "，",
+            "他们",
+            "是",
+            "朋友",
+            "了",
+            "。"
+          ],
+          "translation": "They each eat half and share some water. Fang Yu smiles, and Lin An smiles too. Today, they have become friends."
+        }
+      ]
+    }
+  ],
+  "order": 1
+}

@@ -1,0 +1,256 @@
+{
+  "id": "moving-coastline",
+  "title": "移动的海岸线",
+  "titleEn": "The Moving Coastline",
+  "description": "A coastal village faces relocation as the sea reaches its homes.",
+  "hskLevel": 8,
+  "goal": "Planner Jiang Yue wants to protect residents from rising water.",
+  "conflict": "Relocation protects lives but threatens identity and livelihoods.",
+  "resolution": "Residents lead a phased plan that preserves community ties.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "海水到门口",
+      "titleEn": "The Sea at the Door",
+      "focusWords": [
+        "海岸",
+        "脆弱",
+        "变迁"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "负责",
+            "一",
+            "个",
+            "海岸",
+            "村庄",
+            "的",
+            "安全",
+            "规划",
+            "。",
+            "多年",
+            "环境",
+            "变迁",
+            "让",
+            "海岸",
+            "线",
+            "不断",
+            "后退",
+            "，",
+            "最",
+            "外边",
+            "的",
+            "房屋",
+            "已经",
+            "十分",
+            "脆弱",
+            "。"
+          ],
+          "translation": "Jiang Yue plans safety for a coastal village. Years of environmental change have pushed the shoreline back, leaving outer homes extremely vulnerable."
+        },
+        {
+          "tokens": [
+            "专家",
+            "预测",
+            "下",
+            "一",
+            "次",
+            "强",
+            "风暴",
+            "可能",
+            "淹",
+            "没",
+            "村庄",
+            "一半",
+            "区域",
+            "。",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "建议",
+            "全体",
+            "居民",
+            "在",
+            "两",
+            "年",
+            "内",
+            "搬迁",
+            "。"
+          ],
+          "translation": "Experts predict the next severe storm may flood half the village. Jiang Yue proposes relocating everyone within two years."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "安全不是全部",
+      "titleEn": "Safety Is Not Everything",
+      "focusWords": [
+        "抵制",
+        "尊严",
+        "困境"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "居民",
+            "强烈",
+            "抵制",
+            "搬迁",
+            "。",
+            "他们",
+            "对",
+            "祖先",
+            "的",
+            "记忆",
+            "、",
+            "工作",
+            "和",
+            "生活",
+            "方式",
+            "都",
+            "在",
+            "海岸",
+            "，",
+            "新",
+            "住宅",
+            "只能",
+            "提供",
+            "房间",
+            "，",
+            "不",
+            "能",
+            "保护",
+            "他们",
+            "的",
+            "尊严",
+            "。"
+          ],
+          "translation": "Residents strongly resist. Their ancestral memories, work, and way of life are rooted on the coast; new housing can offer rooms but cannot by itself protect their dignity."
+        },
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "陷入",
+            "困境",
+            "：",
+            "不",
+            "搬",
+            "会",
+            "威胁",
+            "生命",
+            "，",
+            "强迫",
+            "搬迁",
+            "又",
+            "会",
+            "破坏",
+            "社区",
+            "。",
+            "她",
+            "开始",
+            "让",
+            "居民",
+            "自己",
+            "参与",
+            "风险",
+            "评估",
+            "。"
+          ],
+          "translation": "Jiang Yue faces a dilemma: staying risks lives, while forced relocation destroys community. She begins involving residents in risk assessment."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "分阶段离开",
+      "titleEn": "Leaving in Stages",
+      "focusWords": [
+        "保障",
+        "安抚",
+        "传承"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "共同",
+            "方案",
+            "先",
+            "搬迁",
+            "高",
+            "风险",
+            "家庭",
+            "，",
+            "同时",
+            "在",
+            "新",
+            "区",
+            "建立",
+            "鱼",
+            "市场",
+            "和",
+            "纪念",
+            "空间",
+            "，",
+            "保障",
+            "工作",
+            "和",
+            "文化",
+            "传承",
+            "。"
+          ],
+          "translation": "The joint plan relocates high-risk families first and creates a fish market and memorial space in the new district, protecting work and heritage."
+        },
+        {
+          "tokens": [
+            "最后",
+            "一",
+            "户",
+            "离开",
+            "时",
+            "，",
+            "海水",
+            "已经",
+            "进入",
+            "旧",
+            "路",
+            "。",
+            "没有",
+            "方案",
+            "能",
+            "完全",
+            "安抚",
+            "失去",
+            "家园",
+            "的",
+            "悲伤",
+            "，",
+            "但",
+            "新",
+            "社区",
+            "保留",
+            "了",
+            "彼此",
+            "的",
+            "联系",
+            "。"
+          ],
+          "translation": "When the final household leaves, seawater has reached the old road. No plan can fully soothe the grief of losing home, but the new community preserves their ties."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

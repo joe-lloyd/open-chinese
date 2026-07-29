@@ -1,0 +1,262 @@
+{
+  "id": "museum-of-apologies",
+  "title": "道歉博物馆",
+  "titleEn": "The Museum of Apologies",
+  "description": "A nation offers to return sacred objects, but the receiving community questions the ceremony.",
+  "hskLevel": 9,
+  "goal": "Curator Gu Yan wants to complete a historic return of cultural objects.",
+  "conflict": "The official ceremony centres the institution rather than the harmed community.",
+  "resolution": "The community rewrites the return on its own terms.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "百年后的归还",
+      "titleEn": "Returned After a Century",
+      "focusWords": [
+        "归还",
+        "仪式",
+        "尊严"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "负责",
+            "把",
+            "一",
+            "批",
+            "百",
+            "年",
+            "前",
+            "被",
+            "带",
+            "走",
+            "的",
+            "神圣",
+            "物品",
+            "归还",
+            "原",
+            "社区",
+            "。",
+            "博物馆",
+            "准备",
+            "大型",
+            "仪式",
+            "，",
+            "宣传",
+            "这",
+            "是",
+            "历史",
+            "性",
+            "道歉",
+            "。"
+          ],
+          "translation": "Gu Yan is returning sacred objects taken from a community a century ago. The museum plans a grand ceremony presented as a historic apology."
+        },
+        {
+          "tokens": [
+            "社区",
+            "代表",
+            "欢迎",
+            "归还",
+            "，",
+            "却",
+            "认为",
+            "仪式",
+            "把",
+            "博物馆",
+            "放",
+            "在",
+            "中心",
+            "，",
+            "再次",
+            "把",
+            "他们",
+            "的",
+            "尊严",
+            "当作",
+            "展览",
+            "内容",
+            "。"
+          ],
+          "translation": "Community representatives welcome the return but say the ceremony centres the museum and once again turns their dignity into an exhibit."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁接受道歉",
+      "titleEn": "Who Accepts an Apology?",
+      "focusWords": [
+        "妥协",
+        "伦理",
+        "阐述"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "政府",
+            "希望",
+            "双方",
+            "妥协",
+            "：",
+            "保留",
+            "媒体",
+            "仪式",
+            "，",
+            "同时",
+            "允许",
+            "社区",
+            "私下",
+            "进行",
+            "传统",
+            "活动",
+            "。",
+            "社区",
+            "拒绝",
+            "把",
+            "自己",
+            "的",
+            "仪式",
+            "放到",
+            "幕后",
+            "。"
+          ],
+          "translation": "The government seeks compromise: keep the media event while allowing a private traditional ceremony. The community refuses to move its ceremony backstage."
+        },
+        {
+          "tokens": [
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "在",
+            "伦理",
+            "委员会",
+            "阐述",
+            "问题",
+            "：",
+            "道歉",
+            "如果",
+            "规定",
+            "对方",
+            "如何",
+            "接受",
+            "，",
+            "就",
+            "仍然",
+            "是",
+            "权力",
+            "的",
+            "表演",
+            "。",
+            "妥协",
+            "不",
+            "能",
+            "要求",
+            "受害",
+            "者",
+            "再次",
+            "沉默",
+            "。"
+          ],
+          "translation": "Gu Yan tells the ethics committee that an apology dictating how it is accepted remains a performance of power. Compromise cannot require harmed people to be silent again."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "没有领导的仪式",
+      "titleEn": "A Ceremony Without Leaders",
+      "focusWords": [
+        "初衷",
+        "传承",
+        "官员"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "最终",
+            "仪式",
+            "取消",
+            "由",
+            "领导",
+            "主持",
+            "的",
+            "开幕",
+            "活动",
+            "和",
+            "官员",
+            "演讲",
+            "，",
+            "由",
+            "社区",
+            "决定",
+            "时间",
+            "与",
+            "过程",
+            "。",
+            "博物馆",
+            "只",
+            "公开",
+            "来源",
+            "记录",
+            "和",
+            "归还",
+            "承诺",
+            "。"
+          ],
+          "translation": "The ceremony drops its leader-hosted opening and official speeches. The community chooses the time and process; the museum publishes only provenance records and its commitment."
+        },
+        {
+          "tokens": [
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "说",
+            "，",
+            "道歉",
+            "的",
+            "初衷",
+            "不",
+            "应",
+            "是",
+            "完成",
+            "机构",
+            "形象",
+            "，",
+            "而是",
+            "建立",
+            "平等",
+            "的",
+            "新",
+            "关系",
+            "。",
+            "物品",
+            "回到",
+            "家园",
+            "，",
+            "传承",
+            "的",
+            "主人",
+            "也",
+            "重新",
+            "得到",
+            "发言",
+            "权",
+            "。"
+          ],
+          "translation": "Gu Yan says an apology should not complete an institution’s image but establish a new relationship between equals. The objects return home, and the owners of the tradition regain their voice."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

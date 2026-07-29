@@ -1,0 +1,257 @@
+{
+  "id": "last-bus",
+  "title": "最后一班车",
+  "titleEn": "The Last Bus",
+  "description": "A bus driver turns back through a storm to return a passenger’s medicine.",
+  "hskLevel": 4,
+  "goal": "The driver wants to finish his final route safely and on time.",
+  "conflict": "A forgotten bag contains medicine needed that night.",
+  "resolution": "Passengers accept the delay and help locate the owner.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "准时回家",
+      "titleEn": "Home on Time",
+      "focusWords": [
+        "司机",
+        "准时",
+        "严重"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "宋远",
+              "pinyin": "Sòng Yuǎn",
+              "definition": "Song Yuan (a given name)"
+            },
+            "是",
+            "晚上",
+            "末",
+            "班",
+            "车",
+            "的",
+            "司机",
+            "。",
+            "当天",
+            "是",
+            "女儿",
+            "的",
+            "生日",
+            "，",
+            "他",
+            "答应",
+            "下班",
+            "后",
+            "准时",
+            "回家",
+            "。"
+          ],
+          "translation": "Song Yuan drives the last bus of the night. It is his daughter’s birthday, and he has promised to return home on time."
+        },
+        {
+          "tokens": [
+            "外面",
+            "下",
+            "着",
+            "暴雨",
+            "，",
+            "道路",
+            "严重",
+            "堵车",
+            "。",
+            {
+              "text": "宋远",
+              "pinyin": "Sòng Yuǎn",
+              "definition": "Song Yuan (a given name)"
+            },
+            "一边",
+            "注意",
+            "安全",
+            "，",
+            "一边",
+            "看",
+            "时间",
+            "，",
+            "希望",
+            "不要",
+            "再",
+            "发生",
+            "意外",
+            "。"
+          ],
+          "translation": "Heavy rain falls and traffic is badly blocked. Song Yuan watches the road and the time, hoping nothing else goes wrong."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "座位上的袋子",
+      "titleEn": "The Bag on the Seat",
+      "focusWords": [
+        "药物",
+        "地址",
+        "座位"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "最后",
+            "一",
+            "位",
+            "乘客",
+            "下车",
+            "后",
+            "，",
+            {
+              "text": "宋远",
+              "pinyin": "Sòng Yuǎn",
+              "definition": "Song Yuan (a given name)"
+            },
+            "在",
+            "座位",
+            "上",
+            "发现",
+            "一",
+            "个",
+            "袋",
+            "子",
+            "。",
+            "袋",
+            "子",
+            "里",
+            "有",
+            "医院",
+            "的",
+            "药物",
+            "和",
+            "一",
+            "个",
+            "地址",
+            "。"
+          ],
+          "translation": "After the final passenger leaves, Song Yuan finds a bag on a seat. It contains hospital medicine and an address."
+        },
+        {
+          "tokens": [
+            "地址",
+            "在",
+            "六",
+            "公里",
+            "外",
+            "，",
+            "返回",
+            "会",
+            "让",
+            "他",
+            "错过",
+            "女儿",
+            "的",
+            "生日",
+            "。",
+            "可",
+            "药物",
+            "上",
+            "写",
+            "着",
+            "：",
+            "“",
+            "今天",
+            "晚上",
+            "使用",
+            "。",
+            "”"
+          ],
+          "translation": "The address is six kilometres back, and returning will make him miss his daughter’s birthday. But the medicine says, “Use tonight.”"
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "一起晚到",
+      "titleEn": "Late Together",
+      "focusWords": [
+        "帮助",
+        "理解",
+        "药物"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "车上",
+            "还有",
+            "三",
+            "位",
+            "乘客",
+            "。",
+            "他们",
+            "听说",
+            "情况",
+            "后",
+            "，",
+            "都",
+            "同意",
+            "返回",
+            "，",
+            "还",
+            "帮助",
+            {
+              "text": "宋远",
+              "pinyin": "Sòng Yuǎn",
+              "definition": "Song Yuan (a given name)"
+            },
+            "找到",
+            "正确",
+            "的",
+            "楼房",
+            "。"
+          ],
+          "translation": "Three passengers remain aboard. After hearing what happened, they agree to turn back and help Song Yuan find the right building."
+        },
+        {
+          "tokens": [
+            "病人",
+            "得到",
+            "了",
+            "药物",
+            "。",
+            {
+              "text": "宋远",
+              "pinyin": "Sòng Yuǎn",
+              "definition": "Song Yuan (a given name)"
+            },
+            "回家",
+            "时",
+            "已经",
+            "半夜",
+            "，",
+            "女儿",
+            "还",
+            "在",
+            "等",
+            "他",
+            "。",
+            "她",
+            "说",
+            "：",
+            "“",
+            "我",
+            "理解",
+            "，",
+            "今天",
+            "你",
+            "帮助",
+            "了",
+            "一",
+            "个",
+            "家庭",
+            "。",
+            "”"
+          ],
+          "translation": "The patient receives the medicine. It is midnight when Song Yuan arrives home, but his daughter is waiting. She says, “I understand. Today you helped a family.”"
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

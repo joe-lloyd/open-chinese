@@ -1,0 +1,236 @@
+{
+  "id": "quiet-birthday",
+  "title": "安静的生日",
+  "titleEn": "The Quiet Birthday",
+  "description": "Wu Ke thinks everyone has forgotten his birthday.",
+  "hskLevel": 1,
+  "goal": "Wu Ke hopes his family remembers his birthday.",
+  "conflict": "The whole day passes without anyone saying a word about it.",
+  "resolution": "A quiet home turns into a small, heartfelt celebration.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "没有人说",
+      "titleEn": "Nobody Says It",
+      "focusWords": [
+        "生日",
+        "早上",
+        "爸爸"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "今天",
+            "是",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "的",
+            "生日",
+            "。",
+            "早上",
+            "，",
+            "爸爸",
+            "没有",
+            "说",
+            "“",
+            "生日",
+            "快乐",
+            "”",
+            "，",
+            "妈妈",
+            "也",
+            "没有",
+            "说",
+            "。"
+          ],
+          "translation": "Today is Wu Ke’s birthday. In the morning, neither his father nor his mother says “Happy birthday.”"
+        },
+        {
+          "tokens": [
+            "在",
+            "学校",
+            "，",
+            "朋友",
+            "们",
+            "说",
+            "天气",
+            "，",
+            "说",
+            "考试",
+            "，",
+            "说",
+            "电影",
+            "。",
+            "没有",
+            "人",
+            "说",
+            "：",
+            "“",
+            "生日",
+            "快乐",
+            "。",
+            "”"
+          ],
+          "translation": "At school, his friends talk about the weather, tests, and films. Nobody says, “Happy birthday.”"
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "一个人回家",
+      "titleEn": "Going Home Alone",
+      "focusWords": [
+        "回家",
+        "朋友",
+        "放学"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "放学",
+            "了",
+            "，",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "一",
+            "个人",
+            "回家",
+            "。",
+            "朋友",
+            "问",
+            "他",
+            "去",
+            "哪儿",
+            "，",
+            "他",
+            "说",
+            "：",
+            "“",
+            "我",
+            "回家",
+            "。",
+            "”"
+          ],
+          "translation": "After school, Wu Ke goes home alone. A friend asks where he is going, and he says, “I’m going home.”"
+        },
+        {
+          "tokens": [
+            "路上",
+            "有",
+            "很",
+            "多",
+            "人",
+            "，",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "还是",
+            "不",
+            "高兴",
+            "。",
+            "他",
+            "想",
+            "：",
+            "“",
+            "朋友",
+            "忘",
+            "了",
+            "，",
+            "家人",
+            "也",
+            "忘",
+            "了",
+            "。",
+            "”"
+          ],
+          "translation": "There are many people on the road, but Wu Ke is still unhappy. He thinks, “My friends forgot, and my family forgot too.”"
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "门后的声音",
+      "titleEn": "Voices Behind the Door",
+      "focusWords": [
+        "打开",
+        "面条儿",
+        "家里"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "家里",
+            "很",
+            "安静",
+            "。",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "打开",
+            "门",
+            "，",
+            "房间",
+            "里",
+            "没有",
+            "人",
+            "。",
+            "他",
+            "再",
+            "开",
+            "灯",
+            "。"
+          ],
+          "translation": "Home is very quiet. Wu Ke opens the door, and the room seems empty. Then he turns on the light."
+        },
+        {
+          "tokens": [
+            "爸爸",
+            "、",
+            "妈妈",
+            "和",
+            "朋友",
+            "们",
+            "一起",
+            "出来",
+            "：",
+            "“",
+            "生日",
+            "快乐",
+            "！",
+            "”",
+            "桌子",
+            "上",
+            "有",
+            "面条儿",
+            "、",
+            "水果",
+            "和",
+            "茶",
+            "。",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "真的",
+            "快乐",
+            "了",
+            "。"
+          ],
+          "translation": "His parents and friends come out together: “Happy birthday!” There are noodles, fruit, and tea on the table. Wu Ke is truly happy."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

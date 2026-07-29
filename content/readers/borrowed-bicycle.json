@@ -1,0 +1,268 @@
+{
+  "id": "borrowed-bicycle",
+  "title": "借来的自行车",
+  "titleEn": "The Borrowed Bicycle",
+  "description": "A borrowed bicycle is damaged before an important race.",
+  "hskLevel": 2,
+  "goal": "Chen Zhou wants to keep a promise and return the bicycle on time.",
+  "conflict": "The bicycle breaks, and he is afraid to tell its owner.",
+  "resolution": "He chooses honesty and repairs it together with his friend.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "明天以前",
+      "titleEn": "Before Tomorrow",
+      "focusWords": [
+        "自行车",
+        "答应",
+        "越来越"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "向",
+            "朋友",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "借",
+            "了",
+            "一",
+            "辆",
+            "自行车",
+            "。",
+            "他",
+            "答应",
+            "明天",
+            "以前",
+            "还",
+            "车",
+            "，",
+            "因为",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "要",
+            "参加",
+            "学校",
+            "的",
+            "比赛",
+            "。"
+          ],
+          "translation": "Chen Zhou borrows a bicycle from his friend Wu Ke. He promises to return it before tomorrow because Wu Ke has a school race."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "骑车",
+            "去",
+            "给",
+            "奶奶",
+            "送",
+            "药",
+            "。",
+            "回来",
+            "的",
+            "路上",
+            "开始",
+            "下雪",
+            "，",
+            "道路",
+            "越来越",
+            "难",
+            "走",
+            "。"
+          ],
+          "translation": "Chen Zhou cycles to deliver medicine to his grandmother. On the way back, snow begins to fall and the road grows harder to ride."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "坏了",
+      "titleEn": "Broken",
+      "focusWords": [
+        "告诉",
+        "自行车",
+        "忽然"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "自行车",
+            "忽然",
+            "倒",
+            "在",
+            "地上",
+            "，",
+            "前边",
+            "的",
+            "车轮",
+            "坏",
+            "了",
+            "。",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "很",
+            "害怕",
+            "，",
+            "不",
+            "知道",
+            "怎么",
+            "告诉",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "。"
+          ],
+          "translation": "The bicycle suddenly falls, and its front wheel breaks. Chen Zhou is frightened and does not know how to tell Wu Ke."
+        },
+        {
+          "tokens": [
+            "他",
+            "想",
+            "买",
+            "一",
+            "个",
+            "新",
+            "车轮",
+            "，",
+            "可是",
+            "商店",
+            "已经",
+            "关",
+            "门",
+            "。",
+            "他",
+            "也",
+            "想",
+            "什么",
+            "都",
+            "不",
+            "说",
+            "，",
+            "但是",
+            "比赛",
+            "就",
+            "在",
+            "明天",
+            "。"
+          ],
+          "translation": "He wants to buy a new wheel, but the shop is closed. He also considers saying nothing, but the race is tomorrow."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "一起修",
+      "titleEn": "Repairing It Together",
+      "focusWords": [
+        "相信",
+        "自行车",
+        "说明"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "最后",
+            "给",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "打电话",
+            "，",
+            "诚实",
+            "地",
+            "说明",
+            "了",
+            "事情",
+            "。",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "安静",
+            "了",
+            "一会儿",
+            "，",
+            "然后",
+            "带",
+            "工具",
+            "来",
+            "了",
+            "。"
+          ],
+          "translation": "Chen Zhou finally phones Wu Ke and honestly explains what happened. Wu Ke is quiet for a moment, then brings tools."
+        },
+        {
+          "tokens": [
+            "两",
+            "个人",
+            "一起",
+            "修理",
+            "自行车",
+            "，",
+            "半夜",
+            "才",
+            "完成",
+            "。",
+            "第二",
+            "天",
+            "，",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "顺利",
+            "参加",
+            "比赛",
+            "。",
+            "他",
+            "说",
+            "：",
+            "“",
+            "我",
+            "生气",
+            "，",
+            "但",
+            "我",
+            "还是",
+            "相信",
+            "你",
+            "。",
+            "”"
+          ],
+          "translation": "They repair the bicycle together and finish at midnight. The next day, Wu Ke competes successfully. He says, “I was angry, but I still trust you.”"
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

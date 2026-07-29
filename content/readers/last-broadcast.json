@@ -1,0 +1,276 @@
+{
+  "id": "last-broadcast",
+  "title": "最后一次直播",
+  "titleEn": "The Final Broadcast",
+  "description": "A veteran presenter must report an attack while her own family remains in danger.",
+  "hskLevel": 9,
+  "goal": "Presenter Luo Wei wants to provide calm, verified information during a crisis.",
+  "conflict": "A rumour concerns the building where her son is trapped.",
+  "resolution": "She resists speculation, then leaves the studio when her public duty is complete.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "城市停电",
+      "titleEn": "The City Goes Dark",
+      "focusWords": [
+        "直播",
+        "危机",
+        "舆论"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "爆炸",
+            "导致",
+            "城市",
+            "大面积",
+            "停电",
+            "，",
+            "主持人",
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "负责",
+            "唯一",
+            "仍",
+            "在",
+            "运行",
+            "的",
+            "新闻",
+            "直播",
+            "。",
+            "舆论",
+            "中",
+            "充满",
+            "未经",
+            "核实",
+            "的",
+            "消息",
+            "。"
+          ],
+          "translation": "An explosion causes a citywide blackout, and presenter Luo Wei anchors the only news broadcast still operating. Public discussion fills with unverified claims."
+        },
+        {
+          "tokens": [
+            "她",
+            "不断",
+            "提醒",
+            "观众",
+            "避免",
+            "特定",
+            "区域",
+            "，",
+            "只",
+            "公布",
+            "已经",
+            "证实",
+            "的",
+            "伤亡",
+            "和",
+            "救援",
+            "信息",
+            "。",
+            "这",
+            "场",
+            "危机",
+            "可能",
+            "成为",
+            "她",
+            "最后",
+            "一",
+            "次",
+            "直播",
+            "。"
+          ],
+          "translation": "She repeatedly tells viewers what areas to avoid and reports only confirmed casualties and rescue information. The crisis may become her final broadcast."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "屏幕上的地址",
+      "titleEn": "The Address on the Screen",
+      "focusWords": [
+        "传闻",
+        "颤抖",
+        "澄清"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "一",
+            "条",
+            "传闻",
+            "突然",
+            "出现",
+            "：",
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "儿子",
+            "工作",
+            "的",
+            "大楼",
+            "可能",
+            "再次",
+            "爆炸",
+            "。",
+            "她",
+            "的",
+            "手",
+            "开始",
+            "颤抖",
+            "，",
+            "导演",
+            "建议",
+            "立刻",
+            "停止",
+            "直播",
+            "。"
+          ],
+          "translation": "A rumour appears that the building where Luo Wei’s son works may explode again. Her hands begin to shake, and the director suggests ending the broadcast."
+        },
+        {
+          "tokens": [
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "联系",
+            "不",
+            "到",
+            "儿子",
+            "，",
+            "却",
+            "仍然",
+            "不",
+            "能",
+            "把",
+            "个人",
+            "恐惧",
+            "当作",
+            "新闻",
+            "。",
+            "她",
+            "要求",
+            "记者",
+            "核实",
+            "地址",
+            "，",
+            "很",
+            "快",
+            "澄清",
+            "传闻",
+            "指向",
+            "另",
+            "一",
+            "栋",
+            "空",
+            "楼",
+            "。"
+          ],
+          "translation": "Unable to reach her son, Luo Wei still cannot turn personal fear into news. She orders the address checked, and reporters soon clarify that the rumour concerns another, empty building."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "离开镜头",
+      "titleEn": "Leaving the Camera",
+      "focusWords": [
+        "使命",
+        "不懈",
+        "初衷"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "救援",
+            "指示",
+            "全部",
+            "播出",
+            "后",
+            "，",
+            "另",
+            "一",
+            "位",
+            "主持人",
+            "到达",
+            "。",
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "明白",
+            "，",
+            "不懈",
+            "工作",
+            "不",
+            "等于",
+            "永远",
+            "不",
+            "能",
+            "离开",
+            "，",
+            "于是",
+            "把",
+            "位置",
+            "交给",
+            "同事",
+            "。"
+          ],
+          "translation": "Once all rescue guidance has aired, another presenter arrives. Luo Wei understands that dedication does not mean she can never leave, so she hands over to her colleague."
+        },
+        {
+          "tokens": [
+            "她",
+            "在",
+            "医院",
+            "发现",
+            "儿子",
+            "平安",
+            "。",
+            "第二",
+            "天",
+            "，",
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "回到",
+            "镜头",
+            "前",
+            "阐述",
+            "直播",
+            "初衷",
+            "：",
+            "公共",
+            "使命",
+            "要求",
+            "专业",
+            "，",
+            "也",
+            "不",
+            "剥夺",
+            "新闻",
+            "人员",
+            "作为",
+            "家人",
+            "的",
+            "权利",
+            "。"
+          ],
+          "translation": "She finds her son safe at hospital. The next day, she explains the broadcast’s purpose on air: public duty demands professionalism but does not strip journalists of their rights as family members."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

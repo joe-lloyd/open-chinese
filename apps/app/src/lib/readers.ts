@@ -19,12 +19,17 @@ export interface ReaderChapter {
   title: string
   titleEn: string
   paragraphs: ReaderParagraph[]
+  /** Deliberately practised words for this scene. */
+  focusWords: string[]
+  /** A small number of contextual words introduced from a later HSK stage. */
+  stretchWords: string[]
   /** Distinct word tokens in this chapter, in order of first appearance. */
   vocab: string[]
 }
 
 export interface Reader {
   id: string
+  order: number
   title: string
   titleEn: string
   description: string
@@ -34,6 +39,7 @@ export interface Reader {
 
 export interface ReaderSummary {
   id: string
+  order: number
   title: string
   titleEn: string
   description: string

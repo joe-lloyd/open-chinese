@@ -1,0 +1,262 @@
+{
+  "id": "wrong-train",
+  "title": "坐错的火车",
+  "titleEn": "The Wrong Train",
+  "description": "Two friends board the wrong train while travelling to a music competition.",
+  "hskLevel": 2,
+  "goal": "Fang Yu and Lin An want to reach a competition on time.",
+  "conflict": "Their train carries them away from the city.",
+  "resolution": "They ask for help, adapt their plan, and still perform.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "一样的站台",
+      "titleEn": "The Same Platform",
+      "focusWords": [
+        "火车",
+        "参加",
+        "音乐"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "和",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "要",
+            "坐",
+            "火车",
+            "去",
+            "参加",
+            "音乐",
+            "比赛",
+            "。",
+            "车站",
+            "有",
+            "两",
+            "辆",
+            "火车",
+            "，",
+            "它们",
+            "在",
+            "同一",
+            "个",
+            "站台",
+            "。"
+          ],
+          "translation": "Fang Yu and Lin An are taking a train to a music competition. Two trains wait at the same platform."
+        },
+        {
+          "tokens": [
+            "他们",
+            "听见",
+            "“",
+            "快",
+            "上车",
+            "”",
+            "，",
+            "就",
+            "跑",
+            "上",
+            "最近",
+            "的",
+            "火车",
+            "。",
+            "车",
+            "开",
+            "了",
+            "，",
+            "两",
+            "个人",
+            "开心",
+            "地",
+            "练习",
+            "歌曲",
+            "。"
+          ],
+          "translation": "They hear “Board quickly” and run onto the nearest train. It departs, and they happily practise their song."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "城市在后面",
+      "titleEn": "The City Behind Them",
+      "focusWords": [
+        "方向",
+        "有点儿",
+        "发现"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "半",
+            "个",
+            "小时",
+            "后",
+            "，",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "发现",
+            "窗户",
+            "外面",
+            "是",
+            "大海",
+            "，",
+            "不",
+            "是",
+            "城市",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "看",
+            "地图",
+            "，",
+            "发现",
+            "方向",
+            "完全",
+            "错误",
+            "。"
+          ],
+          "translation": "Half an hour later, Fang Yu sees the sea outside instead of the city. Lin An checks the map and discovers they are going entirely the wrong way."
+        },
+        {
+          "tokens": [
+            "他们",
+            "很",
+            "着急",
+            "，",
+            "也",
+            "有点儿",
+            "生气",
+            "。",
+            "但是",
+            "生气",
+            "没有",
+            "用",
+            "，",
+            "他们",
+            "必须",
+            "找到",
+            "回去",
+            "的",
+            "办法",
+            "。"
+          ],
+          "translation": "They are anxious and a little angry. But anger is no use; they must find a way back."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "车上的节目",
+      "titleEn": "A Performance on the Train",
+      "focusWords": [
+        "机会",
+        "旅客",
+        "帮助"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "一",
+            "位",
+            "旅客",
+            "帮助",
+            "他们",
+            "给",
+            "音乐",
+            "老师",
+            "打电话",
+            "。",
+            "下",
+            "一",
+            "站",
+            "有",
+            "回去",
+            "的",
+            "火车",
+            "，",
+            "但是",
+            "他们",
+            "会",
+            "晚",
+            "到",
+            "一",
+            "个",
+            "小时",
+            "。"
+          ],
+          "translation": "A passenger helps them phone the music teacher. There is a train back at the next station, but they will arrive an hour late."
+        },
+        {
+          "tokens": [
+            "等",
+            "火车",
+            "的",
+            "时候",
+            "，",
+            "旅客",
+            "请",
+            "他们",
+            "唱歌",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "和",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "唱",
+            "了",
+            "比赛",
+            "的",
+            "歌",
+            "。",
+            "比赛",
+            "已经",
+            "完",
+            "了",
+            "，",
+            "但是",
+            "车上",
+            "的",
+            "人",
+            "都",
+            "喜欢",
+            "他们",
+            "，",
+            "老师",
+            "也",
+            "给",
+            "他们",
+            "下次",
+            "机会",
+            "。"
+          ],
+          "translation": "While they wait, the passengers ask them to sing. Fang Yu and Lin An perform their competition song. The contest is over, but everyone aboard enjoys it, and the teacher gives them another chance."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

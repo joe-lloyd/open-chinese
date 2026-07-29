@@ -1,0 +1,279 @@
+{
+  "id": "empty-seat",
+  "title": "一直空着的座位",
+  "titleEn": "The Empty Seat",
+  "description": "A student’s empty seat reveals a problem the class had chosen not to see.",
+  "hskLevel": 3,
+  "goal": "Fang Yu wants her class team to be complete for a contest.",
+  "conflict": "A quiet teammate stops coming to school after being mocked.",
+  "resolution": "The class takes responsibility and changes how it works together.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "少了一个人",
+      "titleEn": "One Person Missing",
+      "focusWords": [
+        "比赛",
+        "座位",
+        "成员"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "班级",
+            "要",
+            "参加",
+            "一",
+            "场",
+            "科学",
+            "比赛",
+            "，",
+            "每",
+            "个",
+            "成员",
+            "都",
+            "有",
+            "任务",
+            "。",
+            "可是",
+            "连续",
+            "三",
+            "天",
+            "，",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "的",
+            "座位",
+            "一直",
+            "空",
+            "着",
+            "。"
+          ],
+          "translation": "The class is entering a science contest, and every member has a task. But for three days, Wu Ke’s seat remains empty."
+        },
+        {
+          "tokens": [
+            "有人",
+            "说",
+            "他",
+            "不",
+            "认真",
+            "，",
+            "有人",
+            "建议",
+            "换",
+            "一",
+            "个",
+            "成员",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "没有",
+            "同意",
+            "，",
+            "因为",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "设计",
+            "了",
+            "最",
+            "重要",
+            "的",
+            "部分",
+            "。"
+          ],
+          "translation": "Some say he is careless; others suggest replacing him. Fang Yu disagrees because Wu Ke designed the most important part."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "没有说出的原因",
+      "titleEn": "The Unspoken Reason",
+      "focusWords": [
+        "批评",
+        "压力",
+        "设计"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "去",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "家",
+            "看",
+            "他",
+            "。",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "说",
+            "，",
+            "大家",
+            "常常",
+            "因为",
+            "他",
+            "说话",
+            "慢",
+            "开玩笑",
+            "，",
+            "还",
+            "在",
+            "网上",
+            "批评",
+            "他",
+            "的",
+            "设计",
+            "。"
+          ],
+          "translation": "Fang Yu visits Wu Ke at home. He says people often mock his slow speech and criticise his design online."
+        },
+        {
+          "tokens": [
+            "他",
+            "不",
+            "是",
+            "不",
+            "想",
+            "比赛",
+            "，",
+            "而是",
+            "害怕",
+            "再",
+            "回",
+            "教室",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "第",
+            "一",
+            "次",
+            "明白",
+            "，",
+            "大家",
+            "认为",
+            "好玩儿",
+            "的",
+            "话",
+            "给",
+            "了",
+            "他",
+            "很",
+            "大",
+            "压力",
+            "。"
+          ],
+          "translation": "It is not that he does not want to compete; he is afraid to return to class. Fang Yu realises that words others found funny placed great pressure on him."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "座位没有换",
+      "titleEn": "The Seat Stays",
+      "focusWords": [
+        "合作",
+        "改变",
+        "公开"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "第二",
+            "天",
+            "，",
+            "全",
+            "班",
+            "公开",
+            "向",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "道歉",
+            "。",
+            "他们",
+            "没有",
+            "要求",
+            "他",
+            "马上",
+            "回来",
+            "，",
+            "只是",
+            "按照",
+            "他",
+            "的",
+            "意见",
+            "改进",
+            "设计",
+            "。"
+          ],
+          "translation": "The next day, the entire class publicly apologises. They do not demand his immediate return; they simply improve the design according to his ideas."
+        },
+        {
+          "tokens": [
+            "比赛",
+            "那",
+            "天",
+            "，",
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "自己",
+            "走进",
+            "教室",
+            "。",
+            "他",
+            "的",
+            "座位",
+            "没有",
+            "换",
+            "，",
+            "团队",
+            "的",
+            "合作",
+            "方式",
+            "却",
+            "改变",
+            "了",
+            "。",
+            "他们",
+            "最后",
+            "一起",
+            "完成",
+            "任务",
+            "。"
+          ],
+          "translation": "On competition day, Wu Ke walks into the classroom by himself. His seat has not changed, but the team’s way of working has. Together, they complete the task."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

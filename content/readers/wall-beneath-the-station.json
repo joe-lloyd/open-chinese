@@ -1,0 +1,245 @@
+{
+  "id": "wall-beneath-the-station",
+  "title": "车站下面的墙",
+  "titleEn": "The Wall Beneath the Station",
+  "description": "Construction uncovers a mural that could delay the city’s most important rail line.",
+  "hskLevel": 8,
+  "goal": "Archaeologist Tang Xin wants to protect a newly discovered mural.",
+  "conflict": "Preservation threatens transport plans and public trust.",
+  "resolution": "A redesigned station makes the discovery part of daily city life.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "地下的颜色",
+      "titleEn": "Colour Underground",
+      "focusWords": [
+        "壁画",
+        "遗址",
+        "残缺"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "地铁站",
+            "施工",
+            "时",
+            "，",
+            "工人",
+            "在",
+            "地下",
+            "发现",
+            "一面",
+            "古老",
+            "壁画",
+            "。",
+            "壁画",
+            "虽然",
+            "残缺",
+            "，",
+            "仍然",
+            "呈现",
+            "过去",
+            "城市",
+            "生活",
+            "的",
+            "细节",
+            "。"
+          ],
+          "translation": "During metro construction, workers uncover an ancient mural. Though incomplete, it still depicts details of past city life."
+        },
+        {
+          "tokens": [
+            "考",
+            "古",
+            "人员",
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "判断",
+            "这里",
+            "可能",
+            "是",
+            "重要",
+            "遗址",
+            "。",
+            "按",
+            "法律",
+            "，",
+            "施工",
+            "必须",
+            "暂停",
+            "，",
+            "直到",
+            "遗址",
+            "价值",
+            "得到",
+            "确认",
+            "。"
+          ],
+          "translation": "Archaeologist Tang Xin believes the site may be significant. By law, construction must pause until its value is established."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "每一天的代价",
+      "titleEn": "The Cost of Every Day",
+      "focusWords": [
+        "核实",
+        "质疑",
+        "保障"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "地铁",
+            "公司",
+            "说",
+            "每",
+            "停",
+            "一",
+            "天",
+            "都",
+            "会",
+            "增加",
+            "巨额",
+            "成本",
+            "，",
+            "并",
+            "质疑",
+            "壁画",
+            "是否",
+            "真正",
+            "古老",
+            "。",
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "必须",
+            "尽快",
+            "核实",
+            "年代",
+            "。"
+          ],
+          "translation": "The metro company says every day of delay adds enormous cost and questions whether the mural is truly ancient. Tang Xin must verify its age quickly."
+        },
+        {
+          "tokens": [
+            "同时",
+            "，",
+            "居民",
+            "担心",
+            "保护",
+            "遗址",
+            "会",
+            "让",
+            "等待",
+            "多年",
+            "的",
+            "交通",
+            "再次",
+            "推迟",
+            "。",
+            "文化",
+            "保障",
+            "和",
+            "现实",
+            "需求",
+            "看起来",
+            "无法",
+            "同时",
+            "满足",
+            "。"
+          ],
+          "translation": "Residents fear preservation will further delay transport they have awaited for years. Cultural protection and practical need seem incompatible."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "让城市看见",
+      "titleEn": "Let the City See It",
+      "focusWords": [
+        "承载",
+        "传承",
+        "设计"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "鉴定",
+            "结果",
+            "证明",
+            "壁画",
+            "真实",
+            "。",
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "和",
+            "工程师",
+            "提出",
+            "改变",
+            "站台",
+            "设计",
+            "，",
+            "让",
+            "壁画",
+            "留",
+            "在",
+            "原地",
+            "并",
+            "受到",
+            "保护",
+            "。"
+          ],
+          "translation": "Authentication confirms the mural is genuine. Tang Xin and engineers redesign the platform so it remains protected in place."
+        },
+        {
+          "tokens": [
+            "新",
+            "车站",
+            "晚",
+            "开放",
+            "三",
+            "个",
+            "月",
+            "，",
+            "却",
+            "每",
+            "天",
+            "让",
+            "乘客",
+            "看到",
+            "壁画",
+            "。",
+            "一面",
+            "残缺",
+            "的",
+            "墙",
+            "同时",
+            "承载",
+            "交通",
+            "和",
+            "传承",
+            "，",
+            "遗址",
+            "不再",
+            "与",
+            "城市",
+            "分开",
+            "。"
+          ],
+          "translation": "The station opens three months late, but lets passengers see the mural daily. One incomplete wall carries both transport and heritage; the site is no longer separated from the city."
+        }
+      ]
+    }
+  ],
+  "order": 1
+}

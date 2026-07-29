@@ -1,0 +1,255 @@
+{
+  "id": "midnight-kitchen",
+  "title": "午夜厨房",
+  "titleEn": "The Midnight Kitchen",
+  "description": "A daughter discovers why her family restaurant secretly cooks after closing.",
+  "hskLevel": 5,
+  "goal": "Jiang Yue wants to save the struggling family restaurant.",
+  "conflict": "Her father gives away meals while hiding serious debt.",
+  "resolution": "The family turns private charity into a sustainable community table.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "关门后的灯",
+      "titleEn": "Lights After Closing",
+      "focusWords": [
+        "餐厅",
+        "生意",
+        "成本"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "回家",
+            "帮助",
+            "父亲",
+            "经营",
+            "餐厅",
+            "。",
+            "生意",
+            "连续",
+            "亏损",
+            "，",
+            "她",
+            "建议",
+            "缩短",
+            "营业",
+            "时间",
+            "，",
+            "减少",
+            "食品",
+            "成本",
+            "。"
+          ],
+          "translation": "Jiang Yue returns home to help run her father’s restaurant. After continuing losses, she suggests shorter hours and lower food costs."
+        },
+        {
+          "tokens": [
+            "父亲",
+            "表面",
+            "同意",
+            "，",
+            "每",
+            "天",
+            "关",
+            "门",
+            "后",
+            "厨房",
+            "却",
+            "仍然",
+            "亮",
+            "着",
+            "灯",
+            "。",
+            "食物",
+            "越来越",
+            "少",
+            "，",
+            "账",
+            "上",
+            "的",
+            "支出",
+            "越来越",
+            "多",
+            "。"
+          ],
+          "translation": "Her father agrees outwardly, yet the kitchen lights remain on after closing. Food disappears and expenses grow."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "免费的晚餐",
+      "titleEn": "Free Dinners",
+      "focusWords": [
+        "免费",
+        "餐厅",
+        "尊重"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "一",
+            "天",
+            "半夜",
+            "，",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "发现",
+            "父亲",
+            "给",
+            "附近",
+            "失业",
+            "人员",
+            "准备",
+            "免费",
+            "晚餐",
+            "。",
+            "他",
+            "已经",
+            "做",
+            "了",
+            "半年",
+            "，",
+            "一直",
+            "向",
+            "家人",
+            "隐瞒",
+            "。"
+          ],
+          "translation": "One midnight, Jiang Yue discovers her father preparing free dinners for unemployed neighbours. He has done it for six months and hidden it from the family."
+        },
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "尊重",
+            "父亲",
+            "的",
+            "善意",
+            "，",
+            "却",
+            "看到",
+            "餐厅",
+            "的",
+            "债务",
+            "快",
+            "到",
+            "无法",
+            "承受",
+            "的",
+            "程度",
+            "。",
+            "如果",
+            "继续",
+            "隐瞒",
+            "，",
+            "餐厅",
+            "和",
+            "晚餐",
+            "都",
+            "会",
+            "消失",
+            "。"
+          ],
+          "translation": "Jiang Yue respects his kindness but sees the restaurant’s debt nearing an unbearable level. If secrecy continues, both restaurant and dinners will vanish."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "多一张桌子",
+      "titleEn": "One More Table",
+      "focusWords": [
+        "社区",
+        "持续",
+        "厨房"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "公开",
+            "了",
+            "“",
+            "多",
+            "一",
+            "张",
+            "桌子",
+            "”",
+            "计划",
+            "：",
+            "顾客",
+            "可以",
+            "多",
+            "支付",
+            "一",
+            "份",
+            "饭",
+            "钱",
+            "，",
+            "社区",
+            "企业",
+            "也",
+            "可以",
+            "捐助",
+            "食品",
+            "。"
+          ],
+          "translation": "Jiang Yue launches “One More Table”: customers may pay for an extra meal, and local businesses may donate food."
+        },
+        {
+          "tokens": [
+            "计划",
+            "没有",
+            "完全",
+            "解决",
+            "债务",
+            "，",
+            "却",
+            "让",
+            "帮助",
+            "可以",
+            "持续",
+            "，",
+            "也",
+            "让",
+            "父亲",
+            "不必",
+            "一",
+            "个人",
+            "承担",
+            "。",
+            "半夜",
+            "的",
+            "厨房",
+            "变成",
+            "了",
+            "社区",
+            "共同",
+            "的",
+            "厨房",
+            "。"
+          ],
+          "translation": "The plan does not erase the debt, but makes the help sustainable and keeps her father from carrying it alone. The midnight kitchen becomes the community’s kitchen."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

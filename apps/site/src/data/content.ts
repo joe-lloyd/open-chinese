@@ -17,8 +17,8 @@ export interface Feature {
 export const CONTENT_STATS = [
   { value: '10,969', label: 'vocabulary entries' },
   { value: 'HSK 1–9', label: 'complete learning path' },
-  { value: '9', label: 'graded readers' },
-  { value: '33', label: 'reader chapters' },
+  { value: '45', label: 'graded readers' },
+  { value: '135', label: 'reader chapters' },
 ] as const
 
 export const FEATURES: Feature[] = [
@@ -29,12 +29,12 @@ export const FEATURES: Feature[] = [
   },
   {
     title: 'HSK 1–9 vocabulary, ready to study',
-    body: 'More than 10,900 HSK 3.0 entries with pinyin, traditional forms and English definitions, organised from HSK 1 through the combined HSK 7–9 advanced band. Start a session for one band or let the scheduler decide what is due.',
+    body: 'More than 10,900 HSK 3.0 entries with pinyin, traditional forms and English definitions, organised into nine manageable learning stages. The official combined HSK 7–9 advanced band is clearly divided into an OpenChinese progression for study.',
     icon: '级',
   },
   {
     title: 'Graded readers that reinforce as you go',
-    body: 'Nine stories and 33 short chapters written around the words you are learning. Each chapter introduces 10–20 new words and repeats them enough to stick. Tap any word for its meaning, toggle pinyin when you are stuck, and finish a chapter to move its new words into your dictionary.',
+    body: 'Forty-five original stories and 135 chapters—five sequenced stories at every HSK stage—with characters, goals, conflict and resolution. Each scene stays within a controlled vocabulary while using a few clearly glossed stretch words when the story needs them. Tap any word for its meaning, toggle pinyin when you are stuck, or listen to the complete chapter in Mandarin. Finishing a chapter moves its vocabulary into your dictionary.',
     icon: '書',
   },
   {

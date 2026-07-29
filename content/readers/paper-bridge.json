@@ -1,0 +1,261 @@
+{
+  "id": "paper-bridge",
+  "title": "纸上的桥",
+  "titleEn": "The Bridge on Paper",
+  "description": "A young engineer challenges a celebrated bridge design before construction begins.",
+  "hskLevel": 6,
+  "goal": "Lu Wen wants to prove himself on a major bridge project.",
+  "conflict": "His calculations reveal a flaw nobody wants announced.",
+  "resolution": "A public test replaces pride with better engineering.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "完美的设计",
+      "titleEn": "The Perfect Design",
+      "focusWords": [
+        "桥梁",
+        "设计",
+        "工程师"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "年轻",
+            "工程师",
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "加入",
+            "一",
+            "座",
+            "大型",
+            "桥梁",
+            "项目",
+            "。",
+            "设计",
+            "来自",
+            "一",
+            "位",
+            "著名",
+            "大师",
+            "，",
+            "媒体",
+            "称",
+            "它",
+            "是",
+            "完美",
+            "的",
+            "工程",
+            "。"
+          ],
+          "translation": "Young engineer Lu Wen joins a major bridge project. A famous master designed it, and the media calls it perfect engineering."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "负责",
+            "核对",
+            "材料",
+            "数据",
+            "。",
+            "他",
+            "发现",
+            "在",
+            "特定",
+            "风",
+            "向",
+            "下",
+            "，",
+            "桥梁",
+            "中部",
+            "可能",
+            "发生",
+            "不",
+            "正常",
+            "的",
+            "振动",
+            "。"
+          ],
+          "translation": "Lu Wen checks material data and discovers that a particular wind direction may cause abnormal vibration at the bridge’s centre."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "没有人想听",
+      "titleEn": "Nobody Wants to Hear It",
+      "focusWords": [
+        "计算",
+        "风险",
+        "大师"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "重复",
+            "计算",
+            "，",
+            "结果",
+            "仍然",
+            "相同",
+            "。",
+            "项目",
+            "负责人",
+            "担心",
+            "推迟",
+            "建造",
+            "会",
+            "增加",
+            "成本",
+            "，",
+            "要求",
+            "他",
+            "不要",
+            "公开",
+            "质疑",
+            "大师",
+            "。"
+          ],
+          "translation": "Lu Wen repeats the calculations with the same result. The project director fears delay will raise costs and tells him not to question the master publicly."
+        },
+        {
+          "tokens": [
+            "同事",
+            "也",
+            "提醒",
+            "他",
+            "，",
+            "一",
+            "个",
+            "新人",
+            "挑战",
+            "大师",
+            "可能",
+            "失去",
+            "职位",
+            "。",
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "却",
+            "认为",
+            "隐瞒",
+            "风险",
+            "会",
+            "威胁",
+            "以后",
+            "每",
+            "个",
+            "使用",
+            "桥梁",
+            "的",
+            "人",
+            "。"
+          ],
+          "translation": "Colleagues warn that a newcomer challenging a master could lose his job. Lu Wen believes hiding the risk would threaten every future bridge user."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "让模型回答",
+      "titleEn": "Let the Model Answer",
+      "focusWords": [
+        "模型",
+        "测试",
+        "改进"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "没有",
+            "在",
+            "网络",
+            "上",
+            "指责",
+            "任何",
+            "人",
+            "，",
+            "而是",
+            "建议",
+            "对",
+            "桥梁",
+            "模型",
+            "进行",
+            "公开",
+            "风力",
+            "测试",
+            "。",
+            "大师",
+            "亲自",
+            "同意",
+            "了",
+            "。"
+          ],
+          "translation": "Lu Wen accuses nobody online; he proposes a public wind test of a bridge model. The master agrees personally."
+        },
+        {
+          "tokens": [
+            "测试",
+            "证明",
+            "风险",
+            "存在",
+            "，",
+            "团队",
+            "因此",
+            "改进",
+            "结构",
+            "。",
+            "大师",
+            "对",
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "说",
+            "：",
+            "“",
+            "好",
+            "工程师",
+            "保护",
+            "的",
+            "不",
+            "是",
+            "自己",
+            "的",
+            "面子",
+            "，",
+            "是",
+            "桥",
+            "上",
+            "的",
+            "人",
+            "。",
+            "”"
+          ],
+          "translation": "The test confirms the risk, and the team improves the structure. The master tells Lu Wen, “A good engineer protects not his pride, but the people on the bridge.”"
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

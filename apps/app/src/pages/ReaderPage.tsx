@@ -88,6 +88,9 @@ export default function ReaderPage() {
           <HskBadge level={reader.hskLevel} size="lg" />
         </div>
         <p className="text-sm text-text-primary">{reader.description}</p>
+        <p className="text-xs text-text-muted">
+          Every chapter includes complete Mandarin read-aloud with pause and resume.
+        </p>
       </div>
 
       {nextUnfinished && (

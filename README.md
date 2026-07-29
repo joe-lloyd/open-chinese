@@ -53,8 +53,9 @@ web app config. `VITE_ALLOWED_EMAIL` is optional — set it to restrict sign-in 
 single Google account, or leave it blank to allow any account.
 
 `pnpm build:words-db` builds the bundled HSK 1–9 dictionary from
-`packages/build-tools/hsk*.json`. HSK 7–9 is the official combined advanced
-band. The database must be
+`packages/build-tools/hsk*.json`. The official source supplies HSK 7–9 as one
+advanced band; OpenChinese divides that band into three documented learning
+stages. The database must be
 run at least once before `pnpm dev`, because `apps/app/public/words.db` is not committed
 to the repository.
 

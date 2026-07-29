@@ -1,0 +1,259 @@
+{
+  "id": "the-algorithms-answer",
+  "title": "算法的答案",
+  "titleEn": "The Algorithm’s Answer",
+  "description": "A data scientist discovers that an efficient hiring system repeats an old prejudice.",
+  "hskLevel": 8,
+  "goal": "Data scientist Lu Wen wants to improve a successful hiring tool.",
+  "conflict": "The tool rejects qualified applicants from one district.",
+  "resolution": "He exposes the bias and rebuilds the system with human review.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "百分之九十",
+      "titleEn": "Ninety Percent",
+      "focusWords": [
+        "人工智能",
+        "效率",
+        "数据"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "的",
+            "团队",
+            "开发",
+            "人工智能",
+            "招聘",
+            "系统",
+            "，",
+            "可以",
+            "自动",
+            "选择",
+            "最",
+            "合适",
+            "的",
+            "申请",
+            "人",
+            "。",
+            "公司",
+            "宣布",
+            "系统",
+            "提高",
+            "了",
+            "百",
+            "分之",
+            "九",
+            "十",
+            "的",
+            "效率",
+            "。"
+          ],
+          "translation": "Lu Wen’s team develops an AI hiring system that automatically selects suitable applicants. The company announces a ninety-percent efficiency gain."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "检查",
+            "数据",
+            "时",
+            "，",
+            "发现",
+            "来自",
+            "一",
+            "个",
+            "老",
+            "工业",
+            "区",
+            "的",
+            "申请",
+            "人",
+            "几乎",
+            "全部",
+            "被",
+            "拒绝",
+            "，",
+            "即使",
+            "他们",
+            "具备",
+            "相同",
+            "技能",
+            "。"
+          ],
+          "translation": "While auditing the data, Lu Wen finds applicants from an old industrial district are almost all rejected, despite equal skills."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "机器学会了什么",
+      "titleEn": "What the Machine Learned",
+      "focusWords": [
+        "偏见",
+        "揭露",
+        "人工智能"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "过去",
+            "的",
+            "招聘",
+            "记录",
+            "本来",
+            "就",
+            "对",
+            "这",
+            "个",
+            "地区",
+            "存在",
+            "偏见",
+            "，",
+            "人工智能",
+            "只是",
+            "把",
+            "旧",
+            "偏见",
+            "学",
+            "得",
+            "更",
+            "快",
+            "。"
+          ],
+          "translation": "Past hiring records already contained prejudice against the district; the AI merely learned the old bias faster."
+        },
+        {
+          "tokens": [
+            "管理",
+            "层",
+            "反对",
+            "公开",
+            "这",
+            "个",
+            "问题",
+            "，",
+            "担心",
+            "揭露",
+            "偏见",
+            "会",
+            "损害",
+            "产品",
+            "名声",
+            "。",
+            "他们",
+            "建议",
+            "删除",
+            "地区",
+            "信息",
+            "后",
+            "继续",
+            "使用",
+            "。"
+          ],
+          "translation": "Management opposes disclosing the problem, fearing exposure will harm the product. They suggest deleting district information and continuing."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "谁来负责",
+      "titleEn": "Who Is Responsible?",
+      "focusWords": [
+        "核实",
+        "复查",
+        "消除"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陆文",
+              "pinyin": "Lù Wén",
+              "definition": "Lu Wen (a given name)"
+            },
+            "证明",
+            "删除",
+            "一",
+            "个",
+            "项目",
+            "不",
+            "能",
+            "消除",
+            "与",
+            "地区",
+            "相关",
+            "的",
+            "其他",
+            "数据",
+            "。",
+            "他",
+            "暂停",
+            "系统",
+            "，",
+            "要求",
+            "每",
+            "个",
+            "决定",
+            "由",
+            "人员",
+            "再次",
+            "核实",
+            "。"
+          ],
+          "translation": "Lu Wen proves removing one field cannot erase other district-related data. He pauses the system and requires human verification of every decision."
+        },
+        {
+          "tokens": [
+            "新",
+            "系统",
+            "速度",
+            "变",
+            "慢",
+            "，",
+            "却",
+            "增加",
+            "了",
+            "人工",
+            "复查",
+            "的",
+            "过程",
+            "，",
+            "申请",
+            "人",
+            "也",
+            "可以",
+            "提出",
+            "不同",
+            "意见",
+            "。",
+            "公司",
+            "终于",
+            "承认",
+            "：",
+            "算",
+            "法",
+            "的",
+            "答案",
+            "仍然",
+            "需要",
+            "人",
+            "承担",
+            "责任",
+            "。"
+          ],
+          "translation": "The revised system is slower but adds human review and lets applicants challenge decisions. The company admits that people remain responsible for an algorithm’s answers."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

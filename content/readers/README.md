@@ -14,11 +14,16 @@ only committed source of truth).
   "titleEn": "My Day",
   "description": "Xiao Ming walks you through an ordinary school day.",
   "hskLevel": 1,
+  "order": 1,
+  "goal": "Xiao Ming wants to make a new friend.",
+  "conflict": "He is too nervous to start a conversation.",
+  "resolution": "A shared book gives them something to talk about.",
   "chapters": [
     {
       "id": "ch1",
       "title": "上午",
       "titleEn": "Morning",
+      "focusWords": ["学校", "学生", "学习"],
       "paragraphs": [
         {
           "tokens": ["我", "叫", { "text": "小明", "pinyin": "Xiǎo Míng", "definition": "Xiao Ming (a given name)" }, "。"],
@@ -36,15 +41,15 @@ Write one token per word, with punctuation as its own token.
 
 A token is either:
 
-- **a bare string** — looked up in `packages/build-tools/hsk{1..7}.json`, which supplies its pinyin and
+- **a bare string** — looked up in `packages/build-tools/hsk{1..9}.json`, which supplies its pinyin and
   definition. Never retype those; deriving them keeps readers consistent with the
   dictionary and flashcards, and keeps tone marks correct.
 - **an object** with `text`, `pinyin` and `definition` — for proper nouns or anything outside HSK 1–9,
   typically proper nouns. `pinyin` and `definition` must both be non-empty: this is the
   one path the HSK data cannot cross-check, so it is where the gloss gate matters most.
   Inline tokens skip the level-fit check only when the HSK data does not know the word.
-  Glossing a word the data *does* know, above the reader's level, is rejected — an
-  inline gloss names a person or place, it is not a way around the level gate.
+  Known later-stage words stay bare strings and are counted as contextual stretch
+  vocabulary.
 
 ## Quality gates
 
@@ -53,24 +58,26 @@ A token is either:
 | Gate | Rule |
 | --- | --- |
 | Gloss coverage | every word token resolves to a pinyin and a definition, inline tokens included |
-| Well-formedness | no empty tokens; chapter ids unique within a reader |
-| New-word count | 10–20 words per chapter not already introduced by an earlier chapter of the same reader |
-| Repetition floor | every word a chapter introduces appears at least 3× in that chapter |
+| Story structure | every reader declares a goal, conflict and resolution and contains at least three chapters |
+| Level sequence | every level has a unique, consecutive `order` starting at 1 |
+| Scene depth | every chapter contains at least two translated paragraphs and 30–220 word tokens |
+| Focus vocabulary | every chapter identifies 3–8 at-level words it uses deliberately |
 | Translation coverage | every paragraph has a non-empty English translation |
-| Level fit | every token resolved from the HSK data is at or below the reader's `hskLevel` |
+| Level fit | later-stage vocabulary is limited to eight distinct words and 20% of word-token occurrences per chapter |
+| Originality | identical Chinese paragraphs cannot appear twice in the library |
 
-The repetition floor is the whole point of a graded reader, and it is the constraint that
-shapes authoring most: **every distinct word a chapter introduces counts**, including
-function words like `的` and `很`. In practice this means working from a deliberately small
-inventory — roughly 15 words used 3–5 times each — rather than writing freely and hoping.
-Chapter 1 of a reader introduces everything it contains; later chapters may reuse earlier
-vocabulary as often as they like with no repetition requirement.
+The old validator required every newly introduced token—including function words—to
+appear three times. That rewarded drill-like repetition and is intentionally gone.
+Authors now choose focus words that matter to the scene, while a small stretch allowance
+lets a story use an essential concrete word without pretending it belongs to an earlier
+level. Runtime chapter data exposes both `focusWords` and `stretchWords`.
 
 Thresholds live in one constant block at the top of
 `packages/build-tools/build-readers.ts`.
 
-HSK 3.0 groups advanced vocabulary into a single HSK 7–9 band. In reader
-metadata that band is stored as `hskLevel: 7` and displayed as “HSK 7–9”.
+The official advanced vocabulary source is a single HSK 7–9 band. Reader metadata
+uses OpenChinese's documented HSK 7, 8 and 9 editorial stages; see
+`packages/build-tools/HSK_DATA.md`.
 
 ## Workflow
 
@@ -78,10 +85,7 @@ Write a draft, run `pnpm build:readers`, and let the failures drive the revision
 error output names the reader, chapter and the exact words that fall short, with their
 occurrence counts. Iterate until it is clean.
 
-The larger bundled library is defined in `scripts/generate-reader-library.mjs`.
-Run `pnpm generate:readers` after editing those story plans, then run
+The bundled library is explicitly authored in `scripts/generate-reader-library.mjs`;
+the script only segments the written prose and serialises it. Run
+`pnpm generate:readers` after editing the stories, then run
 `pnpm build:readers` to apply the same quality gates as a hand-authored reader.
-
-This is also the intended contract for a future generator: a script that emits files in
-this format is subject to exactly the same gates, so a human reviewer only has to judge
-whether the story reads well. Everything mechanical is already enforced.

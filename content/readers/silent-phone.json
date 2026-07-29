@@ -1,0 +1,255 @@
+{
+  "id": "silent-phone",
+  "title": "没有声音的电话",
+  "titleEn": "The Silent Phone Call",
+  "description": "A silent call leads a nurse to someone who cannot ask for help.",
+  "hskLevel": 4,
+  "goal": "Nurse Jiang Yue wants to identify a silent caller.",
+  "conflict": "Hospital rules protect patient information, and the caller cannot speak.",
+  "resolution": "Small background sounds reveal the caller’s location.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "三次来电",
+      "titleEn": "Three Calls",
+      "focusWords": [
+        "电话",
+        "声音",
+        "护士"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "护士",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "在",
+            "医院",
+            "值班",
+            "时",
+            "，",
+            "接到",
+            "一",
+            "个",
+            "没有",
+            "声音",
+            "的",
+            "电话",
+            "。",
+            "她",
+            "问",
+            "了",
+            "三",
+            "次",
+            "，",
+            "对方",
+            "都",
+            "没有",
+            "回答",
+            "。"
+          ],
+          "translation": "While on duty, nurse Jiang Yue receives a call with no voice. She asks three times, but the caller never answers."
+        },
+        {
+          "tokens": [
+            "电话",
+            "很",
+            "快",
+            "挂",
+            "了",
+            "，",
+            "几",
+            "分钟",
+            "后",
+            "又",
+            "打",
+            "来",
+            "。",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "听见",
+            "很",
+            "轻",
+            "的",
+            "呼吸",
+            "声",
+            "，",
+            "怀疑",
+            "有",
+            "病人",
+            "需要",
+            "帮助",
+            "。"
+          ],
+          "translation": "The call ends, then returns minutes later. Jiang Yue hears faint breathing and suspects a patient needs help."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "背景里的线索",
+      "titleEn": "Clues in the Background",
+      "focusWords": [
+        "背景",
+        "判断",
+        "位置"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "不",
+            "能",
+            "根据",
+            "一",
+            "个",
+            "号码",
+            "随便",
+            "查询",
+            "个人",
+            "资料",
+            "。",
+            "她",
+            "只能",
+            "从",
+            "电话",
+            "的",
+            "背景",
+            "声音",
+            "判断",
+            "位置",
+            "。"
+          ],
+          "translation": "Jiang Yue cannot casually search personal data from a phone number. She must infer the location from background sounds."
+        },
+        {
+          "tokens": [
+            "她",
+            "听到",
+            "电梯",
+            "到达",
+            "的",
+            "音乐",
+            "，",
+            "还",
+            "听到",
+            "医院",
+            "广播",
+            "。",
+            "对方",
+            "就",
+            "在",
+            "医院",
+            "内部",
+            "，",
+            "而且",
+            "可能",
+            "在",
+            "安静",
+            "的",
+            "楼",
+            "层",
+            "。"
+          ],
+          "translation": "She hears an elevator arrival tune and a hospital announcement. The caller is inside the hospital, probably on a quiet floor."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "不能说话的人",
+      "titleEn": "The Person Who Cannot Speak",
+      "focusWords": [
+        "寻找",
+        "发现",
+        "及时"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "请",
+            "保安",
+            "一",
+            "层",
+            "一",
+            "层",
+            "寻找",
+            "。",
+            "最后",
+            "，",
+            "他们",
+            "在",
+            "地下",
+            "检查",
+            "室",
+            "发现",
+            "一",
+            "位",
+            "摔倒",
+            "的",
+            "老人",
+            "，",
+            "他",
+            "暂时",
+            "不",
+            "能",
+            "说话",
+            "。"
+          ],
+          "translation": "Jiang Yue asks security to search floor by floor. They find an elderly man who has fallen in a basement examination room and cannot speak."
+        },
+        {
+          "tokens": [
+            "老人",
+            "及时",
+            "得到",
+            "治疗",
+            "。",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "保存",
+            "了",
+            "那",
+            "段",
+            "安静",
+            "的",
+            "电话",
+            "记录",
+            "，",
+            "因为",
+            "有时候",
+            "，",
+            "没有",
+            "话",
+            "也",
+            "是",
+            "重要",
+            "的",
+            "消息",
+            "。"
+          ],
+          "translation": "The man receives timely treatment. Jiang Yue keeps the record of the silent call, because sometimes the absence of words is itself an important message."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

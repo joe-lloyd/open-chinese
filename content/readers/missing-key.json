@@ -1,0 +1,249 @@
+{
+  "id": "missing-key",
+  "title": "不见的钥匙",
+  "titleEn": "The Missing Key",
+  "description": "A missing office key makes every member of a volunteer team suspect the others.",
+  "hskLevel": 3,
+  "goal": "A volunteer group needs to open its room for a community event.",
+  "conflict": "The key is gone, and blame begins to divide the team.",
+  "resolution": "Careful observation reveals an ordinary mistake.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "门打不开",
+      "titleEn": "The Door Will Not Open",
+      "focusWords": [
+        "活动",
+        "志愿者",
+        "需要"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "社区",
+            "活动",
+            "就要",
+            "开始",
+            "，",
+            "志愿者",
+            "却",
+            "打",
+            "不",
+            "开",
+            "房间",
+            "的",
+            "门",
+            "。",
+            "放",
+            "在",
+            "办公室",
+            "的",
+            "钥匙",
+            "不见",
+            "了",
+            "。"
+          ],
+          "translation": "A community event is about to begin, but the volunteers cannot open the room. The key kept in the office has vanished."
+        },
+        {
+          "tokens": [
+            "房间",
+            "里",
+            "有",
+            "活动",
+            "需要",
+            "的",
+            "食物",
+            "、",
+            "音乐",
+            "和",
+            "礼物",
+            "。",
+            "如果",
+            "一",
+            "小时",
+            "内",
+            "找",
+            "不",
+            "到",
+            "钥匙",
+            "，",
+            "大家",
+            "只能",
+            "取消",
+            "活动",
+            "。"
+          ],
+          "translation": "Inside are the food, music, and gifts needed for the event. If they cannot find the key within an hour, they must cancel."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "互相怀疑",
+      "titleEn": "Suspecting One Another",
+      "focusWords": [
+        "责任",
+        "证据",
+        "负责"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "有人",
+            "怀疑",
+            "最后",
+            "离开",
+            "的",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "，",
+            "有人",
+            "认为",
+            "负责",
+            "钥匙",
+            "的",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "应该",
+            "承担",
+            "责任",
+            "。",
+            "两",
+            "个人",
+            "都",
+            "感到",
+            "不",
+            "公平",
+            "。"
+          ],
+          "translation": "Some suspect Fang Yu, who left last; others think Lin An, who was responsible for the key, should take the blame. Both feel unfairly treated."
+        },
+        {
+          "tokens": [
+            "争论",
+            "越来越",
+            "大",
+            "，",
+            "却",
+            "没有",
+            "任何",
+            "证据",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "要求",
+            "大家",
+            "停止",
+            "讨论",
+            "，",
+            "重新",
+            "观察",
+            "办公室",
+            "的",
+            "每",
+            "个",
+            "地方",
+            "。"
+          ],
+          "translation": "The argument grows, but there is no evidence. Fang Yu asks everyone to stop debating and inspect every part of the office again."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "在门的另一边",
+      "titleEn": "On the Other Side of the Door",
+      "focusWords": [
+        "解决",
+        "里面",
+        "房东"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "从",
+            "窗户",
+            "看到",
+            "钥匙",
+            "还",
+            "在",
+            "房间",
+            "里面",
+            "的",
+            "桌子",
+            "上",
+            "。",
+            "原来",
+            "昨天",
+            "有人",
+            "从",
+            "里面",
+            "关",
+            "门",
+            "，",
+            "从",
+            "另",
+            "一",
+            "个",
+            "出口",
+            "走",
+            "了",
+            "。"
+          ],
+          "translation": "Through the window, Lin An sees the key still lying on a table inside. Someone locked the room from within yesterday and left by another exit."
+        },
+        {
+          "tokens": [
+            "大家",
+            "请",
+            "房东",
+            "带来",
+            "第二",
+            "把",
+            "钥匙",
+            "，",
+            "问题",
+            "解决",
+            "了",
+            "。",
+            "活动",
+            "晚",
+            "了",
+            "半",
+            "小时",
+            "才",
+            "开始",
+            "，",
+            "他们",
+            "也",
+            "学会",
+            "没有",
+            "证据",
+            "时",
+            "不",
+            "互相",
+            "怀疑",
+            "。"
+          ],
+          "translation": "They ask the landlord to bring a second key, solving the problem. The event starts half an hour late, and they learn not to suspect one another without evidence."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

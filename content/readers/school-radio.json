@@ -1,0 +1,263 @@
+{
+  "id": "school-radio",
+  "title": "停播前一分钟",
+  "titleEn": "One Minute Before Broadcast",
+  "description": "A student reporter must decide whether an exciting rumour belongs on the school radio.",
+  "hskLevel": 3,
+  "goal": "Lin An wants his first radio report to attract attention.",
+  "conflict": "His best story is based on an unconfirmed rumour.",
+  "resolution": "He stops the broadcast and reports only what he can prove.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "最好的消息",
+      "titleEn": "The Best News",
+      "focusWords": [
+        "记者",
+        "消息",
+        "广播"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "成为",
+            "学校",
+            "广播",
+            "的",
+            "新",
+            "记者",
+            "。",
+            "第",
+            "一",
+            "天",
+            "，",
+            "他",
+            "收到",
+            "一",
+            "个",
+            "消息",
+            "：",
+            "一",
+            "位",
+            "有名",
+            "歌手",
+            "可能",
+            "来",
+            "学校",
+            "表演",
+            "。"
+          ],
+          "translation": "Lin An becomes a new reporter for the school radio. On his first day, he receives news that a famous singer may perform at the school."
+        },
+        {
+          "tokens": [
+            "这",
+            "个",
+            "消息",
+            "一定",
+            "会",
+            "吸引",
+            "观众",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "很",
+            "快",
+            "写",
+            "好",
+            "广播",
+            "内容",
+            "，",
+            "准备",
+            "中午",
+            "播出",
+            "。"
+          ],
+          "translation": "The news is sure to attract listeners. Lin An quickly writes the broadcast and prepares to air it at noon."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "没有来源",
+      "titleEn": "No Source",
+      "focusWords": [
+        "调查",
+        "证明",
+        "电视台"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "问",
+            "消息",
+            "的",
+            "来源",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "只",
+            "知道",
+            "同学",
+            "从",
+            "另",
+            "一",
+            "个",
+            "同学",
+            "那里",
+            "听说",
+            "，",
+            "没有",
+            "人",
+            "能",
+            "证明",
+            "。"
+          ],
+          "translation": "Fang Yu asks for the source. Lin An only knows that one student heard it from another; nobody can confirm it."
+        },
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "调查",
+            "了",
+            "电视台",
+            "、",
+            "学校",
+            "网站",
+            "和",
+            "老师",
+            "，",
+            "都",
+            "没有",
+            "发现",
+            "正式",
+            "通知",
+            "。",
+            "离",
+            "广播",
+            "只",
+            "剩",
+            "一",
+            "分钟",
+            "。"
+          ],
+          "translation": "Lin An checks the television station, school website, and teachers, but finds no official announcement. Only one minute remains before broadcast."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "真正的报道",
+      "titleEn": "The Real Report",
+      "focusWords": [
+        "停止",
+        "事实",
+        "负责"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "音乐",
+            "已经",
+            "开始",
+            "，",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "却",
+            "按",
+            "下",
+            "停止",
+            "。",
+            "他",
+            "对",
+            "听众",
+            "说",
+            "：",
+            "“",
+            "我们",
+            "收到",
+            "一",
+            "个",
+            "消息",
+            "，",
+            "但",
+            "目前",
+            "不",
+            "能",
+            "确定",
+            "它",
+            "是",
+            "事实",
+            "。",
+            "”"
+          ],
+          "translation": "The music has begun, but Lin An presses stop. He tells listeners, “We received a report, but at present we cannot confirm it as fact.”"
+        },
+        {
+          "tokens": [
+            "歌手",
+            "最后",
+            "没有",
+            "来",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "的",
+            "报道",
+            "不",
+            "精彩",
+            "，",
+            "却",
+            "很",
+            "负责",
+            "。",
+            "老师",
+            "说",
+            "：",
+            "“",
+            "记者",
+            "的",
+            "价值",
+            "不",
+            "是",
+            "最",
+            "快",
+            "，",
+            "是",
+            "真实",
+            "。",
+            "”"
+          ],
+          "translation": "The singer never comes. Lin An’s report is not exciting, but it is responsible. His teacher says, “A reporter’s value is not being fastest; it is being truthful.”"
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

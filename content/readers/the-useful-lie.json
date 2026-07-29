@@ -1,0 +1,285 @@
+{
+  "id": "the-useful-lie",
+  "title": "有用的谎言",
+  "titleEn": "The Useful Lie",
+  "description": "A doctor’s reassuring statement calms a city, then begins to undermine public trust.",
+  "hskLevel": 9,
+  "goal": "Doctor Bai Lu wants to prevent panic during an unknown outbreak.",
+  "conflict": "She makes a claim that is comforting but unsupported.",
+  "resolution": "She corrects herself publicly and rebuilds trust through uncertainty.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "不会传染",
+      "titleEn": "It Is Not Contagious",
+      "focusWords": [
+        "传染",
+        "舆论",
+        "谎言"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "城市",
+            "出现",
+            "一",
+            "种",
+            "不",
+            "知道",
+            "来源",
+            "的",
+            "疾病",
+            "，",
+            "舆论",
+            "迅速",
+            "陷入",
+            "恐慌",
+            "。",
+            "医生",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "在",
+            "记者",
+            "会",
+            "上",
+            "说",
+            "：",
+            "“",
+            "目前",
+            "看来",
+            "，",
+            "它",
+            "不",
+            "会",
+            "人",
+            "与",
+            "人",
+            "传染",
+            "。",
+            "”"
+          ],
+          "translation": "An unknown illness appears and public opinion descends into panic. At a press conference, Dr Bai Lu says, “At present, it does not appear to spread person to person.”"
+        },
+        {
+          "tokens": [
+            "这",
+            "句",
+            "话",
+            "立刻",
+            "安抚",
+            "舆论",
+            "，",
+            "但",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "清楚",
+            "证据",
+            "只是",
+            "不足",
+            "，",
+            "并非",
+            "已经",
+            "排除",
+            "传染",
+            "。",
+            "一",
+            "个",
+            "有用",
+            "的",
+            "谎言",
+            "开始",
+            "流传",
+            "。"
+          ],
+          "translation": "The statement immediately calms opinion, but Bai Lu knows evidence is merely insufficient, not that transmission has been ruled out. A useful lie begins to circulate."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "第一例证明",
+      "titleEn": "The First Proof",
+      "focusWords": [
+        "隐瞒",
+        "崩溃",
+        "背叛"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "两",
+            "天",
+            "后",
+            "，",
+            "新",
+            "的",
+            "病人",
+            "证明",
+            "疾病",
+            "可以",
+            "传染",
+            "。",
+            "部门",
+            "建议",
+            "暂时",
+            "隐瞒",
+            "，",
+            "以免",
+            "医院",
+            "系统",
+            "因",
+            "恐慌",
+            "崩溃",
+            "。"
+          ],
+          "translation": "Two days later, a new case proves transmission. Officials advise temporary secrecy to keep the hospital system from collapsing in panic."
+        },
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "意识",
+            "到",
+            "，",
+            "每",
+            "隐瞒",
+            "一",
+            "小时",
+            "，",
+            "她",
+            "的",
+            "保证",
+            "就",
+            "更",
+            "像",
+            "背叛",
+            "。",
+            "一旦",
+            "真相",
+            "由",
+            "别人",
+            "揭露",
+            "，",
+            "公众",
+            "可能",
+            "连",
+            "正确",
+            "建议",
+            "也",
+            "不再",
+            "相信",
+            "。"
+          ],
+          "translation": "Bai Lu realises each hour of secrecy makes her reassurance more of a betrayal. If others reveal the truth, the public may stop trusting even correct advice."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "承认不知道",
+      "titleEn": "Admitting Not Knowing",
+      "focusWords": [
+        "澄清",
+        "惭愧",
+        "信任"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "重新",
+            "召开",
+            "记者",
+            "会",
+            "，",
+            "澄清",
+            "证据",
+            "并",
+            "承认",
+            "自己",
+            "当时",
+            "说",
+            "得",
+            "过于",
+            "确定",
+            "。",
+            "她",
+            "说",
+            "自己",
+            "很",
+            "惭愧",
+            "，",
+            "也",
+            "承诺",
+            "每",
+            "天",
+            "更新",
+            "并",
+            "公布",
+            "数据",
+            "。"
+          ],
+          "translation": "Bai Lu holds another press conference, clarifies the evidence, and admits she spoke with too much certainty. She expresses shame and promises to update and publish the data daily."
+        },
+        {
+          "tokens": [
+            "舆论",
+            "再次",
+            "激烈",
+            "，",
+            "却",
+            "逐渐",
+            "接受",
+            "“",
+            "尚",
+            "不",
+            "清楚",
+            "”",
+            "也",
+            "是",
+            "诚实",
+            "答案",
+            "。",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "失去",
+            "完美",
+            "权威",
+            "的",
+            "形象",
+            "，",
+            "换",
+            "回",
+            "了",
+            "建立",
+            "在",
+            "公开",
+            "数据",
+            "上",
+            "的",
+            "信任",
+            "。"
+          ],
+          "translation": "Public opinion flares again, but gradually accepts that “not yet known” can be honest. Bai Lu loses an image of perfect authority and regains trust grounded in public data."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}
