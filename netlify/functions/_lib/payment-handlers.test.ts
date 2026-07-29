@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { createCheckoutHandler } from './checkout'
-import { isStaleSubscriptionEvent } from './_lib/firebase'
-import type { EntitlementUpdate, PaymentProvider, WebhookEvent } from './_lib/types'
-import { createPortalHandler } from './portal'
-import { createWebhookHandler } from './webhook'
+import { createCheckoutHandler } from '../checkout'
+import { isStaleSubscriptionEvent } from './firebase'
+import type { EntitlementUpdate, PaymentProvider, WebhookEvent } from './types'
+import { createPortalHandler } from '../portal'
+import { createWebhookHandler } from '../webhook'
 
 const ready = { status: 'ready', providerId: 'stripe', issues: [] } as const
 
