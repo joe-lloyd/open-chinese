@@ -77,7 +77,18 @@ export default function Paywall({ result, title, description }: Props) {
         })}
       </div>
 
-      {error && <p className="text-sm text-text-muted">{error}</p>}
+      {error && (
+        <div role="alert" className="space-y-2">
+          <p className="text-sm text-text-muted">{error} You can retry above or go back.</p>
+          <button
+            type="button"
+            onClick={() => window.history.back()}
+            className="text-sm font-medium text-accent hover:underline"
+          >
+            Go back
+          </button>
+        </div>
+      )}
     </div>
   )
 }
