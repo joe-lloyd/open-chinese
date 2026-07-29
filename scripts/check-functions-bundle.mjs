@@ -65,8 +65,12 @@ try {
   // With a provider configured but no valid signature, the webhook must reject
   // before touching Firestore.
   process.env.PAYMENT_PROVIDER = 'stripe'
+  process.env.VITE_PAYMENTS_ENABLED = 'true'
+  process.env.PUBLIC_SITE_URL = 'https://example.test'
   process.env.STRIPE_SECRET_KEY = 'sk_test_placeholder'
   process.env.STRIPE_WEBHOOK_SECRET = 'whsec_placeholder'
+  process.env.STRIPE_PRICE_PRO_MONTHLY = 'price_monthly_placeholder'
+  process.env.STRIPE_PRICE_PRO_YEARLY = 'price_placeholder'
 
   check('webhook rejects a forged signature', (await handlers.webhook(req('POST', '{"id":"evt_1"}'))).status, 400)
   check('checkout rejects a missing token', (await handlers.checkout(req('POST', '{"sku":"pro-yearly"}'))).status, 401)

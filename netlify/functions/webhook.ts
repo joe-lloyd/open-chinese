@@ -1,53 +1,98 @@
 /**
  * POST /.netlify/functions/webhook
  *
- * The only path that can write entitlements. Order matters and is not
- * negotiable: verify the signature over the raw bytes, then claim the event id,
- * then write. Nothing touches Firestore before the signature is proven good.
+ * Verify the signature over the raw bytes, claim the event id, then write.
+ * Nothing touches Firestore before the provider signature is proven valid.
  */
 
 import { applyEntitlementUpdate, claimEvent, completeEvent, releaseEvent } from './_lib/firebase'
+import {
+  configurationSummary,
+  failureSummary,
+  inspectPaymentConfiguration,
+  type PaymentConfiguration,
+} from './_lib/payment-config'
 import { getProvider, json } from './_lib/providers'
+import type { EntitlementUpdate, PaymentProvider } from './_lib/types'
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== 'POST') return json(405, { error: 'method_not_allowed' })
-
-  const provider = getProvider()
-  if (!provider) return json(503, { error: 'payments_not_configured' })
-
-  // Raw, unparsed body — signature schemes hash the exact bytes sent, so any
-  // parse-then-restringify round trip invalidates them.
-  const rawBody = await req.text()
-
-  const event = provider.verifyWebhook(rawBody, req.headers)
-  if (!event) return json(400, { error: 'invalid_signature' })
-
-  const update = provider.toEntitlementUpdate(event)
-  // Valid but uninteresting. 2xx so the provider stops retrying it.
-  if (!update) return json(200, { ok: true, ignored: event.type })
-
-  // Providers retry and none guarantee once-only delivery, so a repeat is
-  // normal traffic rather than an error.
-  if ((await claimEvent(event.id)) === 'duplicate') {
-    return json(200, { ok: true, duplicate: true })
-  }
-
-  try {
-    // `createdAt` is the ordering guard: a subscription event generated before a
-    // cancellation can still be delivered after it.
-    await applyEntitlementUpdate(update, event.createdAt)
-  } catch (e) {
-    console.error('[webhook] entitlement write failed', event.id, e)
-    // Drop the claim so the provider's retry is not swallowed as a duplicate,
-    // and answer 5xx so it actually retries.
-    await releaseEvent(event.id)
-    return json(500, { error: 'write_failed' })
-  }
-
-  // Only now is a retry a duplicate. A crash between the write above and this
-  // line leaves a `processing` claim, which goes stale and is retried — at worst
-  // the same update is applied twice, which it is designed to tolerate.
-  await completeEvent(event.id)
-
-  return json(200, { ok: true })
+interface WebhookDependencies {
+  inspectConfiguration: () => PaymentConfiguration
+  provider: () => PaymentProvider | null
+  claim: typeof claimEvent
+  apply: (update: EntitlementUpdate, eventAt: Date | null) => Promise<void>
+  complete: typeof completeEvent
+  release: typeof releaseEvent
 }
+
+export function createWebhookHandler(
+  overrides: Partial<WebhookDependencies> = {}
+): (req: Request) => Promise<Response> {
+  const dependencies: WebhookDependencies = {
+    inspectConfiguration: () => inspectPaymentConfiguration(process.env, 'webhook'),
+    provider: getProvider,
+    claim: claimEvent,
+    apply: applyEntitlementUpdate,
+    complete: completeEvent,
+    release: releaseEvent,
+    ...overrides,
+  }
+
+  return async function handler(req: Request): Promise<Response> {
+    if (req.method !== 'POST') return json(405, { error: 'method_not_allowed' })
+
+    const configuration = dependencies.inspectConfiguration()
+    if (configuration.status !== 'ready') {
+      console.error('[webhook] unavailable', configurationSummary(configuration))
+      return json(503, { error: 'payments_unavailable', retryable: true })
+    }
+
+    const provider = dependencies.provider()
+    if (!provider) {
+      console.error('[webhook] configured provider is not registered')
+      return json(503, { error: 'payments_unavailable', retryable: true })
+    }
+
+    const rawBody = await req.text()
+    const event = provider.verifyWebhook(rawBody, req.headers)
+    if (!event) return json(400, { error: 'invalid_signature' })
+
+    const update = provider.toEntitlementUpdate(event)
+    if (!update) return json(200, { ok: true, ignored: event.type })
+
+    let claim
+    try {
+      claim = await dependencies.claim(event.id)
+    } catch (error) {
+      console.error('[webhook] event claim failed', event.id, failureSummary(error))
+      return json(500, { error: 'claim_failed', retryable: true })
+    }
+    if (claim === 'duplicate') {
+      return json(200, { ok: true, duplicate: true })
+    }
+    if (claim === 'in_progress') {
+      return json(409, { error: 'event_in_progress', retryable: true })
+    }
+
+    try {
+      await dependencies.apply(update, event.createdAt)
+    } catch (error) {
+      console.error('[webhook] entitlement write failed', event.id, failureSummary(error))
+      await dependencies.release(event.id)
+      return json(500, { error: 'write_failed', retryable: true })
+    }
+
+    try {
+      await dependencies.complete(event.id)
+    } catch (error) {
+      // Returning 5xx is important: the entitlement write is idempotent and a
+      // retry can safely repair a completion marker interrupted after the write.
+      console.error('[webhook] event completion failed', event.id, failureSummary(error))
+      await dependencies.release(event.id)
+      return json(500, { error: 'completion_failed', retryable: true })
+    }
+
+    return json(200, { ok: true })
+  }
+}
+
+export default createWebhookHandler()

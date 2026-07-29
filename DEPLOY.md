@@ -89,12 +89,9 @@ Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
    in the console that the published rules contain `allow write: if false` under
    `entitlements`.
 
-1. **Use Stripe.** Test mode needs no application, no business details and no
-   approval, so you can run a full purchase today. The longer-term
-   recommendation is still a merchant of record (Polar or Paddle) so EU VAT
-   registration and remittance are handled for you — see the design notes in
-   `openspec/` — but that is an account migration, not a code change: swapping
-   providers means implementing four methods behind `PaymentProvider`.
+1. **Use Stripe.** It is the documented launch provider. The dated provider
+   comparison is in `docs/payment-provider-decision.md`; Stripe remains a
+   processor, so OpenChinese owns VAT/OSS registration and filing.
 2. Create the Firebase service account with the **Cloud Datastore User** role
    only. It is the sole credential able to write entitlements, so scope it
    tightly and rotate it independently of everything else.
@@ -114,11 +111,13 @@ Payments stay dormant until `PAYMENT_PROVIDER` is set: the endpoints answer 503,
    automatically on purpose: a client that opened its gates whenever it could not
    reach the provider would be bypassable by blocking one request.
 
-Before enabling, run `pnpm check:functions-bundle`. It bundles the Netlify
-Functions the way Netlify does and exercises them, which typechecking does not
-cover — `firebase-admin` cannot be safely inlined (google-gax uses `__dirname`
-and loads `.proto` files at runtime), so `netlify.toml` externalises it. Keep
-that list and the one in `scripts/check-functions-bundle.mjs` in sync.
+Before enabling, run `pnpm check:payments-config` and
+`pnpm check:functions-bundle`. The first validates required launch settings
+without a provider network call. The second bundles the Netlify Functions the
+way Netlify does and exercises them, which typechecking does not cover —
+`firebase-admin` cannot be safely inlined (google-gax uses `__dirname` and loads
+`.proto` files at runtime), so `netlify.toml` externalises it. Keep that list and
+the one in `scripts/check-functions-bundle.mjs` in sync.
 
 Also run `pnpm check:pricing`. The public offer is configured in
 `packages/pricing/src/index.js`; the Stripe Price objects are authoritative at
@@ -134,8 +133,11 @@ Stripe Tax/VAT handling before live sales; the public pages describe these displ
 prices as VAT-inclusive. See `docs/pricing/launch-pricing-2026-07-29.md` for the
 planning assumptions and the limits of that analysis.
 
-Rollback is unsetting `VITE_PAYMENTS_ENABLED`: every gate reopens and there is no
-data to migrate back.
+Rollback is setting `VITE_PAYMENTS_ENABLED=false` and redeploying: every gate
+reopens, direct checkout/portal requests stop, webhooks continue for existing
+customers, and there is no data to migrate back. Follow
+`docs/payment-runbook.md` for live setup, smoke tests, monitoring, key rotation,
+manual recovery, and incident handling.
 
 Note that content gating is a purchase prompt, not a lock — `words.db` is a public
 static asset and remains downloadable by anyone.

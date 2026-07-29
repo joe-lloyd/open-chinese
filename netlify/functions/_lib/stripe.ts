@@ -1,14 +1,15 @@
 /**
- * Stripe adapter — the reference implementation of `PaymentProvider`.
+ * Stripe adapter — OpenChinese's launch implementation of `PaymentProvider`.
  *
- * Stripe is the launch provider. Its hosted Checkout keeps payment details out
- * of OpenChinese, supports the monthly and yearly Price mapping below, and can
- * be exercised end to end in test mode before live payments are enabled.
+ * Hosted Checkout keeps payment details out of OpenChinese, supports the
+ * monthly and yearly Price mapping below, and can be exercised end to end in
+ * test mode before live payments are enabled.
  *
  * Everything Stripe-specific stops at this file.
  */
 
 import Stripe from 'stripe'
+import { failureSummary, providerPriceSetting } from './payment-config'
 import { isCatalogSku, SERVER_CATALOG } from './types'
 import type {
   CheckoutInput,
@@ -31,12 +32,12 @@ function stripe(): Stripe {
 
 /** SKU `hsk-1` maps to `STRIPE_PRICE_HSK_1`. Price ids never live in the repo. */
 export function stripePriceEnvVarFor(sku: string): string {
-  return `STRIPE_PRICE_${sku.toUpperCase().replace(/-/g, '_')}`
+  return providerPriceSetting('STRIPE_PRICE', sku)
 }
 
-function priceIdFor(sku: string): string {
+function priceIdFor(sku: string, env: NodeJS.ProcessEnv): string {
   const envVar = stripePriceEnvVarFor(sku)
-  const priceId = process.env[envVar]
+  const priceId = env[envVar]
   if (!priceId) throw new Error(`${envVar} is not set`)
   return priceId
 }
@@ -86,16 +87,36 @@ function customerId(value: unknown): string | null {
   return null
 }
 
-export const stripeProvider: PaymentProvider = {
-  id: 'stripe',
+export interface StripeSdk {
+  checkout: {
+    sessions: {
+      create(params: Stripe.Checkout.SessionCreateParams): Promise<{ url: string | null }>
+    }
+  }
+  billingPortal: {
+    sessions: {
+      create(params: Stripe.BillingPortal.SessionCreateParams): Promise<{ url: string }>
+    }
+  }
+  webhooks: {
+    constructEvent(body: string, signature: string, secret: string): Stripe.Event
+  }
+}
+
+export function createStripeProvider(
+  getClient: () => StripeSdk = stripe,
+  getEnvironment: () => NodeJS.ProcessEnv = () => process.env
+): PaymentProvider {
+  return {
+    id: 'stripe',
 
   async createCheckoutSession(input: CheckoutInput): Promise<{ url: string }> {
     const recurring = SERVER_CATALOG[input.sku].recurring
     const metadata = { uid: input.uid, sku: input.sku }
 
-    const session = await stripe().checkout.sessions.create({
+    const session = await getClient().checkout.sessions.create({
       mode: recurring ? 'subscription' : 'payment',
-      line_items: [{ price: priceIdFor(input.sku), quantity: 1 }],
+      line_items: [{ price: priceIdFor(input.sku, getEnvironment()), quantity: 1 }],
       success_url: input.successUrl,
       cancel_url: input.cancelUrl,
       client_reference_id: input.uid,
@@ -113,7 +134,7 @@ export const stripeProvider: PaymentProvider = {
   },
 
   async createPortalSession(input): Promise<{ url: string }> {
-    const session = await stripe().billingPortal.sessions.create({
+    const session = await getClient().billingPortal.sessions.create({
       customer: input.customerId,
       return_url: input.returnUrl,
     })
@@ -122,19 +143,19 @@ export const stripeProvider: PaymentProvider = {
 
   verifyWebhook(rawBody: string, headers: Headers): WebhookEvent | null {
     const signature = headers.get('stripe-signature')
-    const secret = process.env.STRIPE_WEBHOOK_SECRET
+    const secret = getEnvironment().STRIPE_WEBHOOK_SECRET
     if (!signature || !secret) return null
     try {
       // Verifies the HMAC over the raw bytes and rejects stale timestamps.
-      const event = stripe().webhooks.constructEvent(rawBody, signature, secret)
+      const event = getClient().webhooks.constructEvent(rawBody, signature, secret)
       return {
         id: event.id,
         type: event.type,
         createdAt: new Date(event.created * 1000),
         payload: event.data.object,
       }
-    } catch (e) {
-      console.error('[stripe] webhook signature rejected', e)
+    } catch (error) {
+      console.error('[stripe] webhook signature rejected', failureSummary(error))
       return null
     }
   },
@@ -203,5 +224,8 @@ export const stripeProvider: PaymentProvider = {
       default:
         return null
     }
-  },
+    },
+  }
 }
+
+export const stripeProvider: PaymentProvider = createStripeProvider()

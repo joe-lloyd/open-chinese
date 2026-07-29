@@ -17,10 +17,12 @@
     "check:functions-bundle": "node scripts/check-functions-bundle.mjs",
     "check:pricing": "node scripts/check-pricing.mjs",
     "pricing:model": "node scripts/pricing-model.mjs",
+    "check:payments-config": "tsx scripts/check-payment-config.ts",
     "entitlement": "node --env-file-if-exists=apps/app/.env scripts/entitlement.mjs",
     "dev:site": "pnpm --filter @open-chinese/site dev",
     "build:app": "pnpm --filter @open-chinese/app build",
     "build:site": "pnpm --filter @open-chinese/site build",
+    "test:payments": "tsx --test netlify/functions/_lib/payment-config.test.ts netlify/functions/_lib/stripe.test.ts netlify/functions/payment-handlers.test.ts",
     "preview": "node scripts/assemble-dist.mjs && pnpm --filter @open-chinese/site preview",
     "dev:app": "pnpm --filter @open-chinese/app dev"
   },
@@ -39,6 +41,7 @@
     "@types/node": "^24.13.2",
     "concurrently": "9.1.2",
     "esbuild": "^0.25.12",
+    "tsx": "4.19.4",
     "typescript": "~6.0.2"
   }
 }

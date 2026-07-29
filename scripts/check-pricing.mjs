@@ -43,7 +43,10 @@ assert.match(files.catalog, /PRO_PRICING\.yearly\.amountEur/)
 assert.match(files.appPricing, /annualSavingsPercent\(\)/)
 assert.match(files.siteConfig, /proPricing: PRO_PRICING/)
 assert.match(files.sitePricing, /annualSavingsPercent\(SITE\.proPricing\)/)
-assert.match(files.serverCatalog, /'pro-monthly': \{ recurring: true \}/)
+assert.match(
+  files.serverCatalog,
+  /'pro-monthly': \{ recurring: true, purchasable: true \}/
+)
 assert.match(files.env, /STRIPE_PRICE_PRO_MONTHLY=/)
 assert.match(files.deploy, /STRIPE_PRICE_PRO_MONTHLY/)
 

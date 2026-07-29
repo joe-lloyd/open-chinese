@@ -24,13 +24,13 @@ export type CatalogSku =
  *
  * Keep the SKU list in sync with `client/src/lib/catalog.ts`.
  */
-export const SERVER_CATALOG: Record<CatalogSku, { recurring: boolean }> = {
-  'pro-monthly': { recurring: true },
-  'pro-yearly': { recurring: true },
-  'hsk-1': { recurring: false },
-  'hsk-2': { recurring: false },
-  'hsk-3': { recurring: false },
-  'hsk-4': { recurring: false },
+export const SERVER_CATALOG: Record<CatalogSku, { recurring: boolean; purchasable: boolean }> = {
+  'pro-monthly': { recurring: true, purchasable: true },
+  'pro-yearly': { recurring: true, purchasable: true },
+  'hsk-1': { recurring: false, purchasable: false },
+  'hsk-2': { recurring: false, purchasable: false },
+  'hsk-3': { recurring: false, purchasable: false },
+  'hsk-4': { recurring: false, purchasable: false },
 }
 
 export function isCatalogSku(value: unknown): value is CatalogSku {
