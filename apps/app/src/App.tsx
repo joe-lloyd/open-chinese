@@ -91,7 +91,7 @@ export default function App() {
               user && user !== "loading" ? (
                 <Navigate to="/" replace />
               ) : (
-                <LoginPage error={authError} />
+                <LoginPage error={authError} authLoading={user === "loading"} />
               )
             }
           />
@@ -99,9 +99,7 @@ export default function App() {
             path="*"
             element={
               user === "loading" ? (
-                <div className="min-h-screen w-screen flex items-center justify-center bg-surface text-text-muted text-sm">
-                  Loading…
-                </div>
+                <LoginPage authLoading />
               ) : user === null ? (
                 <Navigate to="/login" replace />
               ) : (
