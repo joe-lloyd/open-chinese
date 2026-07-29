@@ -11,6 +11,8 @@
     "build": "pnpm build:words-db && pnpm build:readers && pnpm build:app && pnpm build:site && node scripts/assemble-dist.mjs",
     "build:words-db": "pnpm --filter @open-chinese/build-tools build:words-db",
     "build:readers": "pnpm --filter @open-chinese/build-tools build:readers",
+    "test:reader-covers": "pnpm --filter @open-chinese/build-tools test:covers",
+    "build:reader-covers": "pnpm --filter @open-chinese/site build:reader-covers",
     "generate:readers": "node scripts/generate-reader-library.mjs",
     "import:hsk": "node scripts/import-hsk30.mjs",
     "typecheck:functions": "tsc -p tsconfig.functions.json",

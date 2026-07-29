@@ -2,188 +2,105 @@
   "id": "city-investigation",
   "title": "城市调查",
   "titleEn": "The City Investigation",
-  "description": "Reporter Luo Wei listens across one neighbourhood before proposing how the city can serve it better.",
+  "description": "A reporter discovers that a popular redevelopment plan has erased the people it affects.",
   "hskLevel": 5,
+  "goal": "Luo Wei wants to publish an important investigation.",
+  "conflict": "Her editor prefers dramatic numbers to complicated human stories.",
+  "resolution": "She proves that listening to residents changes the proposed policy.",
   "chapters": [
     {
       "id": "ch1",
-      "title": "听见社区",
-      "titleEn": "Listening to the Neighbourhood",
+      "title": "漂亮的数据",
+      "titleEn": "Beautiful Data",
+      "focusWords": [
+        "调查",
+        "数据",
+        "社区"
+      ],
       "paragraphs": [
         {
           "tokens": [
+            "记者",
             {
               "text": "罗维",
               "pinyin": "Luó Wéi",
               "definition": "Luo Wei (a given name)"
             },
-            "想到",
+            "调查",
+            "一",
+            "个",
+            "旧",
             "社区",
+            "的",
+            "改造",
+            "计划",
             "。",
-            "她",
-            "采访",
-            "社区",
+            "政府",
+            "提供",
+            "的",
+            "数据",
+            "显示",
             "，",
-            "也",
-            "记录",
-            "社区",
-            "。"
-          ],
-          "translation": "Luo Wei thought about community. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "居民",
-            "。",
-            "她",
-            "采访",
-            "居民",
+            "新",
+            "建筑",
+            "会",
+            "增加",
+            "住房",
             "，",
-            "也",
-            "记录",
-            "居民",
-            "。"
-          ],
-          "translation": "Luo Wei thought about residents. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "工厂",
-            "。",
-            "她",
-            "采访",
-            "工厂",
-            "，",
-            "也",
-            "记录",
-            "工厂",
-            "。"
-          ],
-          "translation": "Luo Wei thought about factory. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "市场",
-            "。",
-            "她",
-            "采访",
-            "市场",
-            "，",
-            "也",
-            "记录",
-            "市场",
-            "。"
-          ],
-          "translation": "Luo Wei thought about market. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "学校",
-            "。",
-            "她",
-            "采访",
-            "学校",
-            "，",
-            "也",
-            "记录",
-            "学校",
-            "。"
-          ],
-          "translation": "Luo Wei thought about school. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "医院",
-            "。",
-            "她",
-            "采访",
-            "医院",
-            "，",
-            "也",
-            "记录",
-            "医院",
-            "。"
-          ],
-          "translation": "Luo Wei thought about hospital. She interviewed people about it and documented it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "交通",
-            "。",
-            "她",
-            "采访",
-            "交通",
-            "，",
-            "也",
-            "记录",
+            "改善",
             "交通",
             "。"
           ],
-          "translation": "Luo Wei thought about transport. She interviewed people about it and documented it."
+          "translation": "Reporter Luo Wei investigates a redevelopment plan for an old neighbourhood. Government data says new buildings will increase housing and improve transport."
         },
         {
           "tokens": [
+            "编辑",
+            "认为",
+            "这些",
+            "数据",
+            "足够",
+            "写",
+            "报道",
+            "，",
+            "要求",
             {
               "text": "罗维",
               "pinyin": "Luó Wéi",
               "definition": "Luo Wei (a given name)"
             },
-            "想到",
-            "住房",
+            "当天",
+            "完成",
             "。",
-            "她",
-            "采访",
-            "住房",
-            "，",
-            "也",
-            "记录",
-            "住房",
+            {
+              "text": "罗维",
+              "pinyin": "Luó Wéi",
+              "definition": "Luo Wei (a given name)"
+            },
+            "却",
+            "发现",
+            "调查",
+            "中",
+            "没有",
+            "任何",
+            "居民",
+            "的",
+            "声音",
             "。"
           ],
-          "translation": "Luo Wei thought about housing. She interviewed people about it and documented it."
+          "translation": "Her editor thinks the numbers are enough for a story and wants it finished that day. Luo Wei notices that the investigation contains no residents’ voices."
         }
       ]
     },
     {
       "id": "ch2",
-      "title": "数字背后",
-      "titleEn": "Behind the Numbers",
+      "title": "地图上没有的人",
+      "titleEn": "People Missing from the Map",
+      "focusWords": [
+        "居民",
+        "利益",
+        "冲突"
+      ],
       "paragraphs": [
         {
           "tokens": [
@@ -192,173 +109,81 @@
               "pinyin": "Luó Wéi",
               "definition": "Luo Wei (a given name)"
             },
-            "想到",
-            "收入",
-            "。",
-            "她",
-            "分析",
-            "收入",
+            "采访",
+            "居民",
             "，",
-            "也",
-            "比较",
-            "收入",
+            "发现",
+            "新",
+            "道路",
+            "会",
+            "经过",
+            "一",
+            "个",
+            "市场",
+            "和",
+            "一",
+            "所",
+            "小学",
+            "。",
+            "计划",
+            "的",
+            "公共",
+            "利益",
+            "和",
+            "居民",
+            "生活",
+            "发生",
+            "冲突",
             "。"
           ],
-          "translation": "Luo Wei thought about income. She analysed it and compared it."
+          "translation": "Luo Wei interviews residents and learns that the new road will cross a market and a primary school. Public benefit conflicts with residents’ lives."
         },
         {
           "tokens": [
+            "编辑",
+            "担心",
+            "复杂",
+            "内容",
+            "不够",
+            "热门",
+            "，",
+            "删除",
+            "了",
+            "大部分",
+            "采访",
+            "。",
             {
               "text": "罗维",
               "pinyin": "Luó Wéi",
               "definition": "Luo Wei (a given name)"
             },
-            "想到",
-            "消费",
-            "。",
-            "她",
-            "分析",
-            "消费",
+            "必须",
+            "决定",
+            "接受",
+            "这",
+            "个",
+            "版",
+            "本",
             "，",
-            "也",
-            "比较",
-            "消费",
+            "还是",
+            "继续",
+            "收集",
+            "证据",
             "。"
           ],
-          "translation": "Luo Wei thought about consumption. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "教育",
-            "。",
-            "她",
-            "分析",
-            "教育",
-            "，",
-            "也",
-            "比较",
-            "教育",
-            "。"
-          ],
-          "translation": "Luo Wei thought about education. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "医疗",
-            "。",
-            "她",
-            "分析",
-            "医疗",
-            "，",
-            "也",
-            "比较",
-            "医疗",
-            "。"
-          ],
-          "translation": "Luo Wei thought about healthcare. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "就业",
-            "。",
-            "她",
-            "分析",
-            "就业",
-            "，",
-            "也",
-            "比较",
-            "就业",
-            "。"
-          ],
-          "translation": "Luo Wei thought about employment. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "人口",
-            "。",
-            "她",
-            "分析",
-            "人口",
-            "，",
-            "也",
-            "比较",
-            "人口",
-            "。"
-          ],
-          "translation": "Luo Wei thought about population. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "资源",
-            "。",
-            "她",
-            "分析",
-            "资源",
-            "，",
-            "也",
-            "比较",
-            "资源",
-            "。"
-          ],
-          "translation": "Luo Wei thought about resources. She analysed it and compared it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "环境",
-            "。",
-            "她",
-            "分析",
-            "环境",
-            "，",
-            "也",
-            "比较",
-            "环境",
-            "。"
-          ],
-          "translation": "Luo Wei thought about environment. She analysed it and compared it."
+          "translation": "Her editor worries that complexity will not be popular and removes most interviews. Luo Wei must accept this version or continue gathering evidence."
         }
       ]
     },
     {
       "id": "ch3",
-      "title": "不同的声音",
-      "titleEn": "Different Voices",
+      "title": "报道之后",
+      "titleEn": "After Publication",
+      "focusWords": [
+        "证据",
+        "方案",
+        "参与"
+      ],
       "paragraphs": [
         {
           "tokens": [
@@ -367,343 +192,76 @@
               "pinyin": "Luó Wéi",
               "definition": "Luo Wei (a given name)"
             },
-            "想到",
-            "差距",
+            "用",
+            "现场",
+            "照片",
+            "、",
+            "交通",
+            "记录",
+            "和",
+            "居民",
+            "提供",
+            "的",
+            "证据",
+            "写",
+            "了",
+            "新",
+            "报道",
             "。",
             "她",
-            "发现",
-            "差距",
+            "不",
+            "反对",
+            "改造",
             "，",
-            "也",
-            "讨论",
-            "差距",
-            "。"
-          ],
-          "translation": "Luo Wei thought about gap. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "压力",
-            "。",
-            "她",
-            "发现",
-            "压力",
-            "，",
-            "也",
-            "讨论",
-            "压力",
-            "。"
-          ],
-          "translation": "Luo Wei thought about pressure. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "权利",
-            "。",
-            "她",
-            "发现",
-            "权利",
-            "，",
-            "也",
-            "讨论",
-            "权利",
-            "。"
-          ],
-          "translation": "Luo Wei thought about rights. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "责任",
-            "。",
-            "她",
-            "发现",
-            "责任",
-            "，",
-            "也",
-            "讨论",
-            "责任",
-            "。"
-          ],
-          "translation": "Luo Wei thought about responsibility. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "公平",
-            "。",
-            "她",
-            "发现",
-            "公平",
-            "，",
-            "也",
-            "讨论",
-            "公平",
-            "。"
-          ],
-          "translation": "Luo Wei thought about fairness. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "效率",
-            "。",
-            "她",
-            "发现",
-            "效率",
-            "，",
-            "也",
-            "讨论",
-            "效率",
-            "。"
-          ],
-          "translation": "Luo Wei thought about efficiency. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "信任",
-            "。",
-            "她",
-            "发现",
-            "信任",
-            "，",
-            "也",
-            "讨论",
-            "信任",
-            "。"
-          ],
-          "translation": "Luo Wei thought about trust. She identified it and discussed it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "冲突",
-            "。",
-            "她",
-            "发现",
-            "冲突",
-            "，",
-            "也",
-            "讨论",
-            "冲突",
-            "。"
-          ],
-          "translation": "Luo Wei thought about conflict. She identified it and discussed it."
-        }
-      ]
-    },
-    {
-      "id": "ch4",
-      "title": "一份建议",
-      "titleEn": "A Proposal",
-      "paragraphs": [
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "改革",
-            "。",
-            "她",
-            "提倡",
-            "改革",
-            "，",
-            "也",
-            "推动",
-            "改革",
-            "。"
-          ],
-          "translation": "Luo Wei thought about reform. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "创新",
-            "。",
-            "她",
-            "提倡",
-            "创新",
-            "，",
-            "也",
-            "推动",
-            "创新",
-            "。"
-          ],
-          "translation": "Luo Wei thought about innovation. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "参与",
-            "。",
-            "她",
-            "提倡",
-            "参与",
-            "，",
-            "也",
-            "推动",
+            "只",
+            "证明",
+            "原",
+            "方案",
+            "缺少",
+            "公众",
             "参与",
             "。"
           ],
-          "translation": "Luo Wei thought about participation. She advocated it and promoted it."
+          "translation": "Using site photographs, traffic records, and evidence from residents, Luo Wei writes a new report. She does not oppose redevelopment; she proves the original plan lacks public participation."
         },
         {
           "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "改善",
-            "。",
-            "她",
-            "提倡",
-            "改善",
-            "，",
-            "也",
+            "报道",
             "推动",
-            "改善",
-            "。"
-          ],
-          "translation": "Luo Wei thought about improvement. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "发展",
+            "了",
+            "一",
+            "次",
+            "公开",
+            "会议",
             "。",
-            "她",
-            "提倡",
-            "发展",
-            "，",
-            "也",
-            "推动",
-            "发展",
-            "。"
-          ],
-          "translation": "Luo Wei thought about development. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "措施",
-            "。",
-            "她",
-            "提倡",
-            "措施",
-            "，",
-            "也",
-            "推动",
-            "措施",
-            "。"
-          ],
-          "translation": "Luo Wei thought about measure. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
+            "最后",
+            "的",
             "方案",
-            "。",
-            "她",
-            "提倡",
-            "方案",
+            "保留",
+            "市场",
             "，",
             "也",
-            "推动",
-            "方案",
-            "。"
-          ],
-          "translation": "Luo Wei thought about plan. She advocated it and promoted it."
-        },
-        {
-          "tokens": [
-            {
-              "text": "罗维",
-              "pinyin": "Luó Wéi",
-              "definition": "Luo Wei (a given name)"
-            },
-            "想到",
-            "合作",
+            "改变",
+            "道路",
+            "方向",
             "。",
-            "她",
-            "提倡",
-            "合作",
-            "，",
-            "也",
-            "推动",
-            "合作",
-            "。"
+            "编辑",
+            "承认",
+            "：",
+            "“",
+            "好",
+            "调查",
+            "不",
+            "只是",
+            "数据",
+            "漂亮",
+            "。",
+            "”"
           ],
-          "translation": "Luo Wei thought about cooperation. She advocated it and promoted it."
+          "translation": "The report prompts a public meeting. The final plan keeps the market and reroutes the road. Her editor admits, “A good investigation is not just attractive numbers.”"
         }
       ]
     }
-  ]
+  ],
+  "order": 1
 }

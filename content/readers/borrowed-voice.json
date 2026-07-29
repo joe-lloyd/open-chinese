@@ -1,0 +1,268 @@
+{
+  "id": "borrowed-voice",
+  "title": "被借走的声音",
+  "titleEn": "The Borrowed Voice",
+  "description": "A documentary editor discovers that a powerful translation changes what its subject said.",
+  "hskLevel": 8,
+  "goal": "Editor Han Qiu wants a documentary to reach an international audience.",
+  "conflict": "A dramatic translation turns uncertainty into accusation.",
+  "resolution": "She restores the speaker’s meaning even when the film becomes less sensational.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "最有力量的一句话",
+      "titleEn": "The Most Powerful Sentence",
+      "focusWords": [
+        "纪录片",
+        "翻译",
+        "触动"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "编辑",
+            "一",
+            "部",
+            "关于",
+            "工厂",
+            "搬迁",
+            "的",
+            "纪录片",
+            "。",
+            "片",
+            "中",
+            "一",
+            "位",
+            "老",
+            "工人",
+            "的",
+            "话",
+            "十分",
+            "触动",
+            "观众",
+            "，",
+            "成为",
+            "预告",
+            "片",
+            "的",
+            "核心",
+            "。"
+          ],
+          "translation": "Han Qiu edits a documentary about factory relocation. An elderly worker’s statement deeply moves viewers and becomes the trailer’s centrepiece."
+        },
+        {
+          "tokens": [
+            "英文",
+            "翻译",
+            "是",
+            "：",
+            "“",
+            "他们",
+            "故意",
+            "毁",
+            "掉",
+            "我们",
+            "的",
+            "家",
+            "。",
+            "”",
+            "这",
+            "句",
+            "话",
+            "让",
+            "纪录片",
+            "获得",
+            "大量",
+            "关注",
+            "。"
+          ],
+          "translation": "The English translation says, “They deliberately destroyed our home.” The line draws enormous attention to the documentary."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "原话的分量",
+      "titleEn": "The Weight of the Original",
+      "focusWords": [
+        "核实",
+        "质疑",
+        "尊严"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "核实",
+            "原始",
+            "录音",
+            "时",
+            "，",
+            "发现",
+            "老人",
+            "实际",
+            "说",
+            "的",
+            "是",
+            "：",
+            "“",
+            "我",
+            "不",
+            "知道",
+            "他们",
+            "是否",
+            "在乎",
+            "我们",
+            "的",
+            "家",
+            "。",
+            "”"
+          ],
+          "translation": "Checking the original audio, Han Qiu discovers he actually said, “I don’t know whether they cared about our home.”"
+        },
+        {
+          "tokens": [
+            "导演",
+            "质疑",
+            "修改",
+            "的",
+            "必要",
+            "，",
+            "认为",
+            "两",
+            "句",
+            "话",
+            "表达",
+            "相同",
+            "情绪",
+            "。",
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "却",
+            "认为",
+            "把",
+            "怀疑",
+            "变成",
+            "直接",
+            "指责",
+            "，",
+            "等于",
+            "借",
+            "走",
+            "老人",
+            "的",
+            "声音",
+            "和",
+            "尊严",
+            "。"
+          ],
+          "translation": "The director questions whether a change is needed, saying both express the same emotion. Han Qiu argues that turning doubt into a direct accusation steals the man’s voice and dignity."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "不够响亮的真话",
+      "titleEn": "A Truth That Is Less Loud",
+      "focusWords": [
+        "修改",
+        "偏见",
+        "纪录片"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "坚持",
+            "修改",
+            "翻译",
+            "，",
+            "并",
+            "在",
+            "纪录片",
+            "中",
+            "加入",
+            "解释",
+            "。",
+            "新",
+            "版",
+            "本",
+            "不再",
+            "那么",
+            "戏剧",
+            "化",
+            "，",
+            "却",
+            "呈现",
+            "老人",
+            "对",
+            "事实",
+            "的",
+            "谨慎",
+            "。"
+          ],
+          "translation": "Han Qiu insists on correcting the translation and adds context. The new version is less dramatic but preserves the man’s caution about facts."
+        },
+        {
+          "tokens": [
+            "影片",
+            "仍然",
+            "引起",
+            "讨论",
+            "，",
+            "也",
+            "揭露",
+            "观众",
+            "对",
+            "“",
+            "受害",
+            "者",
+            "一定",
+            "愤怒",
+            "”",
+            "的",
+            "偏见",
+            "。",
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "明白",
+            "，",
+            "编辑",
+            "的",
+            "责任",
+            "不",
+            "是",
+            "替",
+            "别人",
+            "说",
+            "得",
+            "更",
+            "响亮",
+            "。"
+          ],
+          "translation": "The film still sparks debate and exposes the audience’s bias that victims must sound angry. Han Qiu learns an editor’s duty is not to make someone else speak more loudly."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

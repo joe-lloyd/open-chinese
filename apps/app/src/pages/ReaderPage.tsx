@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import HskBadge from '../components/HskBadge'
+import ReaderCover from '../components/ReaderCover'
+import { getCurrentUid } from '../lib/auth'
+import { getEncounteredWords, getReaderProgress } from '../lib/firestore'
 import { loadReader, unencounteredWords } from '../lib/readers'
 import type { Reader } from '../lib/readers'
-import { getEncounteredWords, getReaderProgress } from '../lib/firestore'
-import { getCurrentUid } from '../lib/auth'
-import HskBadge from '../components/HskBadge'
 
 interface ChapterRow {
   id: string
@@ -23,104 +24,115 @@ export default function ReaderPage() {
 
   useEffect(() => {
     let cancelled = false
-
     async function load() {
       const loaded = await loadReader(readerId)
       if (cancelled) return
       setReader(loaded)
-
       const uid = getCurrentUid()
       if (loaded && uid) {
         const [encountered, progress] = await Promise.all([
-          getEncounteredWords(uid, loaded.chapters.flatMap((c) => c.vocab)),
+          getEncounteredWords(uid, loaded.chapters.flatMap((chapter) => chapter.vocab)),
           getReaderProgress(uid, readerId),
         ])
         if (cancelled) return
-
         const completed = new Set(progress?.completedChapters ?? [])
         setRows(
-          loaded.chapters.map((c) => ({
-            id: c.id,
-            title: c.title,
-            titleEn: c.titleEn,
-            finished: completed.has(c.id),
-            newWords: unencounteredWords(c, encountered).length,
+          loaded.chapters.map((chapter) => ({
+            id: chapter.id,
+            title: chapter.title,
+            titleEn: chapter.titleEn,
+            finished: completed.has(chapter.id),
+            newWords: unencounteredWords(chapter, encountered).length,
           }))
         )
       }
-
       setLoading(false)
     }
-
     load()
     return () => {
       cancelled = true
     }
   }, [readerId])
 
-  if (loading) return <div className="p-4 sm:p-8 text-text-muted">Loading…</div>
-
+  if (loading) return <div className="p-4 text-text-muted sm:p-8">Loading…</div>
   if (!reader) {
     return (
-      <div className="p-4 sm:p-8 max-w-3xl mx-auto space-y-3">
+      <div className="mx-auto max-w-3xl space-y-3 p-4 sm:p-8">
         <h1 className="text-2xl font-bold text-text-primary">Reader not found</h1>
-        <Link to="/readers" className="text-accent text-sm hover:underline">
+        <Link to="/readers" className="text-sm text-accent hover:underline">
           ← Back to readers
         </Link>
       </div>
     )
   }
 
-  const finishedCount = rows.filter((r) => r.finished).length
-  const nextUnfinished = rows.find((r) => !r.finished) ?? rows[0]
+  const finishedCount = rows.filter((row) => row.finished).length
+  const nextUnfinished = rows.find((row) => !row.finished) ?? rows[0]
 
   return (
-    <div className="p-4 sm:p-8 max-w-3xl mx-auto space-y-6">
-      <div className="space-y-3">
-        <Link to="/readers" className="text-xs text-text-muted hover:text-text-primary transition-colors">
+    <div className="mx-auto max-w-4xl space-y-6 p-4 sm:p-8">
+      <div className="space-y-4">
+        <Link
+          to="/readers"
+          className="text-xs text-text-muted transition-colors hover:text-text-primary"
+        >
           ← All readers
         </Link>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-text-primary">{reader.title}</h1>
-            <p className="text-sm text-text-muted mt-0.5">{reader.titleEn}</p>
+        <div className="grid gap-5 sm:grid-cols-[11rem_1fr] sm:items-start">
+          <ReaderCover
+            readerId={reader.id}
+            hskLevel={reader.hskLevel}
+            cover={reader.cover}
+            eager
+            className="w-full max-w-56 rounded-2xl border border-border shadow-sm"
+          />
+          <div className="space-y-3">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h1 className="text-3xl font-bold text-text-primary">{reader.title}</h1>
+                <p className="mt-0.5 text-sm text-text-muted">{reader.titleEn}</p>
+              </div>
+              <HskBadge level={reader.hskLevel} size="lg" />
+            </div>
+            <p className="text-sm text-text-primary">{reader.description}</p>
+            <p className="text-xs text-text-muted">
+              Every chapter includes complete Mandarin read-aloud with pause and resume.
+            </p>
           </div>
-          <HskBadge level={reader.hskLevel} size="lg" />
         </div>
-        <p className="text-sm text-text-primary">{reader.description}</p>
       </div>
 
-      {nextUnfinished && (
+      {nextUnfinished ? (
         <button
           onClick={() => navigate(`/readers/${reader.id}/${nextUnfinished.id}`)}
-          className="w-full py-3 bg-accent-solid text-on-accent rounded-xl text-sm font-medium hover:opacity-90 transition-opacity"
+          className="w-full rounded-xl bg-accent-solid py-3 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
         >
           {finishedCount === 0 ? 'Start reading' : `Continue: ${nextUnfinished.title}`}
         </button>
-      )}
+      ) : null}
 
       <section className="space-y-2">
-        <h2 className="text-sm font-semibold text-text-muted uppercase tracking-wide">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-text-muted">
           Chapters — {finishedCount} / {rows.length} finished
         </h2>
-        {rows.map((row, i) => (
+        {rows.map((row, index) => (
           <Link
             key={row.id}
             to={`/readers/${reader.id}/${row.id}`}
-            className="flex items-center gap-4 bg-surface-raised border border-border rounded-xl px-4 py-3 hover:border-accent transition-colors"
+            className="flex items-center gap-4 rounded-xl border border-border bg-surface-raised px-4 py-3 transition-colors hover:border-accent"
           >
             <span
-              className={`w-7 h-7 flex-shrink-0 rounded-full flex items-center justify-center text-xs font-medium ${
+              className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium ${
                 row.finished ? 'bg-accent-solid text-on-accent' : 'bg-border text-text-muted'
               }`}
             >
-              {row.finished ? '✓' : i + 1}
+              {row.finished ? '✓' : index + 1}
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-text-primary truncate">{row.title}</p>
-              <p className="text-xs text-text-muted truncate">{row.titleEn}</p>
+              <p className="truncate text-text-primary">{row.title}</p>
+              <p className="truncate text-xs text-text-muted">{row.titleEn}</p>
             </div>
-            <span className="text-xs text-text-muted flex-shrink-0">
+            <span className="flex-shrink-0 text-xs text-text-muted">
               {row.newWords > 0 ? `${row.newWords} new` : 'all known'}
             </span>
           </Link>

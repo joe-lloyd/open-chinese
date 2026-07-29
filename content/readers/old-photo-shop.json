@@ -1,0 +1,251 @@
+{
+  "id": "old-photo-shop",
+  "title": "老照片店",
+  "titleEn": "The Old Photo Shop",
+  "description": "A damaged photograph brings together two families separated by a misunderstanding.",
+  "hskLevel": 4,
+  "goal": "A photographer wants to restore a customer’s only family photograph.",
+  "conflict": "The missing half appears to belong to a family who refuses contact.",
+  "resolution": "Restoring the full image allows both sides to revisit the past.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "只剩一半",
+      "titleEn": "Only Half Remains",
+      "focusWords": [
+        "照片",
+        "顾客",
+        "严重"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "在",
+            "一",
+            "家",
+            "老",
+            "照片",
+            "店",
+            "工作",
+            "。",
+            "一",
+            "位",
+            "顾客",
+            "带来",
+            "半",
+            "张",
+            "严重",
+            "受",
+            "损",
+            "的",
+            "照片",
+            "，",
+            "请求",
+            "她",
+            "修复",
+            "。"
+          ],
+          "translation": "Tang Xin works in an old photo shop. A customer brings half of a badly damaged photograph and asks her to restore it."
+        },
+        {
+          "tokens": [
+            "照片",
+            "里",
+            "有",
+            "两",
+            "个",
+            "年轻",
+            "女人",
+            "，",
+            "顾客",
+            "只",
+            "认识",
+            "自己",
+            "的",
+            "母亲",
+            "。",
+            "另",
+            "一半",
+            "照片",
+            "和",
+            "另",
+            "一",
+            "个",
+            "人",
+            "都",
+            "消失",
+            "了",
+            "。"
+          ],
+          "translation": "The photograph shows two young women, but the customer recognises only her mother. The other half and the other woman have disappeared."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "相同的背景",
+      "titleEn": "The Same Background",
+      "focusWords": [
+        "背景",
+        "误会",
+        "资料"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "在",
+            "店",
+            "里",
+            "的",
+            "旧",
+            "资料",
+            "中",
+            "找到",
+            "相同",
+            "背景",
+            "的",
+            "照片",
+            "。",
+            "另",
+            "一",
+            "位",
+            "女人",
+            "的",
+            "家人",
+            "还",
+            "住",
+            "在",
+            "城里",
+            "。"
+          ],
+          "translation": "Tang Xin finds a photograph with the same background in the shop’s old records. The other woman’s family still lives in the city."
+        },
+        {
+          "tokens": [
+            "那",
+            "家人",
+            "开始",
+            "拒绝",
+            "见面",
+            "。",
+            "原来",
+            "两",
+            "个",
+            "家庭",
+            "因为",
+            "一",
+            "次",
+            "生意",
+            "误会",
+            "，",
+            "已经",
+            "三",
+            "十",
+            "年",
+            "没有",
+            "联系",
+            "。"
+          ],
+          "translation": "At first, that family refuses to meet. The two families have had no contact for thirty years because of a business misunderstanding."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "完整的画面",
+      "titleEn": "The Complete Picture",
+      "focusWords": [
+        "完整",
+        "继续",
+        "分别"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "唐心",
+              "pinyin": "Táng Xīn",
+              "definition": "Tang Xin (a given name)"
+            },
+            "没有",
+            "继续",
+            "要求",
+            "他们",
+            "见面",
+            "，",
+            "只",
+            "把",
+            "修复",
+            "后",
+            "的",
+            "完整",
+            "照片",
+            "分别",
+            "寄",
+            "给",
+            "两",
+            "家",
+            "。",
+            "照片",
+            "后面",
+            "写",
+            "着",
+            "同一",
+            "个",
+            "日期",
+            "。"
+          ],
+          "translation": "Tang Xin does not keep pressing them to meet. She simply sends the restored, complete photograph to both families. The same date is written on its back."
+        },
+        {
+          "tokens": [
+            "几",
+            "天",
+            "后",
+            "，",
+            "两",
+            "家人",
+            "一起",
+            "来到",
+            "店",
+            "里",
+            "。",
+            "一",
+            "张",
+            "完整",
+            "的",
+            "画面",
+            "不",
+            "能",
+            "改变",
+            "过去",
+            "，",
+            "却",
+            "让",
+            "他们",
+            "愿意",
+            "分享",
+            "记忆",
+            "，",
+            "试",
+            "着",
+            "原谅",
+            "。"
+          ],
+          "translation": "Days later, both families come to the shop together. A complete image cannot change the past, but it makes them willing to share memories and try to forgive."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

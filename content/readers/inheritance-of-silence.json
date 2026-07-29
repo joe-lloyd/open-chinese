@@ -1,0 +1,247 @@
+{
+  "id": "inheritance-of-silence",
+  "title": "沉默的遗产",
+  "titleEn": "An Inheritance of Silence",
+  "description": "A daughter inherits a company and evidence of the harm that built it.",
+  "hskLevel": 9,
+  "goal": "Jiang Yue wants to preserve the family company and its employees.",
+  "conflict": "Old records reveal compensation deliberately withheld from injured workers.",
+  "resolution": "She treats truth and repair as part of the inheritance.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "保险箱里的名单",
+      "titleEn": "The List in the Safe",
+      "focusWords": [
+        "继承",
+        "名单",
+        "隐瞒"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "父亲",
+            "去世",
+            "后",
+            "，",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "继承",
+            "家族",
+            "公司",
+            "。",
+            "她",
+            "在",
+            "保险",
+            "箱",
+            "里",
+            "发现",
+            "一",
+            "份",
+            "工人",
+            "名单",
+            "和",
+            "多年",
+            "医疗",
+            "记录",
+            "。"
+          ],
+          "translation": "After her father dies, Jiang Yue inherits the family company. In a safe, she finds a worker list and years of medical records."
+        },
+        {
+          "tokens": [
+            "记录",
+            "证明",
+            "公司",
+            "曾经",
+            "隐瞒",
+            "有毒",
+            "材料",
+            "导致",
+            "的",
+            "疾病",
+            "，",
+            "并",
+            "拒绝",
+            "支付",
+            "合理",
+            "补偿",
+            "。",
+            "这",
+            "份",
+            "名单",
+            "也",
+            "是",
+            "她",
+            "继承",
+            "的",
+            "一部分",
+            "。"
+          ],
+          "translation": "The records prove the company hid illnesses caused by toxic materials and denied fair compensation. The list is also part of her inheritance."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "公司会不会崩溃",
+      "titleEn": "Will the Company Collapse?",
+      "focusWords": [
+        "崩溃",
+        "弊端",
+        "背叛"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "律师",
+            "警告",
+            "，",
+            "公开",
+            "记录",
+            "可能",
+            "让",
+            "公司",
+            "因",
+            "赔偿",
+            "而",
+            "崩溃",
+            "，",
+            "数",
+            "千",
+            "员工",
+            "会",
+            "失去",
+            "工作",
+            "。",
+            "他",
+            "建议",
+            "依法",
+            "保持",
+            "沉默",
+            "。"
+          ],
+          "translation": "Lawyers warn disclosure may collapse the company under compensation claims and cost thousands of jobs. They advise legally maintaining silence."
+        },
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "却",
+            "认为",
+            "，",
+            "继续",
+            "隐瞒",
+            "不",
+            "只是",
+            "制度",
+            "弊端",
+            "，",
+            "也",
+            "是",
+            "对",
+            "受害",
+            "工人",
+            "和",
+            "现有",
+            "员工",
+            "的",
+            "双重",
+            "背叛",
+            "。"
+          ],
+          "translation": "Jiang Yue believes continued secrecy is not only a systemic abuse but a double betrayal of injured and current workers."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "遗产的全部价格",
+      "titleEn": "The Full Price of the Inheritance",
+      "focusWords": [
+        "补偿",
+        "阐述",
+        "崩溃"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "公布",
+            "记录",
+            "，",
+            "出售",
+            "家族",
+            "部分",
+            "股份",
+            "建立",
+            "补偿",
+            "基金",
+            "。",
+            "她",
+            "向",
+            "员工",
+            "阐述",
+            "风险",
+            "，",
+            "也",
+            "接受",
+            "独立",
+            "人员",
+            "监督",
+            "。"
+          ],
+          "translation": "Jiang Yue publishes the records and sells part of the family stake to create a compensation fund. She explains the risks to staff and accepts independent oversight."
+        },
+        {
+          "tokens": [
+            "公司",
+            "缩小",
+            "规模",
+            "，",
+            "却",
+            "没有",
+            "崩溃",
+            "。",
+            {
+              "text": "江月",
+              "pinyin": "Jiāng Yuè",
+              "definition": "Jiang Yue (a given name)"
+            },
+            "失去",
+            "一部分",
+            "财富",
+            "，",
+            "得到",
+            "另",
+            "一",
+            "种",
+            "遗产",
+            "：",
+            "承认",
+            "过去",
+            "，",
+            "承担",
+            "全部",
+            "代价",
+            "的",
+            "勇气",
+            "。"
+          ],
+          "translation": "The company shrinks but survives. Jiang Yue loses some wealth and gains another inheritance: the courage to admit the past and bear its full cost."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

@@ -1,0 +1,259 @@
+{
+  "id": "lighthouse-letter",
+  "title": "灯塔来信",
+  "titleEn": "The Letter from the Lighthouse",
+  "description": "A coastal engineer receives warnings from a lighthouse officially listed as empty.",
+  "hskLevel": 6,
+  "goal": "Gu Yan wants to inspect an automated lighthouse before a major storm.",
+  "conflict": "Anonymous letters claim its safety system has failed.",
+  "resolution": "She follows the evidence and finds the retired keeper protecting passing ships.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "没有人的地址",
+      "titleEn": "An Empty Address",
+      "focusWords": [
+        "来信",
+        "警告",
+        "暴风雨"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "工程师",
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "连续",
+            "收到",
+            "三",
+            "封",
+            "来信",
+            "，",
+            "地址",
+            "是",
+            "一",
+            "座",
+            "已经",
+            "自动",
+            "运行",
+            "的",
+            "灯",
+            "塔",
+            "。",
+            "信",
+            "中",
+            "警告",
+            "：",
+            "导航",
+            "灯",
+            "经常",
+            "突然",
+            "停止",
+            "。"
+          ],
+          "translation": "Engineer Gu Yan receives three letters from an automated lighthouse. They warn that its navigation light often stops suddenly."
+        },
+        {
+          "tokens": [
+            "管理",
+            "部门",
+            "说",
+            "灯",
+            "塔",
+            "没有",
+            "人",
+            "居住",
+            "，",
+            "系统",
+            "记录",
+            "也",
+            "一切",
+            "正常",
+            "。",
+            "暴风雨",
+            "即将",
+            "到来",
+            "，",
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "决定",
+            "亲自",
+            "前往",
+            "。"
+          ],
+          "translation": "The authority says nobody lives there and system records are normal. With a storm approaching, Gu Yan decides to inspect it herself."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "岛上的守护者",
+      "titleEn": "The Keeper on the Island",
+      "focusWords": [
+        "故障",
+        "老人",
+        "忽略"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "在",
+            "岛",
+            "上",
+            "发现",
+            "一",
+            "位",
+            "退休",
+            "老人",
+            "。",
+            "他",
+            "曾经",
+            "是",
+            "灯",
+            "塔",
+            "管理",
+            "员",
+            "，",
+            "发现",
+            "设备",
+            "故障",
+            "后",
+            "一直",
+            "私自",
+            "留",
+            "在",
+            "岛",
+            "上",
+            "维修",
+            "。"
+          ],
+          "translation": "On the island, Gu Yan finds a retired keeper. After discovering an equipment fault, he stayed without permission to repair it."
+        },
+        {
+          "tokens": [
+            "老人",
+            "隐瞒",
+            "身份",
+            "，",
+            "因为",
+            "部门",
+            "多次",
+            "忽略",
+            "他",
+            "的",
+            "警告",
+            "。",
+            "可",
+            "他",
+            "的",
+            "私人",
+            "维修",
+            "也",
+            "改变",
+            "了",
+            "系统",
+            "数据",
+            "，",
+            "让",
+            "风险",
+            "更",
+            "难",
+            "判断",
+            "。"
+          ],
+          "translation": "He hid his identity because officials repeatedly ignored his warnings. Yet his private repairs altered system data, making the risk harder to assess."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "风暴之前",
+      "titleEn": "Before the Storm",
+      "focusWords": [
+        "撤离",
+        "修复",
+        "承诺"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "顾言",
+              "pinyin": "Gù Yán",
+              "definition": "Gu Yan (a given name)"
+            },
+            "说服",
+            "老人",
+            "撤离",
+            "，",
+            "并",
+            "把",
+            "原始",
+            "记录",
+            "发送",
+            "给",
+            "港口",
+            "。",
+            "技术",
+            "团队",
+            "在",
+            "风暴",
+            "前",
+            "修复",
+            "了",
+            "核心",
+            "部件",
+            "。"
+          ],
+          "translation": "Gu Yan persuades him to evacuate and sends the original records to the port. A technical team repairs the core component before the storm."
+        },
+        {
+          "tokens": [
+            "部门",
+            "承诺",
+            "调查",
+            "为什么",
+            "警告",
+            "被",
+            "忽略",
+            "，",
+            "也",
+            "请",
+            "老人",
+            "作为",
+            "顾问",
+            "回来",
+            "。",
+            "最后",
+            "一",
+            "封",
+            "灯",
+            "塔",
+            "来信",
+            "公开",
+            "写",
+            "上",
+            "了",
+            "老人",
+            "的",
+            "名字",
+            "。"
+          ],
+          "translation": "The authority promises to investigate why the warnings were ignored and invites the keeper back as an adviser. The final lighthouse letter openly bears the keeper’s name."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

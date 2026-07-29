@@ -1,0 +1,274 @@
+{
+  "id": "witness-at-dawn",
+  "title": "黎明的证人",
+  "titleEn": "The Witness at Dawn",
+  "description": "A witness certain of what she saw discovers that certainty can be misleading.",
+  "hskLevel": 7,
+  "goal": "Ye Zhen wants to help solve an assault case.",
+  "conflict": "Her identification conflicts with physical evidence.",
+  "resolution": "She separates what she saw from what fear made her assume.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "窗外的人",
+      "titleEn": "The Person Outside",
+      "focusWords": [
+        "案件",
+        "证人",
+        "查明"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "黎明",
+            "前",
+            "，",
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "从",
+            "窗口",
+            "看到",
+            "一",
+            "个人",
+            "从",
+            "邻居",
+            "家",
+            "跑",
+            "出",
+            "。",
+            "当天",
+            "警察",
+            "调查",
+            "一起",
+            "案件",
+            "，",
+            "她",
+            "成为",
+            "唯一",
+            "证人",
+            "。"
+          ],
+          "translation": "Before dawn, Ye Zhen sees someone run from a neighbour’s home. When police investigate an assault, she becomes the only witness."
+        },
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "相信",
+            "自己",
+            "认识",
+            "那",
+            "个人",
+            "，",
+            "要求",
+            "警察",
+            "立刻",
+            "查明",
+            "他",
+            "的",
+            "位置",
+            "。",
+            "被",
+            "她",
+            "指",
+            "认",
+            "的",
+            "是",
+            "附近",
+            "一",
+            "名",
+            "有",
+            "犯罪",
+            "记录",
+            "的",
+            "男子",
+            "。"
+          ],
+          "translation": "Certain she knows him, Ye Zhen urges police to locate him. She identifies a local man with a criminal record."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "记忆的空白",
+      "titleEn": "The Gap in Memory",
+      "focusWords": [
+        "推断",
+        "沉着",
+        "证据"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "男子",
+            "有",
+            "不",
+            "在场",
+            "的",
+            "证据",
+            "，",
+            "衣服",
+            "颜色",
+            "也",
+            "不同",
+            "。",
+            "调查",
+            "员",
+            "请",
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "沉着",
+            "回忆",
+            "，",
+            "不要",
+            "从",
+            "对方",
+            "的",
+            "过去",
+            "推断",
+            "当晚",
+            "的",
+            "身份",
+            "。"
+          ],
+          "translation": "The man has an alibi, and his clothes differ. Investigators ask Ye Zhen to recall calmly rather than infer identity from his past."
+        },
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "意识",
+            "到",
+            "，",
+            "她",
+            "只",
+            "看",
+            "清",
+            "相似",
+            "的",
+            "身高",
+            "和",
+            "走路",
+            "动作",
+            "。",
+            "恐惧",
+            "却",
+            "让",
+            "她",
+            "根据",
+            "这些",
+            "有限",
+            "证据",
+            "确定",
+            "了",
+            "那",
+            "个",
+            "人",
+            "的",
+            "身份",
+            "。"
+          ],
+          "translation": "Ye Zhen realises she saw only a similar height and gait. Fear had made her assign an identity from that limited evidence."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "重新作证",
+      "titleEn": "Testifying Again",
+      "focusWords": [
+        "承认",
+        "公正",
+        "证人"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "重新",
+            "作",
+            "证",
+            "，",
+            "公开",
+            "承认",
+            "自己",
+            "无法",
+            "确定",
+            "身份",
+            "。",
+            "她",
+            "的",
+            "改变",
+            "让",
+            "调查",
+            "回到",
+            "其他",
+            "线索",
+            "，",
+            "也",
+            "保护",
+            "无辜",
+            "男子",
+            "。"
+          ],
+          "translation": "Ye Zhen testifies again and admits she cannot identify the person. Her change returns the investigation to other clues and protects an innocent man."
+        },
+        {
+          "tokens": [
+            "真正",
+            "的",
+            "嫌疑",
+            "人",
+            "后来",
+            "因",
+            "物证",
+            "被捕",
+            "。",
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "明白",
+            "，",
+            "公正",
+            "不",
+            "要求",
+            "证人",
+            "永远",
+            "正确",
+            "，",
+            "而",
+            "要求",
+            "证人",
+            "有",
+            "勇气",
+            "承认",
+            "记忆",
+            "的",
+            "偏差",
+            "。"
+          ],
+          "translation": "The true suspect is later arrested through physical evidence. Ye Zhen learns justice does not require a witness always to be right, but to admit memory’s bias."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

@@ -1,0 +1,243 @@
+{
+  "id": "photo-for-grandmother",
+  "title": "给奶奶的照片",
+  "titleEn": "A Photograph for Grandmother",
+  "description": "A family photograph seems impossible when everyone is too busy to meet.",
+  "hskLevel": 2,
+  "goal": "Wu Ke wants to give his grandmother a complete family photograph.",
+  "conflict": "Each family member can come at a different time.",
+  "resolution": "He turns separate moments into one honest gift.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "一个愿望",
+      "titleEn": "One Wish",
+      "focusWords": [
+        "奶奶",
+        "照片",
+        "全家"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "奶奶",
+            "的",
+            "生日",
+            "快",
+            "到",
+            "了",
+            "。",
+            "她",
+            "不",
+            "要",
+            "礼物",
+            "，",
+            "只",
+            "想",
+            "要",
+            "一",
+            "张",
+            "全家",
+            "在",
+            "一起",
+            "的",
+            "照片",
+            "。"
+          ],
+          "translation": "Grandmother’s birthday is near. She does not want a present, only a photograph of the whole family together."
+        },
+        {
+          "tokens": [
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "答应",
+            "给",
+            "她",
+            "拍",
+            "照片",
+            "。",
+            "他",
+            "给",
+            "全家",
+            "发",
+            "信息",
+            "，",
+            "请",
+            "大家",
+            "星期天",
+            "来",
+            "公园",
+            "。"
+          ],
+          "translation": "Wu Ke promises to take it. He messages the entire family and asks them to come to the park on Sunday."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "总有人很忙",
+      "titleEn": "Someone Is Always Busy",
+      "focusWords": [
+        "工作",
+        "时间",
+        "不同"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "爸爸",
+            "上午",
+            "工作",
+            "，",
+            "姐姐",
+            "下午",
+            "考试",
+            "，",
+            "哥哥",
+            "晚上",
+            "才",
+            "回来",
+            "。",
+            "每",
+            "个人",
+            "有",
+            "空",
+            "的",
+            "时间",
+            "都",
+            "不同",
+            "。"
+          ],
+          "translation": "Father works in the morning, his sister has an afternoon exam, and his brother returns only in the evening. Everyone is free at a different time."
+        },
+        {
+          "tokens": [
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "改",
+            "了",
+            "三",
+            "次",
+            "计划",
+            "，",
+            "还是",
+            "没有",
+            "合适",
+            "的",
+            "时间",
+            "。",
+            "他",
+            "看",
+            "着",
+            "空",
+            "空",
+            "的",
+            "相机",
+            "，",
+            "心情",
+            "很",
+            "难过",
+            "。"
+          ],
+          "translation": "Wu Ke changes the plan three times, but there is still no suitable time. He looks at the empty camera and feels sad."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "同一个地方",
+      "titleEn": "The Same Place",
+      "focusWords": [
+        "办法",
+        "礼物",
+        "照片"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "吴可",
+              "pinyin": "Wú Kě",
+              "definition": "Wu Ke (a given name)"
+            },
+            "想到",
+            "一",
+            "个",
+            "办法",
+            "：",
+            "每",
+            "个人",
+            "在",
+            "同一",
+            "个",
+            "位置",
+            "拍",
+            "一",
+            "张",
+            "照片",
+            "，",
+            "也",
+            "对",
+            "奶奶",
+            "说",
+            "一句话",
+            "。"
+          ],
+          "translation": "Wu Ke thinks of a solution: each person takes a picture in the same spot and says one sentence to Grandmother."
+        },
+        {
+          "tokens": [
+            "生日",
+            "那",
+            "天",
+            "，",
+            "奶奶",
+            "看到",
+            "所有",
+            "照片",
+            "和",
+            "大家",
+            "的",
+            "话",
+            "。",
+            "她",
+            "说",
+            "：",
+            "“",
+            "大家",
+            "没有",
+            "同时",
+            "来",
+            "，",
+            "可",
+            "每",
+            "个人",
+            "的",
+            "爱",
+            "都",
+            "来",
+            "了",
+            "。",
+            "”",
+            "这",
+            "是",
+            "她",
+            "最",
+            "喜欢",
+            "的",
+            "礼物",
+            "。"
+          ],
+          "translation": "On her birthday, Grandmother sees all the photographs and messages. She says, “You did not all come at once, but everyone’s love arrived.” It is her favourite gift."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

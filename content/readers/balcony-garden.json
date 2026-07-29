@@ -1,0 +1,254 @@
+{
+  "id": "balcony-garden",
+  "title": "阳台上的花园",
+  "titleEn": "The Balcony Garden",
+  "description": "Two neighbours fight over a leaking garden before discovering a shared problem.",
+  "hskLevel": 4,
+  "goal": "Bai Lu wants to keep the garden on her balcony.",
+  "conflict": "Water from the plants damages the neighbour’s wall.",
+  "resolution": "They redesign the garden to collect rainwater for the whole building.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "楼上的春天",
+      "titleEn": "Spring Upstairs",
+      "focusWords": [
+        "阳台",
+        "植物",
+        "鲜花"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "在",
+            "阳台",
+            "上",
+            "种",
+            "了",
+            "很",
+            "多",
+            "植物",
+            "。",
+            "春天",
+            "一",
+            "到",
+            "，",
+            "鲜花",
+            "吸引",
+            "了",
+            "整",
+            "栋",
+            "楼",
+            "的",
+            "邻居",
+            "。"
+          ],
+          "translation": "Bai Lu grows many plants on her balcony. When spring arrives, the flowers attract neighbours from the whole building."
+        },
+        {
+          "tokens": [
+            "楼下",
+            "的",
+            "邻居",
+            "却",
+            "不",
+            "高兴",
+            "。",
+            "他",
+            "的",
+            "墙",
+            "变",
+            "得",
+            "潮湿",
+            "，",
+            "认为",
+            "是",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "每",
+            "天",
+            "给",
+            "植物",
+            "浇",
+            "水",
+            "导致",
+            "的",
+            "。"
+          ],
+          "translation": "The downstairs neighbour is unhappy. His wall has grown damp, and he believes Bai Lu’s daily watering is the cause."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁的责任",
+      "titleEn": "Whose Responsibility?",
+      "focusWords": [
+        "责任",
+        "争论",
+        "植物"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "邻居",
+            "要求",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "立刻",
+            "搬",
+            "走",
+            "所有",
+            "植物",
+            "。",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "不",
+            "承认",
+            "自己",
+            "有",
+            "全部",
+            "责任",
+            "，",
+            "两",
+            "个人",
+            "在",
+            "楼道",
+            "里",
+            "激烈",
+            "争论",
+            "。"
+          ],
+          "translation": "The neighbour demands that Bai Lu remove every plant. She refuses to accept all responsibility, and they argue fiercely in the corridor."
+        },
+        {
+          "tokens": [
+            "维修",
+            "工人",
+            "检查",
+            "后",
+            "发现",
+            "，",
+            "阳台",
+            "的确",
+            "漏",
+            "水",
+            "，",
+            "但是",
+            "大楼",
+            "的",
+            "旧",
+            "管道",
+            "也",
+            "已经",
+            "破",
+            "了",
+            "。",
+            "问题",
+            "属于",
+            "双方",
+            "。"
+          ],
+          "translation": "A repair worker finds that the balcony does leak, but the building’s old pipe is also broken. The problem belongs to both sides."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "雨水留下来",
+      "titleEn": "Keeping the Rain",
+      "focusWords": [
+        "合作",
+        "改善",
+        "方案"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "提出",
+            "一",
+            "个",
+            "方案",
+            "：",
+            "修",
+            "好",
+            "水",
+            "管",
+            "，",
+            "在",
+            "阳台",
+            "安装",
+            "收集",
+            "雨水",
+            "的",
+            "设备",
+            "。",
+            "楼下",
+            "的",
+            "人",
+            "愿意",
+            "和",
+            "她",
+            "合作",
+            "。"
+          ],
+          "translation": "Bai Lu proposes repairing the water pipe and installing equipment to collect rainwater on the balcony. Her downstairs neighbour agrees to cooperate."
+        },
+        {
+          "tokens": [
+            "夏天",
+            "来",
+            "时",
+            "，",
+            "收集",
+            "的",
+            "雨水",
+            "不但",
+            "养",
+            "植物",
+            "，",
+            "也",
+            "可以",
+            "打扫",
+            "楼",
+            "里",
+            "。",
+            "花园",
+            "保留",
+            "了",
+            "，",
+            "两",
+            "家",
+            "的",
+            "关系",
+            "也",
+            "改善",
+            "了",
+            "。"
+          ],
+          "translation": "By summer, the collected rainwater feeds the plants and cleans the building. The garden remains, and the two households’ relationship improves."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

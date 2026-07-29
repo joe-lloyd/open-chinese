@@ -1,0 +1,271 @@
+{
+  "id": "mountain-clinic",
+  "title": "山里的最后一盒药",
+  "titleEn": "The Last Box of Medicine",
+  "description": "A doctor must allocate the last medicine in an isolated mountain clinic.",
+  "hskLevel": 5,
+  "goal": "Doctor Bai Lu wants to care for every patient during a storm.",
+  "conflict": "Only one box of medicine remains for two urgent cases.",
+  "resolution": "The village finds a shared solution while help is delayed.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "道路中断",
+      "titleEn": "The Road Is Cut Off",
+      "focusWords": [
+        "山区",
+        "中断",
+        "特定"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "在",
+            "山区",
+            "诊所",
+            "工作",
+            "。",
+            "连续",
+            "暴雨",
+            "导致",
+            "道路",
+            "中断",
+            "，",
+            "新",
+            "药品",
+            "至少",
+            "三",
+            "天",
+            "后",
+            "才",
+            "能",
+            "送到",
+            "。"
+          ],
+          "translation": "Bai Lu works at a mountain clinic. Continuous rain cuts the road, and new medicine cannot arrive for at least three days."
+        },
+        {
+          "tokens": [
+            "诊所",
+            "只",
+            "剩",
+            "最后",
+            "一",
+            "盒",
+            "特定",
+            "药品",
+            "。",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "检查",
+            "数量",
+            "两",
+            "次",
+            "，",
+            "希望",
+            "不",
+            "会",
+            "同时",
+            "出现",
+            "两",
+            "个",
+            "急需",
+            "的",
+            "病人",
+            "。"
+          ],
+          "translation": "Only one box of a specific medicine remains. Bai Lu checks the count twice, hoping two urgent patients will not arrive at once."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "两个家庭",
+      "titleEn": "Two Families",
+      "focusWords": [
+        "病人",
+        "选择",
+        "风险"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "当天",
+            "夜里",
+            "，",
+            "两",
+            "个",
+            "病人",
+            "几乎",
+            "同时",
+            "来到",
+            "。",
+            "一",
+            "个",
+            "是",
+            "年",
+            "老",
+            "教师",
+            "，",
+            "一",
+            "个",
+            "是",
+            "年轻",
+            "母亲",
+            "，",
+            "两",
+            "个人",
+            "的",
+            "情况",
+            "都",
+            "有",
+            "风险",
+            "。"
+          ],
+          "translation": "That night, two patients arrive almost together: an elderly teacher and a young mother. Both face serious risks."
+        },
+        {
+          "tokens": [
+            "家属",
+            "都",
+            "请求",
+            "使用",
+            "药品",
+            "。",
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "不",
+            "能",
+            "根据",
+            "年龄",
+            "或",
+            "身份",
+            "简单",
+            "选择",
+            "，",
+            "她",
+            "必须",
+            "评估",
+            "每",
+            "种",
+            "治疗",
+            "的",
+            "可能",
+            "效果",
+            "。"
+          ],
+          "translation": "Both families request the medicine. Bai Lu cannot choose simply by age or identity; she must assess the likely effect of each treatment."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "等到天亮",
+      "titleEn": "Waiting for Daylight",
+      "focusWords": [
+        "治疗",
+        "合作",
+        "暂时"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "发现",
+            "教师",
+            "可以",
+            "使用",
+            "另",
+            "一",
+            "种",
+            "治疗",
+            "暂时",
+            "稳定",
+            "，",
+            "年轻",
+            "母亲",
+            "则",
+            "没有",
+            "替代",
+            "药物",
+            "。",
+            "她",
+            "说明",
+            "原因",
+            "后",
+            "，",
+            "教师",
+            "主动",
+            "同意",
+            "。"
+          ],
+          "translation": "Bai Lu determines that another treatment can temporarily stabilise the teacher, while the young mother has no alternative. After she explains, the teacher agrees."
+        },
+        {
+          "tokens": [
+            "村",
+            "里",
+            "的",
+            "人",
+            "整",
+            "夜",
+            "合作",
+            "，",
+            "清理",
+            "一",
+            "条",
+            "小路",
+            "，",
+            "让",
+            "救援",
+            "人员",
+            "天",
+            "亮",
+            "时",
+            "送",
+            "来",
+            "药品",
+            "。",
+            "两",
+            "个",
+            "病人",
+            "都",
+            "安全",
+            "了",
+            "，",
+            "最后",
+            "一",
+            "盒",
+            "药",
+            "也",
+            "没有",
+            "让",
+            "两",
+            "个",
+            "家庭",
+            "成为",
+            "敌人",
+            "。"
+          ],
+          "translation": "Villagers work through the night to clear a small path, allowing rescuers to deliver medicine at dawn. Both patients are safe, and the final box does not make enemies of two families."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}
