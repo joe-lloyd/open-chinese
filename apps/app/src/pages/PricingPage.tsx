@@ -9,7 +9,7 @@ const PRO_FEATURES = [
   'HSK 1–9, with more than 10,900 words',
   'Every graded reader as they land',
   'Unlimited new cards per day',
-  'Cancel any time — no auto-renew surprises',
+  'Cancel any time from your billing portal',
 ]
 
 export default function PricingPage() {
@@ -59,9 +59,18 @@ export default function PricingPage() {
       </header>
 
       {error && (
-        <p className="text-sm text-text-primary bg-surface-raised border border-border rounded-xl px-4 py-3">
-          {error}
-        </p>
+        <div
+          role="alert"
+          className="text-sm text-text-primary bg-surface-raised border border-border rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3"
+        >
+          <p className="flex-1">{error} You can retry below or return to learning.</p>
+          <a
+            href="/app"
+            className="text-accent font-medium hover:underline whitespace-nowrap"
+          >
+            Back to learning
+          </a>
+        </div>
       )}
 
       <div

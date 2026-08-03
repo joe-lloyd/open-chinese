@@ -9,7 +9,7 @@
  * is a purchase prompt, not a lock. See design.md D10.
  */
 
-import { CATALOG, FREE_TIER, SUBSCRIPTION_SKU, skuForHskLevel } from './catalog'
+import { CATALOG, FREE_TIER, OFFERED_SKUS, SUBSCRIPTION_SKU, skuForHskLevel } from './catalog'
 
 export type Plan = 'free' | 'pro'
 export type PlanSource = 'subscription' | 'grant'
@@ -156,10 +156,16 @@ export function canAccess(
   }
 }
 
-/** Every SKU that would unlock the resource, cheapest first. Drives the paywall. */
+/**
+ * Every SKU that would unlock the resource, cheapest first, filtered to what the
+ * store actually sells. Drives the paywall. A pack that would unlock the content
+ * but is not in `OFFERED_SKUS` must not render a buy button: the server rejects
+ * SKUs it cannot sell, so offering one is a guaranteed dead click.
+ */
 export function unlockOptions(result: AccessResult): string[] {
   if (result.allowed) return []
-  return result.sku === SUBSCRIPTION_SKU ? [SUBSCRIPTION_SKU] : [result.sku, SUBSCRIPTION_SKU]
+  const unlocks = result.sku === SUBSCRIPTION_SKU ? [SUBSCRIPTION_SKU] : [result.sku, SUBSCRIPTION_SKU]
+  return unlocks.filter((sku) => (OFFERED_SKUS as string[]).includes(sku))
 }
 
 /**

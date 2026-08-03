@@ -57,10 +57,31 @@ export async function verifyRequestUser(headers: Headers): Promise<VerifiedUser 
  */
 const STALE_CLAIM_MS = 5 * 60 * 1000
 
-export type ClaimResult = 'claimed' | 'duplicate'
+export type ClaimResult = 'claimed' | 'duplicate' | 'in_progress'
+
+/**
+ * Only ALREADY_EXISTS (gRPC code 6) proves another delivery holds the claim.
+ * Every other `create()` failure — DEADLINE_EXCEEDED, UNAVAILABLE, permission —
+ * says nothing about whether the event was processed, so it must propagate and
+ * let the provider retry. Swallowing one here would answer 200 to the provider
+ * and permanently drop a paid event.
+ */
+export function isAlreadyExistsError(error: unknown): boolean {
+  const code = (error as { code?: unknown } | null)?.code
+  return code === 6 || code === 'already-exists'
+}
 
 function toMillis(value: unknown): number | null {
   return value instanceof Timestamp ? value.toMillis() : null
+}
+
+/** Exported pure ordering rule for contract tests; equal timestamps are safe to reapply. */
+export function isStaleSubscriptionEvent(
+  previousEventMillis: number | null,
+  incomingEvent: Date | null
+): boolean {
+  const incoming = incomingEvent?.getTime() ?? null
+  return incoming !== null && previousEventMillis !== null && incoming < previousEventMillis
 }
 
 /**
@@ -82,12 +103,19 @@ export async function claimEvent(eventId: string): Promise<ClaimResult> {
   try {
     await ref.create({ status: 'processing', claimedAt: FieldValue.serverTimestamp() })
     return 'claimed'
-  } catch {
+  } catch (error) {
+    if (!isAlreadyExistsError(error)) throw error
     const data = (await ref.get()).data()
-    if (!data || data.status === 'done') return 'duplicate'
+    // The claim existed a moment ago but is gone: a concurrent attempt failed
+    // and released it between our create() and get(). That is not a completed
+    // duplicate — answer non-2xx so the provider redelivers.
+    if (!data) return 'in_progress'
+    if (data.status === 'done') return 'duplicate'
     const claimedAt = toMillis(data.claimedAt)
     // A fresh claim means a concurrent delivery is genuinely still in flight.
-    if (claimedAt !== null && Date.now() - claimedAt < STALE_CLAIM_MS) return 'duplicate'
+    // It is not a completed duplicate: answer non-2xx so the provider keeps
+    // retrying if the first function dies before marking the event done.
+    if (claimedAt !== null && Date.now() - claimedAt < STALE_CLAIM_MS) return 'in_progress'
     await ref.set({ status: 'processing', claimedAt: FieldValue.serverTimestamp() }, { merge: true })
     return 'claimed'
   }
@@ -139,7 +167,7 @@ export async function applyEntitlementUpdate(
     // the dedupe ledger cannot catch this — only comparing timestamps can.
     const previous = toMillis(existing?.lastEventAt)
     const incoming = eventAt?.getTime() ?? null
-    const stale = incoming !== null && previous !== null && incoming < previous
+    const stale = isStaleSubscriptionEvent(previous, eventAt)
 
     if (stale) {
       console.warn('[webhook] dropped out-of-order entitlement update for', update.uid)
