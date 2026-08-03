@@ -21,6 +21,11 @@ prefix for a secret.
 Hidden pack Price ids are not required. If a pack is added to the purchasable
 catalogue, configure its Price id in the same deploy.
 
+The app build additionally needs the public client variables — the six
+`VITE_FIREBASE_*` values and `VITE_ALLOWED_EMAIL` — in the Netlify build
+environment (see `DEPLOY.md` and `apps/app/.env.example`). Without them a fresh
+site produces a broken app build long before payments enter the picture.
+
 Run `pnpm check:payments-config` in an environment with the intended variables.
 It performs no network call and prints setting names, never values. A non-ready
 configuration exits non-zero.
@@ -96,11 +101,15 @@ configuration, run checkout and portal smoke tests, then revoke the old key.
 
 ## Going live
 
-1. Complete Stripe business activation and banking details.
-2. Create live products/Prices; never reuse test ids.
-3. Create the live webhook endpoint and copy its own live signing secret.
-4. Configure live payment methods and Customer Portal.
-5. Confirm VAT/OSS registration, tax collection, invoice/refund process, privacy
+1. Verify the published Firestore rules in the Firebase console match the
+   repo's `firestore.rules` — the console must show `allow write: if false`
+   under `entitlements` (DEPLOY.md step 0). Rules are deployed by hand, so do
+   not enable payments against stale, more permissive rules.
+2. Complete Stripe business activation and banking details.
+3. Create live products/Prices; never reuse test ids.
+4. Create the live webhook endpoint and copy its own live signing secret.
+5. Configure live payment methods and Customer Portal.
+6. Confirm VAT/OSS registration, tax collection, invoice/refund process, privacy
    disclosures, and support ownership with the business's accountant.
-6. Deploy live settings with payments disabled, run the config and bundle checks,
+7. Deploy live settings with payments disabled, run the config and bundle checks,
    then enable and complete a low-value real purchase/refund smoke test.

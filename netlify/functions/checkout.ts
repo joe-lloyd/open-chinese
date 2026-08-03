@@ -13,7 +13,7 @@ import {
   type PaymentConfiguration,
 } from './_lib/payment-config'
 import { appUrl, getProvider, json } from './_lib/providers'
-import { isCatalogSku, type PaymentProvider } from './_lib/types'
+import { isCatalogSku, SERVER_CATALOG, type PaymentProvider } from './_lib/types'
 
 interface CheckoutDependencies {
   inspectConfiguration: () => PaymentConfiguration
@@ -57,7 +57,13 @@ export function createCheckoutHandler(
     } catch {
       return json(400, { error: 'invalid_body' })
     }
-    if (!isCatalogSku(sku)) return json(400, { error: 'unknown_sku' })
+    // Same response for "not in the catalogue" and "in the catalogue but not
+    // sellable": a hidden SKU with a leftover price id in the environment must
+    // not be purchasable via a hand-crafted request, and the distinction is
+    // nobody's business but ours.
+    if (!isCatalogSku(sku) || !SERVER_CATALOG[sku].purchasable) {
+      return json(400, { error: 'unknown_sku' })
+    }
 
     try {
       const app = dependencies.applicationUrl()

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { createCheckoutHandler } from '../checkout'
-import { isStaleSubscriptionEvent } from './firebase'
+import { isAlreadyExistsError, isStaleSubscriptionEvent } from './firebase'
 import type { EntitlementUpdate, PaymentProvider, WebhookEvent } from './types'
 import { createPortalHandler } from '../portal'
 import { createWebhookHandler } from '../webhook'
@@ -72,6 +72,33 @@ test('checkout rejects unknown SKUs before calling the provider', async () => {
     })
   )
   assert.equal(response.status, 400)
+  assert.equal(calls, 0)
+})
+
+test('checkout rejects catalogue SKUs that are not purchasable', async () => {
+  let calls = 0
+  const handler = createCheckoutHandler({
+    inspectConfiguration: () => ready,
+    provider: () =>
+      provider({
+        createCheckoutSession: async () => {
+          calls += 1
+          return { url: 'never' }
+        },
+      }),
+    verifyUser: async () => ({ uid: 'u1', email: null }),
+    applicationUrl: () => 'https://openchinese.app/app',
+  })
+  // hsk-1 is in SERVER_CATALOG but purchasable: false. It must be refused with
+  // the same response as an unknown SKU, even when a leftover price id exists.
+  const response = await handler(
+    new Request('https://openchinese.app/.netlify/functions/checkout', {
+      method: 'POST',
+      body: JSON.stringify({ sku: 'hsk-1' }),
+    })
+  )
+  assert.equal(response.status, 400)
+  assert.deepEqual(await response.json(), { error: 'unknown_sku' })
   assert.equal(calls, 0)
 })
 
@@ -184,6 +211,40 @@ test('webhook ignores unhandled events and deduplicates deliveries', async () =>
     })
   )
   assert.deepEqual(await duplicateResponse.json(), { ok: true, duplicate: true })
+  assert.equal(applied, false)
+})
+
+test('claim errors distinguish ALREADY_EXISTS from transient failures', () => {
+  // gRPC ALREADY_EXISTS — the only error that proves another delivery claimed it.
+  assert.equal(isAlreadyExistsError({ code: 6 }), true)
+  assert.equal(isAlreadyExistsError({ code: 'already-exists' }), true)
+  // Transient infrastructure errors must NOT read as duplicates.
+  assert.equal(isAlreadyExistsError({ code: 4 }), false) // DEADLINE_EXCEEDED
+  assert.equal(isAlreadyExistsError({ code: 14 }), false) // UNAVAILABLE
+  assert.equal(isAlreadyExistsError(new Error('boom')), false)
+  assert.equal(isAlreadyExistsError(null), false)
+})
+
+test('a thrown claim failure answers 5xx so the provider redelivers', async () => {
+  let applied = false
+  const handler = createWebhookHandler({
+    inspectConfiguration: () => ready,
+    provider: () => webhookProvider({ uid: 'u1', provider: 'stripe', plan: 'pro' }),
+    claim: async () => {
+      throw Object.assign(new Error('deadline'), { code: 4 })
+    },
+    apply: async () => {
+      applied = true
+    },
+  })
+  const response = await handler(
+    new Request('https://openchinese.app/.netlify/functions/webhook', {
+      method: 'POST',
+      body: 'raw',
+    })
+  )
+  assert.equal(response.status, 500)
+  assert.deepEqual(await response.json(), { error: 'claim_failed', retryable: true })
   assert.equal(applied, false)
 })
 
