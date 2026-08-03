@@ -27,6 +27,13 @@ export interface ReaderChapter {
   vocab: string[]
 }
 
+export interface ReaderCover {
+  image: string
+  alt: string
+  focalPosition: string
+  accent: string
+}
+
 export interface Reader {
   id: string
   order: number
@@ -34,6 +41,7 @@ export interface Reader {
   titleEn: string
   description: string
   hskLevel: number
+  cover?: ReaderCover
   chapters: ReaderChapter[]
 }
 
@@ -46,6 +54,7 @@ export interface ReaderSummary {
   hskLevel: number
   chapterCount: number
   vocabCount: number
+  cover?: ReaderCover
 }
 
 const bust = import.meta.env.VITE_BUILD_ID ?? 'dev'
