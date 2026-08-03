@@ -1,0 +1,237 @@
+{
+  "id": "ticket-at-the-station",
+  "title": "车站的票",
+  "titleEn": "The Ticket at the Station",
+  "description": "Fang Yu loses her train ticket just as it is time to leave.",
+  "hskLevel": 1,
+  "goal": "Fang Yu wants to take the train to see her grandmother.",
+  "conflict": "Her ticket disappears at the busy station.",
+  "resolution": "She retraces her steps and finds who picked it up.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "要上车了",
+      "titleEn": "Time to Board",
+      "focusWords": [
+        "车站",
+        "车票",
+        "时间"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "和",
+            "妈妈",
+            "来到",
+            "车站",
+            "。",
+            "火车",
+            "在",
+            "前边",
+            "，",
+            "上车",
+            "的",
+            "时间",
+            "马上",
+            "要",
+            "到",
+            "了",
+            "。"
+          ],
+          "translation": "Fang Yu and her mother arrive at the station. The train is ahead, and boarding time is almost here."
+        },
+        {
+          "tokens": [
+            "妈妈",
+            "拿",
+            "车票",
+            "，",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "也",
+            "找",
+            "车票",
+            "。",
+            "她",
+            "找",
+            "书包",
+            "，",
+            "找",
+            "衣服",
+            "，",
+            "找",
+            "手机",
+            "，",
+            "没有",
+            "车票",
+            "。"
+          ],
+          "translation": "Her mother takes out her ticket, and Fang Yu looks for hers. She searches her schoolbag, clothes, and phone, but there is no ticket."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "走过的路",
+      "titleEn": "The Way Back",
+      "focusWords": [
+        "回来",
+        "看到",
+        "路上"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "从",
+            "门口",
+            "走",
+            "回来",
+            "。",
+            "她",
+            "看",
+            "地上",
+            "，",
+            "也",
+            "看",
+            "路上",
+            "的",
+            "人",
+            "。",
+            "妈妈",
+            "在",
+            "后边",
+            "等",
+            "她",
+            "。"
+          ],
+          "translation": "Fang Yu walks back from the entrance. She looks at the ground and at the people along the way. Her mother waits behind her."
+        },
+        {
+          "tokens": [
+            "她",
+            "看到",
+            "一",
+            "个",
+            "老人",
+            "拿",
+            "着",
+            "一",
+            "张",
+            "票",
+            "。",
+            "老人",
+            "也",
+            "看到",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "，",
+            "问",
+            "：",
+            "“",
+            "你",
+            "在",
+            "找",
+            "这",
+            "个",
+            "吗",
+            "？",
+            "”"
+          ],
+          "translation": "She sees an elderly person holding a ticket. The person sees Fang Yu and asks, “Are you looking for this?”"
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "名字在这里",
+      "titleEn": "The Name Is Here",
+      "focusWords": [
+        "名字",
+        "找到",
+        "谢谢"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "看",
+            "票",
+            "上",
+            "的",
+            "名字",
+            "。",
+            "那",
+            "是",
+            "她",
+            "的",
+            "名字",
+            "！",
+            "她",
+            "找到",
+            "车票",
+            "了",
+            "。"
+          ],
+          "translation": "Fang Yu checks the name on the ticket. It is her name! She has found her ticket."
+        },
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "和",
+            "妈妈",
+            "一起",
+            "说",
+            "：",
+            "“",
+            "谢谢",
+            "！",
+            "”",
+            "老人",
+            "笑",
+            "着",
+            "说",
+            "：",
+            "“",
+            "快",
+            "上车",
+            "吧",
+            "。",
+            "”",
+            "她们",
+            "最后",
+            "上",
+            "了",
+            "火车",
+            "。"
+          ],
+          "translation": "Fang Yu and her mother say, “Thank you!” The person smiles and says, “Get on the train quickly.” In the end, they make it aboard."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

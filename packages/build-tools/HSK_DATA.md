@@ -1,8 +1,18 @@
 # HSK vocabulary data
 
-The committed `hsk1.json` through `hsk7.json` files are the app-ready,
-level-exclusive HSK 3.0 vocabulary bands. In this repository `hsk7.json`
-represents the official combined advanced band, HSK 7–9.
+The committed `hsk1.json` through `hsk9.json` files are the app-ready,
+level-exclusive vocabulary stages. HSK 1–6 preserve their source assignments.
+GF0025-2021 and the current HSK exam publish advanced vocabulary as one HSK
+7–9 band rather than as three official word lists.
+
+For a manageable nine-stage learning path, OpenChinese deterministically divides
+the 5,606-word advanced band into HSK 7 (1,869), HSK 8 (1,869), and HSK 9
+(1,868). This is an editorial learning progression, not an official vocabulary
+claim. The importer ranks shorter forms built from earlier-stage characters
+first, then moves words containing less familiar advanced characters,
+four-character forms, and explicitly literary, archaic, dialect, technical, or
+idiomatic definitions later. The complete official advanced band remains intact:
+no words are added, removed, or duplicated.
 
 Run `pnpm import:hsk` to rebuild the files. The importer:
 
@@ -15,8 +25,8 @@ Run `pnpm import:hsk` to rebuild the files. The importer:
    were already present in this project.
 
 Both upstream datasets are MIT licensed. Their required notices follow.
-The importer pins both commits and checks every band count so regeneration
-cannot silently change the shipped corpus.
+The importer pins both commits and checks every source and output count so
+regeneration cannot silently change the shipped corpus or the editorial split.
 
 ## hsk30
 

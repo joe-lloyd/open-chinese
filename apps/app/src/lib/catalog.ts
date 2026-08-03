@@ -20,6 +20,8 @@ export type CatalogSku =
   | 'hsk-5'
   | 'hsk-6'
   | 'hsk-7'
+  | 'hsk-8'
+  | 'hsk-9'
 
 export interface CatalogEntry {
   kind: 'subscription' | 'pack'
@@ -86,10 +88,24 @@ export const CATALOG: Record<CatalogSku, CatalogEntry> = {
   },
   'hsk-7': {
     kind: 'pack',
-    label: 'HSK 7–9 Complete',
-    description: 'All 5,606 words in the combined HSK 7–9 advanced band.',
-    priceEur: 12,
+    label: 'HSK 7 Complete',
+    description: 'The first 1,869 words in the OpenChinese advanced progression.',
+    priceEur: 6,
     grants: { hskLevel: 7 },
+  },
+  'hsk-8': {
+    kind: 'pack',
+    label: 'HSK 8 Complete',
+    description: 'The next 1,869 words in the OpenChinese advanced progression.',
+    priceEur: 6,
+    grants: { hskLevel: 8 },
+  },
+  'hsk-9': {
+    kind: 'pack',
+    label: 'HSK 9 Complete',
+    description: 'The final 1,868 words in the OpenChinese advanced progression.',
+    priceEur: 6,
+    grants: { hskLevel: 9 },
   },
 }
 

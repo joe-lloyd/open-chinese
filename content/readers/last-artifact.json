@@ -1,0 +1,255 @@
+{
+  "id": "last-artifact",
+  "title": "最后一件文物",
+  "titleEn": "The Last Artifact",
+  "description": "A museum curator questions the celebrated origin of its most valuable object.",
+  "hskLevel": 7,
+  "goal": "Bai Lu wants to complete a catalogue of the museum collection.",
+  "conflict": "The final artifact may have been removed illegally from a village.",
+  "resolution": "The museum returns ownership while preserving public access.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "空白的编号",
+      "titleEn": "The Blank Catalogue Number",
+      "focusWords": [
+        "文物",
+        "编号",
+        "出土"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "整理",
+            "博物馆",
+            "文物",
+            "时",
+            "，",
+            "发现",
+            "最后",
+            "一",
+            "件",
+            "文物",
+            "没有",
+            "原始",
+            "编号",
+            "。",
+            "说明",
+            "只",
+            "写",
+            "着",
+            "“",
+            "百",
+            "年",
+            "前",
+            "出土",
+            "”",
+            "。"
+          ],
+          "translation": "While cataloguing museum artifacts, Bai Lu finds the final object has no original number. Its label says only “excavated a century ago.”"
+        },
+        {
+          "tokens": [
+            "文物",
+            "是",
+            "博物馆",
+            "最",
+            "有名",
+            "的",
+            "藏品",
+            "。",
+            "如果",
+            "无法",
+            "确定",
+            "出土",
+            "地点",
+            "和",
+            "来源",
+            "，",
+            "它",
+            "的",
+            "所有",
+            "权",
+            "就",
+            "可能",
+            "存在",
+            "问题",
+            "。"
+          ],
+          "translation": "It is the museum’s most famous object. Without a confirmed excavation site and source, its ownership may be in question."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "村里的传闻",
+      "titleEn": "The Village Account",
+      "focusWords": [
+        "传闻",
+        "鉴定",
+        "查找"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "白露",
+              "pinyin": "Bái Lù",
+              "definition": "Bai Lu (a given name)"
+            },
+            "根据",
+            "旧",
+            "照片",
+            "查找",
+            "地点",
+            "，",
+            "来到",
+            "一",
+            "个",
+            "边远",
+            "村庄",
+            "。",
+            "村",
+            "里",
+            "有",
+            "一",
+            "个",
+            "传闻",
+            "：",
+            "文物",
+            "当年",
+            "被",
+            "外地",
+            "商人",
+            "低价",
+            "带",
+            "走",
+            "。"
+          ],
+          "translation": "Using old photographs, Bai Lu traces the place to a remote village. A local account says a trader took the artifact away cheaply."
+        },
+        {
+          "tokens": [
+            "她",
+            "请",
+            "专家",
+            "重新",
+            "鉴定",
+            "材料",
+            "，",
+            "又",
+            "比较",
+            "村",
+            "里",
+            "保留",
+            "的",
+            "出土",
+            "记录",
+            "。",
+            "科学",
+            "鉴定",
+            "和",
+            "口头",
+            "传闻",
+            "最终",
+            "指向",
+            "同一",
+            "个",
+            "地方",
+            "。"
+          ],
+          "translation": "She asks experts to authenticate the material and compares village excavation records. Scientific analysis and oral accounts point to the same place."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "回去，也留下",
+      "titleEn": "Returning and Remaining",
+      "focusWords": [
+        "归还",
+        "文物",
+        "村庄"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "博物馆",
+            "决定",
+            "把",
+            "文物",
+            "所有",
+            "权",
+            "归还",
+            "村庄",
+            "。",
+            "村",
+            "里",
+            "的",
+            "人",
+            "没有",
+            "要求",
+            "立刻",
+            "搬",
+            "走",
+            "，",
+            "而是",
+            "和",
+            "博物馆",
+            "共同",
+            "设计",
+            "新",
+            "展览",
+            "。"
+          ],
+          "translation": "The museum returns ownership to the village. Residents do not demand immediate removal; they jointly design a new exhibition."
+        },
+        {
+          "tokens": [
+            "文物",
+            "仍",
+            "在",
+            "原",
+            "展览",
+            "房间",
+            "，",
+            "说明",
+            "中",
+            "却",
+            "写",
+            "清楚",
+            "了",
+            "真正",
+            "来源",
+            "和",
+            "归还",
+            "过程",
+            "。",
+            "博物馆",
+            "不再",
+            "占有",
+            "文物",
+            "，",
+            "而是",
+            "以",
+            "更",
+            "诚实",
+            "的",
+            "方式",
+            "承担",
+            "传承",
+            "责任",
+            "。"
+          ],
+          "translation": "The artifact remains in its gallery, but its label now states its true origin and return. The museum no longer possesses it and instead accepts responsibility for presenting its history honestly."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

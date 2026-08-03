@@ -1,0 +1,248 @@
+{
+  "id": "light-in-the-bookshop",
+  "title": "书店里的灯",
+  "titleEn": "The Light in the Bookshop",
+  "description": "A light left on in a closed bookshop makes Lin An stop on his way home.",
+  "hskLevel": 1,
+  "goal": "Lin An wants to make sure the old bookseller is safe.",
+  "conflict": "The door is open, but nobody answers.",
+  "resolution": "He finds the sleeping owner and prevents a cold, wet night.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "晚上还有灯",
+      "titleEn": "A Light Still On",
+      "focusWords": [
+        "晚上",
+        "书店",
+        "学校"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "晚上",
+            "，",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "从",
+            "学校",
+            "回家",
+            "。",
+            "商店",
+            "都",
+            "关",
+            "了",
+            "，",
+            "一",
+            "个",
+            "小",
+            "书店",
+            "还有",
+            "灯",
+            "。"
+          ],
+          "translation": "In the evening, Lin An walks home from school. All the shops are closed, but one small bookshop still has a light on."
+        },
+        {
+          "tokens": [
+            "外边",
+            "下雨",
+            "了",
+            "。",
+            "书店",
+            "的",
+            "门",
+            "没有",
+            "关",
+            "，",
+            "雨水",
+            "要",
+            "进",
+            "房间",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "站",
+            "在",
+            "门口",
+            "，",
+            "看",
+            "着",
+            "那",
+            "个",
+            "灯",
+            "。"
+          ],
+          "translation": "It begins to rain outside. The bookshop door is not closed, and rain is about to enter. Lin An stands at the entrance, looking at the light."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁在里面",
+      "titleEn": "Who Is Inside?",
+      "focusWords": [
+        "进去",
+        "老人",
+        "听见"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "说",
+            "：",
+            "“",
+            "有",
+            "人",
+            "吗",
+            "？",
+            "”",
+            "没有",
+            "回答",
+            "。",
+            "他",
+            "慢慢",
+            "进去",
+            "，",
+            "听见",
+            "楼上",
+            "有",
+            "声音",
+            "。"
+          ],
+          "translation": "Lin An calls, “Is anyone there?” There is no answer. He slowly goes inside and hears a sound upstairs."
+        },
+        {
+          "tokens": [
+            "楼上",
+            "，",
+            "一",
+            "个",
+            "老人",
+            "在",
+            "桌子",
+            "旁边",
+            "睡觉",
+            "。",
+            "窗户",
+            "没有",
+            "关",
+            "，",
+            "风",
+            "很",
+            "冷",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "叫",
+            "了",
+            "老人",
+            "两",
+            "次",
+            "。"
+          ],
+          "translation": "Upstairs, an elderly man is asleep beside a table. The window is open, and the wind is cold. Lin An calls him twice."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "一起关门",
+      "titleEn": "Closing Up Together",
+      "focusWords": [
+        "关上",
+        "谢谢",
+        "老人"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "老人",
+            "起来",
+            "了",
+            "。",
+            "他",
+            "和",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "一起",
+            "关上",
+            "窗户",
+            "，",
+            "关上",
+            "门",
+            "，",
+            "也",
+            "关",
+            "了",
+            "楼上",
+            "的",
+            "灯",
+            "。"
+          ],
+          "translation": "The man wakes. He and Lin An close the window and the door, then turn off the upstairs light."
+        },
+        {
+          "tokens": [
+            "老人",
+            "说",
+            "：",
+            "“",
+            "谢谢",
+            "你",
+            "的",
+            "帮助",
+            "。",
+            "”",
+            "他",
+            "送",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "一",
+            "本",
+            "好看",
+            "的",
+            "书",
+            "。",
+            {
+              "text": "林安",
+              "pinyin": "Lín Ān",
+              "definition": "Lin An (a given name)"
+            },
+            "拿",
+            "着",
+            "书",
+            "，",
+            "高兴",
+            "地",
+            "回家",
+            "了",
+            "。"
+          ],
+          "translation": "The man says, “Thank you for your help.” He gives Lin An a beautiful book. Lin An carries it home happily."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

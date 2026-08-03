@@ -1,0 +1,279 @@
+{
+  "id": "wetland-boundary",
+  "title": "湿地边界",
+  "titleEn": "The Wetland Boundary",
+  "description": "An ecologist discovers that moving one line on a map could erase a living habitat.",
+  "hskLevel": 7,
+  "goal": "Zheng He wants to complete an ecological survey before construction begins.",
+  "conflict": "The official boundary excludes the wetland’s most important seasonal area.",
+  "resolution": "New evidence redraws the project and the meaning of protection.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "地图上的直线",
+      "titleEn": "A Straight Line on the Map",
+      "focusWords": [
+        "生态",
+        "边界",
+        "调查"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "生态",
+            "调查",
+            "员",
+            {
+              "text": "郑禾",
+              "pinyin": "Zhèng Hé",
+              "definition": "Zheng He (a given name)"
+            },
+            "负责",
+            "确定",
+            "一",
+            "片",
+            "湿",
+            "地",
+            "的",
+            "保护",
+            "边界",
+            "。",
+            "地图",
+            "上",
+            "的",
+            "边界",
+            "是",
+            "一",
+            "条",
+            "直线",
+            "，",
+            "施工",
+            "区域",
+            "在",
+            "直线",
+            "外",
+            "。"
+          ],
+          "translation": "Ecological surveyor Zheng He must define the protected boundary of a wetland. On the map it is a straight line, with construction outside it."
+        },
+        {
+          "tokens": [
+            "实地",
+            "调查",
+            "时",
+            "，",
+            "他",
+            "发现",
+            "大量",
+            "鸟",
+            "类",
+            "每",
+            "年",
+            "都",
+            "在",
+            "边界",
+            "外",
+            "繁殖",
+            "。",
+            "如果",
+            "只",
+            "保护",
+            "地图",
+            "内部",
+            "，",
+            "整个",
+            "生态",
+            "系统",
+            "仍",
+            "会",
+            "受到",
+            "破坏",
+            "。"
+          ],
+          "translation": "Fieldwork shows many birds breed annually outside the boundary. Protecting only the mapped area would still damage the whole ecosystem."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "雨季的证据",
+      "titleEn": "Evidence from the Rainy Season",
+      "focusWords": [
+        "采集",
+        "推断",
+        "使命"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "开发",
+            "公司",
+            "认为",
+            "一",
+            "次",
+            "观察",
+            "不足",
+            "以",
+            "改变",
+            "工程",
+            "。",
+            {
+              "text": "郑禾",
+              "pinyin": "Zhèng Hé",
+              "definition": "Zheng He (a given name)"
+            },
+            "连续",
+            "数",
+            "周",
+            "采集",
+            "水",
+            "位",
+            "和",
+            "鸟",
+            "群",
+            "数据",
+            "，",
+            "推断",
+            "雨",
+            "季",
+            "水",
+            "流",
+            "的",
+            "真实",
+            "范围",
+            "。"
+          ],
+          "translation": "The developer says one observation cannot alter the project. For weeks, Zheng He gathers water-level and bird data to infer the true rainy-season range."
+        },
+        {
+          "tokens": [
+            "公司",
+            "提醒",
+            "他",
+            "，",
+            "推迟",
+            "工程",
+            "会",
+            "影响",
+            "就业",
+            "。",
+            {
+              "text": "郑禾",
+              "pinyin": "Zhèng Hé",
+              "definition": "Zheng He (a given name)"
+            },
+            "的",
+            "使命",
+            "不",
+            "是",
+            "反对",
+            "发展",
+            "，",
+            "而是",
+            "让",
+            "做",
+            "决定",
+            "的",
+            "人",
+            "看见",
+            "地图",
+            "直线",
+            "忽略",
+            "的",
+            "事实",
+            "。"
+          ],
+          "translation": "The company notes that delay affects jobs. Zheng He’s mission is not to oppose development but to make decision-makers see the facts ignored by a straight line on a map."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "会移动的边界",
+      "titleEn": "A Boundary That Moves",
+      "focusWords": [
+        "保护",
+        "方案",
+        "担当"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "新",
+            "方案",
+            "采用",
+            "随",
+            "季节",
+            "移动",
+            "的",
+            "保护",
+            "边界",
+            "，",
+            "并",
+            "把",
+            "部分",
+            "建筑",
+            "转移",
+            "到",
+            "高",
+            "地",
+            "。",
+            "工程",
+            "规模",
+            "变",
+            "小",
+            "，",
+            "但",
+            "不必",
+            "完全",
+            "取消",
+            "。"
+          ],
+          "translation": "The new plan uses a seasonally shifting boundary and moves some construction to higher ground. The project shrinks but need not be cancelled."
+        },
+        {
+          "tokens": [
+            {
+              "text": "郑禾",
+              "pinyin": "Zhèng Hé",
+              "definition": "Zheng He (a given name)"
+            },
+            "在",
+            "报告",
+            "中",
+            "写",
+            "道",
+            "：",
+            "“",
+            "自然",
+            "的",
+            "边界",
+            "会",
+            "移动",
+            "，",
+            "人",
+            "的",
+            "担当",
+            "不",
+            "能",
+            "移动",
+            "。",
+            "”",
+            "保护",
+            "不再",
+            "是",
+            "地图",
+            "上",
+            "的",
+            "一",
+            "条",
+            "线",
+            "。"
+          ],
+          "translation": "Zheng He writes, “Nature’s boundaries move; human responsibility must not.” Protection is no longer merely a line on a map."
+        }
+      ]
+    }
+  ],
+  "order": 2
+}

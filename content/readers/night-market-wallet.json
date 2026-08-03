@@ -1,0 +1,279 @@
+{
+  "id": "night-market-wallet",
+  "title": "夜市的钱包",
+  "titleEn": "The Wallet at the Night Market",
+  "description": "A wallet full of money tests two friends at a noisy night market.",
+  "hskLevel": 2,
+  "goal": "Two friends want to find the wallet’s owner.",
+  "conflict": "They need the money themselves and disagree about what to do.",
+  "resolution": "A small clue leads them to the owner and repairs their trust.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "桌子下面",
+      "titleEn": "Under the Table",
+      "focusWords": [
+        "钱包",
+        "发现",
+        "夜里"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "和",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "在",
+            "夜里",
+            "的",
+            "市场",
+            "吃",
+            "面条儿",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "在",
+            "桌子",
+            "下面",
+            "发现",
+            "一",
+            "个",
+            "黑色",
+            "钱包",
+            "。"
+          ],
+          "translation": "Zhou Ning and Fang Yu eat noodles at the night market. Fang Yu finds a black wallet under the table."
+        },
+        {
+          "tokens": [
+            "钱包",
+            "里",
+            "有",
+            "很",
+            "多",
+            "钱",
+            "，",
+            "还有",
+            "一",
+            "张",
+            "没有",
+            "名字",
+            "的",
+            "照片",
+            "。",
+            "他们",
+            "等",
+            "了",
+            "很",
+            "久",
+            "，",
+            "没有",
+            "人",
+            "回来",
+            "找",
+            "。"
+          ],
+          "translation": "The wallet contains a lot of money and an unnamed photograph. They wait a long time, but nobody returns."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "两种想法",
+      "titleEn": "Two Ideas",
+      "focusWords": [
+        "意见",
+        "自行车",
+        "认为"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "认为",
+            "应该",
+            "交给",
+            "警察",
+            "。",
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "的",
+            "自行车",
+            "坏",
+            "了",
+            "，",
+            "他",
+            "正好",
+            "需要",
+            "钱",
+            "，",
+            "所以",
+            "他",
+            "有",
+            "不同",
+            "的",
+            "意见",
+            "。"
+          ],
+          "translation": "Fang Yu thinks they should hand it to the police. Zhou Ning’s bicycle is broken and he needs money, so he has a different opinion."
+        },
+        {
+          "tokens": [
+            "两",
+            "个人",
+            "第",
+            "一",
+            "次",
+            "大声",
+            "争论",
+            "。",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "说",
+            "：",
+            "“",
+            "需要",
+            "钱",
+            "不",
+            "是",
+            "拿",
+            "别人",
+            "的",
+            "钱",
+            "的",
+            "原因",
+            "。",
+            "”",
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "没有",
+            "回答",
+            "。"
+          ],
+          "translation": "For the first time, they argue loudly. Fang Yu says, “Needing money is not a reason to take someone else’s.” Zhou Ning does not answer."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "照片里的店",
+      "titleEn": "The Shop in the Photograph",
+      "focusWords": [
+        "照片",
+        "自行车",
+        "发现"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "再",
+            "看",
+            "照片",
+            "，",
+            "发现",
+            "后边",
+            "有",
+            "一",
+            "家",
+            "红色",
+            "小",
+            "店",
+            "。",
+            "他们",
+            "按",
+            "照片",
+            "找到",
+            "店",
+            "，",
+            "店",
+            "里",
+            "的",
+            "老人",
+            "正在",
+            "找",
+            "钱包",
+            "。"
+          ],
+          "translation": "Zhou Ning checks the photograph again and notices a small red shop behind the people. They find it, where an elderly owner is searching for the wallet."
+        },
+        {
+          "tokens": [
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "亲自",
+            "归还",
+            "钱包",
+            "，",
+            "也",
+            "向",
+            {
+              "text": "方雨",
+              "pinyin": "Fāng Yǔ",
+              "definition": "Fang Yu (a given name)"
+            },
+            "说",
+            "对不起",
+            "。",
+            "老人",
+            "没有",
+            "给",
+            "钱",
+            "，",
+            "只",
+            "帮",
+            "他",
+            "免费",
+            "修",
+            "好",
+            "自行车",
+            "。",
+            {
+              "text": "周宁",
+              "pinyin": "Zhōu Níng",
+              "definition": "Zhou Ning (a given name)"
+            },
+            "觉得",
+            "这样",
+            "更",
+            "好",
+            "。"
+          ],
+          "translation": "Zhou Ning returns the wallet himself and apologises to Fang Yu. The owner gives no money, but repairs his bicycle for free. Zhou Ning feels this is better."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

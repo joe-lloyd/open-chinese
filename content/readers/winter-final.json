@@ -1,0 +1,262 @@
+{
+  "id": "winter-final",
+  "title": "雪地里的决赛",
+  "titleEn": "The Final in the Snow",
+  "description": "A football captain must choose between winning and protecting an injured opponent.",
+  "hskLevel": 3,
+  "goal": "Chen Zhou wants his team to win the winter final.",
+  "conflict": "The opposing goalkeeper is hurt while the winning goal is open.",
+  "resolution": "Chen Zhou stops play and discovers what kind of captain he wants to be.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "只差一场",
+      "titleEn": "One Match Away",
+      "focusWords": [
+        "决赛",
+        "队长",
+        "胜利"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "的",
+            "足球",
+            "队",
+            "第",
+            "一",
+            "次",
+            "进入",
+            "决赛",
+            "。",
+            "他",
+            "是",
+            "队长",
+            "，",
+            "全",
+            "队",
+            "都",
+            "相信",
+            "他",
+            "能",
+            "带来",
+            "胜利",
+            "。"
+          ],
+          "translation": "Chen Zhou’s football team reaches the final for the first time. He is captain, and the whole team believes he can lead them to victory."
+        },
+        {
+          "tokens": [
+            "比赛",
+            "那",
+            "天",
+            "突然",
+            "下雪",
+            "，",
+            "地面",
+            "很",
+            "滑",
+            "。",
+            "教练",
+            "提醒",
+            "大家",
+            "注意",
+            "安全",
+            "，",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "心里",
+            "却",
+            "只有",
+            "金牌",
+            "。"
+          ],
+          "translation": "Snow falls suddenly on match day, making the ground slippery. The coach reminds everyone to be safe, but Chen Zhou can think only of the gold medal."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "没有人的球门",
+      "titleEn": "The Empty Goal",
+      "focusWords": [
+        "受伤",
+        "机会",
+        "停止"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "最后",
+            "一",
+            "分钟",
+            "，",
+            "对方",
+            "守",
+            "门",
+            "的",
+            "学生",
+            "摔倒",
+            "受伤",
+            "。",
+            "球",
+            "门",
+            "前",
+            "没有",
+            "人",
+            "，",
+            "球",
+            "正好",
+            "在",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "脚",
+            "下",
+            "。"
+          ],
+          "translation": "In the last minute, the opposing goalkeeper falls and is hurt. The goal is empty, and the ball is at Chen Zhou’s feet."
+        },
+        {
+          "tokens": [
+            "这",
+            "是",
+            "最好",
+            "的",
+            "机会",
+            "。",
+            "观众",
+            "大声",
+            "喊",
+            "他",
+            "向前",
+            "，",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "却",
+            "看到",
+            "那",
+            "个",
+            "学生",
+            "不",
+            "能",
+            "站",
+            "起来",
+            "。",
+            "他",
+            "停止",
+            "了",
+            "。"
+          ],
+          "translation": "It is the perfect chance. The crowd shouts for him to advance, but Chen Zhou sees that the student cannot stand. He stops."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "另一种胜利",
+      "titleEn": "Another Kind of Victory",
+      "focusWords": [
+        "帮助",
+        "比赛",
+        "对方"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "把",
+            "球",
+            "踢",
+            "出去",
+            "，",
+            "跑",
+            "去",
+            "帮助",
+            "受伤",
+            "的",
+            "学生",
+            "。",
+            "比赛",
+            "重新",
+            "开始",
+            "后",
+            "，",
+            "对方",
+            "进",
+            "球",
+            "，",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "的",
+            "队",
+            "输",
+            "了",
+            "。"
+          ],
+          "translation": "Chen Zhou kicks the ball out and runs to help the injured player. When play resumes, the opponents score, and his team loses."
+        },
+        {
+          "tokens": [
+            "队员",
+            "开始",
+            "很",
+            "难过",
+            "，",
+            "后来",
+            "对方",
+            "全",
+            "队",
+            "来",
+            "感谢",
+            "他",
+            "，",
+            "也",
+            "说",
+            "很",
+            "尊重",
+            "他",
+            "。",
+            "教练",
+            "说",
+            "：",
+            "“",
+            "比赛",
+            "输",
+            "了",
+            "，",
+            "你",
+            "的",
+            "选择",
+            "是",
+            "胜利",
+            "。",
+            "”"
+          ],
+          "translation": "His teammates are upset at first. Later, the opposing team thanks him and says they respect him. The coach says, “The match was lost; your choice was a victory.”"
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

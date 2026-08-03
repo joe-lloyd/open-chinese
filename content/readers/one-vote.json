@@ -1,0 +1,259 @@
+{
+  "id": "one-vote",
+  "title": "最后一票",
+  "titleEn": "The Final Vote",
+  "description": "A young committee member holds the deciding vote on the future of a public square.",
+  "hskLevel": 5,
+  "goal": "Su Ping wants the neighbourhood to reach a fair decision.",
+  "conflict": "Both proposals benefit one group while harming another.",
+  "resolution": "She refuses the false choice and forces a better plan.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "两个方案",
+      "titleEn": "Two Proposals",
+      "focusWords": [
+        "广场",
+        "方案",
+        "社区"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "社区",
+            "要",
+            "投票",
+            "决定",
+            "广场",
+            "的",
+            "未来",
+            "。",
+            "一",
+            "个",
+            "方案",
+            "建",
+            "停车场",
+            "，",
+            "另",
+            "一",
+            "个",
+            "方案",
+            "建",
+            "儿童",
+            "活动",
+            "中心",
+            "。"
+          ],
+          "translation": "The community will vote on the square’s future. One proposal builds parking; the other builds a children’s activity centre."
+        },
+        {
+          "tokens": [
+            "年轻",
+            "代表",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "负责",
+            "最后",
+            "一",
+            "票",
+            "。",
+            "目前",
+            "双方",
+            "得到",
+            "的",
+            "票",
+            "一样",
+            "多",
+            "，",
+            "她",
+            "的",
+            "投票",
+            "会",
+            "直接",
+            "决定",
+            "哪",
+            "个",
+            "方案",
+            "通过",
+            "。"
+          ],
+          "translation": "Young representative Su Ping holds the final vote. The sides are tied, so her vote will decide which proposal passes."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁被忘了",
+      "titleEn": "Who Was Forgotten?",
+      "focusWords": [
+        "利益",
+        "公平",
+        "方案"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "商店",
+            "支持",
+            "停车场",
+            "，",
+            "家长",
+            "支持",
+            "活动",
+            "中心",
+            "。",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "调查",
+            "后",
+            "发现",
+            "，",
+            "两",
+            "个",
+            "方案",
+            "都",
+            "忽视",
+            "了",
+            "每",
+            "天",
+            "在",
+            "广场",
+            "休息",
+            "的",
+            "老年",
+            "人",
+            "。"
+          ],
+          "translation": "Shops support parking; parents support the activity centre. Su Ping discovers that both proposals ignore older people who rest in the square each day."
+        },
+        {
+          "tokens": [
+            "两边",
+            "都",
+            "要求",
+            "她",
+            "马上",
+            "表态",
+            "，",
+            "还",
+            "说",
+            "自己",
+            "代表",
+            "公众",
+            "利益",
+            "。",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "觉得",
+            "，",
+            "在",
+            "不",
+            "公平",
+            "的",
+            "选择",
+            "中",
+            "选",
+            "一边",
+            "仍然",
+            "不",
+            "公平",
+            "。"
+          ],
+          "translation": "Both sides demand her immediate support and claim to represent the public interest. Su Ping feels choosing one unfair option remains unfair."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "第三个选择",
+      "titleEn": "A Third Choice",
+      "focusWords": [
+        "拒绝",
+        "修改",
+        "群体"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "投票",
+            "时",
+            "，",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "拒绝",
+            "两",
+            "个",
+            "方案",
+            "，",
+            "提议",
+            "修改",
+            "设计",
+            "：",
+            "地下",
+            "停车",
+            "，",
+            "地上",
+            "保留",
+            "花园",
+            "，",
+            "活动",
+            "中心",
+            "使用",
+            "旁边",
+            "空",
+            "房屋",
+            "。"
+          ],
+          "translation": "At the vote, Su Ping rejects both proposals and suggests underground parking, preserving a garden above, and using a nearby empty building for activities."
+        },
+        {
+          "tokens": [
+            "她",
+            "的",
+            "一",
+            "票",
+            "没有",
+            "让",
+            "任何",
+            "一边",
+            "立刻",
+            "胜利",
+            "，",
+            "却",
+            "让",
+            "会议",
+            "重新",
+            "开始",
+            "。",
+            "一",
+            "个",
+            "月",
+            "后",
+            "，",
+            "三",
+            "个",
+            "群体",
+            "终于",
+            "达成",
+            "共识",
+            "。"
+          ],
+          "translation": "Her vote gives neither side an immediate victory, but restarts the discussion. A month later, the three groups reach consensus."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

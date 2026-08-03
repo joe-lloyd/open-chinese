@@ -1,0 +1,251 @@
+{
+  "id": "second-witness",
+  "title": "第二个证人",
+  "titleEn": "The Second Witness",
+  "description": "A witness changes her account after noticing what everyone else assumed.",
+  "hskLevel": 6,
+  "goal": "Ye Zhen wants to give accurate evidence about a traffic accident.",
+  "conflict": "Her memory conflicts with the first witness and with a video.",
+  "resolution": "She reconstructs the scene and exposes a misleading camera angle.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "十秒钟",
+      "titleEn": "Ten Seconds",
+      "focusWords": [
+        "事故",
+        "记忆",
+        "摄像机"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "是",
+            "一",
+            "场",
+            "交通",
+            "事故",
+            "的",
+            "第二",
+            "个",
+            "证人",
+            "。",
+            "她",
+            "只",
+            "看到",
+            "十",
+            "秒",
+            "钟",
+            "，",
+            "却",
+            "清楚",
+            "记得",
+            "红",
+            "车",
+            "先",
+            "冲",
+            "进",
+            "路口",
+            "。"
+          ],
+          "translation": "Ye Zhen is the second witness to a traffic accident. She saw only ten seconds but clearly remembers the red car entering the junction first."
+        },
+        {
+          "tokens": [
+            "第",
+            "一",
+            "个",
+            "证人",
+            "认为",
+            "蓝",
+            "车",
+            "超速",
+            "，",
+            "附近",
+            "摄像机",
+            "的",
+            "画面",
+            "似乎",
+            "也",
+            "支持",
+            "他",
+            "。",
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "开始",
+            "怀疑",
+            "自己",
+            "的",
+            "记忆",
+            "。"
+          ],
+          "translation": "The first witness says the blue car was speeding, and nearby camera footage seems to support him. Ye Zhen begins doubting her memory."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "画面之外",
+      "titleEn": "Outside the Frame",
+      "focusWords": [
+        "角度",
+        "现场",
+        "摄像机"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "回到",
+            "现场",
+            "，",
+            "按",
+            "自己",
+            "当时",
+            "的",
+            "位置",
+            "重新",
+            "观察",
+            "。",
+            "她",
+            "发现",
+            "摄像机",
+            "的",
+            "角度",
+            "看",
+            "不",
+            "到",
+            "一",
+            "个",
+            "临时",
+            "交通",
+            "标志",
+            "。"
+          ],
+          "translation": "Ye Zhen returns to the scene and observes from her original position. The camera angle misses a temporary traffic sign."
+        },
+        {
+          "tokens": [
+            "她",
+            "又",
+            "核对",
+            "天气",
+            "和",
+            "道路",
+            "记录",
+            "。",
+            "大",
+            "风",
+            "曾经",
+            "把",
+            "标志",
+            "转向",
+            "，",
+            "两",
+            "辆",
+            "车",
+            "看到",
+            "的",
+            "指示",
+            "完全",
+            "不同",
+            "。"
+          ],
+          "translation": "She checks weather and road records. Strong wind had turned the sign, so the two drivers saw entirely different instructions."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "改变证词",
+      "titleEn": "Changing the Testimony",
+      "focusWords": [
+        "承认",
+        "真相",
+        "不再"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "叶真",
+              "pinyin": "Yè Zhēn",
+              "definition": "Ye Zhen (a given name)"
+            },
+            "修改",
+            "了",
+            "自己",
+            "的",
+            "证",
+            "词",
+            "。",
+            "她",
+            "承认",
+            "红",
+            "车",
+            "先",
+            "进入",
+            "路口",
+            "，",
+            "但",
+            "不再",
+            "认为",
+            "司机",
+            "故意",
+            "违反",
+            "规则",
+            "。"
+          ],
+          "translation": "Ye Zhen changes her testimony. She confirms the red car entered first but no longer believes its driver knowingly broke the rules."
+        },
+        {
+          "tokens": [
+            "新",
+            "证据",
+            "也",
+            "证明",
+            "蓝",
+            "车",
+            "没有",
+            "超速",
+            "。",
+            "真相",
+            "不",
+            "是",
+            "两",
+            "个",
+            "证人",
+            "谁",
+            "对",
+            "谁",
+            "错",
+            "，",
+            "而是",
+            "一",
+            "个",
+            "被",
+            "风",
+            "改变",
+            "的",
+            "标志",
+            "。"
+          ],
+          "translation": "The new evidence also proves the blue car was not speeding. The truth is not that one witness was right and the other wrong, but that wind had turned a sign."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

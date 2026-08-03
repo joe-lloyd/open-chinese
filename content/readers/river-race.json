@@ -1,0 +1,248 @@
+{
+  "id": "river-race",
+  "title": "没有举行的比赛",
+  "titleEn": "The Race That Did Not Happen",
+  "description": "A rowing team risks its championship to expose pollution in the river.",
+  "hskLevel": 5,
+  "goal": "The team wants to win the annual river race.",
+  "conflict": "They discover pollution that organisers want to hide.",
+  "resolution": "They refuse to compete and turn the crowd’s attention to the river.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "冠军的机会",
+      "titleEn": "A Chance at the Championship",
+      "focusWords": [
+        "比赛",
+        "冠军",
+        "训练"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "的",
+            "划船",
+            "队",
+            "为",
+            "城市",
+            "河流",
+            "比赛",
+            "训练",
+            "了",
+            "一",
+            "年",
+            "。",
+            "他们",
+            "从来",
+            "没有",
+            "得到",
+            "冠军",
+            "，",
+            "今年",
+            "是",
+            "最好",
+            "的",
+            "机会",
+            "。"
+          ],
+          "translation": "Chen Zhou’s rowing team has trained for the city river race for a year. They have never won, and this year is their best chance."
+        },
+        {
+          "tokens": [
+            "比赛",
+            "前",
+            "一",
+            "天",
+            "，",
+            "队员",
+            "在",
+            "下游",
+            "训练",
+            "时",
+            "闻",
+            "到",
+            "奇怪",
+            "味道",
+            "。",
+            "水面",
+            "出现",
+            "灰色",
+            "泡沫",
+            "，",
+            "几",
+            "条",
+            "鱼",
+            "已经",
+            "死",
+            "了",
+            "。"
+          ],
+          "translation": "The day before the race, the team smells something strange downstream. Grey foam covers the water, and several fish are dead."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "不能公开的结果",
+      "titleEn": "Results They Cannot Publish",
+      "focusWords": [
+        "污染",
+        "检测",
+        "压力"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "队员",
+            "把",
+            "水",
+            "送",
+            "去",
+            "检测",
+            "，",
+            "结果",
+            "显示",
+            "污染",
+            "超过",
+            "安全",
+            "标准",
+            "。",
+            "比赛",
+            "组织",
+            "者",
+            "却",
+            "要求",
+            "他们",
+            "暂时",
+            "不",
+            "公开",
+            "。"
+          ],
+          "translation": "They send water for testing, and results show pollution above safe limits. Race organisers ask them not to publish yet."
+        },
+        {
+          "tokens": [
+            "组织",
+            "者",
+            "说",
+            "取消",
+            "比赛",
+            "会",
+            "造成",
+            "巨大",
+            "损失",
+            "，",
+            "还",
+            "暗示",
+            "队伍",
+            "以后",
+            "可能",
+            "不",
+            "能",
+            "参赛",
+            "。",
+            "他们",
+            "一边",
+            "想",
+            "得到",
+            "冠军",
+            "，",
+            "一边",
+            "感到",
+            "责任",
+            "的",
+            "压力",
+            "。"
+          ],
+          "translation": "Organisers say cancelling would cause major losses and hint the team may be barred from future races. They want the championship while feeling the pressure of responsibility."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "起点上的决定",
+      "titleEn": "The Decision at the Start",
+      "focusWords": [
+        "拒绝",
+        "公开",
+        "治理"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "比赛",
+            "开始",
+            "时",
+            "，",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "的",
+            "队",
+            "没有",
+            "出发",
+            "。",
+            "他们",
+            "在",
+            "起点",
+            "公开",
+            "检测",
+            "结果",
+            "，",
+            "其他",
+            "队伍",
+            "也",
+            "陆续",
+            "拒绝",
+            "下",
+            "水",
+            "。"
+          ],
+          "translation": "When the race begins, Chen Zhou’s team does not start. They publish the test results at the line, and other teams gradually refuse to enter the water."
+        },
+        {
+          "tokens": [
+            "比赛",
+            "没有",
+            "举行",
+            "，",
+            "城市",
+            "却",
+            "开始",
+            "调查",
+            "污染",
+            "来源",
+            "和",
+            "河流",
+            "治理",
+            "。",
+            "队伍",
+            "没有",
+            "奖杯",
+            "，",
+            "但",
+            "他们",
+            "保护",
+            "了",
+            "以后",
+            "的",
+            "每",
+            "一",
+            "场",
+            "比赛",
+            "。"
+          ],
+          "translation": "The race is cancelled, but the city investigates the pollution and river management. The team wins no trophy, but protects every future race."
+        }
+      ]
+    }
+  ],
+  "order": 4
+}

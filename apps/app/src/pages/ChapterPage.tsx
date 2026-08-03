@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { findChapter, loadReader, nextChapter, unencounteredWords } from '../lib/readers'
@@ -14,9 +14,16 @@ import type { EncounteredWord } from '../lib/firestore'
 import { getCurrentUid } from '../lib/auth'
 import ReaderText from '../components/ReaderText'
 import HskBadge from '../components/HskBadge'
+import {
+  mandarinSpeechChunks,
+  speakMandarinSequence,
+  speechIsAvailable,
+} from '../lib/tts'
+import type { MandarinPlayback } from '../lib/tts'
 
 const PINYIN_KEY = 'readers.showPinyin'
 const TRANSLATION_KEY = 'readers.showTranslation'
+type PlaybackState = 'idle' | 'playing' | 'paused'
 
 function storedToggle(key: string): boolean {
   return localStorage.getItem(key) === 'true'
@@ -34,6 +41,9 @@ export default function ChapterPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [playbackState, setPlaybackState] = useState<PlaybackState>('idle')
+  const [audioError, setAudioError] = useState<string | null>(null)
+  const playbackRef = useRef<MandarinPlayback | null>(null)
 
   const [showPinyin, setShowPinyin] = useState(() => storedToggle(PINYIN_KEY))
   const [showTranslation, setShowTranslation] = useState(() => storedToggle(TRANSLATION_KEY))
@@ -51,6 +61,18 @@ export default function ChapterPage() {
       return !v
     })
   }, [])
+
+  useEffect(() => {
+    playbackRef.current?.cancel()
+    playbackRef.current = null
+    setPlaybackState('idle')
+    setAudioError(null)
+
+    return () => {
+      playbackRef.current?.cancel()
+      playbackRef.current = null
+    }
+  }, [readerId, chapterId])
 
   useEffect(() => {
     let cancelled = false
@@ -112,6 +134,53 @@ export default function ChapterPage() {
     } finally {
       setSaving(false)
     }
+  }
+
+  function toggleReading() {
+    if (playbackState === 'playing') {
+      playbackRef.current?.pause()
+      setPlaybackState('paused')
+      return
+    }
+
+    if (playbackState === 'paused') {
+      playbackRef.current?.resume()
+      setPlaybackState('playing')
+      return
+    }
+
+    if (!chapter) return
+    const chunks = mandarinSpeechChunks(
+      chapter.paragraphs.map((paragraph) =>
+        paragraph.tokens.map((token) => token.text).join('')
+      )
+    )
+    setAudioError(null)
+    const playback = speakMandarinSequence(chunks, {
+      onEnd: () => {
+        playbackRef.current = null
+        setPlaybackState('idle')
+      },
+      onError: (message) => {
+        playbackRef.current = null
+        setPlaybackState('idle')
+        setAudioError(message)
+      },
+    })
+
+    if (!playback) {
+      setAudioError('Mandarin audio is not available in this browser.')
+      return
+    }
+
+    playbackRef.current = playback
+    setPlaybackState('playing')
+  }
+
+  function stopReading() {
+    playbackRef.current?.cancel()
+    playbackRef.current = null
+    setPlaybackState('idle')
   }
 
   async function writeCompletion(uid: string, chapter: ReaderChapter): Promise<string[]> {
@@ -188,12 +257,48 @@ export default function ChapterPage() {
             <Toggle active={showTranslation} onClick={toggleTranslation}>
               English
             </Toggle>
+            <button
+              type="button"
+              onClick={toggleReading}
+              disabled={!speechIsAvailable()}
+              aria-pressed={playbackState !== 'idle'}
+              title="Read the complete chapter with a Mandarin Chinese voice"
+              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                playbackState !== 'idle'
+                  ? 'bg-accent-solid text-on-accent border-accent'
+                  : 'border-accent text-accent hover:bg-accent/10'
+              }`}
+            >
+              {playbackState === 'playing'
+                ? 'Pause reading'
+                : playbackState === 'paused'
+                  ? 'Resume reading'
+                  : 'Read chapter'}
+            </button>
+            {playbackState !== 'idle' && (
+              <button
+                type="button"
+                onClick={stopReading}
+                className="px-2 py-1 rounded-full text-xs font-medium text-text-muted hover:text-text-primary transition-colors"
+              >
+                Stop
+              </button>
+            )}
             <span className="text-xs text-text-muted ml-auto">
               {unencountered.size > 0
                 ? `${unencountered.size} new ${unencountered.size === 1 ? 'word' : 'words'}`
                 : 'No new words'}
             </span>
           </div>
+          <p className="sr-only" aria-live="polite">
+            {audioError ??
+              (playbackState === 'playing'
+                ? 'Reading chapter aloud in Mandarin Chinese.'
+                : playbackState === 'paused'
+                  ? 'Chapter reading paused.'
+                  : '')}
+          </p>
+          {audioError && <p className="text-xs text-accent">{audioError}</p>}
         </div>
       </header>
 

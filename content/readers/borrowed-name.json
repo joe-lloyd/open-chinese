@@ -1,0 +1,265 @@
+{
+  "id": "borrowed-name",
+  "title": "借来的名字",
+  "titleEn": "The Borrowed Name",
+  "description": "An editor discovers that a prize-winning story belongs to someone else.",
+  "hskLevel": 6,
+  "goal": "Editor Han Qiu wants to publish a brilliant new writer.",
+  "conflict": "The manuscript was copied from an unknown hospital patient.",
+  "resolution": "She delays publication and helps the real author reclaim the work.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "新人作品",
+      "titleEn": "A Newcomer’s Work",
+      "focusWords": [
+        "作品",
+        "作者",
+        "出版"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "编辑",
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "收到",
+            "一",
+            "部",
+            "非常",
+            "出色",
+            "的",
+            "小说",
+            "。",
+            "作者",
+            "是",
+            "没有",
+            "名气",
+            "的",
+            "新人",
+            "，",
+            "出版社",
+            "却",
+            "认为",
+            "作品",
+            "一定",
+            "会",
+            "获奖",
+            "。"
+          ],
+          "translation": "Editor Han Qiu receives an excellent novel by an unknown newcomer. The publisher believes it is certain to win prizes."
+        },
+        {
+          "tokens": [
+            "出版",
+            "前",
+            "，",
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "发现",
+            "小说",
+            "中",
+            "一",
+            "段",
+            "话",
+            "和",
+            "医院",
+            "网站",
+            "上",
+            "的",
+            "病人",
+            "日记",
+            "完全",
+            "相同",
+            "。",
+            "她",
+            "开始",
+            "调查",
+            "作者",
+            "的",
+            "来源",
+            "。"
+          ],
+          "translation": "Before publication, Han Qiu discovers a passage identical to a patient diary on a hospital website. She begins investigating the author’s sources."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "谁写的故事",
+      "titleEn": "Who Wrote the Story?",
+      "focusWords": [
+        "承认",
+        "新人",
+        "同一"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "新人",
+            "最后",
+            "承认",
+            "，",
+            "整个",
+            "故事",
+            "来自",
+            "同一",
+            "个",
+            "病人",
+            "的",
+            "手",
+            "写",
+            "材料",
+            "。",
+            "他",
+            "认为",
+            "病人",
+            "已经",
+            "去世",
+            "，",
+            "没有",
+            "人",
+            "会",
+            "争",
+            "这",
+            "个",
+            "作品",
+            "的",
+            "作者",
+            "身份",
+            "。"
+          ],
+          "translation": "The newcomer admits the entire story came from one patient’s handwritten material. He assumed the patient was dead and nobody would contest the authorship."
+        },
+        {
+          "tokens": [
+            "出版社",
+            "已经",
+            "投入",
+            "大量",
+            "资金",
+            "，",
+            "要求",
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "只",
+            "删除",
+            "相同",
+            "段落",
+            "。",
+            "她",
+            "拒绝",
+            "，",
+            "因为",
+            "问题",
+            "不",
+            "是",
+            "几",
+            "句",
+            "抄袭",
+            "，",
+            "而是",
+            "借用",
+            "别人",
+            "的",
+            "人生",
+            "。"
+          ],
+          "translation": "The publisher has invested heavily and asks Han Qiu only to remove matching passages. She refuses: the issue is not a few copied sentences, but borrowing someone else’s life."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "真正的署名",
+      "titleEn": "The Real Byline",
+      "focusWords": [
+        "寻找",
+        "尊重",
+        "新人"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "韩秋",
+              "pinyin": "Hán Qiū",
+              "definition": "Han Qiu (a given name)"
+            },
+            "通过",
+            "医院",
+            "寻找",
+            "病人",
+            "家属",
+            "，",
+            "发现",
+            "病人",
+            "仍然",
+            "活",
+            "着",
+            "，",
+            "只是",
+            "因为",
+            "身体",
+            "原因",
+            "无法",
+            "完成",
+            "出版",
+            "。"
+          ],
+          "translation": "Through the hospital, Han Qiu looks for the patient’s family and discovers the patient is alive but unable to finish publication because of illness."
+        },
+        {
+          "tokens": [
+            "她",
+            "暂停",
+            "原来",
+            "的",
+            "计划",
+            "，",
+            "请",
+            "病人",
+            "修改",
+            "作品",
+            "并",
+            "使用",
+            "自己",
+            "的",
+            "名字",
+            "。",
+            "一",
+            "年",
+            "后",
+            "小说",
+            "出版",
+            "，",
+            "封面",
+            "没有",
+            "新人",
+            "的",
+            "名字",
+            "，",
+            "却",
+            "尊重",
+            "了",
+            "故事",
+            "的",
+            "主人",
+            "。"
+          ],
+          "translation": "She pauses the original plan and asks the patient to revise and publish under the true name. A year later, the novel appears without the newcomer’s name, respecting the story’s owner."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

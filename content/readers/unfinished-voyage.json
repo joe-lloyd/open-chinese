@@ -1,0 +1,265 @@
+{
+  "id": "unfinished-voyage",
+  "title": "没有完成的航海",
+  "titleEn": "The Unfinished Voyage",
+  "description": "A captain abandons a record attempt when an unknown boat calls for help.",
+  "hskLevel": 7,
+  "goal": "Captain Xu Chuan wants to complete a historic solo voyage.",
+  "conflict": "A distress signal comes from outside his planned route.",
+  "resolution": "He gives up the record and discovers a different legacy.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "最后一段海路",
+      "titleEn": "The Final Sea Passage",
+      "focusWords": [
+        "航海",
+        "传奇",
+        "边界"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "许川",
+              "pinyin": "Xǔ Chuān",
+              "definition": "Xu Chuan (a given name)"
+            },
+            "的",
+            "单",
+            "人",
+            "航海",
+            "只",
+            "剩",
+            "最后",
+            "一",
+            "段",
+            "。",
+            "一旦",
+            "穿过",
+            "北方",
+            "海域",
+            "的",
+            "边界",
+            "，",
+            "他",
+            "就",
+            "会",
+            "创造",
+            "新",
+            "记录",
+            "，",
+            "成为",
+            "航海",
+            "传奇",
+            "。"
+          ],
+          "translation": "Xu Chuan has only one passage left in his solo voyage. Crossing the northern boundary will set a record and make him a sailing legend."
+        },
+        {
+          "tokens": [
+            "天气",
+            "开始",
+            "恶化",
+            "，",
+            "但",
+            "仍",
+            "在",
+            "安全",
+            "范围",
+            "。",
+            "团队",
+            "建议",
+            "他",
+            "继续",
+            "，",
+            "因为",
+            "下",
+            "一",
+            "次",
+            "适合",
+            "航海",
+            "的",
+            "机会",
+            "可能",
+            "在",
+            "一",
+            "年",
+            "后",
+            "。"
+          ],
+          "translation": "Weather worsens but remains within safe limits. His team recommends continuing because the next suitable opportunity may be a year away."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "边界外的信号",
+      "titleEn": "A Signal Beyond the Boundary",
+      "focusWords": [
+        "信号",
+        "处境",
+        "使命"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "夜里",
+            "，",
+            {
+              "text": "许川",
+              "pinyin": "Xǔ Chuān",
+              "definition": "Xu Chuan (a given name)"
+            },
+            "收到",
+            "一",
+            "个",
+            "微弱",
+            "求救",
+            "信号",
+            "。",
+            "一",
+            "艘",
+            "小",
+            "船",
+            "在",
+            "计划",
+            "边界",
+            "外",
+            "失去",
+            "动力",
+            "，",
+            "船员",
+            "的",
+            "处境",
+            "越来越",
+            "危险",
+            "。"
+          ],
+          "translation": "At night, Xu Chuan receives a faint distress signal. A small boat beyond his planned boundary has lost power, and its crew is in growing danger."
+        },
+        {
+          "tokens": [
+            "改变",
+            "方向",
+            "意味着",
+            "放弃",
+            "记录",
+            "。",
+            {
+              "text": "许川",
+              "pinyin": "Xǔ Chuān",
+              "definition": "Xu Chuan (a given name)"
+            },
+            "想起",
+            "船长",
+            "的",
+            "第",
+            "一",
+            "使命",
+            "不",
+            "是",
+            "完成",
+            "路线",
+            "，",
+            "而是",
+            "回应",
+            "海",
+            "上",
+            "的",
+            "求救",
+            "。"
+          ],
+          "translation": "Changing course means abandoning the record. Xu Chuan remembers a captain’s first mission is not to finish a route but to answer distress at sea."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "另一张航海图",
+      "titleEn": "Another Chart",
+      "focusWords": [
+        "救援",
+        "反思",
+        "担当"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "许川",
+              "pinyin": "Xǔ Chuān",
+              "definition": "Xu Chuan (a given name)"
+            },
+            "转向",
+            "并",
+            "完成",
+            "救援",
+            "，",
+            "随后",
+            "因",
+            "燃料",
+            "不足",
+            "返回",
+            "港口",
+            "。",
+            "他",
+            "的",
+            "航海",
+            "没有",
+            "完成",
+            "，",
+            "记录",
+            "后来",
+            "由",
+            "别人",
+            "创造",
+            "。"
+          ],
+          "translation": "Xu Chuan turns, completes the rescue, then returns to port with too little fuel. His voyage remains unfinished, and someone else later sets the record."
+        },
+        {
+          "tokens": [
+            "他",
+            "后来",
+            "在",
+            "航海",
+            "图",
+            "上",
+            "标",
+            "出",
+            "救援",
+            "地点",
+            "，",
+            "用来",
+            "培训",
+            "年轻",
+            "船员",
+            "。",
+            "放弃",
+            "记录",
+            "的",
+            "决定",
+            "让",
+            "大家",
+            "反思",
+            "：",
+            "真正",
+            "的",
+            "传奇",
+            "来自",
+            "担当",
+            "，",
+            "不",
+            "只",
+            "来自",
+            "终点",
+            "。"
+          ],
+          "translation": "He later marks the rescue site on charts used to train young sailors. His decision to give up the record prompts reflection: true legend comes from responsibility, not only the finish."
+        }
+      ]
+    }
+  ],
+  "order": 5
+}

@@ -1,0 +1,246 @@
+{
+  "id": "cat-at-school",
+  "title": "学校里的猫",
+  "titleEn": "The Cat at School",
+  "description": "A cat follows Chen Zhou into school, but nobody knows where it lives.",
+  "hskLevel": 1,
+  "goal": "Chen Zhou wants to help a cat get home.",
+  "conflict": "The cat cannot tell anyone its name or address.",
+  "resolution": "A familiar song on the phone leads its owner to the school.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "跟我上学",
+      "titleEn": "Following Me to School",
+      "focusWords": [
+        "学校",
+        "教学楼",
+        "走路"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "走路",
+            "去",
+            "学校",
+            "。",
+            "一",
+            "只",
+            "小",
+            "猫",
+            "从",
+            "家",
+            "门口",
+            "跟",
+            "他",
+            "，",
+            "一直",
+            "跟",
+            "到",
+            "学校",
+            "。"
+          ],
+          "translation": "Chen Zhou walks to school. A small cat follows him from his doorway all the way to school."
+        },
+        {
+          "tokens": [
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "进",
+            "教学楼",
+            "，",
+            "猫",
+            "也",
+            "想",
+            "进",
+            "。",
+            "老师",
+            "说",
+            "：",
+            "“",
+            "猫",
+            "不",
+            "上课",
+            "。",
+            "我们",
+            "要",
+            "帮",
+            "它",
+            "回家",
+            "。",
+            "”"
+          ],
+          "translation": "Chen Zhou enters the school building, and the cat wants to enter too. The teacher says, “Cats don’t attend class. We need to help it go home.”"
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "它的家在哪儿",
+      "titleEn": "Where Is Its Home?",
+      "focusWords": [
+        "知道",
+        "打电话",
+        "同学"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "同学",
+            "问",
+            "：",
+            "“",
+            "猫",
+            "的",
+            "家",
+            "在",
+            "哪儿",
+            "？",
+            "”",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "不",
+            "知道",
+            "，",
+            "老师",
+            "也",
+            "不",
+            "知道",
+            "。"
+          ],
+          "translation": "The students ask, “Where is the cat’s home?” Chen Zhou does not know, and neither does the teacher."
+        },
+        {
+          "tokens": [
+            "老师",
+            "和",
+            "同学",
+            "到",
+            "门口",
+            "。",
+            "猫",
+            "看",
+            "东边",
+            "，",
+            "看",
+            "西边",
+            "，",
+            "不",
+            "走",
+            "。",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "拿",
+            "手机",
+            "打电话",
+            "，",
+            "猫",
+            "听",
+            "手机",
+            "。"
+          ],
+          "translation": "The teacher and students go to the entrance. The cat looks east and west but does not leave. Chen Zhou takes out his phone to call, and the cat listens."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "一首歌",
+      "titleEn": "A Song",
+      "focusWords": [
+        "听见",
+        "电话",
+        "回家"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "手机",
+            "里",
+            "有",
+            "一",
+            "首",
+            "歌",
+            "。",
+            "猫",
+            "听见",
+            "歌",
+            "，",
+            "马上",
+            "叫",
+            "了",
+            "起来",
+            "。",
+            "门",
+            "外",
+            "一",
+            "个",
+            "女孩儿",
+            "也",
+            "听见",
+            "这",
+            "首",
+            "歌",
+            "。"
+          ],
+          "translation": "There is a song on the phone. When the cat hears it, it immediately cries out. A girl outside hears the same song."
+        },
+        {
+          "tokens": [
+            "女孩儿",
+            "跑",
+            "进来",
+            "，",
+            "说",
+            "：",
+            "“",
+            "这",
+            "是",
+            "我",
+            "的",
+            "猫",
+            "！",
+            "”",
+            "她",
+            "告诉",
+            {
+              "text": "陈舟",
+              "pinyin": "Chén Zhōu",
+              "definition": "Chen Zhou (a given name)"
+            },
+            "她",
+            "的",
+            "名字",
+            "和",
+            "电话",
+            "。",
+            "猫",
+            "高兴",
+            "地",
+            "跟",
+            "她",
+            "回家",
+            "了",
+            "。"
+          ],
+          "translation": "The girl runs in and says, “This is my cat!” She gives Chen Zhou her name and phone number. The cat happily follows her home."
+        }
+      ]
+    }
+  ],
+  "order": 3
+}

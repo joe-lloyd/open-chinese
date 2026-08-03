@@ -1,0 +1,264 @@
+{
+  "id": "contract-after-the-flood",
+  "title": "洪水后的契约",
+  "titleEn": "The Contract After the Flood",
+  "description": "A mayor must decide whether an illegal emergency contract saved the town or betrayed it.",
+  "hskLevel": 9,
+  "goal": "Mayor Su Ping wants to rebuild quickly after a flood.",
+  "conflict": "The only contractor capable of starting immediately demands secrecy and control.",
+  "resolution": "She exposes the agreement and subjects emergency power to public review.",
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "三十天",
+      "titleEn": "Thirty Days",
+      "focusWords": [
+        "洪水",
+        "部署",
+        "契约"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "洪水",
+            "摧毁",
+            "河",
+            "边",
+            "城镇",
+            "后",
+            "，",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "必须",
+            "在",
+            "三",
+            "十",
+            "天",
+            "内",
+            "部署",
+            "临时",
+            "住房",
+            "。",
+            "正常",
+            "招标",
+            "来不及",
+            "，",
+            "一",
+            "家",
+            "公司",
+            "提出",
+            "立刻",
+            "开工",
+            "。"
+          ],
+          "translation": "After a flood destroys a riverside town, Su Ping must deploy temporary housing within thirty days. Normal tendering is too slow, and one company offers to start immediately."
+        },
+        {
+          "tokens": [
+            "公司",
+            "要求",
+            "签订",
+            "保密",
+            "契约",
+            "，",
+            "并",
+            "获得",
+            "以后",
+            "重建",
+            "项目",
+            "的",
+            "优先",
+            "权",
+            "。",
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "明白",
+            "契约",
+            "不",
+            "合",
+            "常规",
+            "，",
+            "却",
+            "可能",
+            "挽救",
+            "整个",
+            "冬天",
+            "。"
+          ],
+          "translation": "The company demands a confidential contract and priority over later reconstruction. Su Ping knows it violates normal practice, yet it may save the town through winter."
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "救援的代价",
+      "titleEn": "The Price of Rescue",
+      "focusWords": [
+        "伦理",
+        "隐瞒",
+        "弊端"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            "住房",
+            "按时",
+            "建成",
+            "，",
+            "居民",
+            "得到",
+            "安置",
+            "。",
+            "但是",
+            "记者",
+            "发现",
+            "契约",
+            "条款",
+            "，",
+            "质疑",
+            "政府",
+            "借",
+            "救援",
+            "之",
+            "名",
+            "隐瞒",
+            "长期",
+            "利益",
+            "交换",
+            "。"
+          ],
+          "translation": "Housing is completed on time and residents are sheltered. But a reporter finds the terms and questions whether the government used relief as a cover for a long-term exchange of benefits."
+        },
+        {
+          "tokens": [
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "面临",
+            "伦理",
+            "困境",
+            "：",
+            "公开",
+            "可能",
+            "导致",
+            "公司",
+            "停止",
+            "工作",
+            "，",
+            "继续",
+            "隐瞒",
+            "又",
+            "会",
+            "让",
+            "紧急",
+            "权力",
+            "变成",
+            "制度",
+            "弊端",
+            "。"
+          ],
+          "translation": "Su Ping faces an ethical dilemma: disclosure may stop work, while secrecy may turn emergency power into a systemic abuse."
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "title": "公开的责任",
+      "titleEn": "Public Responsibility",
+      "focusWords": [
+        "阐述",
+        "审查",
+        "初衷"
+      ],
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "text": "苏平",
+              "pinyin": "Sū Píng",
+              "definition": "Su Ping (a given name)"
+            },
+            "主动",
+            "公布",
+            "契约",
+            "，",
+            "在",
+            "会议",
+            "上",
+            "阐述",
+            "当时",
+            "决策",
+            "的",
+            "初衷",
+            "和",
+            "风险",
+            "。",
+            "她",
+            "接受",
+            "独立",
+            "审查",
+            "，",
+            "也",
+            "取消",
+            "公司",
+            "的",
+            "长期",
+            "优先",
+            "权",
+            "。"
+          ],
+          "translation": "Su Ping publishes the contract and explains the decision’s original purpose and risks at a public meeting. She accepts independent review and cancels the company’s long-term priority."
+        },
+        {
+          "tokens": [
+            "审查",
+            "认为",
+            "紧急",
+            "建设",
+            "必要",
+            "，",
+            "保密",
+            "条款",
+            "却",
+            "不",
+            "正当",
+            "。",
+            "城镇",
+            "保留",
+            "住房",
+            "，",
+            "也",
+            "颁布",
+            "新",
+            "规则",
+            "：",
+            "危机",
+            "可以",
+            "改变",
+            "程序",
+            "，",
+            "不",
+            "能",
+            "剥夺",
+            "公众",
+            "知道",
+            "事实",
+            "的",
+            "权利",
+            "。"
+          ],
+          "translation": "The review finds emergency construction necessary but secrecy unjustified. The town keeps the housing and adopts a rule: crisis may alter procedure, but cannot deprive the public of knowledge."
+        }
+      ]
+    }
+  ],
+  "order": 1
+}
