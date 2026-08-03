@@ -13,6 +13,7 @@ function validStripe(overrides: PaymentEnvironment = {}): PaymentEnvironment {
     PUBLIC_SITE_URL: 'https://openchinese.app',
     STRIPE_SECRET_KEY: 'sk_test_secret',
     STRIPE_WEBHOOK_SECRET: 'whsec_secret',
+    STRIPE_PRICE_PRO_MONTHLY: 'price_monthly',
     STRIPE_PRICE_PRO_YEARLY: 'price_yearly',
     ...overrides,
   }

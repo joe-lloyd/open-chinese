@@ -15,6 +15,7 @@
     "@dnd-kit/sortable": "8.0.0",
     "@dnd-kit/utilities": "3.2.2",
     "@open-chinese/tokens": "workspace:*",
+    "@open-chinese/pricing": "workspace:*",
     "@radix-ui/react-dialog": "1.1.6",
     "@radix-ui/react-toast": "1.2.6",
     "@types/papaparse": "5.3.15",

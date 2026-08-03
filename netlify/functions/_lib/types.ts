@@ -7,7 +7,13 @@
  * registering the adapter — nothing else changes.
  */
 
-export type CatalogSku = 'pro-yearly' | 'hsk-1' | 'hsk-2' | 'hsk-3' | 'hsk-4'
+export type CatalogSku =
+  | 'pro-monthly'
+  | 'pro-yearly'
+  | 'hsk-1'
+  | 'hsk-2'
+  | 'hsk-3'
+  | 'hsk-4'
 
 /**
  * Server-side mirror of the client catalogue, deliberately duplicated: the
@@ -19,6 +25,7 @@ export type CatalogSku = 'pro-yearly' | 'hsk-1' | 'hsk-2' | 'hsk-3' | 'hsk-4'
  * Keep the SKU list in sync with `client/src/lib/catalog.ts`.
  */
 export const SERVER_CATALOG: Record<CatalogSku, { recurring: boolean; purchasable: boolean }> = {
+  'pro-monthly': { recurring: true, purchasable: true },
   'pro-yearly': { recurring: true, purchasable: true },
   'hsk-1': { recurring: false, purchasable: false },
   'hsk-2': { recurring: false, purchasable: false },

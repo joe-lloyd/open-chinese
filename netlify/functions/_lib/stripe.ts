@@ -1,6 +1,10 @@
 /**
  * Stripe adapter — OpenChinese's launch implementation of `PaymentProvider`.
  *
+ * Hosted Checkout keeps payment details out of OpenChinese, supports the
+ * monthly and yearly Price mapping below, and can be exercised end to end in
+ * test mode before live payments are enabled.
+ *
  * Everything Stripe-specific stops at this file.
  */
 
@@ -27,8 +31,12 @@ function stripe(): Stripe {
 }
 
 /** SKU `hsk-1` maps to `STRIPE_PRICE_HSK_1`. Price ids never live in the repo. */
+export function stripePriceEnvVarFor(sku: string): string {
+  return providerPriceSetting('STRIPE_PRICE', sku)
+}
+
 function priceIdFor(sku: string, env: NodeJS.ProcessEnv): string {
-  const envVar = providerPriceSetting('STRIPE_PRICE', sku)
+  const envVar = stripePriceEnvVarFor(sku)
   const priceId = env[envVar]
   if (!priceId) throw new Error(`${envVar} is not set`)
   return priceId

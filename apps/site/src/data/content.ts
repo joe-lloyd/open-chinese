@@ -1,3 +1,5 @@
+import { annualSavingsPercent, formatEuro, PRO_PRICING } from '@open-chinese/pricing'
+
 /**
  * Marketing copy, in one place so the home page and /features cannot disagree.
  *
@@ -86,7 +88,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'What does it cost?',
-    a: '€25 for a year. One price, everything included, and it does not renew into a surprise — you will know when it lapses because the app tells you before it does.',
+    a: `${formatEuro(PRO_PRICING.monthly.amountEur)} monthly or ${formatEuro(PRO_PRICING.yearly.amountEur)} yearly. The recommended yearly plan saves ${annualSavingsPercent()}% compared with twelve monthly payments. Both plans renew until cancelled, and you can manage the subscription from the app.`,
   },
   {
     q: 'Does it check my tones?',

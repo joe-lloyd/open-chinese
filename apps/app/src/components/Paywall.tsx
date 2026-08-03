@@ -5,6 +5,12 @@ import type { AccessResult } from '../lib/entitlements'
 import { startCheckout } from '../lib/checkout'
 import { LockIcon } from './LockBadge'
 
+function billingSuffix(interval: 'month' | 'year' | undefined): string {
+  if (interval === 'month') return '/mo'
+  if (interval === 'year') return '/yr'
+  return ''
+}
+
 interface Props {
   /** A denied `canAccess` result. Renders nothing when access is allowed. */
   result: AccessResult
@@ -70,7 +76,7 @@ export default function Paywall({ result, title, description }: Props) {
               {pending === sku
                 ? 'Redirecting…'
                 : entry
-                  ? `${entry.label} — €${entry.priceEur}${entry.interval === 'year' ? '/yr' : ''}`
+                  ? `${entry.label} — €${entry.priceEur}${billingSuffix(entry.interval)}`
                   : `Unlock ${sku}`}
             </button>
           )

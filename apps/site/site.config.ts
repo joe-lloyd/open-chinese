@@ -1,3 +1,5 @@
+import { PRO_PRICING } from '@open-chinese/pricing'
+
 /**
  * Everything that changes when the domain or the brand changes.
  *
@@ -38,9 +40,8 @@ export const SITE = {
   locale: 'en',
   ogLocale: 'en_US',
 
-  /** Yearly price, in euro. Display copy only — the provider holds the real one. */
-  priceEur: 25,
-  currency: 'EUR',
+  /** Shared VAT-inclusive display offer. The provider holds the real charge amounts. */
+  proPricing: PRO_PRICING,
 } as const
 
 /** Absolute URL for a site-relative path. */

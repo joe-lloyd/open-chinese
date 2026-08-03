@@ -16,7 +16,8 @@ prefix for a secret.
 | `FIREBASE_SERVICE_ACCOUNT` | Dedicated least-privilege Firebase Admin credential |
 | `STRIPE_SECRET_KEY` | Matching test or live secret key |
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for this exact endpoint and mode |
-| `STRIPE_PRICE_PRO_YEARLY` | Price id for the currently offered SKU |
+| `STRIPE_PRICE_PRO_MONTHLY` | Price id for the monthly Pro subscription |
+| `STRIPE_PRICE_PRO_YEARLY` | Price id for the yearly Pro subscription |
 
 Hidden pack Price ids are not required. If a pack is added to the purchasable
 catalogue, configure its Price id in the same deploy.
@@ -32,7 +33,7 @@ configuration exits non-zero.
 
 ## Stripe test setup
 
-1. In Stripe test mode, create the Pro product and yearly recurring EUR Price.
+1. In Stripe test mode, create the Pro product with monthly and yearly recurring EUR Prices matching the public pricing configuration.
 2. In Payment methods, enable the methods the business accepts. Checkout will
    show only methods eligible for the customer and session; do not hard-code or
    promise a particular local method.

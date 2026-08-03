@@ -45,8 +45,8 @@ const graph = [
     url: SITE.domain,
     offers: {
       '@type': 'Offer',
-      price: String(SITE.priceEur),
-      priceCurrency: SITE.currency,
+      price: String(SITE.proPricing.yearly.amountEur),
+      priceCurrency: SITE.proPricing.currency,
       category: 'subscription',
     },
   },
